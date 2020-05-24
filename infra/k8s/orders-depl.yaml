@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: eu.gcr.io/ticketing-dev-276112/orders
+          image: docker.pkg.github.com/tcd1980/ticketing/orders
           env:
             - name: EXPIRATION_WINDOW_IN_MINUTES
               value: '1.5'

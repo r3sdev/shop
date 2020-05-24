@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: eu.gcr.io/ticketing-dev-276112/payments
+          image: docker.pkg.github.com/tcd1980/ticketing/payments
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
