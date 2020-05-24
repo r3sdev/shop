@@ -26,3 +26,5 @@ spec:
               value: ticketing
             - name: REDIS_HOST
               value: expiration-redis-srv
+      imagePullSecrets:
+        - name: regcred
