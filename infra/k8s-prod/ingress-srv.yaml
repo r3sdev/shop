@@ -44,4 +44,4 @@ spec:
           - path: /?(.*)
             backend:
               serviceName: api-srv
-              servicePort: 80
+              servicePort: 3000

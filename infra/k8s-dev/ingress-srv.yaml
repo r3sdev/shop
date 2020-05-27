@@ -30,3 +30,10 @@ spec:
             backend:
               serviceName: client-srv
               servicePort: 3000
+    - host: api-dev.ramsy.dev
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: api-srv
+              servicePort: 3000
