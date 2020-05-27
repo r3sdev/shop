@@ -8,7 +8,7 @@ router.get('/auth', async (req: Request, res: Response) => {
   });
 });
 
-const BASE_URL = 'http://auth-srv.default.svc.cluster.local:3000';
+const BASE_URL = 'http://ingress-nginx-controller.default.svc.cluster.local';
 
 router.get('/auth/*', async (req: Request, res: Response) => {
   const url = req.url.split('/auth/')[1];
