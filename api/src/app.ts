@@ -10,6 +10,8 @@ import { authRouter } from './routes/auth';
 import { ordersRouter } from './routes/orders';
 import { paymentsRouter } from './routes/payments';
 import { ticketsRouter } from './routes/tickets';
+import {swaggerRouter} from './routes/swagger';
+
 import { COOKIE_NAME } from '.';
 
 const app = express();
@@ -30,6 +32,7 @@ app.use(authRouter);
 app.use(ordersRouter);
 app.use(paymentsRouter);
 app.use(ticketsRouter);
+app.use(swaggerRouter);
 
 // Catch all non defined urls
 app.all('*', () => {
