@@ -35,7 +35,8 @@ app.use(ticketsRouter);
 app.use(swaggerRouter);
 
 // Catch all non defined urls
-app.all('*', () => {
+app.all('*', (req) => {
+  console.log(req.url)
   throw new NotFoundError();
 });
 
