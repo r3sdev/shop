@@ -6,6 +6,8 @@
   "files": [
     "build/**/*"
   ],
+  "repository": "https://github.com/tcd1980/ticketing.git",
+  "author": "Ramsy de Vos <ramsy@ramsy.it>",
   "license": "MIT",
   "scripts": {
     "clean": "del ./build/*",
