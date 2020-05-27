@@ -8,7 +8,7 @@ router.get('/auth', async (req: Request, res: Response) => {
   });
 });
 
-const BASE_URL = 'http://ingress-nginx-controller.default.svc.cluster.local';
+const BASE_URL = 'https://ticketing.ramsy.dev';
 
 router.get('/auth/*', async (req: Request, res: Response) => {
   const url = req.url.split('/auth/')[1];
