@@ -4,6 +4,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@ramsy-it/common';
+import { COOKIE_NAME } from '.';
 
 const app = express();
 app.use(helmet());
@@ -12,7 +13,7 @@ app.set('trust proxy', true);
 app.use(json());
 app.use(
   cookieSession({
-    name: 'ticketing',
+    name: COOKIE_NAME,
     signed: false,
     secure: process.env.NODE_ENV !== 'test',
   }),
