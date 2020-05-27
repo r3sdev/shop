@@ -8,7 +8,7 @@
   "scripts": {
     "start": "ts-node-dev --poll src/index.ts",
     "test": "jest --watchAll --no-cache",
-    "test:ci": "jest"
+    "test:ci": "NODE_ENV=test jest --forceExit"
   },
   "jest": {
     "preset": "ts-jest",
@@ -26,6 +26,7 @@
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "helmet": "^3.22.0",
+    "swagger-ui-express": "^4.1.4",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   },
