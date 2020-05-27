@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { COOKIE_NAME } from '..';
+import { COOKIE_NAME, server } from '..';
 
 declare global {
   namespace NodeJS {
@@ -45,4 +45,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
+  console.log('Stopping Express server ...')
+  server.close();
 });
