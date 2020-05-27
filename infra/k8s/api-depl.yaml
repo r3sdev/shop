@@ -3,17 +3,26 @@ kind: Deployment
 metadata:
   name: api-depl
 spec:
-  containers:
-    - name: api
-      image: docker.pkg.github.com/tcd1980/ticketing/api
-      env:
-        - name: JWT_KEY
-          valueFrom:
-            secretKeyRef:
-              name: jwt-secret
-              key: JWT_KEY
-  imagePullSecrets:
-    - name: regcred
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: docker.pkg.github.com/tcd1980/ticketing/api
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+      imagePullSecrets:
+        - name: regcred
 ---
 apiVersion: v1
 kind: Service
@@ -25,5 +34,5 @@ spec:
   ports:
     - name: api
       protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 3000
+      targetPort: 3000
