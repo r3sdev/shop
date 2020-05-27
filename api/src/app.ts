@@ -4,6 +4,12 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@ramsy-it/common';
+
+import { indexRouter } from './routes/index';
+import { authRouter } from './routes/auth';
+import { ordersRouter } from './routes/orders';
+import { paymentsRouter } from './routes/payments';
+import { ticketsRouter } from './routes/tickets';
 import { COOKIE_NAME } from '.';
 
 const app = express();
@@ -19,6 +25,12 @@ app.use(
   }),
 );
 
+app.use(indexRouter);
+app.use(authRouter);
+app.use(ordersRouter);
+app.use(paymentsRouter);
+app.use(ticketsRouter);
+
 // Catch all non defined urls
 app.all('*', () => {
   throw new NotFoundError();
@@ -26,5 +38,4 @@ app.all('*', () => {
 
 app.use(errorHandler);
 
-export {app}
-
+export { app };

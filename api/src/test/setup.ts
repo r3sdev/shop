@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { COOKIE_NAME, server } from '..';
+import { COOKIE_NAME } from '..';
 
 declare global {
   namespace NodeJS {
@@ -40,11 +40,10 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   jest.clearAllMocks();
-
-
 });
 
+afterEach(async () => {
+})
+
 afterAll(async () => {
-  console.log('Stopping Express server ...')
-  server.close();
 });
