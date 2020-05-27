@@ -11,6 +11,9 @@ spec:
   - hosts:
     - ticketing.ramsy.dev
     secretName: ticketing-ramsy-dev-tls
+  - hosts:
+    - api.ramsy.dev
+    secretName: api-ramsy-dev-tls
   rules:
     - host: ticketing.ramsy.dev
       http:
