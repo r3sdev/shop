@@ -11,16 +11,16 @@ var options = {
   customCss: '.swagger-ui .topbar { display: none }',
 };
 
-router.use('/auth/docs', swaggerUi.serve);
-router.get('/auth/docs', swaggerUi.setup(auth, { ...options }));
+router.use('/docs/auth', swaggerUi.serve);
+router.get('/docs/auth', swaggerUi.setup(auth, { ...options }));
 
-router.use('/orders/docs', swaggerUi.serve);
-router.get('/orders/docs', swaggerUi.setup(orders, { ...options }));
+router.use('/docs/orders', swaggerUi.serve);
+router.get('/docs/orders', swaggerUi.setup(orders, { ...options }));
 
-router.use('/payments/docs', swaggerUi.serve);
-router.get('/payments/docs', swaggerUi.setup(payments, { ...options }));
+router.use('/docs/payments', swaggerUi.serve);
+router.get('/docs/payments', swaggerUi.setup(payments, { ...options }));
 
-router.use('/tickets/docs', swaggerUi.serve);
-router.get('/tickets/docs', swaggerUi.setup(tickets, { ...options }));
+router.use('/docs/tickets', swaggerUi.serve);
+router.get('/docs/tickets', swaggerUi.setup(tickets, { ...options }));
 
 export { router as swaggerRouter };
