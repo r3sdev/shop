@@ -50,8 +50,8 @@ router.post(
         title: ticket.title,
         price: ticket.price,
         userId: ticket.userId,
+        requestIp: req.clientIp
       },
-      req.clientIp || 'unknown',
     );
 
     res.status(201).send(ticket);

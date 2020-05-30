@@ -8,5 +8,6 @@ export interface OrderCancelledEvent {
     ticket: {
       id: string;
     };
+    requestIp?: string;
   };
 }
