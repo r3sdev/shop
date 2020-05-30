@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: logs-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: logs
+  template:
+    metadata:
+      labels:
+        app: logs
+    spec:
+      containers:
+        - name: logs
+          image: docker.pkg.github.com/tcd1980/ticketing/logs
+          env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: logs-srv
+spec:
+  selector:
+    app: logs
+  ports:
+    - name: logs
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
