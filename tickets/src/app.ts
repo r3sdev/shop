@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
+import requestIp from 'request-ip';
 import { errorHandler, NotFoundError, currentUser } from '@ramsy-it/common';
 import { createTicketRouter } from './routes/new';
 import { showTicketRouter } from './routes/show';
@@ -10,9 +11,9 @@ import { indexTicketRouter } from './routes';
 import {updateTicketRouter} from './routes/update';
 
 const app = express();
+
 app.use(helmet());
 app.set('trust proxy', true);
-
 app.use(json());
 app.use(
   cookieSession({
@@ -23,6 +24,8 @@ app.use(
 );
 
 app.use(currentUser);
+
+app.use(requestIp.mw());
 
 app.use(createTicketRouter);
 app.use(showTicketRouter);
