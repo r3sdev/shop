@@ -31,7 +31,7 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
       userId: ticket.userId,
       orderId: ticket.orderId,
       version: ticket.version,
-    });
+    }, req.clientIp || 'unkown');
 
     // Acknowledge the message
     msg.ack();

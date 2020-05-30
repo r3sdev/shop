@@ -51,7 +51,7 @@ router.put(
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
-    });
+    }, req.clientIp || 'unknown');
 
     res.send(ticket);
   },
