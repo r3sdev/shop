@@ -4,6 +4,7 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@ramsy-it/common';
+import cors from 'cors';
 
 import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
@@ -22,6 +23,9 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use(cors());
+
 
 app.use(currentUserRouter);
 app.use(signinRouter);
