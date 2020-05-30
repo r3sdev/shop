@@ -20,7 +20,7 @@ const router = express.Router();
  * We can also set this as an environment variable or save it in the database
  * so we can easily change it.
  */
-const EXPIRATION_WINDOW_IN_MINUTES = Number(process.env.EXPIRATION_WINDOW_IN_MINUTES) || 1;
+const EXPIRATION_WINDOW_IN_MINUTES = Number(process.env.EXPIRATION_WINDOW_IN_MINUTES) || 15;
 
 router.post(
   '/api/orders',
