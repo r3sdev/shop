@@ -1,0 +1,25 @@
+name: deploy-logs
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'logs/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd logs && docker build -t docker.pkg.github.com/tcd1980/ticketing/logs .
+      - run: docker login docker.pkg.github.com -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push docker.pkg.github.com/tcd1980/ticketing/logs
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save ramsy-dev
+      - run: kubectl rollout restart deployment logs-depl
