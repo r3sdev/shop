@@ -1,0 +1,13 @@
+name: tests-logs
+
+on:
+  pull_request:
+    paths:
+      - 'logs/**'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd logs && yarn install && yarn run test:ci
