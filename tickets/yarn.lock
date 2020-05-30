@@ -448,10 +448,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@ramsy-it/common@1.0.19":
-  version "1.0.19"
-  resolved "https://registry.yarnpkg.com/@ramsy-it/common/-/common-1.0.19.tgz#6c92858586839ee6f18bfe7fe943f7c00ab932f8"
-  integrity sha512-bE83sggtt1BHrOXz9Sx+HKovPa7unsaLuQBBX1y/rZSSu3Hp3yX3O66rgauTM6wjEfuiqKBVPIPFGCLBlKa+Kg==
+"@ramsy-it/common@1.0.20":
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/@ramsy-it/common/-/common-1.0.20.tgz#95f249de8a6b2963a0b73567163a079ecf28d428"
+  integrity sha512-r7HLQky7f36QrOq4djG9PHxx3O8Xt8qpsGoiZ2mQMv5Jf7kR3LWpRxpm914j+IX9x0eSkZ3GlJ2J9wMhcbaEPQ==
   dependencies:
     "@types/cookie-session" "^2.0.39"
     "@types/express" "^4.17.6"
