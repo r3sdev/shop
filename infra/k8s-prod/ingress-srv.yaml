@@ -14,6 +14,9 @@ spec:
   - hosts:
     - api.ramsy.dev
     secretName: api-ramsy-dev-tls
+  - hosts:
+    - echo.ramsy.dev
+    secretName: echo-ramsy-dev-tls
   rules:
     - host: ticketing.ramsy.dev
       http:
@@ -45,3 +48,10 @@ spec:
             backend:
               serviceName: api-srv
               servicePort: 3000
+    - host: echo.ramsy.dev
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: echo-service
+              servicePort: 80

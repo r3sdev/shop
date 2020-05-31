@@ -6,6 +6,7 @@ import {
   OrderStatus,
 } from '@ramsy-it/common';
 import { queueGroupName } from './queue-group-name';
+import { Event } from '../../../models/event';
 
 export class ExpirationCompleteListener extends Listener<
   ExpirationCompleteEvent
@@ -14,7 +15,13 @@ export class ExpirationCompleteListener extends Listener<
   queueGroupName = queueGroupName;
 
   async onMessage(data: ExpirationCompleteEvent['data'], msg: Message) {
-    console.log('ExpirationCompleteListener', data);
+    
+    const event = Event.build({
+      event: 'ExpirationComplete',
+      eventData: data,
+    });
+
+    await event.save();
 
     msg.ack();
   }
