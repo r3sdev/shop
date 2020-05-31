@@ -1,6 +1,7 @@
 import { Listener, OrderCreatedEvent, Subjects } from '@ramsy-it/common';
 import { Message } from 'node-nats-streaming';
 import { queueGroupName } from './queue-group-name';
+import { Event } from '../../../models/event';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
@@ -8,7 +9,13 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
 
   async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
 
-    console.log('OrderCreatedListener', data);
+    const event = Event.build({
+      event: 'OrderCreated',
+      eventData: data,
+      userId: data.userId,
+    });
+
+    await event.save();
 
     msg.ack();
   }

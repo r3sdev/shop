@@ -6,6 +6,7 @@ import {
 } from '@ramsy-it/common';
 import { Message } from 'node-nats-streaming';
 import { queueGroupName } from './queue-group-name';
+import {Event} from '../../../models/event';
 
 export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
   subject: Subjects.OrderCancelled = Subjects.OrderCancelled;
@@ -13,7 +14,12 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
 
   async onMessage(data: OrderCancelledEvent['data'], msg: Message) {
 
-    console.log('OrderCancelledListener', data);
+    const event = Event.build({
+      event: 'OrderCancelled',
+      eventData: data,
+    });
+
+    await event.save();
 
     // Acknowledge message
     msg.ack();
