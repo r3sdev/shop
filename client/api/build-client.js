@@ -1,7 +1,5 @@
 import axios from 'axios';
 
-axios.defaults.headers.common['CLIENT_IP'] = '1.2.3.4';
-
 export default ({ req }) => {
   if (typeof window === 'undefined') {
     /**
