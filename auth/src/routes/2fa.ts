@@ -10,7 +10,7 @@ import { verifyTwoFactorAuthenticationCode } from '../2fa/verify-2fa-code';
 const router = express.Router();
 
 router.post(
-  '/api/2fa/generate',
+  '/api/users/2fa/generate',
   requireAuth,
   async (req: Request, res: Response) => {
     const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
@@ -26,7 +26,7 @@ router.post(
 );
 
 router.post(
-  '/api/2fa/turn-on',
+  '/api/users/2fa/turn-on',
   requireAuth,
   async (req: Request, res: Response, next: NextFunction) => {
     const { currentUser } = req;
