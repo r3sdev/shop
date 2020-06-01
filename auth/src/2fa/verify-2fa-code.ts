@@ -18,7 +18,5 @@ export async function verifyTwoFactorAuthenticationCode(
     token: twoFactorAuthenticationCode,
   };
 
-  console.log('verifyTwoFactorAuthenticationCode', data);
-
   return speakeasy.totp.verify(data);
 }

@@ -47,21 +47,21 @@ router.post(
       currentUser!.id,
     );
 
-    console.log({ isCodeValid, twoFactorAuthenticationCode });
-
     if (isCodeValid) {
-      await User.findOneAndUpdate(
-        { _id: currentUser!.id },
-        {
-          isTwoFactorAuthenticationEnabled: true,
-        },
-      );
-      res.status(200).send({ message: '2FA enabled' });
+      const user = await User.findById(currentUser!.id)
+
+      if (user) {
+        user.set({isTwoFactorAuthenticationEnabled: true})
+        await user.save();
+        
+        res.status(200).send({ message: '2FA enabled' });
+      }
+
+      throw new Error('Unable to enable 2FA')
+          
     } else {
       next(new Error('WrongAuthenticationTokenException'));
     }
-
-    res.status(200);
   },
 );
 
