@@ -10,7 +10,10 @@ export default ({ req }) => {
 
     return axios.create({
       baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
-      headers: req.headers
+      headers: {
+        ...req.headers,
+        REQUEST_IP: '1.2.3.4'
+      }
     });
 
   } else {
@@ -20,6 +23,10 @@ export default ({ req }) => {
      * Requests should be made with a baseUrl of ''
      */
 
-    return axios.create();
+    return axios.create({
+      headers: {
+        REQUEST_IP: '1.2.3.4'
+      }
+    });
   }
 }
