@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+axios.defaults.headers.common['CLIENT_IP'] = '1.2.3.4';
+
 export default ({ req }) => {
   if (typeof window === 'undefined') {
     /**
@@ -10,10 +12,7 @@ export default ({ req }) => {
 
     return axios.create({
       baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
-      headers: {
-        ...req.headers,
-        REQUEST_IP: '1.2.3.4'
-      }
+      headers: req.headers,
     });
 
   } else {
@@ -24,9 +23,6 @@ export default ({ req }) => {
      */
 
     return axios.create({
-      headers: {
-        REQUEST_IP: '1.2.3.4'
-      }
     });
   }
 }
