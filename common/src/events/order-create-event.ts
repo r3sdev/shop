@@ -13,6 +13,5 @@ export interface OrderCreatedEvent {
       id: string;
       price: number;
     };
-    requestIp?: string;
   };
 }
