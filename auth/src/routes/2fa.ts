@@ -16,9 +16,11 @@ router.get(
   async (req: Request, res: Response) => {
     const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
 
-    await User.findByIdAndUpdate(req.currentUser!.id, {
+    const user = await User.findByIdAndUpdate(req.currentUser!.id, {
       twoFactorAuthCode: base32,
     });
+
+    console.log('Added twoFactorAuthCode to user', user);
 
     res.type('png');
 
@@ -42,7 +44,7 @@ router.post(
 
     const isCodeValid = verifyTwoFactorAuthenticationCode(
       twoFactorAuthenticationCode,
-      currentUser,
+      currentUser!.id,
     );
 
     console.log({ isCodeValid, twoFactorAuthenticationCode });
