@@ -43,7 +43,8 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     isTwoFactorAuthEnabled: {
-      type: Boolean
+      type: Boolean,
+      default: false
     }
   },
   {

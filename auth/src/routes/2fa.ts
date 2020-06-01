@@ -10,58 +10,73 @@ import { verifyTwoFactorAuthenticationCode } from '../2fa/verify-2fa-code';
 
 const router = express.Router();
 
-router.get(
+router.post(
   '/api/users/2fa/generate',
   currentUser,
   async (req: Request, res: Response) => {
     const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
 
-    const user = await User.findByIdAndUpdate(req.currentUser!.id, {
+    await User.findByIdAndUpdate(req.currentUser!.id, {
       twoFactorAuthCode: base32,
     });
-
-    console.log('Added twoFactorAuthCode to user', user);
-
-    res.type('png');
 
     respondWithQRCode(otpauthUrl!, res);
   },
 );
 
 router.post(
-  '/api/users/2fa/turn-on',
+  '/api/users/2fa/enable',
   [
     body('twoFactorAuthenticationCode')
       .trim()
       .notEmpty()
       .withMessage('You must supply a 2FA code'),
   ],
-  validateRequest,
   currentUser,
+  validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
     const { currentUser } = req;
     const { twoFactorAuthenticationCode } = req.body;
+
+    const user = await User.findById(currentUser!.id);
 
     const isCodeValid = verifyTwoFactorAuthenticationCode(
       twoFactorAuthenticationCode,
       currentUser!.id,
     );
 
-    if (isCodeValid) {
-      const user = await User.findById(currentUser!.id)
-
-      if (user) {
-        user.set({isTwoFactorAuthenticationEnabled: true})
-        await user.save();
-        
-        res.status(200).send({ message: '2FA enabled' });
-      }
-
-      throw new Error('Unable to enable 2FA')
-          
-    } else {
+    if (!isCodeValid) {
       next(new Error('WrongAuthenticationTokenException'));
     }
+    if (!user) {
+      next(new Error('Unable to enable 2FA'));
+    }
+
+    user!.set({ isTwoFactorAuthEnabled: true });
+
+    await user!.save();
+
+    res.status(200).send({ message: 'Two-factor Authentication enabled' });
+  },
+);
+
+router.post(
+  '/api/users/2fa/disable',
+  currentUser,
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { currentUser } = req;
+
+    const user = await User.findById(currentUser!.id);
+
+    if (!user) {
+      next(new Error('Unable to disable 2FA'));
+    }
+
+    user!.set({ isTwoFactorAuthEnabled: false, twoFactorAuthCode: undefined });
+
+    await user!.save();
+
+    res.status(200).send({ message: 'Two-factor disabled' });
   },
 );
 
