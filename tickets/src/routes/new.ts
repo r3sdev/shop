@@ -18,7 +18,6 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    console.log('Creating new ticket', req.headers)
     const { title, price } = req.body;
 
     // const existingTicket = await Ticket.findOne({ title });

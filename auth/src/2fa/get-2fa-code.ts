@@ -15,9 +15,7 @@ export function getTwoFactorAuthenticationCode() {
 
 
 export function respondWithQRCode(data: string, res: Response) {
-  const qrStream = new PassThrough();
-
-  QRCode.toFileStream(qrStream, data);
-
-  qrStream.pipe(res);
+  QRCode.toDataURL(data, function (err, url) {
+    res.send(url)
+  });
 }
