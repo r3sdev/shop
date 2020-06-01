@@ -20,8 +20,6 @@ router.get(
       twoFactorAuthCode: base32,
     });
 
-    console.log('Added twoFactorAuthCode to user', user);
-
     res.type('png');
 
     respondWithQRCode(otpauthUrl!, res);
@@ -51,10 +49,11 @@ router.post(
       const user = await User.findById(currentUser!.id)
 
       if (user) {
-        user.set({isTwoFactorAuthenticationEnabled: true})
+        user.set({ isTwoFactorAuthEnabled: true });
+
         await user.save();
         
-        res.status(200).send({ message: '2FA enabled' });
+        res.status(200).send({ message: '2FA enabled', user});
       }
 
       throw new Error('Unable to enable 2FA')
