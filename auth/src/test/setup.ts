@@ -1,7 +1,6 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
-import { signinRouter } from '../routes/signin';
 import  request  from 'supertest';
 
 declare global {
