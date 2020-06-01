@@ -1,5 +1,6 @@
 import express, { Response, Request, NextFunction } from 'express';
-import { currentUser } from '@ramsy-it/common';
+import { body } from 'express-validator';
+import { currentUser, validateRequest } from '@ramsy-it/common';
 import {
   getTwoFactorAuthenticationCode,
   respondWithQRCode,
@@ -9,7 +10,7 @@ import { verifyTwoFactorAuthenticationCode } from '../2fa/verify-2fa-code';
 
 const router = express.Router();
 
-router.post(
+router.get(
   '/api/users/2fa/generate',
   currentUser,
   async (req: Request, res: Response) => {
@@ -27,6 +28,13 @@ router.post(
 
 router.post(
   '/api/users/2fa/turn-on',
+  [
+    body('twoFactorAuthenticationCode')
+      .trim()
+      .notEmpty()
+      .withMessage('You must supply a 2FA code'),
+  ],
+  validateRequest,
   currentUser,
   async (req: Request, res: Response, next: NextFunction) => {
     const { currentUser } = req;
@@ -36,6 +44,8 @@ router.post(
       twoFactorAuthenticationCode,
       currentUser,
     );
+
+    console.log({isCodeValid, twoFactorAuthenticationCode})
 
     if (isCodeValid) {
       await User.findByIdAndUpdate(currentUser!.id, {
