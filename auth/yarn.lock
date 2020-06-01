@@ -448,10 +448,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@ramsy-it/common@1.0.18":
-  version "1.0.18"
-  resolved "https://registry.yarnpkg.com/@ramsy-it/common/-/common-1.0.18.tgz#431817c2d066acb5aec3e906083182dd4f307bcf"
-  integrity sha512-sIyuSrEbVdoU7/myRQhR1W1Vf6ii0OALOfvI2w4zFGRMaIXFkQEBISTuvy8WbiI5joKicrPtMS7yViZnPHuEZw==
+"@ramsy-it/common@>= 1.0.23":
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/@ramsy-it/common/-/common-1.0.23.tgz#f253d5ae0dd32defa19d6e51c2ecadaa8cf714cd"
+  integrity sha512-USfyBd+d1fDwxmQ7P2AwfVa/lINNNeWh3EGuzF1i9zlCS6LSqqupeRTa8n8j3r140uwY6V5SCWpl7otBo/Ei4w==
   dependencies:
     "@types/cookie-session" "^2.0.39"
     "@types/express" "^4.17.6"
@@ -2188,9 +2188,9 @@ globals@^11.1.0:
   integrity sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==
 
 google-protobuf@^3.11.2:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.12.1.tgz#d23a745d9a4365e1e0c5eb87bf17e859b4ffb841"
-  integrity sha512-tsWoKhSuLBrBm+BMDOLrwnSbfWurxZgLBDB7OO+yOIILfBZIlINgz9mrdqnn4YiGY64HwXg1TjaZ/26xgdJ3aQ==
+  version "3.12.2"
+  resolved "https://registry.yarnpkg.com/google-protobuf/-/google-protobuf-3.12.2.tgz#50ce9f9b6281235724eb243d6a83e969a2176e53"
+  integrity sha512-4CZhpuRr1d6HjlyrxoXoocoGFnRYgKULgMtikMddA9ztRyYR59Aondv2FioyxWVamRo0rF2XpYawkTCBEQOSkA==
 
 graceful-fs@^4.1.2, graceful-fs@^4.2.4:
   version "4.2.4"
