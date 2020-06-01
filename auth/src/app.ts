@@ -10,6 +10,7 @@ import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
+import {twoFactorAuthenticatonRouter } from './routes/2fa';
 
 const app = express();
 app.use(helmet());
@@ -31,6 +32,7 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+app.use(twoFactorAuthenticatonRouter);
 
 // Catch all non defined urls
 app.all('*', () => {

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction} from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 /**
@@ -6,8 +6,10 @@ import jwt from 'jsonwebtoken';
  * interface
  */
 interface UserPayload {
-    id: string
-    email: string
+  id: string;
+  email: string;
+  twoFactorAuthCode?: string;
+  isTwoFactorAuthEnabled?: boolean;
 }
 
 /**
@@ -15,26 +17,29 @@ interface UserPayload {
  * Request interface
  */
 declare global {
-    namespace Express {
-        interface Request {
-            currentUser?: UserPayload
-        }
+  namespace Express {
+    interface Request {
+      currentUser?: UserPayload;
     }
+  }
 }
 
 export const currentUser = (
-    req: Request, 
-    res: Response, 
-    next: NextFunction
+  req: Request,
+  res: Response,
+  next: NextFunction,
 ) => {
-    if(!req.session?.jwt) {
-        return next();
-    }
+  if (!req.session?.jwt) {
+    return next();
+  }
 
-    try {
-        const payload = (jwt.verify(req.session.jwt, process.env.JWT_KEY!)) as UserPayload;
-        req.currentUser = payload;
-    } catch (err) {}
+  try {
+    const payload = jwt.verify(
+      req.session.jwt,
+      process.env.JWT_KEY!,
+    ) as UserPayload;
+    req.currentUser = payload;
+  } catch (err) {}
 
-      next()
-}
+  next();
+};
