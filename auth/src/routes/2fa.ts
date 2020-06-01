@@ -45,12 +45,15 @@ router.post(
       currentUser,
     );
 
-    console.log({isCodeValid, twoFactorAuthenticationCode})
+    console.log({ isCodeValid, twoFactorAuthenticationCode });
 
     if (isCodeValid) {
-      await User.findByIdAndUpdate(currentUser!.id, {
-        isTwoFactorAuthenticationEnabled: true,
-      });
+      await User.findOneAndUpdate(
+        { _id: currentUser!.id },
+        {
+          isTwoFactorAuthenticationEnabled: true,
+        },
+      );
       res.status(200).send({ message: '2FA enabled' });
     } else {
       next(new Error('WrongAuthenticationTokenException'));
