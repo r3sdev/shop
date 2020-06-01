@@ -51,9 +51,7 @@ router.post(
         title: ticket.title,
         price: ticket.price,
         userId: ticket.userId,
-        requestIp: req.clientIp,
-        headers: req.headers
-      } as any,
+      },
     );
 
     res.status(201).send(ticket);
