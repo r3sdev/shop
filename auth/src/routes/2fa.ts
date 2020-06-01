@@ -1,5 +1,5 @@
 import express, { Response, Request, NextFunction } from 'express';
-import { requireAuth } from '@ramsy-it/common';
+import { currentUser } from '@ramsy-it/common';
 import {
   getTwoFactorAuthenticationCode,
   respondWithQRCode,
@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.post(
   '/api/users/2fa/generate',
-  requireAuth,
+  currentUser,
   async (req: Request, res: Response) => {
     const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
 
@@ -27,7 +27,7 @@ router.post(
 
 router.post(
   '/api/users/2fa/turn-on',
-  requireAuth,
+  currentUser,
   async (req: Request, res: Response, next: NextFunction) => {
     const { currentUser } = req;
     const { twoFactorAuthenticationCode } = req.body;
@@ -41,7 +41,7 @@ router.post(
       await User.findByIdAndUpdate(currentUser!.id, {
         isTwoFactorAuthenticationEnabled: true,
       });
-      res.status(200).send({message: '2FA enabled'});
+      res.status(200).send({ message: '2FA enabled' });
     } else {
       next(new Error('WrongAuthenticationTokenException'));
     }
