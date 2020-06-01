@@ -29,9 +29,22 @@ router.post(
   '/api/2fa/turn-on',
   requireAuth,
   async (req: Request, res: Response, next: NextFunction) => {
-  const { twoFactorAuthenticationCode } = req.body;
+    const { currentUser } = req;
+    const { twoFactorAuthenticationCode } = req.body;
 
-    const isCodeValid = verifyTwoFactorAuthenticationCode(twoFactorAuthenticationCode, req.currentUser!)
+    const isCodeValid = verifyTwoFactorAuthenticationCode(
+      twoFactorAuthenticationCode,
+      currentUser,
+    );
+
+    if (isCodeValid) {
+      await User.findByIdAndUpdate(currentUser!.id, {
+        isTwoFactorAuthenticationEnabled: true,
+      });
+      res.status(200).send({message: '2FA enabled'});
+    } else {
+      next(new Error('WrongAuthenticationTokenException'));
+    }
 
     res.status(200);
   },
