@@ -23,6 +23,8 @@ export class ExpirationCompleteListener extends Listener<
 
     await event.save();
 
+    console.log(event)
+
     msg.ack();
   }
 }

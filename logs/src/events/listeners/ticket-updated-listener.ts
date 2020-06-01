@@ -17,6 +17,8 @@ export class TicketUpdatedListener extends Listener<TicketUpdatedEvent> {
 
     await event.save();
 
+    console.log(event);
+
     // Acknowledge message
     msg.ack();
   }
