@@ -6,7 +6,9 @@
   "author": "Ramsy de Vos <ramsy@ramsy.it>",
   "license": "MIT",
   "scripts": {
-    "dev": "next"
+    "dev": "next",
+    "build": "next build",
+    "start": "next build && next start"
   },
   "dependencies": {
     "axios": "^0.19.2",
