@@ -10,7 +10,10 @@ import { currentUserRouter } from './routes/current-user';
 import { signinRouter } from './routes/signin';
 import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
-import {twoFactorAuthenticatonRouter } from './routes/2fa';
+import { generate2FARouter } from './routes/generate-2fa';
+import { enable2FARouter } from './routes/enable-2fa';
+import { disable2FARouter } from './routes/disable-2fa';
+import { validate2FARouter } from './routes/validate-2fa';
 
 const app = express();
 app.use(helmet());
@@ -27,12 +30,14 @@ app.use(
 
 app.use(cors());
 
-
 app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
-app.use(twoFactorAuthenticatonRouter);
+app.use(generate2FARouter);
+app.use(enable2FARouter);
+app.use(disable2FARouter);
+app.use(validate2FARouter);
 
 // Catch all non defined urls
 app.all('*', () => {
@@ -41,5 +46,4 @@ app.all('*', () => {
 
 app.use(errorHandler);
 
-export {app}
-
+export { app };

@@ -42,7 +42,6 @@ export default ({ currentUser }) => {
     event.preventDefault();
 
     if (!twoFactAuthEnabled && !userToken) {
-      console.log('doRequestGet2FACode', new Date())
       doRequestGet2FACode()
     } else {
       doRequestDisable2FA();
