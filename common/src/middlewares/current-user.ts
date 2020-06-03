@@ -9,7 +9,7 @@ interface UserPayload {
   id: string;
   email: string;
   twoFactorAuthCode?: string;
-  isTwoFactorAuthEnabled?: boolean;
+  twoFactorAuthEnabled?: boolean;
 }
 
 /**

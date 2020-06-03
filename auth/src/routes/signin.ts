@@ -5,6 +5,7 @@ import { validateRequest, BadRequestError } from '@ramsy-it/common';
 
 import { Password } from '../services/password';
 import { User } from '../models/user';
+import { setCookie } from '../services/set-cookie';
 
 const router = express.Router();
 
@@ -36,24 +37,11 @@ router.post(
       throw new BadRequestError('Invalid credentials');
     }
 
-    /**
-     * Generate JWT
-     */
+    // Set cookie directly when 2FA is disabled
+    if (!existingUser.twoFactorAuthEnabled) {
+      setCookie(existingUser, req);
+    }
 
-    const userJwt = jwt.sign(
-      {
-        id: existingUser.id,
-        email: existingUser.email,
-      },
-      process.env.JWT_KEY!,
-    );
-
-    /**
-     * Store JWT in cookie
-     */
-    req.session = {
-      jwt: userJwt,
-    };
 
     res.status(201).send(existingUser);
   },

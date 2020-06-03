@@ -25,8 +25,8 @@ interface UserModel extends mongoose.Model<UserDoc> {
 export interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
-  twoFactorAuthCode?: string
-  isTwoFactorAuthEnabled?: boolean
+  twoFactorAuthSecret?: string;
+  twoFactorAuthEnabled?: boolean;
 }
 
 const userSchema = new mongoose.Schema(
@@ -39,13 +39,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    twoFactorAuthCode: {
+    twoFactorAuthSecret: {
       type: String,
     },
-    isTwoFactorAuthEnabled: {
+    twoFactorAuthEnabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
     toJSON: {
