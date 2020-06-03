@@ -1,6 +1,11 @@
 import express, { Response, Request, NextFunction } from 'express';
 import { body } from 'express-validator';
-import { currentUser, validateRequest } from '@ramsy-it/common';
+import {
+  currentUser,
+  validateRequest,
+  BadRequestError,
+
+} from '@ramsy-it/common';
 import {
   getTwoFactorAuthenticationCode,
   respondWithQRCode,
@@ -16,9 +21,15 @@ router.post(
   async (req: Request, res: Response) => {
     const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
 
-    await User.findByIdAndUpdate(req.currentUser!.id, {
-      twoFactorAuthCode: base32,
-    });
+    const user = await User.findById(req.currentUser!.id)
+
+    if (!user) {
+      throw new BadRequestError('Unable to enable 2FA')
+    }
+
+    user.set({ twoFactorAuthSecret: base32 });
+
+    await user.save();
 
     respondWithQRCode(otpauthUrl!, res);
   },
@@ -27,32 +38,41 @@ router.post(
 router.post(
   '/api/users/2fa/enable',
   [
-    body('twoFactorAuthenticationCode')
+    body('userToken')
       .trim()
       .notEmpty()
-      .withMessage('You must supply a 2FA code'),
+      .withMessage('You must supply a 2FA user token'),
   ],
   currentUser,
   validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
     const { currentUser } = req;
-    const { twoFactorAuthenticationCode } = req.body;
+    const { userToken } = req.body;
+
+    console.log('/api/users/2fa/enable', req.body);
 
     const user = await User.findById(currentUser!.id);
 
-    const isCodeValid = verifyTwoFactorAuthenticationCode(
-      twoFactorAuthenticationCode,
-      currentUser!.id,
+    if (!user || !user.twoFactorAuthSecret) {
+      console.log('Unable to enable 2FA', user);
+      throw new BadRequestError('Unable to enable 2FA');
+    }
+
+    const isCodeValid = await verifyTwoFactorAuthenticationCode(
+      user.twoFactorAuthSecret!,
+      userToken,
     );
 
     if (!isCodeValid) {
-      next(new Error('WrongAuthenticationTokenException'));
-    }
-    if (!user) {
-      next(new Error('Unable to enable 2FA'));
+      console.log('BadRequestError', {
+        twoFactorAuthSecret: user.twoFactorAuthSecret!,
+        userToken,
+        user
+      });
+      throw new BadRequestError('Wrong Authentication Token');
     }
 
-    user!.set({ isTwoFactorAuthEnabled: true });
+    user!.set({ twoFactorAuthEnabled: true });
 
     await user!.save();
 
@@ -69,7 +89,7 @@ router.post(
     const user = await User.findById(currentUser!.id);
 
     if (!user) {
-      next(new Error('Unable to disable 2FA'));
+      throw new BadRequestError('Unable to disable 2FA');
     }
 
     user!.set({ isTwoFactorAuthEnabled: false, twoFactorAuthCode: undefined });

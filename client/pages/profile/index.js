@@ -2,10 +2,10 @@ import useRequest from '../../hooks/use-request';
 
 export default ({ currentUser }) => {
 
-  const [twoFactAuthEnabled, setTwoFactAuthEnabled] = React.useState(currentUser.isTwoFactorAuthEnabled)
+  const [twoFactAuthEnabled, setTwoFactAuthEnabled] = React.useState(currentUser.twoFactorAuthEnabled)
   const [isHovered, setHovered] = React.useState(false)
   const [image, setImage] = React.useState(null);
-  const [authCode, setAuthCode] = React.useState('');
+  const [userToken, setUserToken] = React.useState('');
 
   const { doRequest: doRequestGet2FACode, errors: get2FACodeErrors } = useRequest({
     url: '/api/users/2fa/generate',
@@ -20,11 +20,11 @@ export default ({ currentUser }) => {
     url: '/api/users/2fa/enable',
     method: 'post',
     body: {
-      twoFactorAuthenticationCode: authCode
+      userToken: userToken
     },
     onSuccess: (res) => {
       setImage(null);
-      setAuthCode('');
+      setUserToken('');
       setTwoFactAuthEnabled(true)
     }
   });
@@ -47,7 +47,7 @@ export default ({ currentUser }) => {
       doRequestDisable2FA();
     }
 
-    if (authCode) {
+    if (userToken) {
       doRequestEnable2FA()
     }
   }
@@ -110,7 +110,7 @@ export default ({ currentUser }) => {
               <img src={image} />
               <input
                 type="text" placeholder="Enter auth token"
-                onChange={e => setAuthCode(e.target.value)}
+                onChange={e => setUserToken(e.target.value)}
               />
             </div>
           )

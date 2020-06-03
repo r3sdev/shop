@@ -19,7 +19,7 @@ router.get(
       return res.send({
         currentUser: {
           ...req.currentUser,
-          isTwoFactorAuthEnabled: user.isTwoFactorAuthEnabled,
+          twoFactorAuthEnabled: user.twoFactorAuthEnabled,
         },
       });
     }

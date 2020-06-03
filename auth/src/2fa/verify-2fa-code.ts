@@ -1,21 +1,14 @@
 import speakeasy, { TotpVerifyOptions } from 'speakeasy';
-import { User } from '../models/user';
 
 export async function verifyTwoFactorAuthenticationCode(
-  twoFactorAuthenticationCode: string,
-  userId: string,
+  twoFactorAuthSecret: string,
+  userToken: string,
 ) {
 
-  const user = await User.findById(userId)
-
-  if (!user || !user.twoFactorAuthCode) {
-    return false
-  }
-
   const data: TotpVerifyOptions = {
-    secret: user.twoFactorAuthCode,
+    secret: twoFactorAuthSecret,
     encoding: 'base32',
-    token: twoFactorAuthenticationCode,
+    token: userToken,
   };
 
   return speakeasy.totp.verify(data);

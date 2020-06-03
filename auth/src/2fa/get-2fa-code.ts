@@ -4,8 +4,11 @@ import QRCode from 'qrcode';
 import { PassThrough } from 'stream';
 
 export function getTwoFactorAuthenticationCode() {
+  const name = process.env.TWO_FACTOR_AUTHENTICATION_APP_NAME || '2FA';
   const secretCode = speakeasy.generateSecret({
-    name: process.env.TWO_FACTOR_AUTHENTICATION_APP_NAME || '2FA',
+    name,
+    issuer: name,
+    length: 10
   });
   return {
     otpauthUrl: secretCode.otpauth_url,
