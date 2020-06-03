@@ -9,6 +9,7 @@ export async function verifyTwoFactorAuthenticationCode(
     secret: twoFactorAuthSecret,
     encoding: 'base32',
     token: userToken,
+    window: 2,
   };
 
   return speakeasy.totp.verify(data);

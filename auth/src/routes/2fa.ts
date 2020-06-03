@@ -4,7 +4,6 @@ import {
   currentUser,
   validateRequest,
   BadRequestError,
-
 } from '@ramsy-it/common';
 import {
   getTwoFactorAuthenticationCode,
@@ -21,10 +20,10 @@ router.post(
   async (req: Request, res: Response) => {
     const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
 
-    const user = await User.findById(req.currentUser!.id)
+    const user = await User.findById(req.currentUser!.id);
 
     if (!user) {
-      throw new BadRequestError('Unable to enable 2FA')
+      throw new BadRequestError('Unable to enable 2FA');
     }
 
     user.set({ twoFactorAuthSecret: base32 });
@@ -49,12 +48,9 @@ router.post(
     const { currentUser } = req;
     const { userToken } = req.body;
 
-    console.log('/api/users/2fa/enable', req.body);
-
     const user = await User.findById(currentUser!.id);
 
     if (!user || !user.twoFactorAuthSecret) {
-      console.log('Unable to enable 2FA', user);
       throw new BadRequestError('Unable to enable 2FA');
     }
 
@@ -64,12 +60,7 @@ router.post(
     );
 
     if (!isCodeValid) {
-      console.log('BadRequestError', {
-        twoFactorAuthSecret: user.twoFactorAuthSecret!,
-        userToken,
-        user
-      });
-      throw new BadRequestError('Wrong Authentication Token');
+      throw new BadRequestError('Invalid token');
     }
 
     user!.set({ twoFactorAuthEnabled: true });
@@ -77,6 +68,42 @@ router.post(
     await user!.save();
 
     res.status(200).send({ message: 'Two-factor Authentication enabled' });
+  },
+);
+
+router.post(
+  '/api/users/2fa/validate',
+  [
+    body('userId')
+      .trim()
+      .notEmpty()
+      .withMessage('You must supply a user ID'),
+    body('userToken')
+      .trim()
+      .notEmpty()
+      .withMessage('You must supply a 2FA user token'),
+  ],
+  validateRequest,
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { userId, userToken } = req.body;
+
+    const user = await User.findById(userId);
+
+    if (!user || !user.twoFactorAuthSecret) {
+      throw new BadRequestError('Unable to verify 2FA');
+    }
+
+    const isCodeValid = await verifyTwoFactorAuthenticationCode(
+      user.twoFactorAuthSecret!,
+      userToken,
+    );
+
+    if (!isCodeValid) {
+      console.log('2FA', user.twoFactorAuthSecret!, userToken);
+      throw new BadRequestError('Invalid token');
+    }
+
+    res.status(200).send({valid: true});
   },
 );
 
@@ -92,7 +119,7 @@ router.post(
       throw new BadRequestError('Unable to disable 2FA');
     }
 
-    user!.set({ isTwoFactorAuthEnabled: false, twoFactorAuthCode: undefined });
+    user!.set({ twoFactorAuthEnabled: false, twoFactorAuthCode: undefined });
 
     await user!.save();
 

@@ -8,7 +8,12 @@ export function getTwoFactorAuthenticationCode() {
   const secretCode = speakeasy.generateSecret({
     name,
     issuer: name,
-    length: 10
+    length: 20,
+  });
+
+  console.log('2FA generated', {
+    otpauthUrl: secretCode.otpauth_url,
+    base32: secretCode.base32,
   });
   return {
     otpauthUrl: secretCode.otpauth_url,

@@ -1,17 +1,20 @@
 import React from 'react';
 import Router from 'next/router';
 import useRequest from '../../hooks/use-request';
+import ConfirmTwoFactorAuth from '../../components/2fa';
 
 export default () => {
   
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [twoFactAuth, setTwoFactAuth] = React.useState('')
+  const [userId, setUserId] = React.useState('');
 
   const { doRequest, errors } = useRequest({
     url: '/api/users/signin',
     method: 'post',
     body: { email, password },
-    onSuccess: () => Router.push('/')
+    onSuccess: (result) => handleSignin(result)
   });
 
   const onSubmit = async (event) => {
@@ -19,6 +22,19 @@ export default () => {
 
     doRequest();
   };
+
+  const handleSignin = (result) => {
+    if (result.twoFactorAuthEnabled) {
+      setTwoFactAuth(true)
+      setUserId(result.id)
+    } else {
+      Router.push('/')
+    }
+  }
+
+  if (twoFactAuth) {
+    return <ConfirmTwoFactorAuth userId={userId}/>
+  }
 
   return (
     <form onSubmit={onSubmit}>

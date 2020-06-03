@@ -36,6 +36,12 @@ router.post(
       throw new BadRequestError('Invalid credentials');
     }
 
+    // Check if user has 2FA enabled
+
+    if (existingUser.twoFactorAuthEnabled) {
+      return res.status(201).send(existingUser);
+    }
+
     /**
      * Generate JWT
      */
