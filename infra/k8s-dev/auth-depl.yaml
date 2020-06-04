@@ -25,6 +25,8 @@ spec:
                   key: JWT_KEY
             - name: TWO_FACTOR_AUTHENTICATION_APP_NAME
               value: 'ticketing.ramsy.dev'
+            - name: BASE_URL
+              value: https://ticketing-dev.ramsy.dev
       imagePullSecrets:
         - name: regcred
 ---
