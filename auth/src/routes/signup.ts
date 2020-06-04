@@ -27,7 +27,7 @@ router.post(
       throw new BadRequestError('Email in use')
     }
 
-    const user = User.build({ email, password });
+    const user = User.build({ email: email.toLowerCase(), password });
     await user.save();
 
     /**

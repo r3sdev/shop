@@ -1,10 +1,11 @@
 import React from 'react';
 import Router from 'next/router';
+import Link from 'next/link';
 import useRequest from '../../hooks/use-request';
 import ConfirmTwoFactorAuth from '../../components/2fa';
 
 export default () => {
-  
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [twoFactAuth, setTwoFactAuth] = React.useState('')
@@ -33,7 +34,7 @@ export default () => {
   }
 
   if (twoFactAuth) {
-    return <ConfirmTwoFactorAuth userId={userId}/>
+    return <ConfirmTwoFactorAuth userId={userId} />
   }
 
   return (
@@ -62,6 +63,12 @@ export default () => {
       {errors}
 
       <button className="btn btn-primary">Sign In</button>
+
+      <p className="mt-3">
+        <Link href="/auth/forgot-password">
+          <a>Forgot your password?</a>
+        </Link>
+      </p>
     </form>
   );
 };
