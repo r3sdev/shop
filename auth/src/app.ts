@@ -14,6 +14,8 @@ import { generate2FARouter } from './routes/generate-2fa';
 import { enable2FARouter } from './routes/enable-2fa';
 import { disable2FARouter } from './routes/disable-2fa';
 import { validate2FARouter } from './routes/validate-2fa';
+import { forgotPasswordRouter } from './routes/forgot-password';
+import { resetPasswordRouter } from './routes/reset-password';
 
 const app = express();
 app.use(helmet());
@@ -38,6 +40,8 @@ app.use(generate2FARouter);
 app.use(enable2FARouter);
 app.use(disable2FARouter);
 app.use(validate2FARouter);
+app.use(forgotPasswordRouter);
+app.use(resetPasswordRouter);
 
 // Catch all non defined urls
 app.all('*', () => {

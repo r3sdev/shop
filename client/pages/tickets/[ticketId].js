@@ -16,7 +16,7 @@ const TicketShow = ({ ticket }) => {
       {errors}
       <button onClick={() => doRequest()} className="btn btn-primary">
         Purchase
-        </button>
+      </button>
     </div>
   )
 }
