@@ -1,9 +1,38 @@
 import express, { Response, Request, NextFunction } from 'express';
-import {body} from 'express-validator';
+import { body } from 'express-validator';
 import { User } from '../models/user';
-import { validateRequest } from '@ramsy-it/common';
+import {
+  validateRequest,
+  NotFoundError,
+  BadRequestError,
+} from '@ramsy-it/common';
+import { setCookie } from '../services/set-cookie';
 
 const router = express.Router();
+
+router.get(
+  '/api/users/reset-password/:token',
+  async (req: Request, res: Response, next: NextFunction) => {
+    let error = null;
+
+    const user = await User.findOne({
+      resetPasswordToken: req.params.token,
+    });
+
+    if (!user) {
+      error = 'NotFound';
+    }
+
+    if (user?.resetPasswordTokenExpires) {
+      const linkExpired = user!.resetPasswordTokenExpires < new Date();
+      if (linkExpired) {
+        error = 'LinkExpired';
+      }
+    }
+
+    res.send({ error });
+  },
+);
 
 router.post(
   '/api/users/reset-password',
@@ -16,18 +45,24 @@ router.post(
       .trim()
       .notEmpty()
       .withMessage('You must supply valid password'),
-    body('confirmation')
-      .trim()
-      .notEmpty()
-      .withMessage('You must supply valid confirmation'),
   ],
   validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
-    const { resetPasswordToken } = req.body;
+    const { resetPasswordToken, password } = req.body;
 
     const user = await User.findOne({ resetPasswordToken });
 
-    return res.send({ user });
+    if (!user) {
+      throw new NotFoundError();
+    }
+
+    user.set({ password });
+
+    await user.save()!;
+
+    setCookie(user, req);
+
+    return res.send({});
   },
 );
 

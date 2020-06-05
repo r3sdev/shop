@@ -79,6 +79,8 @@ userSchema.pre('save', async function (done) {
     const hashed = await Password.toHash(this.get('password'));
     this.set('password', hashed);
   }
+  /* ensure we save our email lowercase */
+  this.set('email', this.get('email').toLowerCase())
   done();
 });
 

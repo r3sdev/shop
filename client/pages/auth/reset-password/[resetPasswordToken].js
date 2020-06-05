@@ -1,12 +1,12 @@
 import Router from 'next/router';
 import useRequest from '../../../hooks/use-request';
 
-const ResetPassword = ({ resetPasswordToken}) => {
+const ResetPassword = ({ resetPasswordToken, error }) => {
 
   const [password, setPassword] = React.useState('');
   const [confirmation, setConfirmation] = React.useState('')
 
-  const { doRequest, errors } = useRequest({
+  const { doRequest, resetErrors } = useRequest({
     url: `/api/users/reset-password`,
     method: 'post',
     body: { resetPasswordToken, password, confirmation },
@@ -19,6 +19,38 @@ const ResetPassword = ({ resetPasswordToken}) => {
     event.preventDefault();
 
     doRequest()
+  }
+
+  const onRequestPassword = () => {
+    Router.push('/auth/forgot-password')
+  }
+
+  if (error === 'NotFound') {
+    return (
+      <div>
+        <h3>This link is invalid</h3>
+        <p>
+          Password reset links expire after an hour for security purposes, please request another password reset link below to continue
+        </p>
+        <button className="btn btn-primary" onClick={onRequestPassword}>
+          Reset Password
+        </button>
+      </div>
+    )
+  }
+
+  if (error === 'LinkExpired') {
+    return (
+      <div>
+        <h3>This link has expired</h3>
+        <p>
+          Password reset links expire after an hour for security purposes, please request another password reset link below to continue
+        </p>
+        <button className="btn btn-primary" onClick={onRequestPassword}>
+          Reset Password
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -46,7 +78,7 @@ const ResetPassword = ({ resetPasswordToken}) => {
           />
         </div>
 
-        {errors}
+        {resetErrors}
 
         <button className="btn btn-primary" disabled={isDisabled}>
           Reset password
@@ -60,7 +92,10 @@ const ResetPassword = ({ resetPasswordToken}) => {
 ResetPassword.getInitialProps = async (context, client) => {
   const { resetPasswordToken } = context.query;
 
-  return { resetPasswordToken }
+  const { data: { error} } = await client.get(`/api/users/reset-password/${resetPasswordToken}`);
+
+
+  return { resetPasswordToken, error }
 }
 
 export default ResetPassword
