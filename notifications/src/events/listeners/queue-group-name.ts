@@ -1,1 +1,1 @@
-export const queueGroupName = 'notification-service';
+export const queueGroupName = 'notifications-service';

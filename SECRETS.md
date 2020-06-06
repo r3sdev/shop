@@ -9,3 +9,7 @@
 
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<key_here>
 kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=<key_here>
+
+kubectl create secret generic smtp-user-secret --from-literal=SMTP_USER=<key_here>
+kubectl create secret generic smtp-password-secret --from-literal=SMTP_PASSWORD=<key_here>
+

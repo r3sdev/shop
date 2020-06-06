@@ -29,6 +29,20 @@ spec:
               value: 'http://nats-srv:4222'
             - name: NATS_CLUSTER_ID
               value: ticketing
+            - name: SMTP_HOST
+              value: smtp.migadu.com
+            - name: SMTP_PORT
+              value: '465'
+            - name: SMTP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-user-secret
+                  key: SMTP_USER
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: smtp-password-secret
+                  key: SMTP_PASSWORD
       imagePullSecrets:
         - name: regcred
 ---
