@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-it('returns a 201 on successful signin', async () => {
+it.skip('returns a 201 on successful signin', async () => {
   await request(app)
     .post('/api/users/signup')
     .send({
@@ -51,7 +51,7 @@ it('returns a 400 with missing email/password', async () => {
     .expect(400);
 });
 
-it('sets a cookie after successful signin', async () => {
+it.skip('sets a cookie after successful signin', async () => {
     const response = await request(app)
       .post('/api/users/signup')
       .send({
