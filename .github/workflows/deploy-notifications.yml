@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd logs && docker build -t docker.pkg.github.com/tcd1980/ticketing/notifications .
+      - run: cd notifications && docker build -t docker.pkg.github.com/tcd1980/ticketing/notifications .
       - run: docker login docker.pkg.github.com -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
