@@ -4,5 +4,6 @@ export interface UserForgotPasswordEvent {
   subject: Subjects.UserForgotPassword;
   data: {
     email: string;
+    link: string;
   };
 }
