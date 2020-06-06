@@ -56,7 +56,11 @@ router.post(
       throw new NotFoundError();
     }
 
-    user.set({ password });
+    user.set({
+      password,
+      resetPasswordToken: undefined,
+      resetPasswordTokenExpires: undefined,
+    });
 
     await user.save()!;
 

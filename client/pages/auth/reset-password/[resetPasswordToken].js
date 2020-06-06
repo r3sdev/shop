@@ -30,7 +30,8 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
       <div>
         <h3>This link is invalid</h3>
         <p>
-          Password reset links expire after an hour for security purposes, please request another password reset link below to continue
+          Password reset links can only be used once and expire after an hour for security purposes, 
+          please request another password reset link below to continue
         </p>
         <button className="btn btn-primary" onClick={onRequestPassword}>
           Reset Password
@@ -44,7 +45,8 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
       <div>
         <h3>This link has expired</h3>
         <p>
-          Password reset links expire after an hour for security purposes, please request another password reset link below to continue
+          Password reset links expire after an hour for security purposes, 
+          please request another password reset link below to continue
         </p>
         <button className="btn btn-primary" onClick={onRequestPassword}>
           Reset Password
