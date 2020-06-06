@@ -1,6 +1,6 @@
 {
   "name": "@ramsy-it/common",
-  "version": "1.0.23",
+  "version": "1.0.24",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
@@ -12,7 +12,7 @@
   "scripts": {
     "clean": "del ./build/*",
     "build": "yarn clean && tsc",
-    "pub": "git add -A && git commit -m \"Updates\" && npm version patch && yarn run build && yarn publish --access public"
+    "pub": "git add . -A && git commit -m \"Updates\" && npm version patch && yarn run build && yarn publish --access public"
   },
   "devDependencies": {
     "del-cli": "^3.0.0",
