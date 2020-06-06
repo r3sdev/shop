@@ -1,9 +1,11 @@
 import express, { Request, Response, response } from 'express';
 import { body } from 'express-validator';
-import jwt from 'jsonwebtoken';
+import { randomBytes } from 'crypto';
 import {validateRequest, BadRequestError} from '@ramsy-it/common';
 
 import { User } from '../models/user';
+import { UserSignedUpPublisher } from '../events/publisher/user-signed-up-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -27,29 +29,22 @@ router.post(
       throw new BadRequestError('Email in use')
     }
 
-    const user = User.build({ email: email.toLowerCase(), password });
+    const user = User.build({ email, password });
+
+    const emailToken = randomBytes(16).toString('hex');
+
+    user.set({ emailToken });
+
     await user.save();
 
-    /**
-     * Generate JWT
-     */
+    const link = `${process.env.BASE_URL}/api/users/verify-email/${emailToken}`;
 
-    const userJwt = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-      },
-      process.env.JWT_KEY!,
-    );
+    new UserSignedUpPublisher(natsWrapper.client).publish({
+      email: user.email,
+      link
+    })
 
-    /**
-     * Store JWT in cookie
-     */
-    req.session = {
-      jwt: userJwt,
-    };
-
-    res.status(201).send(user);
+    res.status(200).send({});
   },
 );
 

@@ -1,0 +1,31 @@
+{
+  "name": "notifications",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tcd1980/ticketing.git",
+  "author": "Ramsy de Vos <ramsy@ramsy.it>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node-dev --poll src/index.ts",
+    "test": "jest --watchAll --no-cache"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+  },
+  "dependencies": {
+    "@ramsy-it/common": ">= 1.0.27",
+    "@types/nodemailer": "^6.4.0",
+    "nodemailer": "^6.4.8",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "25.5.4",
+    "ts-jest": "^25.4.0"
+  }
+}

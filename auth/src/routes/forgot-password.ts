@@ -1,12 +1,11 @@
 import express, { Response, Request, NextFunction } from 'express';
 import { body } from 'express-validator';
-import {
-  validateRequest,
-} from '@ramsy-it/common';
+import { validateRequest } from '@ramsy-it/common';
 import { randomBytes } from 'crypto';
 
-import sendEmail from '../services/send-email';
-import {User} from '../models/user';
+import { User } from '../models/user';
+import { UserLostPasswordPublisher } from '../events/publisher/user-forgot-password-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -22,15 +21,15 @@ router.post(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email } = req.body;
 
-    const user = await User.findOne({ email: email.toLowerCase() })
+    const user = await User.findOne({ email: email.toLowerCase() });
 
     if (!user) {
-      return res.send({})
+      return res.send({});
     }
 
     const resetPasswordToken = randomBytes(16).toString('hex');
-    const date = new Date()
-    const resetPasswordTokenExpires = date.setHours(date.getHours() + 2)
+    const date = new Date();
+    const resetPasswordTokenExpires = date.setHours(date.getHours() + 2);
 
     user.set({ resetPasswordToken, resetPasswordTokenExpires });
 
@@ -38,25 +37,9 @@ router.post(
 
     const link = `${process.env.BASE_URL}/auth/reset-password/${resetPasswordToken}`;
 
-    sendEmail({
-      from: 'no_reply@ramsy.dev',
-      to: email,
-      subject: 'Reset password',
-      text: `
-We received a request to reset your password. Please create a new password by clicking this link: ${link}
-
-This request will expire in 1 hour.
-
-If you did not request this change, no changes have been made to your account. We recommend that you review your security settings: https://ticketing.ramsy.dev/docs/accounts/security/
-`,
-      html: `
-We received a request to reset your password. Please create a new password by clicking this <a href="${link}">link</a>
-
-This request will expire in 1 hour.
-
-If you did not request this change, no changes have been made to your account. We recommend that you review your security settings: https://ticketing.ramsy.dev/docs/accounts/security/,
-
-      `,
+    new UserLostPasswordPublisher(natsWrapper.client).publish({
+      email,
+      link,
     });
 
     res.status(200).send({ user });
