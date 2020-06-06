@@ -1,7 +1,7 @@
 import express, { Response, Request } from 'express';
 import { body } from 'express-validator';
-import jwt from 'jsonwebtoken';
 import { validateRequest, BadRequestError } from '@ramsy-it/common';
+import { natsWrapper } from '../nats-wrapper';
 
 import { Password } from '../services/password';
 import { User } from '../models/user';
