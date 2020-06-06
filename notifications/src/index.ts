@@ -16,6 +16,23 @@ if (!process.env.SMTP_PASSWORD) {
   throw new Error('SMTP_PASSWORD must be defined');
 }
 
+if (!process.env.NATS_CLIENT_ID) {
+  throw new Error('NATS_CLIENT_ID must be defined');
+}
+if (!process.env.NATS_URL) {
+  throw new Error('NATS_URL must be defined');
+}
+if (!process.env.NATS_CLUSTER_ID) {
+  throw new Error('NATS_CLUSTER_ID must be defined');
+}
+
+if (!process.env.TWILIO_ACCOUNT_SID) {
+  throw new Error('TWILIO_ACCOUNT_SID must be defined');
+}
+if (!process.env.TWILIO_AUTH_TOKEN) {
+  throw new Error('TWILIO_AUTH_TOKEN must be defined');
+}
+
 export const transporter = nodemailer.createTransport({
   pool: true,
   host: process.env.SMTP_HOST,
@@ -38,16 +55,6 @@ transporter.verify(function (error, success) {
 
 const start = async () => {
   console.log('Notifications service starting ...');
-
-  if (!process.env.NATS_CLIENT_ID) {
-    throw new Error('NATS_CLIENT_ID must be defined');
-  }
-  if (!process.env.NATS_URL) {
-    throw new Error('NATS_URL must be defined');
-  }
-  if (!process.env.NATS_CLUSTER_ID) {
-    throw new Error('NATS_CLUSTER_ID must be defined');
-  }
 
   try {
     await natsWrapper.connect(
