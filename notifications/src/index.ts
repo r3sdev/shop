@@ -37,6 +37,8 @@ transporter.verify(function (error, success) {
 });
 
 const start = async () => {
+  console.log('Notifications service starting ...');
+
   if (!process.env.NATS_CLIENT_ID) {
     throw new Error('NATS_CLIENT_ID must be defined');
   }
@@ -65,6 +67,7 @@ const start = async () => {
     new ForgetPasswordListener(natsWrapper.client).listen();
     new UserSignedUpListener(natsWrapper.client).listen();
 
+    console.log('Notifications service started');
   } catch (err) {
     console.error(err);
   }
