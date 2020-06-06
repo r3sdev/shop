@@ -1,5 +1,5 @@
 {
-  "name": "notification",
+  "name": "notifications",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/tcd1980/ticketing.git",
@@ -17,7 +17,7 @@
     ]
   },
   "dependencies": {
-    "@ramsy-it/common": "1.0.25",
+    "@ramsy-it/common": ">= 1.0.26",
     "@types/nodemailer": "^6.4.0",
     "nodemailer": "^6.4.8",
     "ts-node-dev": "^1.0.0-pre.44",
