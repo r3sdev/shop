@@ -27,6 +27,8 @@ export interface UserDoc extends mongoose.Document {
   password: string;
   twoFactorAuthSecret?: string;
   twoFactorAuthEnabled?: boolean;
+  emailToken?: string;
+  emailVerifiedAt?: Date;
   resetPasswordToken?: string;
   resetPasswordTokenExpires?: Date;
 }
@@ -47,6 +49,12 @@ const userSchema = new mongoose.Schema(
     twoFactorAuthEnabled: {
       type: Boolean,
       default: false,
+    },
+    emailToken: {
+      type: String
+    },
+    emailVerifiedAt: {
+      type: Date
     },
     resetPasswordToken: {
       type: String

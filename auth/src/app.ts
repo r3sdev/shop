@@ -16,6 +16,7 @@ import { disable2FARouter } from './routes/disable-2fa';
 import { validate2FARouter } from './routes/validate-2fa';
 import { forgotPasswordRouter } from './routes/forgot-password';
 import { resetPasswordRouter } from './routes/reset-password';
+import { verifyEmailRouter } from './routes/verify-email';
 
 const app = express();
 app.use(helmet());
@@ -42,6 +43,7 @@ app.use(disable2FARouter);
 app.use(validate2FARouter);
 app.use(forgotPasswordRouter);
 app.use(resetPasswordRouter);
+app.use(verifyEmailRouter);
 
 // Catch all non defined urls
 app.all('*', () => {

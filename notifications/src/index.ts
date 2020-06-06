@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import { natsWrapper } from './nats-wrapper';
 import { ForgetPasswordListener } from './events/listeners/forget-password-listener';
+import { UserSignedUpListener } from './events/listeners/signed-up-listener';
 
 if (!process.env.SMTP_HOST) {
   throw new Error('SMTP_HOST must be defined');
@@ -62,6 +63,8 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     new ForgetPasswordListener(natsWrapper.client).listen();
+    new UserSignedUpListener(natsWrapper.client).listen();
+
   } catch (err) {
     console.error(err);
   }
