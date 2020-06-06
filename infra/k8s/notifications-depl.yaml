@@ -43,6 +43,16 @@ spec:
                 secretKeyRef:
                   name: smtp-password-secret
                   key: SMTP_PASSWORD
+            - name: TWILIO_ACCOUNT_SID
+              valueFrom:
+                secretKeyRef:
+                  name: twilio-account-sid
+                  key: TWILIO_ACCOUNT_SID
+            - name: TWILIO_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: twilio-auth-token
+                  key: TWILIO_AUTH_TOKEN
       imagePullSecrets:
         - name: regcred
 ---
