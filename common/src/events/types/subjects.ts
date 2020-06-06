@@ -6,5 +6,6 @@ export enum Subjects {
   ExpirationComplete = 'expiration:complete',
   PaymentCreated = 'payment:created',
   UserSignedUp = 'user:signed-up',
-  UserForgotPassword = 'user:forgot-password'
+  UserForgotPassword = 'user:forgot-password',
+  UserVerifyPhoneNumber = 'user:verify-phone-number'
 }
