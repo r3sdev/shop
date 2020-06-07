@@ -3,8 +3,8 @@ import { currentUser, BadRequestError } from '@ramsy-it/common';
 import {
   getTwoFactorAuthenticationCode,
   respondWithQRCode,
-} from '../2fa/get-2fa-code';
-import { User } from '../models/user';
+} from '../../2fa/get-2fa-code';
+import { User } from '../../models/user';
 
 const router = express.Router();
 

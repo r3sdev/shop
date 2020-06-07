@@ -4,9 +4,9 @@ import {
   validateRequest,
   BadRequestError,
 } from '@ramsy-it/common';
-import { User } from '../models/user';
-import { verifyTwoFactorAuthenticationCode } from '../2fa/verify-2fa-code';
-import { setCookie } from '../services/set-cookie';
+import { User } from '../../models/user';
+import { verifyTwoFactorAuthenticationCode } from '../../2fa/verify-2fa-code';
+import { setCookie } from '../../services/set-cookie';
 
 const router = express.Router();
 

@@ -34,6 +34,7 @@ export interface UserDoc extends mongoose.Document {
   phoneNumberVerifiedAt?: Date;
   resetPasswordToken?: string;
   resetPasswordTokenExpires?: Date;
+  backupToken?: string
 }
 
 const userSchema = new mongoose.Schema(
@@ -60,13 +61,13 @@ const userSchema = new mongoose.Schema(
       type: Date,
     },
     phoneNumber: {
-      type: String
+      type: String,
     },
     phoneNumberToken: {
-      type: String
+      type: String,
     },
     phoneNumberVerifiedAt: {
-      type: Date
+      type: Date,
     },
     resetPasswordToken: {
       type: String,
@@ -74,6 +75,9 @@ const userSchema = new mongoose.Schema(
     resetPasswordTokenExpires: {
       type: Date,
     },
+    backupToken: {
+      type: String
+    }
   },
   {
     toJSON: {

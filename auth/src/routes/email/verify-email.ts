@@ -1,8 +1,8 @@
 import express, { Request, Response, response } from 'express';
 import { BadRequestError } from '@ramsy-it/common';
 
-import { User } from '../models/user';
-import { setCookie } from '../services/set-cookie';
+import { User } from '../../models/user';
+import { setCookie } from '../../services/set-cookie';
 
 const router = express.Router();
 

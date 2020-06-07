@@ -3,9 +3,9 @@ import { body } from 'express-validator';
 import { validateRequest } from '@ramsy-it/common';
 import { randomBytes } from 'crypto';
 
-import { User } from '../models/user';
-import { UserLostPasswordPublisher } from '../events/publisher/user-forgot-password-publisher';
-import { natsWrapper } from '../nats-wrapper';
+import { User } from '../../models/user';
+import { UserLostPasswordPublisher } from '../../events/publisher/user-forgot-password-publisher';
+import { natsWrapper } from '../../nats-wrapper';
 
 const router = express.Router();
 

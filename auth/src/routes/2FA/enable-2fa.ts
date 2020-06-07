@@ -5,8 +5,8 @@ import {
   validateRequest,
   BadRequestError,
 } from '@ramsy-it/common';
-import { User } from '../models/user';
-import { verifyTwoFactorAuthenticationCode } from '../2fa/verify-2fa-code';
+import { User } from '../../models/user';
+import { verifyTwoFactorAuthenticationCode } from '../../2fa/verify-2fa-code';
 
 const router = express.Router();
 
