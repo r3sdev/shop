@@ -1,6 +1,6 @@
 import { Subjects } from "./types/subjects";
 
-export interface UserVerifyPhoneNumbervent {
+export interface UserVerifyPhoneNumberEvent {
   subject: Subjects.UserVerifyPhoneNumber;
   data: {
     to: string;
