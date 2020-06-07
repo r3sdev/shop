@@ -20,6 +20,9 @@ router.get(
         currentUser: {
           ...req.currentUser,
           twoFactorAuthEnabled: user.twoFactorAuthEnabled,
+          emailVerified: !!user.emailVerifiedAt,
+          phoneNumber: user.phoneNumber,
+          phoneNumberVerified: !!user.phoneNumberVerifiedAt,
         },
       });
     }

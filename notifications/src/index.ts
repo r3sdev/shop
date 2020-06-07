@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import { natsWrapper } from './nats-wrapper';
 import { ForgetPasswordListener } from './events/listeners/forget-password-listener';
 import { UserSignedUpListener } from './events/listeners/signed-up-listener';
+import {VerifyPhoneNumberListener} from './events/listeners/verify-phone-number-listener';
 
 if (!process.env.SMTP_HOST) {
   throw new Error('SMTP_HOST must be defined');
@@ -14,6 +15,23 @@ if (!process.env.SMTP_USER) {
 }
 if (!process.env.SMTP_PASSWORD) {
   throw new Error('SMTP_PASSWORD must be defined');
+}
+
+if (!process.env.NATS_CLIENT_ID) {
+  throw new Error('NATS_CLIENT_ID must be defined');
+}
+if (!process.env.NATS_URL) {
+  throw new Error('NATS_URL must be defined');
+}
+if (!process.env.NATS_CLUSTER_ID) {
+  throw new Error('NATS_CLUSTER_ID must be defined');
+}
+
+if (!process.env.TWILIO_ACCOUNT_SID) {
+  throw new Error('TWILIO_ACCOUNT_SID must be defined');
+}
+if (!process.env.TWILIO_AUTH_TOKEN) {
+  throw new Error('TWILIO_AUTH_TOKEN must be defined');
 }
 
 export const transporter = nodemailer.createTransport({
@@ -39,21 +57,11 @@ transporter.verify(function (error, success) {
 const start = async () => {
   console.log('Notifications service starting ...');
 
-  if (!process.env.NATS_CLIENT_ID) {
-    throw new Error('NATS_CLIENT_ID must be defined');
-  }
-  if (!process.env.NATS_URL) {
-    throw new Error('NATS_URL must be defined');
-  }
-  if (!process.env.NATS_CLUSTER_ID) {
-    throw new Error('NATS_CLUSTER_ID must be defined');
-  }
-
   try {
     await natsWrapper.connect(
-      process.env.NATS_CLUSTER_ID,
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL,
+      process.env.NATS_CLUSTER_ID!,
+      process.env.NATS_CLIENT_ID!,
+      process.env.NATS_URL!,
     );
 
     natsWrapper.client.on('close', () => {
@@ -66,6 +74,7 @@ const start = async () => {
 
     new ForgetPasswordListener(natsWrapper.client).listen();
     new UserSignedUpListener(natsWrapper.client).listen();
+    new VerifyPhoneNumberListener(natsWrapper.client).listen();
 
     console.log('Notifications service started');
   } catch (err) {

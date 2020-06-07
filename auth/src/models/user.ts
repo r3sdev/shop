@@ -29,6 +29,9 @@ export interface UserDoc extends mongoose.Document {
   twoFactorAuthEnabled?: boolean;
   emailToken?: string;
   emailVerifiedAt?: Date;
+  phoneNumber?: string
+  phoneNumberToken?: string;
+  phoneNumberVerifiedAt?: Date;
   resetPasswordToken?: string;
   resetPasswordTokenExpires?: Date;
 }
@@ -51,17 +54,26 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
     emailToken: {
-      type: String
+      type: String,
     },
     emailVerifiedAt: {
+      type: Date,
+    },
+    phoneNumber: {
+      type: String
+    },
+    phoneNumberToken: {
+      type: String
+    },
+    phoneNumberVerifiedAt: {
       type: Date
     },
     resetPasswordToken: {
-      type: String
+      type: String,
     },
     resetPasswordTokenExpires: {
-      type: Date
-    }
+      type: Date,
+    },
   },
   {
     toJSON: {
@@ -76,7 +88,6 @@ const userSchema = new mongoose.Schema(
 
 userSchema.set('versionKey', 'version');
 
-
 /**
  * Needs to be a function, not an arrow function
  * because of this binding
@@ -88,7 +99,7 @@ userSchema.pre('save', async function (done) {
     this.set('password', hashed);
   }
   /* ensure we save our email lowercase */
-  this.set('email', this.get('email').toLowerCase())
+  this.set('email', this.get('email').toLowerCase());
   done();
 });
 

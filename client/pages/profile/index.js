@@ -1,12 +1,21 @@
 import useRequest from '../../hooks/use-request';
+import PhoneInput from 'react-phone-number-input'
 
 export default ({ currentUser }) => {
 
   const [twoFactAuthEnabled, setTwoFactAuthEnabled] = React.useState(currentUser.twoFactorAuthEnabled)
-  const [isHovered, setHovered] = React.useState(false)
+  const [isHoveringDisable2fa, setHoveredDisable2fa] = React.useState(false)
+  const [isHoveringRemoveBackup, setHoveredRemoveBackup] = React.useState(false)
   const [image, setImage] = React.useState(null);
   const [userToken, setUserToken] = React.useState('');
+  const [phoneNumber, setPhoneNumber] = React.useState('');
+  const [phoneNumberToken, setPhoneNumberToken] = React.useState('');
+  const [showVerification, setShowVerification] = React.useState(false);
+  const [backupEnabled, setBackupEnabled] = React.useState(!!currentUser.phoneNumberVerified)
 
+  /**
+   * Request 2FA code
+   */
   const { doRequest: doRequestGet2FACode, errors: get2FACodeErrors } = useRequest({
     url: '/api/users/2fa/generate',
     method: 'post',
@@ -16,7 +25,10 @@ export default ({ currentUser }) => {
     }
   });
 
-  const { doRequest: doRequestEnable2FA, errors: enable2FAErrors } = useRequest({
+  /**
+   * Enable 2FA
+   */
+  const { doRequest: enable2FA, errors: enable2FAErrors } = useRequest({
     url: '/api/users/2fa/enable',
     method: 'post',
     body: {
@@ -29,7 +41,10 @@ export default ({ currentUser }) => {
     }
   });
 
-  const { doRequest: doRequestDisable2FA, errors: disable2FAErrors } = useRequest({
+  /**
+   * Disable 2FA
+   */
+  const { doRequest: disable2FA, errors: disable2FAErrors } = useRequest({
     url: '/api/users/2fa/disable',
     method: 'post',
     body: {},
@@ -38,18 +53,78 @@ export default ({ currentUser }) => {
     }
   });
 
-  const onClick = (event) => {
+  /**
+   * Request phone verification code
+   */
+  const { doRequest: requestPhoneValidationToken, errors: requestPhoneValidationTokenErrors } = useRequest({
+    url: '/api/users/phone-number/verification/request',
+    method: 'post',
+    body: { phoneNumber },
+    onSuccess: () => {
+      setPhoneNumber('');
+      setShowVerification(true)
+    }
+  });
+
+  /**
+   * Add backup method
+   */
+  const { doRequest: addBackupMethod, errors: addBackupMethodErrors } = useRequest({
+    url: '/api/users/phone-number/verification/validate',
+    method: 'post',
+    body: { phoneNumberToken },
+    onSuccess: () => {
+      setShowVerification(false);
+      setBackupEnabled(true);
+    }
+  });
+
+  /**
+ * Add remove backup method
+ */
+  const { doRequest: removeBackupMethod, errors: removeBackupMethodErrors } = useRequest({
+    url: '/api/users/phone-number/remove',
+    method: 'post',
+    body: {},
+    onSuccess: () => {
+      setBackupEnabled(false);
+    }
+  });
+
+
+  const onEnable2FA = (event) => {
     event.preventDefault();
 
     if (!twoFactAuthEnabled && !userToken) {
       doRequestGet2FACode()
     } else {
-      doRequestDisable2FA();
+      disable2FA();
     }
 
     if (userToken) {
-      doRequestEnable2FA()
+      enable2FA()
     }
+  }
+
+
+  const onAddBackupMethod = (event) => {
+    event.preventDefault();
+
+    console.log('Adding backup method', phoneNumber)
+    addBackupMethod()
+  }
+
+  const onVerifyPhoneNumber = (event) => {
+    event.preventDefault();
+    console.log('Verifying phone number', phoneNumber)
+    requestPhoneValidationToken()
+  }
+
+  const onDisableBackupMethod = (event) => {
+    event.preventDefault()
+
+    console.log('Disabling backup method')
+    removeBackupMethod()
   }
 
   return (
@@ -67,9 +142,6 @@ export default ({ currentUser }) => {
             autoComplete="email"
             defaultValue={currentUser.email}
           />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-            </small>
         </div>
 
         <div className="form-group">
@@ -80,23 +152,24 @@ export default ({ currentUser }) => {
 
         <div className="form-group">
           {get2FACodeErrors}
+          {disable2FAErrors}
           {
             twoFactAuthEnabled
               ? (
-                <button className={isHovered ? "btn btn-danger" : "btn btn-outline-success"}
-                  onMouseEnter={() => setHovered(true)}
-                  onMouseLeave={() => setHovered(false)}
-                  onClick={onClick}
+                <button className={isHoveringDisable2fa ? "btn btn-danger" : "btn btn-outline-success"}
+                  onMouseEnter={() => setHoveredDisable2fa(true)}
+                  onMouseLeave={() => setHoveredDisable2fa(false)}
+                  onClick={onEnable2FA}
                 >
                   {
-                    isHovered
+                    isHoveringDisable2fa
                       ? "Disable Two-factor Authentication"
                       : "Two-factor Authentication Enabled"
                   }
                 </button>
               )
               : (
-                <button className="btn btn-success" onClick={onClick}>
+                <button className="btn btn-success" onClick={onEnable2FA}>
                   Enable Two-factor Authentication
                 </button>
               )
@@ -116,16 +189,72 @@ export default ({ currentUser }) => {
           )
         }
 
-        <button type="submit" className="btn btn-primary" onClick={onClick}>
+        {
+          backupEnabled
+            ?
+            <div className="form-group">
+              {removeBackupMethodErrors}
+              <button className={isHoveringRemoveBackup ? "btn btn-danger" : "btn btn-outline-success"}
+                onClick={onDisableBackupMethod}
+                onMouseEnter={() => setHoveredRemoveBackup(true)}
+                onMouseLeave={() => setHoveredRemoveBackup(false)}
+              >
+                {
+                  isHoveringRemoveBackup
+                    ? "Remove Backup Method"
+                    : "Backup Method Enabled"
+                }
+              </button>
+            </div>
+            :
+            showVerification
+              ? (
+                <div>
+                  <div className="form-group">
+                    <label htmlFor="verification-code">Verification code</label>
+                    <input type="verification-code" className="form-control" id="verification-code"
+                      placeholder="Verification code" autoComplete="verification-code"
+                      value={phoneNumberToken}
+                      onChange={e => setPhoneNumberToken(e.target.value)}
+                      onBlur={e => setPhoneNumberToken(e.target.value.trim())}
+                    />
+                  </div>
+                  <div className="form-group">
+                    {addBackupMethodErrors}
+                    <button className="btn btn-success" onClick={onAddBackupMethod}
+                      disabled={phoneNumberToken.length === 0}>
+                      Add backup method
+                  </button>
+                  </div>
+                </div>
+              )
+              : (
+                <div>
+                  <div className="form-group">
+                    <label htmlFor="phone-number">Backup Method</label>
+
+                    <PhoneInput
+                      defaultCountry='NL'
+                      placeholder="Enter phone number"
+                      value={phoneNumber}
+                      onChange={setPhoneNumber}
+                    />
+                  </div>
+                  <div className="form-group">
+                    {requestPhoneValidationTokenErrors}
+                    <button className="btn btn-success" onClick={onVerifyPhoneNumber} disabled={phoneNumber?.length === 0}>
+                      Verify phone number
+                  </button>
+                  </div>
+                </div>
+              )
+        }
+
+        <button type="submit" className="btn btn-primary btn-block" onClick={onEnable2FA}>
           Save
-          </button>
+        </button>
+
       </form>
-      <hr />
-      <pre>
-        <code>
-          {JSON.stringify(currentUser, undefined, 2)}
-        </code>
-      </pre>
 
     </div>
   )

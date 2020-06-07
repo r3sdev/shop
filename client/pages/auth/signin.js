@@ -45,6 +45,7 @@ export default () => {
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={(e) => setEmail(e.target.value.trim())}
           className="form-control"
           autoComplete="email"
         />
@@ -54,6 +55,7 @@ export default () => {
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onBlur={(e) => setPassword(e.target.value.trim())}
           className="form-control"
           type="password"
           autoComplete="current-password"

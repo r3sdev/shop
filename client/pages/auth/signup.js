@@ -28,15 +28,20 @@ export default () => {
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onBlur={(e) => setEmail(e.target.value.trim())}
           className="form-control"
           autoComplete="email"
         />
+        <small id="emailHelp" className="form-text text-muted">
+          We'll never share your email with anyone else.
+        </small>
       </div>
       <div className="form-group">
         <label>Password</label>
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          onBlur={(e) => setPassword(e.target.value.trim())}
           className="form-control"
           type="password"
           autoComplete="new-password"
