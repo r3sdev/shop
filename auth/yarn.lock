@@ -449,9 +449,9 @@
     chalk "^3.0.0"
 
 "@ramsy-it/common@>= 1.0.28":
-  version "1.0.27"
-  resolved "https://registry.yarnpkg.com/@ramsy-it/common/-/common-1.0.27.tgz#5794a7b329412f03107c0b35f5680bc003c9f0d5"
-  integrity sha512-d8BOF0kZhc3ZfbtaxvLrY863nMoYG7H3Amazdu2AqNVxaV05bymE9aw4xVThb13/2mM2zNlJDkTO1HNjmVZHEg==
+  version "1.0.28"
+  resolved "https://registry.yarnpkg.com/@ramsy-it/common/-/common-1.0.28.tgz#b62cef747f74da0f08149756c763648c1ce4e489"
+  integrity sha512-uudiwRpQUMmKSzCIvT5SrnPoe5V9RPjfu6Ubl5iUJLVd3gVWWAr2IZMj4nwuq7QnHlc72aFrGUD3He9AC17lAA==
   dependencies:
     "@types/cookie-session" "^2.0.39"
     "@types/express" "^4.17.6"
