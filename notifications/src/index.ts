@@ -2,6 +2,7 @@ import nodemailer from 'nodemailer';
 import { natsWrapper } from './nats-wrapper';
 import { ForgetPasswordListener } from './events/listeners/forget-password-listener';
 import { UserSignedUpListener } from './events/listeners/signed-up-listener';
+import {VerifyPhoneNumberListener} from './events/listeners/verify-phone-number-listener';
 
 if (!process.env.SMTP_HOST) {
   throw new Error('SMTP_HOST must be defined');
@@ -58,9 +59,9 @@ const start = async () => {
 
   try {
     await natsWrapper.connect(
-      process.env.NATS_CLUSTER_ID,
-      process.env.NATS_CLIENT_ID,
-      process.env.NATS_URL,
+      process.env.NATS_CLUSTER_ID!,
+      process.env.NATS_CLIENT_ID!,
+      process.env.NATS_URL!,
     );
 
     natsWrapper.client.on('close', () => {
@@ -73,6 +74,7 @@ const start = async () => {
 
     new ForgetPasswordListener(natsWrapper.client).listen();
     new UserSignedUpListener(natsWrapper.client).listen();
+    new VerifyPhoneNumberListener(natsWrapper.client).listen();
 
     console.log('Notifications service started');
   } catch (err) {

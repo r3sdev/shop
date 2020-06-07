@@ -17,6 +17,9 @@ import { validate2FARouter } from './routes/validate-2fa';
 import { forgotPasswordRouter } from './routes/forgot-password';
 import { resetPasswordRouter } from './routes/reset-password';
 import { verifyEmailRouter } from './routes/verify-email';
+import { verifyPhoneNumberRouter } from './routes/verify-phone-number';
+import { validatePhoneNumberVerificationRouter } from './routes/validate-phone-number-verification';
+import { removePhoneNumberRouter } from './routes/remove-phone-number';
 
 const app = express();
 app.use(helmet());
@@ -44,6 +47,9 @@ app.use(validate2FARouter);
 app.use(forgotPasswordRouter);
 app.use(resetPasswordRouter);
 app.use(verifyEmailRouter);
+app.use(verifyPhoneNumberRouter);
+app.use(validatePhoneNumberVerificationRouter);
+app.use(removePhoneNumberRouter);
 
 // Catch all non defined urls
 app.all('*', () => {

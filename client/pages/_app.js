@@ -1,4 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-phone-number-input/style.css'
+import './overrides.css'
 import buildClient from '../api/build-client';
 import Header from '../components/header';
 
