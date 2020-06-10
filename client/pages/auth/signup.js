@@ -11,7 +11,7 @@ export default () => {
     url: '/api/users/signup',
     method: 'post',
     body: { email, password },
-    onSuccess: () => Router.push('/')
+    onSuccess: () => Router.push('/auth/email/confirm')
   });
 
   const onSubmit = async (event) => {
