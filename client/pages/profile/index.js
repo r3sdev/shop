@@ -147,7 +147,11 @@ export default ({ currentUser }) => {
         <div className="form-group">
           <label htmlFor="password">Password</label>
           <input type="password" className="form-control" id="password"
-            placeholder="Password" autoComplete="current-password" />
+            placeholder="Password" autoComplete="current-password" 
+            />
+          <small id="passwordHelp" className="form-text text-muted">
+            Only enter your password when you want to change it
+        </small>
         </div>
 
         <div className="form-group">
