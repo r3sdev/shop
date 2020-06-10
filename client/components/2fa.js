@@ -17,6 +17,11 @@ export default ({ userId }) => {
     doRequest();
   }
 
+  const onSendBackupCode = () => {
+    event.preventDefault()
+
+  }
+
   return (
     <div>
       <h3>Two-factor authentication</h3>
@@ -39,7 +44,9 @@ export default ({ userId }) => {
       <p className="mt-3">
         Can't access your authentication app?
         <br />
-        Send an sms instead or contact support
+        <div style={{ color: 'blue', cursor: 'pointer' }} onClick={onSendBackupCode}>
+          Send an sms instead
+        </div> or contact support
       </p>
     </div>
   )

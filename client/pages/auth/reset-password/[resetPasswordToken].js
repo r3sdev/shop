@@ -30,7 +30,7 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
       <div>
         <h3>This link is invalid</h3>
         <p>
-          Password reset links can only be used once and expire after an hour for security purposes, 
+          Password reset links can only be used once and expire after an hour for security purposes,
           please request another password reset link below to continue
         </p>
         <button className="btn btn-primary" onClick={onRequestPassword}>
@@ -45,7 +45,7 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
       <div>
         <h3>This link has expired</h3>
         <p>
-          Password reset links expire after an hour for security purposes, 
+          Password reset links expire after an hour for security purposes,
           please request another password reset link below to continue
         </p>
         <button className="btn btn-primary" onClick={onRequestPassword}>
@@ -56,36 +56,44 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
   }
 
   return (
-    <div>
-      <h3>Reset password</h3>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="form-control"
-            type="password"
-            autoComplete="new-password"
-          />
-        </div>
-        <div className="form-group">
-          <label>Password confirmation</label>
-          <input
-            value={confirmation}
-            onChange={(e) => setConfirmation(e.target.value)}
-            className="form-control"
-            type="password"
-            autoComplete="new-password-confirmation"
-          />
-        </div>
+    <div className="offset-3 col-6">
+      <div class="card">
+        <div class="card-body">
 
-        {resetErrors}
+          <div>
+            <h3>Reset password</h3>
+            <form onSubmit={onSubmit}>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="form-control"
+                  type="password"
+                  autoComplete="new-password"
+                />
+              </div>
+              <div className="form-group">
+                <label>Password confirmation</label>
+                <input
+                  value={confirmation}
+                  onChange={(e) => setConfirmation(e.target.value)}
+                  className="form-control"
+                  type="password"
+                  autoComplete="new-password-confirmation"
+                />
+              </div>
 
-        <button className="btn btn-primary" disabled={isDisabled}>
-          Reset password
+              {resetErrors}
+
+              <button className="btn btn-primary" disabled={isDisabled}>
+                Reset password
           </button>
-      </form>
+            </form>
+          </div>
+
+        </div>
+      </div>
     </div>
   )
 }
@@ -94,7 +102,7 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
 ResetPassword.getInitialProps = async (context, client) => {
   const { resetPasswordToken } = context.query;
 
-  const { data: { error} } = await client.get(`/api/users/reset-password/${resetPasswordToken}`);
+  const { data: { error } } = await client.get(`/api/users/reset-password/${resetPasswordToken}`);
 
 
   return { resetPasswordToken, error }

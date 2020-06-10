@@ -38,39 +38,49 @@ export default () => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
-      <h1>Sign In</h1>
-      <div className="form-group">
-        <label>Email Address</label>
-        <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          onBlur={(e) => setEmail(e.target.value.trim())}
-          className="form-control"
-          autoComplete="email"
-        />
+    <div className="offset-3 col-6">
+
+      <div class="card">
+        <div class="card-body">
+
+          <form onSubmit={onSubmit}>
+            <h1>Sign In</h1>
+            <div className="form-group">
+              <label>Email Address</label>
+              <input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                onBlur={(e) => setEmail(e.target.value.trim())}
+                className="form-control"
+                autoComplete="email"
+              />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onBlur={(e) => setPassword(e.target.value.trim())}
+                className="form-control"
+                type="password"
+                autoComplete="current-password"
+              />
+            </div>
+
+            {errors}
+
+            <button className="btn btn-primary">Sign In</button>
+
+            <p className="mt-3">
+              <Link href="/auth/forgot-password">
+                <a>Forgot your password?</a>
+              </Link>
+            </p>
+          </form>
+
+        </div>
       </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          onBlur={(e) => setPassword(e.target.value.trim())}
-          className="form-control"
-          type="password"
-          autoComplete="current-password"
-        />
-      </div>
 
-      {errors}
-
-      <button className="btn btn-primary">Sign In</button>
-
-      <p className="mt-3">
-        <Link href="/auth/forgot-password">
-          <a>Forgot your password?</a>
-        </Link>
-      </p>
-    </form>
+    </div>
   );
 };
