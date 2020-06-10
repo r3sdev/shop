@@ -5,7 +5,7 @@ export default ({ currentUser }) => {
   const links = [
     !currentUser && { label: 'Sign Up', href: '/auth/signup' },
     !currentUser && { label: 'Sign In', href: '/auth/signin' },
-    currentUser && { label: 'Sell Tickets', href: '/tickets/new' },
+    currentUser && { label: 'Sell Products', href: '/tickets/new' },
     currentUser && { label: 'My Orders', href: '/orders' },
     currentUser && { label: 'Profile', href: '/profile' },
     currentUser && { label: 'Sign Out', href: '/auth/signout' },
@@ -21,7 +21,7 @@ export default ({ currentUser }) => {
 
   return <nav className="navbar navbar-light bg-light">
     <Link href="/">
-      <a className="navbar-brand">ticketing.ramsy.dev</a>
+      <a className="navbar-brand">shop.ramsy.dev</a>
     </Link>
     <div className="d-flex justify-content-end">
       <ul className="nav d-flex align-items-center">

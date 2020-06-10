@@ -3,7 +3,7 @@ import {
   currentUser,
   BadRequestError,
 } from '@ramsy-it/common';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 
 const router = express.Router();
 
