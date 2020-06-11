@@ -9,8 +9,8 @@ metadata:
 spec:
   tls:
   - hosts:
-    - ticketing.ramsy.dev
-    secretName: ticketing-ramsy-dev-tls
+    - shop.ramsy.dev
+    secretName: shop-ramsy-dev-tls
   - hosts:
     - api.ramsy.dev
     secretName: api-ramsy-dev-tls
@@ -18,7 +18,7 @@ spec:
     - echo.ramsy.dev
     secretName: echo-ramsy-dev-tls
   rules:
-    - host: ticketing.ramsy.dev
+    - host: shop.ramsy.dev
       http:
         paths:
           - path: /api/payments/?(.*)
