@@ -128,7 +128,7 @@ export default ({ currentUser }) => {
   }
 
   return (
-    <div className="offset-3 col-6">
+    <div className="col-xs-12 offset-md-3 col-md-6">
       <div class="card">
         <div class="card-body">
 
