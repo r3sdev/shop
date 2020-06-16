@@ -24,9 +24,9 @@ spec:
                   name: jwt-secret
                   key: JWT_KEY
             - name: TWO_FACTOR_AUTHENTICATION_APP_NAME
-              value: 'ticketing.ramsy.dev'
+              value: 'shop.ramsy.dev'
             - name: BASE_URL
-              value: https://ticketing-dev.ramsy.dev
+              value: https://shop-dev.ramsy.dev
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
