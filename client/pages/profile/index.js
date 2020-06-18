@@ -1,3 +1,5 @@
+import { Tabs, Tab } from 'react-bootstrap'
+import crypto from 'crypto';
 import useRequest from '../../hooks/use-request';
 import PhoneInput from 'react-phone-number-input'
 
@@ -11,7 +13,10 @@ export default ({ currentUser }) => {
   const [phoneNumber, setPhoneNumber] = React.useState('');
   const [phoneNumberToken, setPhoneNumberToken] = React.useState('');
   const [showVerification, setShowVerification] = React.useState(false);
-  const [backupEnabled, setBackupEnabled] = React.useState(!!currentUser.phoneNumberVerified)
+  const [backupEnabled, setBackupEnabled] = React.useState(!!currentUser.phoneNumberVerified);
+
+
+  const md5Email = crypto.createHash('md5').update(currentUser.email).digest("hex");
 
   /**
    * Request 2FA code
@@ -133,136 +138,168 @@ export default ({ currentUser }) => {
         <div class="card-body">
 
           <div>
-            <h3>Profile</h3>
-            <hr />
-            <form>
-              <div className="form-group">
-                <label htmlFor="email">Email address</label>
-                <input type="email"
-                  className="form-control"
-                  id="email"
-                  aria-describedby="emailHelp"
-                  placeholder="Enter email"
-                  autoComplete="email"
-                  defaultValue={currentUser.email}
-                />
-              </div>
+            <h3 style={{ marginTop: 10, marginBottom: 10 }}>Settings</h3>
 
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input type="password" className="form-control" id="password"
-                  placeholder="Password" autoComplete="current-password"
-                />
-                <small id="passwordHelp" className="form-text text-muted">
-                  Only enter your password when you want to change it
+            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example">
+              <Tab eventKey="profile" title="Profile">
+
+                <div style={{ padding: '25px 5px' }}>
+
+                  <div className="row mb-2">
+                    <div className="col-12">
+                      <div class="card">
+                        <div class="card-body">
+                          <img src={`https://gravatar.com/avatar/${md5Email}`} class="rounded float-left" alt={md5Email} />
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <form>
+                    <div className="form-group">
+                      <label htmlFor="email">Email address</label>
+                      <input type="email"
+                        className="form-control"
+                        id="email"
+                        aria-describedby="emailHelp"
+                        placeholder="Enter email"
+                        autoComplete="email"
+                        defaultValue={currentUser.email}
+                      />
+                    </div>
+
+                    <div className="form-group">
+                      <label htmlFor="password">Password</label>
+                      <input type="password" className="form-control" id="password"
+                        placeholder="Password" autoComplete="current-password"
+                      />
+                      <small id="passwordHelp" className="form-text text-muted">
+                        Only enter your password when you want to change it
                 </small>
-              </div>
+                    </div>
 
-              <div className="form-group">
-                {get2FACodeErrors}
-                {disable2FAErrors}
-                {
-                  twoFactAuthEnabled
-                    ? (
-                      <button className={isHoveringDisable2fa ? "btn btn-danger" : "btn btn-outline-success"}
-                        onMouseEnter={() => setHoveredDisable2fa(true)}
-                        onMouseLeave={() => setHoveredDisable2fa(false)}
-                        onClick={onEnable2FA}
-                      >
-                        {
-                          isHoveringDisable2fa
-                            ? "Disable Two-factor Authentication"
-                            : "Two-factor Authentication Enabled"
-                        }
-                      </button>
-                    )
-                    : (
-                      <button className="btn btn-success" onClick={onEnable2FA}>
-                        Enable Two-factor Authentication
-                      </button>
-                    )
-                }
-              </div>
-              {
-                image && (
-                  <div>
-                    {enable2FAErrors}
+                    <button type="submit" className="btn btn-primary btn-block" onClick={onEnable2FA}>
+                      Save
+                  </button>
 
-                    <img src={image} />
-                    <input
-                      type="text" placeholder="Enter auth token"
-                      onChange={e => setUserToken(e.target.value)}
-                    />
-                  </div>
-                )
-              }
+                  </form>
 
-              {
-                backupEnabled
-                  ?
-                  <div className="form-group">
-                    {removeBackupMethodErrors}
-                    <button className={isHoveringRemoveBackup ? "btn btn-danger" : "btn btn-outline-success"}
-                      onClick={onDisableBackupMethod}
-                      onMouseEnter={() => setHoveredRemoveBackup(true)}
-                      onMouseLeave={() => setHoveredRemoveBackup(false)}
-                    >
+                </div>
+
+
+              </Tab>
+              <Tab eventKey="security" title="Security">
+
+                <div style={{ padding: '25px 5px' }}>
+                  <form>
+                    <div className="form-group">
+                      {get2FACodeErrors}
+                      {disable2FAErrors}
                       {
-                        isHoveringRemoveBackup
-                          ? "Remove Backup Method"
-                          : "Backup Method Enabled"
+                        twoFactAuthEnabled
+                          ? (
+                            <button className={isHoveringDisable2fa ? "btn btn-danger" : "btn btn-outline-success"}
+                              onMouseEnter={() => setHoveredDisable2fa(true)}
+                              onMouseLeave={() => setHoveredDisable2fa(false)}
+                              onClick={onEnable2FA}
+                            >
+                              {
+                                isHoveringDisable2fa
+                                  ? "Disable Two-factor Authentication"
+                                  : "Two-factor Authentication Enabled"
+                              }
+                            </button>
+                          )
+                          : (
+                            <button className="btn btn-success" onClick={onEnable2FA}>
+                              Enable Two-factor Authentication
+                            </button>
+                          )
                       }
-                    </button>
-                  </div>
-                  :
-                  showVerification
-                    ? (
-                      <div>
-                        <div className="form-group">
-                          <label htmlFor="verification-code">Verification code</label>
-                          <input type="verification-code" className="form-control" id="verification-code"
-                            placeholder="Verification code" autoComplete="verification-code"
-                            value={phoneNumberToken}
-                            onChange={e => setPhoneNumberToken(e.target.value)}
-                            onBlur={e => setPhoneNumberToken(e.target.value.trim())}
+                    </div>
+                    {
+                      image && (
+                        <div>
+                          {enable2FAErrors}
+
+                          <img src={image} />
+                          <input
+                            type="text" placeholder="Enter auth token"
+                            onChange={e => setUserToken(e.target.value)}
                           />
                         </div>
-                        <div className="form-group">
-                          {addBackupMethodErrors}
-                          <button className="btn btn-success" onClick={onAddBackupMethod}
-                            disabled={phoneNumberToken.length === 0}>
-                            Add backup method
-                  </button>
-                        </div>
-                      </div>
-                    )
-                    : (
-                      <div>
-                        <div className="form-group">
-                          <label htmlFor="phone-number">Backup Method</label>
+                      )
+                    }
 
-                          <PhoneInput
-                            defaultCountry='NL'
-                            placeholder="Enter phone number"
-                            value={phoneNumber}
-                            onChange={setPhoneNumber}
-                          />
-                        </div>
+                    {
+                      backupEnabled
+                        ?
                         <div className="form-group">
-                          {requestPhoneValidationTokenErrors}
-                          <button className="btn btn-success" onClick={onVerifyPhoneNumber} disabled={phoneNumber?.length === 0}>
-                            Verify phone number
-                  </button>
+                          {removeBackupMethodErrors}
+                          <button className={isHoveringRemoveBackup ? "btn btn-danger" : "btn btn-outline-success"}
+                            onClick={onDisableBackupMethod}
+                            onMouseEnter={() => setHoveredRemoveBackup(true)}
+                            onMouseLeave={() => setHoveredRemoveBackup(false)}
+                          >
+                            {
+                              isHoveringRemoveBackup
+                                ? "Remove Backup Method"
+                                : "Backup Method Enabled"
+                            }
+                          </button>
                         </div>
-                      </div>
-                    )
-              }
+                        :
+                        showVerification
+                          ? (
+                            <div>
+                              <div className="form-group">
+                                <label htmlFor="verification-code">Verification code</label>
+                                <input type="verification-code" className="form-control" id="verification-code"
+                                  placeholder="Verification code" autoComplete="verification-code"
+                                  value={phoneNumberToken}
+                                  onChange={e => setPhoneNumberToken(e.target.value)}
+                                  onBlur={e => setPhoneNumberToken(e.target.value.trim())}
+                                />
+                              </div>
+                              <div className="form-group">
+                                {addBackupMethodErrors}
+                                <button className="btn btn-success" onClick={onAddBackupMethod}
+                                  disabled={phoneNumberToken.length === 0}>
+                                  Add backup method
+                          </button>
+                              </div>
+                            </div>
+                          )
+                          : (
+                            <div>
+                              <div className="form-group">
+                                <label htmlFor="phone-number">Backup Method</label>
 
-              <button type="submit" className="btn btn-primary btn-block" onClick={onEnable2FA}>
-                Save
-        </button>
+                                <PhoneInput
+                                  defaultCountry='NL'
+                                  placeholder="Enter phone number"
+                                  value={phoneNumber}
+                                  onChange={setPhoneNumber}
+                                />
+                              </div>
+                              <div className="form-group">
+                                {requestPhoneValidationTokenErrors}
+                                <button className="btn btn-success" onClick={onVerifyPhoneNumber} disabled={phoneNumber?.length === 0}>
+                                  Verify phone number
+                          </button>
+                              </div>
+                            </div>
+                          )
+                    }
+                  </form>
 
-            </form>
+                </div>
+
+              </Tab>
+            </Tabs>
+
+
 
           </div>
 
