@@ -1,7 +1,7 @@
 import 'express-async-errors';
 import { app } from './app';
 
-export const COOKIE_NAME = 'ticketing';
+export const COOKIE_NAME = 'shop';
 
 const start = async () => {
   if (process.env.NODE_ENV !== 'test') {
