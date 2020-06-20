@@ -16,5 +16,7 @@ it.skip('clears the cookie after signing out', async () => {
     .send({})
     .expect(200);
 
-    expect(response.get('Set-Cookie')[0]).toBe("ticketing=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly");
+    expect(response.get('Set-Cookie')[0]).toBe(
+      'shop=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; httponly',
+    );
 });

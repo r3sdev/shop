@@ -1,3 +1,4 @@
+import React from 'react';
 import { Tabs, Tab } from 'react-bootstrap'
 import crypto from 'crypto';
 import useRequest from '../../hooks/use-request';
@@ -134,8 +135,8 @@ export default ({ currentUser }) => {
 
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
 
           <div>
             <h3 style={{ marginTop: 10, marginBottom: 10 }}>Settings</h3>
@@ -147,10 +148,15 @@ export default ({ currentUser }) => {
 
                   <div className="row mb-2">
                     <div className="col-12">
-                      <div class="card">
-                        <div class="card-body">
-                          <img src={`https://gravatar.com/avatar/${md5Email}`} class="rounded float-left" alt={md5Email} />
-
+                      <div className="card">
+                        <div className="card-body">
+                          <img src={`https://gravatar.com/avatar/${md5Email}`} className="rounded float-left pr-3" alt={md5Email} />
+                          <div>
+                            <h6>{currentUser.fullName}</h6>
+                            <p>
+                              Member since {new Date(currentUser.registeredAt).toLocaleDateString()}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>

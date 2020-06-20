@@ -1,23 +1,33 @@
 import React from 'react';
 import Router from 'next/router';
+import owasp from 'owasp-password-strength-test';
+
 import useRequest from '../../hooks/use-request';
 
 export default () => {
 
+  const [fullName, setFullName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmation, setConfirmation] = React.useState('');
   const [error, setError] = React.useState(null)
+  const [passwordErrors, setPasswordErrors] = React.useState([])
 
   const isValidEmailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  const isValidEmail = (email) => isValidEmailRegExp.test(email)
+  const isValidEmail = (email: string) => isValidEmailRegExp.test(email)
 
-  const disableSignupButton = !isValidEmail(email) 
-  || !confirmation || !password || (confirmation !== password) || error;
+  const isStrongPassword = passwordErrors.length === 0;
 
+  const disableSignupButton = !isValidEmail(email)
+    || !isStrongPassword
+    || !fullName
+    || !confirmation
+    || !password
+    || (confirmation !== password)
+    || error;
 
-  const validateEmail = (e) => {
-    const value = e.target.value.trim()
+  const validateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.trim()
     setEmail(value)
 
     if (!isValidEmail(value)) {
@@ -27,13 +37,23 @@ export default () => {
     }
   }
 
-  const validatePassword = (e) => {
-    const value = e.target.value.trim();
+  const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    const result = owasp.test(value);
+    setPasswordErrors(result.errors)
+
     setPassword(value)
   }
 
-  const validateConfirmation = (e) => {
-    const value = e.target.value.trim()
+  const validatePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.trim();
+
+    setPassword(value)
+  }
+
+  const validateConfirmation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.trim()
     setConfirmation(value)
 
     if (value !== password) {
@@ -46,11 +66,11 @@ export default () => {
   const { doRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
-    body: { email, password },
+    body: { fullName, email, password, passwordConfirmation: confirmation },
     onSuccess: () => Router.push('/auth/email/confirm')
   });
 
-  const onSubmit = async (event) => {
+  const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     doRequest();
@@ -58,12 +78,24 @@ export default () => {
 
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
 
           <form onSubmit={onSubmit}>
-            <h1>Sign Up</h1>
+            <h2>Sign Up</h2>
             <hr />
+
+            <div className="form-group">
+              <label>Full name</label>
+              <input
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                onBlur={(e) => setFullName(e.target.value.trim())}
+                className="form-control"
+                autoComplete="name"
+              />
+            </div>
+
             <div className="form-group">
               <label>Email Address</label>
               <input
@@ -89,12 +121,23 @@ export default () => {
               <label>Password</label>
               <input
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={onChangePassword}
                 onBlur={validatePassword}
                 className="form-control"
                 type="password"
                 autoComplete="new-password"
               />
+                <ul>
+                  {
+                    passwordErrors.map(error => (
+                      <li>
+                      <small id="emailHelp" className="form-text text-danger">
+                        {error}
+                      </small>
+                      </li>
+                    ))
+                  }
+                </ul>
             </div>
 
             <div className="form-group">

@@ -15,19 +15,21 @@ router.get(
 
     const user = await User.findById(req.currentUser!.id);
 
-    if (user) {
-      return res.send({
-        currentUser: {
-          ...req.currentUser,
-          twoFactorAuthEnabled: user.twoFactorAuthEnabled,
-          emailVerified: !!user.emailVerifiedAt,
-          phoneNumber: user.phoneNumber,
-          phoneNumberVerified: !!user.phoneNumberVerifiedAt,
-        },
-      });
+    if (!user) {
+      // User does not exist in database.
+      // Remove cookie and return empty object
+      req.session = null;
+      return res.send({ currentUser: null });
     }
 
-    return res.send({ currentUser: req.currentUser });
+    res.send({
+      currentUser: {
+        ...req.currentUser,
+        ...user!.toJSON(),
+        emailVerified: !!user!.emailVerifiedAt,
+        phoneNumberVerified: !!user!.phoneNumberVerifiedAt,
+      },
+    });
   }),
 );
 

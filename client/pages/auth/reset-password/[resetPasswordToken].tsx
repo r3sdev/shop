@@ -1,3 +1,4 @@
+import React from 'react';
 import Router from 'next/router';
 import useRequest from '../../../hooks/use-request';
 
@@ -6,7 +7,7 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
   const [password, setPassword] = React.useState('');
   const [confirmation, setConfirmation] = React.useState('')
 
-  const { doRequest, resetErrors } = useRequest({
+  const { doRequest, errors: resetErrors } = useRequest({
     url: `/api/users/reset-password`,
     method: 'post',
     body: { resetPasswordToken, password, confirmation },
@@ -57,8 +58,8 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
 
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
 
           <div>
             <h3>Reset password</h3>

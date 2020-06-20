@@ -6,6 +6,7 @@ import { Password } from '../services/password';
  * that are required to create a new user
  */
 interface UserAttrs {
+  fullName: string;
   email: string;
   password: string;
 }
@@ -23,72 +24,78 @@ interface UserModel extends mongoose.Model<UserDoc> {
  * that a User Document has
  */
 export interface UserDoc extends mongoose.Document {
+  backupToken?: string;
   email: string;
-  password: string;
-  twoFactorAuthSecret?: string;
-  twoFactorAuthEnabled?: boolean;
   emailToken?: string;
   emailVerifiedAt?: Date;
-  phoneNumber?: string
+  fullName: string;
+  password: string;
+  phoneNumber?: string;
   phoneNumberToken?: string;
   phoneNumberVerifiedAt?: Date;
   resetPasswordToken?: string;
   resetPasswordTokenExpires?: Date;
-  backupToken?: string
+  twoFactorAuthEnabled?: boolean;
+  twoFactorAuthSecret?: string;
 }
 
-const userSchema = new mongoose.Schema(
-  {
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
-      type: String,
-      required: true,
-    },
-    twoFactorAuthSecret: {
-      type: String,
-    },
-    twoFactorAuthEnabled: {
-      type: Boolean,
-      default: false,
-    },
-    emailToken: {
-      type: String,
-    },
-    emailVerifiedAt: {
-      type: Date,
-    },
-    phoneNumber: {
-      type: String,
-    },
-    phoneNumberToken: {
-      type: String,
-    },
-    phoneNumberVerifiedAt: {
-      type: Date,
-    },
-    resetPasswordToken: {
-      type: String,
-    },
-    resetPasswordTokenExpires: {
-      type: Date,
-    },
-    backupToken: {
-      type: String
+const userSchema = new mongoose.Schema({
+  backupToken: {
+    type: String
+  },
+  email: {
+    required: true,
+    type: String
+  },
+  emailToken: {
+    type: String
+  },
+  emailVerifiedAt: {
+    type: Date
+  },
+  fullName: {
+    required: true,
+    type: String
+  },
+  password: {
+    required: true,
+    type: String
+  },
+  phoneNumber: {
+    type: String
+  },
+  phoneNumberToken: {
+    type: String
+  },
+  phoneNumberVerifiedAt: {
+    type: Date
+  },
+  registeredAt: {
+    type: Date,
+    default: new Date()
+  },
+  resetPasswordToken: {
+    type: String
+  },
+  resetPasswordTokenExpires: {
+    type: Date
+  },
+  twoFactorAuthEnabled: {
+    default: false,
+    type: Boolean
+  },
+  twoFactorAuthSecret: {
+    type: String
+  }
+}, {
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+      delete ret.password;
     }
-  },
-  {
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-        delete ret.password;
-      },
-    },
-  },
-);
+  }
+});
 
 userSchema.set('versionKey', 'version');
 

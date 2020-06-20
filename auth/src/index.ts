@@ -1,8 +1,19 @@
 import 'express-async-errors';
+import owasp from 'owasp-password-strength-test';
 import mongoose from 'mongoose';
-import { natsWrapper } from './nats-wrapper';
 
+import { natsWrapper } from './nats-wrapper';
 import { app } from './app';
+
+
+// Configure secure passwords
+owasp.config({
+  allowPassphrases: true,
+  maxLength: 128,
+  minLength: 8,
+  minPhraseLength: 20,
+  minOptionalTestsToPass: 4,
+});
 
 const start = async () => {
   if (!process.env.JWT_KEY) {

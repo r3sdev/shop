@@ -43,7 +43,7 @@ global.signin = (userId?: string) => {
 
   // return a string thats the cookie with the encode data
 
-  return [`ticketing=${base64}`];
+  return [`shop=${base64}`];
 };
 
 jest.mock('../nats-wrapper');
