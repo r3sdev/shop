@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "repository": "https://github.com/tcd1980/ticketing.git",
+  "repository": "https://github.com/tcd1980/shop.git",
   "author": "Ramsy de Vos <ramsy@ramsy.it>",
   "license": "MIT",
   "scripts": {
