@@ -28,7 +28,7 @@ spec:
           '2',
           '-SD',
           '-cid',
-          'ticketing'
+          'shop'
         ]
         # resources:
         #   limits:

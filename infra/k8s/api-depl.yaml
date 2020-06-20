@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: docker.pkg.github.com/tcd1980/ticketing/api
+          image: docker.pkg.github.com/tcd1980/shop/api
           env:
             - name: JWT_KEY
               valueFrom:

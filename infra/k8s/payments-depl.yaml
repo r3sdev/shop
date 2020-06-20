@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: tickets
-          image: docker.pkg.github.com/tcd1980/ticketing/payments
+          image: docker.pkg.github.com/tcd1980/shop/payments
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -23,7 +23,7 @@ spec:
             - name: NATS_URL
               value: 'http://nats-srv:4222'
             - name: NATS_CLUSTER_ID
-              value: ticketing
+              value: shop
             - name: MONGO_URI
               value: 'mongodb://payments-mongo-srv:27017/payments'
             - name: JWT_KEY
