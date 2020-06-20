@@ -13,7 +13,7 @@ app.set('trust proxy', true);
 app.use(json());
 app.use(
   cookieSession({
-    name: 'ticketing',
+    name: 'shop',
     signed: false,
     secure: process.env.NODE_ENV !== 'test',
   }),
