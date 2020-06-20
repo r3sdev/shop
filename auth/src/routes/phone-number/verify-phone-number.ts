@@ -34,7 +34,7 @@ router.post(
 
     new UserVerifyPhoneNumberPublisher(natsWrapper.client).publish({
       to: phoneNumber,
-      body: `${phoneNumberToken} is your Ticketing verification code.`,
+      body: `${phoneNumberToken} is your Shop verification code.`,
     });
 
     res.status(200).send({});
