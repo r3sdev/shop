@@ -24,8 +24,8 @@ export default () => {
 
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
 
           <div>
             <h3>Forgot password?</h3>

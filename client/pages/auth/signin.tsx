@@ -8,7 +8,7 @@ export default () => {
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [twoFactAuth, setTwoFactAuth] = React.useState('')
+  const [twoFactAuth, setTwoFactAuth] = React.useState(false)
   const [userId, setUserId] = React.useState('');
 
   const { doRequest, errors } = useRequest({
@@ -40,8 +40,8 @@ export default () => {
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
 
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
 
           <form onSubmit={onSubmit}>
             <h1>Sign In</h1>
