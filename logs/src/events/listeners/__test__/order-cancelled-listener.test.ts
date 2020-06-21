@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { OrderCancelledEvent } from '@ramsy-it/common';
+import { OrderCancelledEvent } from '@ramsy-dev/microservices-shop-common';
 import { Message } from 'node-nats-streaming';
 import { OrderCancelledListener } from '../order-cancelled-listener';
 import { natsWrapper } from '../../../nats-wrapper';

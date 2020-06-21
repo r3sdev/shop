@@ -28,7 +28,7 @@ Trace:
 
 npm manifest: 
   {
-    "name": "@ramsy-it/common",
+    "name": "@ramsy-dev/microservices-shop-common",
     "version": "1.0.0",
     "main": "index.js",
     "license": "MIT"

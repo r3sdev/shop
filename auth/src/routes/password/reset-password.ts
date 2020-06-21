@@ -5,7 +5,7 @@ import {
   validateRequest,
   NotFoundError,
   BadRequestError,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { setCookie } from '../../services/set-cookie';
 
 const router = express.Router();

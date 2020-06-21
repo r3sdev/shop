@@ -4,7 +4,7 @@ import {
   Listener,
   Subjects,
   OrderStatus,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { queueGroupName } from './queue-group-name';
 import {Event} from '../../../models/event';
 

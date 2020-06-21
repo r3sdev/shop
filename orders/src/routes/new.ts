@@ -6,7 +6,7 @@ import {
   NotFoundError,
   BadRequestError,
   OrderStatus,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
 
 import { Ticket } from '../models/ticket';

@@ -7,7 +7,7 @@ import {
   NotFoundError,
   NotAuthorizedError,
   OrderStatus,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { Order } from '../models/order';
 import {stripe} from '../stripe';
 import { Payment } from '../models/payment';

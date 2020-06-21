@@ -2,7 +2,7 @@ import mongoose, { mongo } from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
 import { Order } from '../../models/order';
-import { OrderStatus } from '@ramsy-it/common';
+import { OrderStatus } from '@ramsy-dev/microservices-shop-common';
 import { stripe } from '../../stripe';
 import {Payment} from '../../models/payment';
 

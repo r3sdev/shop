@@ -3,7 +3,7 @@ import {
   validateRequest,
   currentUser,
   BadRequestError,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
 
 import { User } from '../../models/user';

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import express, { Request, Response } from 'express';
-import { requireAuth, NotFoundError, BadRequestError } from '@ramsy-it/common';
+import { requireAuth, NotFoundError, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import { Order } from '../models/order';
 
 const router = express.Router();

@@ -1,5 +1,5 @@
 import { Message } from 'node-nats-streaming';
-import { Subjects, Listener, TicketUpdatedEvent } from '@ramsy-it/common';
+import { Subjects, Listener, TicketUpdatedEvent } from '@ramsy-dev/microservices-shop-common';
 import { queueGroupName } from './queue-group-name';
 import {Event} from '../../../models/event';
 

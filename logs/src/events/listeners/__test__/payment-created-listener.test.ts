@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { PaymentCreatedEvent } from '@ramsy-it/common';
+import { PaymentCreatedEvent } from '@ramsy-dev/microservices-shop-common';
 import { Message } from 'node-nats-streaming';
 import { PaymentCreatedListener } from '../payment-created-listener';
 import { natsWrapper } from '../../../nats-wrapper';

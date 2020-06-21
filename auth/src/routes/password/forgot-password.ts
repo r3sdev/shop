@@ -1,6 +1,6 @@
 import express, { Response, Request, NextFunction } from 'express';
 import { body } from 'express-validator';
-import { validateRequest } from '@ramsy-it/common';
+import { validateRequest } from '@ramsy-dev/microservices-shop-common';
 import { randomBytes } from 'crypto';
 
 import { User } from '../../models/user';

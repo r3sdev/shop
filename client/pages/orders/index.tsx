@@ -1,12 +1,15 @@
 const OrderIndex = ({ orders }) => {
 
-  const myOrders = orders.map(order => {
-    return (
+  const hasNoOrders = orders.length === 0;
+
+  const myOrders = hasNoOrders
+    ? <li></li>
+    : orders.map(order => (
       <li key={order.id}>
         {order.ticket.title} ({order.status})
       </li>
-    )
-  })
+    ))
+
   return (
     <div>
       <h1>My orders</h1>

@@ -1,4 +1,4 @@
-import {Listener, OrderCreatedEvent, Subjects} from '@ramsy-it/common';
+import {Listener, OrderCreatedEvent, Subjects} from '@ramsy-dev/microservices-shop-common';
 import {Message} from 'node-nats-streaming';
 import {queueGroupName} from './queue-group-name';
 import {Order} from '../../models/order';

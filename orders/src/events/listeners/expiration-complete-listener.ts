@@ -4,7 +4,7 @@ import {
   Listener,
   ExpirationCompleteEvent,
   OrderStatus,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { Order } from '../../models/order';
 import { queueGroupName } from './queue-group-name';
 import { OrderCancelledPublisher } from '../publishers/order-cancelled-publisher';

@@ -3,7 +3,7 @@ import {
   UserVerifyPhoneNumberEvent,
   Listener,
   Subjects,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { queueGroupName } from './queue-group-name';
 import sendSMS from '../../services/send-sms';
 import forgotPassword from '../../email-templates/user/forgot-password';

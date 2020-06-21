@@ -2,7 +2,7 @@ import express, { Request, Response, response } from 'express';
 import {
   currentUser,
   BadRequestError,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { User } from '../../models/user';
 
 const router = express.Router();

@@ -1,5 +1,5 @@
 import { Message } from 'node-nats-streaming';
-import { UserForgotPasswordEvent, Listener, Subjects } from '@ramsy-it/common';
+import { UserForgotPasswordEvent, Listener, Subjects } from '@ramsy-dev/microservices-shop-common';
 import { queueGroupName } from './queue-group-name';
 import sendEmail from '../../services/send-email';
 import forgotPassword from '../../email-templates/user/forgot-password';

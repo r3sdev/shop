@@ -2,7 +2,7 @@ import {
   Publisher,
   UserVerifyPhoneNumberEvent,
   Subjects,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 
 export class UserVerifyPhoneNumberPublisher extends Publisher<
   UserVerifyPhoneNumberEvent

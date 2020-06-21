@@ -1,5 +1,5 @@
 import mongoose, { mongo, PromiseProvider } from 'mongoose';
-import { OrderCancelledEvent, OrderStatus } from '@ramsy-it/common';
+import { OrderCancelledEvent, OrderStatus } from '@ramsy-dev/microservices-shop-common';
 import { natsWrapper } from '../../../nats-wrapper';
 import { OrderCancelledListener } from '../order-cancelled-listener';
 import { Order } from '../../../models/order';

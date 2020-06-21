@@ -3,7 +3,10 @@ import helmet from 'helmet';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError } from '@ramsy-it/common';
+import {
+  errorHandler,
+  NotFoundError,
+} from '@ramsy-dev/microservices-shop-common';
 
 import { indexRouter } from './routes/index';
 import { authRouter } from './routes/auth';

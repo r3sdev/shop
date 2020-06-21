@@ -1,5 +1,5 @@
 import mongoose, { mongo } from 'mongoose';
-import { OrderCreatedEvent, OrderStatus } from '@ramsy-it/common';
+import { OrderCreatedEvent, OrderStatus } from '@ramsy-dev/microservices-shop-common';
 import { natsWrapper } from '../../../nats-wrapper';
 import { OrderCreatedListener } from '../order-created-listener';
 import { Order } from '../../../models/order';

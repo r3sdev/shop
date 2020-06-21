@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ExpirationCompleteEvent } from '@ramsy-it/common';
+import { ExpirationCompleteEvent } from '@ramsy-dev/microservices-shop-common';
 import { Message } from 'node-nats-streaming';
 import { ExpirationCompleteListener } from '../expiration-complete-listener';
 import { natsWrapper } from '../../../nats-wrapper';

@@ -448,9 +448,9 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@ramsy-it/common@>= 1.0.30":
+"@ramsy-dev/microservices-shop-common@>= 1.0.30":
   version "1.0.30"
-  resolved "https://registry.yarnpkg.com/@ramsy-it/common/-/common-1.0.30.tgz#d9ee6258c5f93fa1e25889b478d9f56591a59986"
+  resolved "https://registry.yarnpkg.com/@ramsy-dev/microservices-shop-common/-/common-1.0.30.tgz#d9ee6258c5f93fa1e25889b478d9f56591a59986"
   integrity sha512-VmUXOOtBJdShefFpf5mdvplSMFShmOQooxrWUM76BundrFr9tRDfMrireLLLxPcvdEJDgdR4KhpgncXItaCGDQ==
   dependencies:
     "@types/cookie-session" "^2.0.39"
