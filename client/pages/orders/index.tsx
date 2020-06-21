@@ -1,9 +1,10 @@
+
 const OrderIndex = ({ orders }) => {
 
   const hasNoOrders = orders.length === 0;
 
   const myOrders = hasNoOrders
-    ? <li></li>
+    ? <li>No orders have been placed yet</li>
     : orders.map(order => (
       <li key={order.id}>
         {order.ticket.title} ({order.status})
