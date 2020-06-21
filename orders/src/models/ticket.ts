@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {OrderStatus} from '@ramsy-it/common';
+import {OrderStatus} from '@ramsy-dev/microservices-shop-common';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Order } from './order';
 

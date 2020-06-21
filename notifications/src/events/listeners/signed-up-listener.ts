@@ -1,5 +1,5 @@
 import { Message } from 'node-nats-streaming';
-import { Listener, Subjects, UserSignedUpEvent } from '@ramsy-it/common';
+import { Listener, Subjects, UserSignedUpEvent } from '@ramsy-dev/microservices-shop-common';
 import { queueGroupName } from './queue-group-name';
 import sendEmail from '../../services/send-email';
 import userSignedUp from '../../email-templates/user/signed-up';

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import {OrderStatus} from '@ramsy-it/common';
+import {OrderStatus} from '@ramsy-dev/microservices-shop-common';
 import request from 'supertest';
 import { app } from '../../app';
 import { Order } from '../../models/order';

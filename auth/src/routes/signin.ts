@@ -1,6 +1,6 @@
 import express, { Response, Request } from 'express';
 import { body } from 'express-validator';
-import { validateRequest, BadRequestError } from '@ramsy-it/common';
+import { validateRequest, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import { natsWrapper } from '../nats-wrapper';
 
 import { Password } from '../services/password';

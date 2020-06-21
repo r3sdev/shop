@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { requireAuth } from '@ramsy-it/common';
+import { requireAuth } from '@ramsy-dev/microservices-shop-common';
 import { Order } from '../models/order';
 
 const router = express.Router();

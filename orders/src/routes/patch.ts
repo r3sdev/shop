@@ -5,7 +5,7 @@ import {
   NotFoundError,
   BadRequestError,
   OrderStatus,
-} from '@ramsy-it/common';
+} from '@ramsy-dev/microservices-shop-common';
 import { Order } from '../models/order';
 import { OrderCancelledPublisher } from '../events/publishers/order-cancelled-publisher';
 import { natsWrapper } from '../nats-wrapper';

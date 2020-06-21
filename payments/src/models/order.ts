@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { OrderStatus } from '@ramsy-it/common';
+import { OrderStatus } from '@ramsy-dev/microservices-shop-common';
 
 interface OrderAttrs {
   id: string; // do not put in schema

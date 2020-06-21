@@ -1,7 +1,7 @@
 import express, { Request, Response, response } from 'express';
 import { body } from 'express-validator';
 import { randomBytes } from 'crypto';
-import { validateRequest, BadRequestError } from '@ramsy-it/common';
+import { validateRequest, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import owasp from 'owasp-password-strength-test';
 
 import { User } from '../models/user';

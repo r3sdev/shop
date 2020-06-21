@@ -1,5 +1,5 @@
 import express, { Response, Request } from 'express';
-import { currentUser, BadRequestError } from '@ramsy-it/common';
+import { currentUser, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import {
   getTwoFactorAuthenticationCode,
   respondWithQRCode,

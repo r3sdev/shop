@@ -1,7 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express';
 import { User } from '../models/user';
 import { asyncMiddleware } from '../middleware/async';
-import { currentUser } from '@ramsy-it/common';
+import { currentUser } from '@ramsy-dev/microservices-shop-common';
 
 const router = express.Router();
 

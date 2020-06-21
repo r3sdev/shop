@@ -1,5 +1,5 @@
 import express, { Request, Response, response } from 'express';
-import { validateRequest, currentUser, BadRequestError } from '@ramsy-it/common';
+import { validateRequest, currentUser, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
 
 import { UserVerifyPhoneNumberPublisher } from '../../events/publisher/user-verify-phone-number';

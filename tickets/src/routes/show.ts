@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { NotFoundError } from '@ramsy-it/common';
+import { NotFoundError } from '@ramsy-dev/microservices-shop-common';
 import { Ticket } from '../models/ticket';
 
 const router = express.Router();

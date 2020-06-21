@@ -1,5 +1,5 @@
 import {Message} from 'node-nats-streaming';
-import { PaymentCreatedEvent, Listener, Subjects, OrderStatus } from "@ramsy-it/common";
+import { PaymentCreatedEvent, Listener, Subjects, OrderStatus } from "@ramsy-dev/microservices-shop-common";
 import { queueGroupName } from "./queue-group-name";
 import {Order} from '../../models/order';
 
