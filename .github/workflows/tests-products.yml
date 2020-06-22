@@ -1,13 +1,13 @@
-name: tests-tickets
+name: tests-products
 
 on:
   pull_request:
     paths:
-      - 'tickets/**'
+      - 'products/**'
     
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd tickets && yarn install && yarn run test:ci
+      - run: cd products && yarn install && yarn run test:ci

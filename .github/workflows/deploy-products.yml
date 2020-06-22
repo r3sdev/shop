@@ -1,26 +1,26 @@
-name: deploy-tickets
+name: deploy-products
 
 on:
   push:
     branches:
       - master
     paths:
-      - 'tickets/**'
+      - 'products/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd tickets && docker build -t docker.pkg.github.com/tcd1980/shop/tickets .
+      - run: cd products && docker build -t docker.pkg.github.com/tcd1980/shop/products .
       - run: docker login docker.pkg.github.com -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push docker.pkg.github.com/tcd1980/shop/tickets
+      - run: docker push docker.pkg.github.com/tcd1980/shop/products
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save ramsy-dev
-      - run: kubectl rollout restart deployment tickets-depl
+      - run: kubectl rollout restart deployment products-depl
 
