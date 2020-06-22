@@ -18,6 +18,10 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 3000
+          - path: /api/categories/?(.*)
+            backend:
+              serviceName: categories-srv
+              servicePort: 3000
           - path: /api/products/?(.*)
             backend:
               serviceName: products-srv
