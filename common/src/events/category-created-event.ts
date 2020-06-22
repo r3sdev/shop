@@ -4,7 +4,8 @@ export interface CategoryCreatedEvent {
   subject: Subjects.CategoryCreated;
   data: {
     id: string;
-    name: string;
+    version: number;
+    title: string;
     description: string;
     imageUrl: string;
   };
