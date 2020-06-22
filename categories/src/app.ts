@@ -4,11 +4,15 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import requestIp from 'request-ip';
-import { errorHandler, NotFoundError, currentUser } from '@ramsy-dev/microservices-shop-common';
+import {
+  errorHandler,
+  NotFoundError,
+  currentUser,
+} from '@ramsy-dev/microservices-shop-common';
 import { createCategoryRouter } from './routes/new';
 import { showCategoryRouter } from './routes/show';
-import { indexCategoryRouter } from './routes';
-import {updateCategoryRouter} from './routes/update';
+import { indexCategoryRouter } from './routes/index';
+import { updateCategoryRouter } from './routes/update';
 
 const app = express();
 
