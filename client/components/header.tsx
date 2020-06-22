@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 export default ({ currentUser }) => {
 
@@ -23,7 +25,14 @@ export default ({ currentUser }) => {
 
   return <nav className="navbar navbar-light bg-light">
     <Link href="/">
-      <a className="navbar-brand">shop.ramsy.dev</a>
+      <a className="navbar-brand">
+        <FontAwesomeIcon
+          icon={faShoppingCart}
+          className="mr-2"
+          color="#D3D3D3"
+        />
+        shop.ramsy.dev
+      </a>
     </Link>
     <div className="d-flex justify-content-end">
       <ul className="nav d-flex align-items-center">
