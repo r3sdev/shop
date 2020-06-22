@@ -30,11 +30,11 @@ it('saves the event', async () => {
   // Call onMessage function with the data object + message object
   await listener.onMessage(data, msg);
 
-  // Assert a ticket was created
-  const tickets = await Event.find({});
+  // Assert an event was created
+  const events = await Event.find({});
 
-  expect(tickets).toHaveLength(1);
-  expect(tickets[0].event).toEqual('ExpirationComplete');
+  expect(events).toHaveLength(1);
+  expect(events[0].event).toEqual('ExpirationComplete');
 });
 
 it('acks the message', async () => {

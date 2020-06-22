@@ -1,5 +1,5 @@
 import nats from 'node-nats-streaming';
-import {TicketCreatedPublisher} from './events/ticket-created-publisher';
+import {ProductCreatedPublisher} from './events/product-created-publisher';
 
 console.clear();
 
@@ -10,7 +10,7 @@ const stan = nats.connect('shop', 'abc', {
 stan.on('connect', async () => {
   console.log('Publisher connected to NATS');
 
-  const publisher = new TicketCreatedPublisher(stan);
+  const publisher = new ProductCreatedPublisher(stan);
 
   await publisher.publish({
     id: '123',

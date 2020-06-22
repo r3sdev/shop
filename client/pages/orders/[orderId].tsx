@@ -35,7 +35,7 @@ const OrderShow = ({ order, currentUser }) => {
 
   return (
     <div>
-      <h1>{order.ticket.title}</h1>
+      <h1>{order.product.title}</h1>
       <div>
         Time left to pay: {timeLeft} seconds.
       </div>
@@ -43,7 +43,7 @@ const OrderShow = ({ order, currentUser }) => {
       <StripeCheckout
         token={({id}) => doRequest({token: id})}
         stripeKey="pk_test_48TfjwRZUf3ZaEfQgorkqcpI00z3YfZAg8" // FIXME env variable
-        amount={order.ticket.price * 100}
+        amount={order.product.price * 100}
         email={currentUser.email}
       />
     </div>

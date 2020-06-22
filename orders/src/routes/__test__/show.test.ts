@@ -1,25 +1,25 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
-import { Ticket } from '../../models/ticket';
+import { Product } from '../../models/product';
 
 it('fetches the order', async () => {
-  // Create a ticket
-  const ticket = Ticket.build({
+  // Create a product
+  const product = Product.build({
     id: new mongoose.Types.ObjectId().toHexString(),
-    title: 'Test ticket',
+    title: 'Test Product',
     price: 100,
   });
   
-  await ticket.save();
+  await product.save();
 
   const user = global.signin();
 
-  // Make a request to build an order with this ticket
+  // Make a request to build an order with this product
   const { body: order } = await request(app)
     .post('/api/orders')
     .set('Cookie', user)
-    .send({ ticketId: ticket.id })
+    .send({ productId: product.id })
     .expect(201);
 
   // Make request to fetch the order
@@ -33,22 +33,22 @@ it('fetches the order', async () => {
 });
 
 it('returns an error when one user tries to fetch anoter users order', async () => {
-  // Create a ticket
-  const ticket = Ticket.build({
+  // Create a product
+  const product = Product.build({
     id: new mongoose.Types.ObjectId().toHexString(),
-    title: 'Test ticket',
+    title: 'Test Product',
     price: 100,
   });
 
-  await ticket.save();
+  await product.save();
 
   const user = global.signin();
 
-  // Make a request to build an order with this ticket
+  // Make a request to build an order with this product
   const { body: order } = await request(app)
     .post('/api/orders')
     .set('Cookie', user)
-    .send({ ticketId: ticket.id })
+    .send({ productId: product.id })
     .expect(201);
 
   // Make request to fetch the order

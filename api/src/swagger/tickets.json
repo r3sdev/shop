@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "This is the Ticket service",
+    "description": "This is the Product service",
     "version": "0.1.0",
-    "title": "Tickets",
+    "title": "Products",
     "termsOfService": "http://api.ramsy.dev/terms/",
     "contact": {
       "email": "api@ramsy.dev"
@@ -14,11 +14,11 @@
     }
   },
   "host": "api.ramsy.dev",
-  "basePath": "/api/tickets",
+  "basePath": "/api/products",
   "tags": [
     {
-      "name": "ticket",
-      "description": "Everything about your Tickets",
+      "name": "product",
+      "description": "Everything about your Products",
       "externalDocs": {
         "description": "Find out more",
         "url": "https://ramsy.dev"
@@ -33,11 +33,11 @@
     "/": {
       "post": {
         "tags": [
-          "ticket"
+          "product"
         ],
-        "summary": "Creates a ticket",
+        "summary": "Creates a product",
         "description": "",
-        "operationId": "createTicket",
+        "operationId": "createProduct",
         "consumes": [
           "application/json"
         ],
@@ -48,12 +48,12 @@
           {
             "in": "body",
             "name": "body",
-            "description": "List of ticket object",
+            "description": "List of product object",
             "required": true,
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/Ticket"
+                "$ref": "#/definitions/Product"
               }
             }
           }
@@ -65,14 +65,14 @@
         }
       }
     },
-    "/{ticketId}": {
+    "/{productId}": {
       "get": {
         "tags": [
-          "ticket"
+          "product"
         ],
-        "summary": "Get ticket by id",
+        "summary": "Get product by id",
         "description": "",
-        "operationId": "getTicketById",
+        "operationId": "getProductById",
         "produces": [
           "application/json"
         ],
@@ -80,7 +80,7 @@
           {
             "name": "id",
             "in": "path",
-            "description": "The id that needs to be fetched. Use ticket1 for testing. ",
+            "description": "The id that needs to be fetched. Use product11 for testing. ",
             "required": true,
             "type": "string"
           }
@@ -89,24 +89,24 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/Ticket"
+              "$ref": "#/definitions/Product"
             }
           },
           "400": {
-            "description": "Invalid od supplied"
+            "description": "Invalid id supplied"
           },
           "404": {
-            "description": "Ticket not found"
+            "description": "Product not found"
           }
         }
       },
       "put": {
         "tags": [
-          "ticket"
+          "product"
         ],
-        "summary": "Updated ticket",
+        "summary": "Updated product",
         "description": "This can only be done by the logged in user.",
-        "operationId": "updateTicket",
+        "operationId": "updateProduct",
         "consumes": [
           "application/json"
         ],
@@ -124,29 +124,29 @@
           {
             "in": "body",
             "name": "body",
-            "description": "Updated ticket object",
+            "description": "Updated product object",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Ticket"
+              "$ref": "#/definitions/Product"
             }
           }
         ],
         "responses": {
           "400": {
-            "description": "Invalid ticket supplied"
+            "description": "Invalid product supplied"
           },
           "404": {
-            "description": "Ticket not found"
+            "description": "Product not found"
           }
         }
       },
       "delete": {
         "tags": [
-          "ticket"
+          "product"
         ],
-        "summary": "Delete ticket",
+        "summary": "Delete product",
         "description": "This can only be done by the logged in user.",
-        "operationId": "deleteTicket",
+        "operationId": "deleteProduct",
         "produces": [
           "application/json"
         ],
@@ -164,7 +164,7 @@
             "description": "Invalid id supplied"
           },
           "404": {
-            "description": "Ticket not found"
+            "description": "Product not found"
           }
         }
       }
@@ -178,7 +178,7 @@
     }
   },
   "definitions": {
-    "Ticket": {
+    "Product": {
       "type": "object",
       "properties": {
         "id": {

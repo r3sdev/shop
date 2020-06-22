@@ -13,7 +13,7 @@ spec:
         app: payments
     spec:
       containers:
-        - name: tickets
+        - name: payments
           image: docker.pkg.github.com/tcd1980/shop/payments
           env:
             - name: NATS_CLIENT_ID

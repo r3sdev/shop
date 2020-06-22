@@ -12,7 +12,7 @@ import { indexRouter } from './routes/index';
 import { authRouter } from './routes/auth';
 import { ordersRouter } from './routes/orders';
 import { paymentsRouter } from './routes/payments';
-import { ticketsRouter } from './routes/tickets';
+import { productsRouter } from './routes/products';
 import {swaggerRouter} from './routes/swagger';
 
 import { COOKIE_NAME } from '.';
@@ -34,7 +34,7 @@ app.use(indexRouter);
 app.use(authRouter);
 app.use(ordersRouter);
 app.use(paymentsRouter);
-app.use(ticketsRouter);
+app.use(productsRouter);
 app.use(swaggerRouter);
 
 // Catch all non defined urls

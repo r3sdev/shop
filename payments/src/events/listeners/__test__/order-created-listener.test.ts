@@ -13,7 +13,7 @@ const setup = async () => {
     expiresAt: new Date().toISOString(),
     userId: 'userId',
     status: OrderStatus.Created,
-    ticket: {
+    product: {
       id: 'test',
       price: 10,
     },
@@ -33,7 +33,7 @@ it('replicates the order info', async () => {
 
   const order = await Order.findById(data.id);
 
-  expect(order!.price).toEqual(data.ticket.price);
+  expect(order!.price).toEqual(data.product.price);
 });
 
 it('acks the message', async () => {

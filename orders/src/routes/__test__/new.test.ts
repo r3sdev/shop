@@ -3,36 +3,36 @@ import {OrderStatus} from '@ramsy-dev/microservices-shop-common';
 import request from 'supertest';
 import { app } from '../../app';
 import { Order } from '../../models/order';
-import { Ticket } from '../../models/ticket';
+import { Product } from '../../models/product';
 
 /* This is already mocked */
 import { natsWrapper } from '../../nats-wrapper';
 
 it.todo('should check if user is authenticated');
 
-it.todo('should have a valid ticket id');
+it.todo('should have a valid product id');
 
-it('returns an error if the ticket does not exist', async () => {
-  const ticketId = mongoose.Types.ObjectId();
+it('returns an error if the product does not exist', async () => {
+  const productId = mongoose.Types.ObjectId();
 
   await request(app)
     .post('/api/orders')
     .set('Cookie', global.signin())
-    .send({ ticketId })
+    .send({ productId })
     .expect(404);
 });
 
-it('returns an error if the ticket is already reserved', async () => {
-  const ticket = Ticket.build({
+it('returns an error if the product is already reserved', async () => {
+  const product = Product.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     price: 10,
-    title: 'Test ticket',
+    title: 'Test product',
   });
 
-  await ticket.save();
+  await product.save();
 
   const order = Order.build({
-    ticket,
+    product,
     userId: 'testUderId',
     status: OrderStatus.Created,
     expiresAt: new Date(),
@@ -43,26 +43,26 @@ it('returns an error if the ticket is already reserved', async () => {
   await request(app)
     .post('/api/orders')
     .set('Cookie', global.signin())
-    .send({ ticketId: ticket.id })
+    .send({ productId: product.id })
     .expect(400);
 });
 
-it('reserves a ticket', async () => {
+it('reserves a product', async () => {
   // Check there are no orders in the database
   expect(await Order.find({})).toHaveLength(0);
 
-  const ticket = Ticket.build({
+  const product = Product.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     price: 10,
-    title: 'Test ticket',
+    title: 'Test product',
   });
 
-  await ticket.save();
+  await product.save();
 
   const response = await request(app)
     .post('/api/orders')
     .set('Cookie', global.signin())
-    .send({ ticketId: ticket.id })
+    .send({ productId: product.id })
     .expect(201);
 
   // Check if the order is returned
@@ -73,23 +73,23 @@ it('reserves a ticket', async () => {
   expect(orders).toHaveLength(1);
   expect(orders[0].status).toEqual('created');
 
-  // Check if the tickets match
-  expect(orders[0].ticket.id.toString('hex')).toEqual(ticket.id);
+  // Check if the products match
+  expect(orders[0].product.id.toString('hex')).toEqual(product.id);
 });
 
 it('emit an order created event', async () => {
-  const ticket = Ticket.build({
+  const product = Product.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     price: 10,
-    title: 'Test ticket',
+    title: 'Test product',
   });
 
-  await ticket.save();
+  await product.save();
 
   const {body: order} = await request(app)
     .post('/api/orders')
     .set('Cookie', global.signin())
-    .send({ ticketId: ticket.id })
+    .send({ productId: product.id })
     .expect(201);
 
   expect(natsWrapper.client.publish).toHaveBeenCalledWith(

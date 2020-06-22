@@ -14,7 +14,7 @@ const setup = async () => {
     id: new mongoose.Types.ObjectId().toHexString(),
     expiresAt: (new Date().getSeconds() + 60).toString(),
     status: OrderStatus.Created,
-    ticket: {
+    product: {
       id: 'test',
       price: 20
     },
@@ -39,11 +39,11 @@ it('saves the event', async () => {
   // Call onMessage function with the data object + message object
   await listener.onMessage(data, msg);
 
-  // Assert a ticket was created
-  const tickets = await Event.find({});
+  // Assert a event was created
+  const events = await Event.find({});
 
-  expect(tickets).toHaveLength(1);
-  expect(tickets[0].event).toEqual('OrderCreated');
+  expect(events).toHaveLength(1);
+  expect(events[0].event).toEqual('OrderCreated');
 });
 
 it('acks the message', async () => {
