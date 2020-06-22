@@ -18,8 +18,8 @@ build:
         dest: .
     docker:
       dockerfile: Dockerfile-dev
-  - image: docker.pkg.github.com/tcd1980/shop/tickets
-    context: tickets
+  - image: docker.pkg.github.com/tcd1980/shop/products
+    context: products
     sync:
       manual:
       - src: src/**/*.ts

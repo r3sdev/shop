@@ -7,7 +7,7 @@ const OrderIndex = ({ orders }) => {
     ? <li>No orders have been placed yet</li>
     : orders.map(order => (
       <li key={order.id}>
-        {order.ticket.title} ({order.status})
+        {order.product.title} ({order.status})
       </li>
     ))
 

@@ -9,7 +9,7 @@ import {
 } from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
 
-import { Ticket } from '../models/ticket';
+import { Product } from '../models/product';
 import { Order } from '../models/order';
 import { OrderCreatedPublisher } from '../events/publishers/order-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
@@ -26,36 +26,36 @@ router.post(
   '/api/orders',
   requireAuth,
   [
-    body('ticketId')
+    body('productId')
       .not()
       .isEmpty()
       /**
        * Check if we have provided a valid Mongo ID
-       * This creates a loose coupling with tickets
+       * This creates a loose coupling with products
        */
       .custom((input: string): boolean =>
         mongoose.Types.ObjectId.isValid(input),
       )
-      .withMessage('Ticket ID must be provided'),
+      .withMessage('Product ID must be provided'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { ticketId } = req.body;
+    const { productId } = req.body;
 
-    // Find the ticket the user is trying to order in the database
-    const ticket = await Ticket.findById(ticketId);
+    // Find the product the user is trying to order in the database
+    const product = await Product.findById(productId);
 
-    if (!ticket) {
+    if (!product) {
       throw new NotFoundError();
     }
 
     /**
-     * Make sure that this ticket is not already reserved.
+     * Make sure that this product is not already reserved.
      */
-    const isReserved = await ticket.isReserved();
+    const isReserved = await product.isReserved();
 
     if (isReserved) {
-      throw new BadRequestError('Ticket is already reserved');
+      throw new BadRequestError('Product is already reserved');
     }
 
     // Calculate an expiration date for this order
@@ -69,7 +69,7 @@ router.post(
       userId: req.currentUser!.id,
       status: OrderStatus.Created,
       expiresAt: expiration,
-      ticket,
+      product,
     });
 
     await order.save();
@@ -81,9 +81,9 @@ router.post(
       status: order.status,
       expiresAt: order.expiresAt.toISOString(),
       userId: order.userId,
-      ticket: {
-        id: order.ticket.id,
-        price: order.ticket.price,
+      product: {
+        id: order.product.id,
+        price: order.product.price,
       },
     });
 

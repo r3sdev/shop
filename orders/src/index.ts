@@ -2,8 +2,8 @@ import 'express-async-errors';
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
-import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
-import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
+import { ProductCreatedListener } from './events/listeners/product-created-listener';
+import { ProductUpdatedListener } from './events/listeners/product-updated-listener';
 import {ExpirationCompleteListener} from './events/listeners/expiration-complete-listener';
 import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
 
@@ -44,8 +44,8 @@ const start = async () => {
     process.on('SIGTERM', () => natsWrapper.client.close());
 
     // Setup listeners
-    new TicketCreatedListener(natsWrapper.client).listen();
-    new TicketUpdatedListener(natsWrapper.client).listen();
+    new ProductCreatedListener(natsWrapper.client).listen();
+    new ProductUpdatedListener(natsWrapper.client).listen();
     new ExpirationCompleteListener(natsWrapper.client).listen();
     new PaymentCreatedListener(natsWrapper.client).listen();
     

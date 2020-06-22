@@ -4,8 +4,8 @@ import { ExpirationCompleteListener } from './events/listeners/expiration-comple
 import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
 import { OrderCreatedListener } from './events/listeners/order-created-listener';
 import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
-import { TicketCreatedListener } from './events/listeners/ticket-created-listener';
-import { TicketUpdatedListener } from './events/listeners/ticket-updated-listener';
+import { ProductCreatedListener } from './events/listeners/product-created-listener';
+import { ProductUpdatedListener } from './events/listeners/product-updated-listener';
 
 const start = async () => {
   console.log('Logs service started ...');
@@ -48,8 +48,8 @@ const start = async () => {
     new OrderCancelledListener(natsWrapper.client).listen();
     new OrderCreatedListener(natsWrapper.client).listen();
     new PaymentCreatedListener(natsWrapper.client).listen();
-    new TicketCreatedListener(natsWrapper.client).listen();
-    new TicketUpdatedListener(natsWrapper.client).listen();
+    new ProductCreatedListener(natsWrapper.client).listen();
+    new ProductUpdatedListener(natsWrapper.client).listen();
 
         await mongoose.connect(process.env.MONGO_URI, {
           useNewUrlParser: true,

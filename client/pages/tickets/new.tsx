@@ -2,13 +2,13 @@ import React from 'react';
 import Router from 'next/router'
 import useRequest from '../../hooks/use-request';
 
-const NewTicket = () => {
+const NewProduct = () => {
 
   const [title, setTitle] = React.useState('');
   const [price, setPrice] = React.useState('');
 
   const { doRequest, errors } = useRequest({
-    url: '/api/tickets',
+    url: '/api/products',
     method: 'post',
     body: { title, price },
     onSuccess: () => Router.push('/')
@@ -66,4 +66,4 @@ const NewTicket = () => {
   )
 };
 
-export default NewTicket;
+export default NewProduct;

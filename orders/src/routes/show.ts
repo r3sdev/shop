@@ -14,7 +14,7 @@ router.get(
       throw new BadRequestError('Invalid order ID passed');
     }
 
-    const order = await Order.findById(req.params.orderId).populate('ticket');
+    const order = await Order.findById(req.params.orderId).populate('product');
 
     if (!order) {
       throw new NotFoundError();

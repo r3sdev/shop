@@ -4,24 +4,24 @@ import { OrderStatus, ExpirationCompleteEvent } from '@ramsy-dev/microservices-s
 import { ExpirationCompleteListener } from '../expiration-complete-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Order } from '../../../models/order';
-import { Ticket } from '../../../models/ticket';
+import { Product } from '../../../models/product';
 
 const setup = async () => {
   const listener = new ExpirationCompleteListener(natsWrapper.client);
 
-  const ticket = Ticket.build({
+  const product = Product.build({
     id: mongoose.Types.ObjectId().toHexString(),
-    title: 'Test ticket',
+    title: 'Test Product',
     price: 10,
   });
 
-  await ticket.save();
+  await product.save();
 
   const order = Order.build({
     status: OrderStatus.Created,
     userId: 'userId',
     expiresAt: new Date(),
-    ticket,
+    product,
   });
 
   await order.save();
@@ -35,7 +35,7 @@ const setup = async () => {
     ack: jest.fn(),
   };
 
-  return { listener, order, ticket, data, msg };
+  return { listener, order, product, data, msg };
 };
 
 it('updates the order status to cancelled', async () => {

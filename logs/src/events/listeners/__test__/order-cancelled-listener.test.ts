@@ -12,7 +12,7 @@ const setup = async () => {
   // Create a fake data event
   const data: OrderCancelledEvent['data'] = {
     id: new mongoose.Types.ObjectId().toHexString(),
-    ticket: {
+    product: {
       id: 'test',
     },
     version: 0
@@ -34,11 +34,11 @@ it('saves the event', async () => {
   // Call onMessage function with the data object + message object
   await listener.onMessage(data, msg);
 
-  // Assert a ticket was created
-  const tickets = await Event.find({});
+  // Assert a event was created
+  const events = await Event.find({});
 
-  expect(tickets).toHaveLength(1);
-  expect(tickets[0].event).toEqual('OrderCancelled');
+  expect(events).toHaveLength(1);
+  expect(events[0].event).toEqual('OrderCancelled');
 });
 
 it('acks the message', async () => {

@@ -14,6 +14,6 @@ it('returns a 301 on orders', async () => {
 it('returns a 301 on payments', async () => {
   await request(app).get('/docs/payments').send().expect(301);
 });
-it('returns a 301 on tickets', async () => {
-  await request(app).get('/docs/tickets').send().expect(301);
+it('returns a 301 on products', async () => {
+  await request(app).get('/docs/products').send().expect(301);
 });

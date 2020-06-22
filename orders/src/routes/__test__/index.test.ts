@@ -1,24 +1,24 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
-import { Ticket } from '../../models/ticket';
+import { Product } from '../../models/product';
 
-const buildTicket = async (title: string, price: number) => {
-  const ticket = Ticket.build({
+const buildProduct = async (title: string, price: number) => {
+  const product = Product.build({
     title,
     price,
     id: new mongoose.Types.ObjectId().toHexString(),
   });
-  await ticket.save();
+  await product.save();
 
-  return ticket;
+  return product;
 };
 
 it('fetches orders for a particular user', async () => {
-  // Create three tickets via the ticket model
-  const ticketOne = await buildTicket('First ticket', 10);
-  const ticketTwo = await buildTicket('Second ticket', 20);
-  const ticketThree = await buildTicket('Third ticket', 30);
+  // Create three products via the product model
+  const productOne = await buildProduct('First product', 10);
+  const productTwo = await buildProduct('Second product', 20);
+  const productThree = await buildProduct('Third product', 30);
 
   const userOne = global.signin();
   const userTwo = global.signin();
@@ -27,20 +27,20 @@ it('fetches orders for a particular user', async () => {
   await request(app)
     .post('/api/orders')
     .set('Cookie', userOne)
-    .send({ ticketId: ticketOne.id })
+    .send({ productId: productOne.id })
     .expect(201);
 
   // Create two orders as User #2
   const { body: orderOne } = await request(app)
     .post('/api/orders')
     .set('Cookie', userTwo)
-    .send({ ticketId: ticketTwo.id })
+    .send({ productId: productTwo.id })
     .expect(201);
 
   const { body: orderTwo } = await request(app)
     .post('/api/orders')
     .set('Cookie', userTwo)
-    .send({ ticketId: ticketThree.id })
+    .send({ productId: productThree.id })
     .expect(201);
 
   // Make request to get orders for User #2
@@ -54,6 +54,6 @@ it('fetches orders for a particular user', async () => {
   expect(response.body[0].id).toEqual(orderOne.id);
   expect(response.body[1].id).toEqual(orderTwo.id);
 
-  expect(response.body[0].ticket.id).toEqual(ticketTwo.id);
-  expect(response.body[1].ticket.id).toEqual(ticketThree.id);
+  expect(response.body[0].product.id).toEqual(productTwo.id);
+  expect(response.body[1].product.id).toEqual(productThree.id);
 });

@@ -14,8 +14,8 @@ router.get('/', async (req: Request, res: Response) => {
       '/orders/docs',
       '/payments',
       '/payments/docs',
-      '/tickets',
-      '/tickets/docs',
+      '/products',
+      '/products/docs',
     ],
   });
 });
