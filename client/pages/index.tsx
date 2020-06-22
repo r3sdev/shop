@@ -3,6 +3,8 @@ import Link from 'next/link';
 
 const LandingPage = ({ currentUser, products }) => {
 
+  const hasProducts = products.length > 0;
+
   const productList = products.map(product => {
     return (
       <tr key={product.id}>
@@ -22,24 +24,28 @@ const LandingPage = ({ currentUser, products }) => {
   return (
     <div>
       <h1>Products</h1>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          {productList}
-        </tbody>
-      </table>
+      {
+        !hasProducts
+          ? <p>No products available</p>
+          : <table className="table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              {productList}
+            </tbody>
+          </table>
+      }
     </div>
   )
 };
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await client.get('/api/product');
+  const { data } = await client.get('/api/products');
 
   return { products: data };
 };
