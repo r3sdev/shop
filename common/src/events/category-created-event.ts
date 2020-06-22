@@ -5,7 +5,7 @@ export interface CategoryCreatedEvent {
   data: {
     id: string;
     name: string;
-    image: string;
     description: string;
+    imageUrl: string;
   };
 }

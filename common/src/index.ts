@@ -15,6 +15,8 @@ export * from './events/base-publisher';
 export * from './events/types/subjects';
 export * from './events/product-created-event';
 export * from './events/product-updated-event';
+export * from './events/category-created-event';
+export * from './events/category-updated-event';
 export * from './events/order-cancelled-event';
 export * from './events/order-create-event';
 export * from './events/expiration-complete-event';

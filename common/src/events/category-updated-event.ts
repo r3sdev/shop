@@ -1,12 +1,12 @@
 import { Subjects } from './types/subjects';
 
-export interface ProductUpdatedEvent {
+export interface CategoryUpdatedEvent {
   subject: Subjects.CategoryUpdated;
   data: {
     id: string;
     version: number;
-    name: string;
-    image: string;
+    title: string;
     description: string;
+    imageUrl: string;
   };
 }
