@@ -1,6 +1,8 @@
 export enum Subjects {
   ProductCreated = 'product:created',
   ProductUpdated = 'product:updated',
+  CategoryCreated = 'category:created',
+  CategoryUpdated = 'category:updated',
   OrderCreated = 'order:created',
   OrderCancelled = 'order:cancelled',
   ExpirationComplete = 'expiration:complete',

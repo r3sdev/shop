@@ -1,0 +1,48 @@
+{
+  "name": "categories",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tcd1980/shop.git",
+  "author": "Ramsy de Vos <ramsy@ramsy.it>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node-dev --poll src/index.ts",
+    "test": "jest --watchAll --no-cache",
+    "test:ci": "jest"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "setupFilesAfterEnv": [
+      "./src/test/setup.ts"
+    ]
+  },
+  "dependencies": {
+    "@ramsy-dev/microservices-shop-common": ">= 1.0.38",
+    "@types/cookie-session": "^2.0.39",
+    "@types/express": "^4.17.6",
+    "@types/helmet": "^0.0.46",
+    "@types/jsonwebtoken": "^8.3.9",
+    "@types/mongoose": "^5.7.14",
+    "@types/request-ip": "^0.0.35",
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "express-validator": "^6.4.1",
+    "helmet": "^3.22.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.11",
+    "mongoose-update-if-current": "^1.4.0",
+    "request-ip": "^2.1.3",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.8.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "@types/supertest": "^2.0.9",
+    "jest": "25.5.4",
+    "mongodb-memory-server": "^6.5.2",
+    "supertest": "^4.0.2",
+    "ts-jest": "^25.4.0"
+  }
+}

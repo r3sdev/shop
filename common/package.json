@@ -1,6 +1,6 @@
 {
   "name": "@ramsy-dev/microservices-shop-common",
-  "version": "1.0.35",
+  "version": "1.0.38",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "files": [
@@ -12,7 +12,7 @@
   "scripts": {
     "clean": "del ./build/*",
     "build": "yarn clean && tsc",
-    "pub": "npm version patch && git add . -A && git commit -m \"Updates\" && npm run build && npm publish --access public"
+    "pub": "npm version patch && git add . -A && git commit -m \"Updates\" && npm run build"
   },
   "devDependencies": {
     "del-cli": "^3.0.0",

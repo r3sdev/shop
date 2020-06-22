@@ -8,6 +8,7 @@ export * from './errors/request-validation-error';
 export * from './middlewares/current-user';
 export * from './middlewares/error-handler';
 export * from './middlewares/require-auth';
+export * from './middlewares/require-admin';
 export * from './middlewares/validate-request';
 
 export * from './events/base-listener';
@@ -15,6 +16,8 @@ export * from './events/base-publisher';
 export * from './events/types/subjects';
 export * from './events/product-created-event';
 export * from './events/product-updated-event';
+export * from './events/category-created-event';
+export * from './events/category-updated-event';
 export * from './events/order-cancelled-event';
 export * from './events/order-create-event';
 export * from './events/expiration-complete-event';

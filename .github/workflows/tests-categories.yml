@@ -1,0 +1,13 @@
+name: tests-categories
+
+on:
+  pull_request:
+    paths:
+      - 'categories/**'
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd categories && yarn install && yarn run test:ci
