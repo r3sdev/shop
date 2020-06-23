@@ -11,6 +11,7 @@ export function setCookie(user: UserDoc, req: Request) {
     {
       id: user.id,
       email: user.email,
+      isAdmin: user.isAdmin
     },
     process.env.JWT_KEY!,
   );
