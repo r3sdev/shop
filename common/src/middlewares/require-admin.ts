@@ -7,23 +7,23 @@ export const requireAdmin = async (
   res: Response,
   next: NextFunction,
 ) => {
+  if (!req.currentUser) {
+    throw new NotAuthorizedError();
+  }
+
   const client = axios.create({
     baseURL: 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
     headers: req.headers,
   });
 
-  if (req.currentUser) {
-    const user = await client.get('/api/users/currentuser', {
+  const { data: user } = await client.get<{ isAdmin?: boolean }>(
+    '/api/users/currentuser',
+    {
       withCredentials: true,
-    });
-    console.log('requireAdmin', user);
-  } else {
-    console.log('requireAdmin', 'No user found');
-  }
+    },
+  );
 
-  console.debug('requireAdmin', req.currentUser);
-
-  if (!req.currentUser?.isAdmin) {
+  if (!user.isAdmin) {
     throw new NotAuthorizedError();
   }
 
