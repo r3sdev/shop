@@ -34,7 +34,7 @@ it('returns a status other than 401 if the user is signed in', async () => {
 it('returns an error if an invalid title is provided', async () => {
   await request(app)
     .post('/api/categories')
-    .set('Cookie', global.signin())
+    .set('Cookie', global.signin({isAdmin: true}))
     .send({
       title: '',
     })
