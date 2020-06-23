@@ -4,9 +4,9 @@ import crypto from 'crypto';
 import useRequest from '../../hooks/use-request';
 import PhoneInput from 'react-phone-number-input'
 
-export default ({ currentUser }) => {
+const Profile = ({ currentUser }) => {
 
-  const [twoFactAuthEnabled, setTwoFactAuthEnabled] = React.useState(currentUser.twoFactorAuthEnabled)
+  const [twoFactAuthEnabled, setTwoFactAuthEnabled] = React.useState(currentUser?.twoFactorAuthEnabled)
   const [isHoveringDisable2fa, setHoveredDisable2fa] = React.useState(false)
   const [isHoveringRemoveBackup, setHoveredRemoveBackup] = React.useState(false)
   const [image, setImage] = React.useState(null);
@@ -14,10 +14,10 @@ export default ({ currentUser }) => {
   const [phoneNumber, setPhoneNumber] = React.useState('');
   const [phoneNumberToken, setPhoneNumberToken] = React.useState('');
   const [showVerification, setShowVerification] = React.useState(false);
-  const [backupEnabled, setBackupEnabled] = React.useState(!!currentUser.phoneNumberVerified);
+  const [backupEnabled, setBackupEnabled] = React.useState(!!currentUser?.phoneNumberVerified);
 
 
-  const md5Email = crypto.createHash('md5').update(currentUser.email).digest("hex");
+  const md5Email = crypto.createHash('md5').update(currentUser?.email).digest("hex");
 
   /**
    * Request 2FA code
@@ -133,6 +133,125 @@ export default ({ currentUser }) => {
     removeBackupMethod()
   }
 
+  const show2FAButton = () => {
+    return twoFactAuthEnabled
+      ? (
+        <button className={isHoveringDisable2fa ? "btn btn-danger" : "btn btn-outline-success"}
+          onMouseEnter={() => setHoveredDisable2fa(true)}
+          onMouseLeave={() => setHoveredDisable2fa(false)}
+          onClick={onEnable2FA}
+        >
+          {
+            isHoveringDisable2fa
+              ? "Disable Two-factor Authentication"
+              : "Two-factor Authentication Enabled"
+          }
+        </button>
+      )
+      : (
+        <React.Fragment>
+          {enable2FAErrors}
+          <button className="btn btn-success" onClick={onEnable2FA}
+            disabled={image && !userToken}
+          >
+            Enable Two-factor Authentication
+          </button>
+        </React.Fragment>
+      )
+  }
+
+  const showQRCode = () => {
+    return image && (
+      <div>
+        <img src={image} />
+        <input
+          className="form-control mt-1 mb-3"
+          type="text"
+          placeholder="Enter auth token"
+          onChange={e => setUserToken(e.target.value)}
+        />
+      </div>
+    )
+  }
+
+  const showDisableBackupMethod = () => {
+    return (
+      <div className="form-group">
+        {removeBackupMethodErrors}
+        <button className={isHoveringRemoveBackup ? "btn btn-danger" : "btn btn-outline-success"}
+          onClick={onDisableBackupMethod}
+          onMouseEnter={() => setHoveredRemoveBackup(true)}
+          onMouseLeave={() => setHoveredRemoveBackup(false)}
+        >
+          {
+            isHoveringRemoveBackup
+              ? "Remove Backup Method"
+              : "Backup Method Enabled"
+          }
+        </button>
+      </div>
+    )
+  }
+
+  const showVerificationInput = () => {
+    return (
+      <div>
+        <div className="form-group">
+          <label htmlFor="verification-code">
+            Verification code
+          </label>
+          <input
+            type="verification-code"
+            className="form-control"
+            id="verification-code"
+            placeholder="Verification code"
+            autoComplete="verification-code"
+            value={phoneNumberToken}
+            onChange={e => setPhoneNumberToken(e.target.value)}
+            onBlur={e => setPhoneNumberToken(e.target.value.trim())}
+          />
+        </div>
+        <div className="form-group">
+          {addBackupMethodErrors}
+          <button
+            className="btn btn-success"
+            onClick={onAddBackupMethod}
+            disabled={phoneNumberToken.length === 0}
+          >
+            Add backup method
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  const showVerifyPhoneNumber = () => {
+    return (
+      <div>
+        <div className="form-group">
+          <label htmlFor="phone-number">Backup Method</label>
+
+          <PhoneInput
+            defaultCountry='NL'
+            placeholder="Enter phone number"
+            value={phoneNumber}
+            onChange={setPhoneNumber}
+          />
+        </div>
+        <div className="form-group">
+          {requestPhoneValidationTokenErrors}
+          <button
+            className="btn btn-success"
+            onClick={onVerifyPhoneNumber}
+            disabled={phoneNumber?.length === 0}
+          >
+            Verify phone number
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
       <div className="card">
@@ -200,103 +319,23 @@ export default ({ currentUser }) => {
                 <div style={{ padding: '25px 5px' }}>
                   <form>
                     <div className="form-group">
-                      {get2FACodeErrors}
-                      {disable2FAErrors}
-                      {
-                        twoFactAuthEnabled
-                          ? (
-                            <button className={isHoveringDisable2fa ? "btn btn-danger" : "btn btn-outline-success"}
-                              onMouseEnter={() => setHoveredDisable2fa(true)}
-                              onMouseLeave={() => setHoveredDisable2fa(false)}
-                              onClick={onEnable2FA}
-                            >
-                              {
-                                isHoveringDisable2fa
-                                  ? "Disable Two-factor Authentication"
-                                  : "Two-factor Authentication Enabled"
-                              }
-                            </button>
-                          )
-                          : (
-                            <button className="btn btn-success" onClick={onEnable2FA}>
-                              Enable Two-factor Authentication
-                            </button>
-                          )
-                      }
+                      <label htmlFor="two-factor-authentication">Two-Factor Authentication</label>
+                      <div>
+                        {get2FACodeErrors}
+                        {disable2FAErrors}
+                        {showQRCode()}
+                        {show2FAButton()}
+                      </div>
                     </div>
-                    {
-                      image && (
-                        <div>
-                          {enable2FAErrors}
-
-                          <img src={image} />
-                          <input
-                            type="text" placeholder="Enter auth token"
-                            onChange={e => setUserToken(e.target.value)}
-                          />
-                        </div>
-                      )
-                    }
-
+                    <hr />
                     {
                       backupEnabled
                         ?
-                        <div className="form-group">
-                          {removeBackupMethodErrors}
-                          <button className={isHoveringRemoveBackup ? "btn btn-danger" : "btn btn-outline-success"}
-                            onClick={onDisableBackupMethod}
-                            onMouseEnter={() => setHoveredRemoveBackup(true)}
-                            onMouseLeave={() => setHoveredRemoveBackup(false)}
-                          >
-                            {
-                              isHoveringRemoveBackup
-                                ? "Remove Backup Method"
-                                : "Backup Method Enabled"
-                            }
-                          </button>
-                        </div>
+                        showDisableBackupMethod()
                         :
                         showVerification
-                          ? (
-                            <div>
-                              <div className="form-group">
-                                <label htmlFor="verification-code">Verification code</label>
-                                <input type="verification-code" className="form-control" id="verification-code"
-                                  placeholder="Verification code" autoComplete="verification-code"
-                                  value={phoneNumberToken}
-                                  onChange={e => setPhoneNumberToken(e.target.value)}
-                                  onBlur={e => setPhoneNumberToken(e.target.value.trim())}
-                                />
-                              </div>
-                              <div className="form-group">
-                                {addBackupMethodErrors}
-                                <button className="btn btn-success" onClick={onAddBackupMethod}
-                                  disabled={phoneNumberToken.length === 0}>
-                                  Add backup method
-                          </button>
-                              </div>
-                            </div>
-                          )
-                          : (
-                            <div>
-                              <div className="form-group">
-                                <label htmlFor="phone-number">Backup Method</label>
-
-                                <PhoneInput
-                                  defaultCountry='NL'
-                                  placeholder="Enter phone number"
-                                  value={phoneNumber}
-                                  onChange={setPhoneNumber}
-                                />
-                              </div>
-                              <div className="form-group">
-                                {requestPhoneValidationTokenErrors}
-                                <button className="btn btn-success" onClick={onVerifyPhoneNumber} disabled={phoneNumber?.length === 0}>
-                                  Verify phone number
-                          </button>
-                              </div>
-                            </div>
-                          )
+                          ? showVerificationInput()
+                          : showVerifyPhoneNumber()
                     }
                   </form>
 
@@ -314,3 +353,17 @@ export default ({ currentUser }) => {
     </div>
   )
 }
+
+Profile.getInitialProps = async (context, client, currentUser) => {
+  const { res } = context;
+
+  if (res && !currentUser) {
+    res.writeHead(301, {
+      Location: '/auth/signin'
+    });
+    res.end();
+  }
+  return {};
+}
+
+export default Profile;

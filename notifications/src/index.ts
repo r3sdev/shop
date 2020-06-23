@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import { natsWrapper } from './nats-wrapper';
 import { ForgetPasswordListener } from './events/listeners/forget-password-listener';
 import { UserSignedUpListener } from './events/listeners/signed-up-listener';
-import {VerifyPhoneNumberListener} from './events/listeners/verify-phone-number-listener';
+import { VerifyPhoneNumberListener } from './events/listeners/verify-phone-number-listener';
 
 if (!process.env.SMTP_HOST) {
   throw new Error('SMTP_HOST must be defined');
