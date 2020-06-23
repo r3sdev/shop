@@ -11,6 +11,7 @@ export default ({ currentUser }) => {
     currentUser && { label: 'Sell Products', href: '/products/new' },
     currentUser && { label: 'My Orders', href: '/orders' },
     currentUser && { label: 'Profile', href: '/profile' },
+    currentUser?.isAdmin && { label: 'Categories', href: '/categories' },
     currentUser?.isAdmin && { label: 'Admin', href: '/admin' },
     currentUser && { label: 'Sign Out', href: '/auth/signout' },
   ]
