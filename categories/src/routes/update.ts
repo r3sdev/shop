@@ -1,9 +1,9 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
 import {
   validateRequest,
   NotFoundError,
-  requireAdmin,
+  requireAuth,
 } from '@ramsy-dev/microservices-shop-common';
 import { Category } from '../models/category';
 import { CategoryUpdatedPublisher } from '../events/publishers/category-updated-publisher';
@@ -13,9 +13,10 @@ const router = express.Router();
 
 router.put(
   '/api/categories/:id',
+  (req: Request, res: Response, next: NextFunction) =>
+    requireAuth(req, res, next, {withAdmin: true}),
   [body('title').not().isEmpty().withMessage('Title is required')],
   validateRequest,
-  requireAdmin,
   async (req: Request, res: Response) => {
     const category = await Category.findById(req.params.id);
 
