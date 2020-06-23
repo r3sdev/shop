@@ -20,6 +20,12 @@ const EditCategory = ({ category }) => {
     doRequest();
   }
 
+  const onGoBack = (event: React.MouseEvent) => {
+    event.preventDefault()
+    Router.push('/categories')
+  }
+
+
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
       <div className="card">
@@ -61,6 +67,9 @@ const EditCategory = ({ category }) => {
               />
             </div>
             {errors}
+            <button className="btn btn-link" onClick={onGoBack}>
+              Go back
+            </button>
             <button className="btn btn-primary">
               Edit
             </button>

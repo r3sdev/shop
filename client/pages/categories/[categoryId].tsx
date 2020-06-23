@@ -24,7 +24,7 @@ const CategoryShow = ({ category, currentUser }) => {
           </div>
           <button className="btn btn-primary" onClick={onGoBack}>
             Go back
-      </button>
+          </button>
 
         </div>
       </div>

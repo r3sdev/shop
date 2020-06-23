@@ -1,53 +1,44 @@
 import React from 'react';
 import Link from 'next/link';
 
-const LandingPage = ({ currentUser, products }) => {
+const LandingPage = ({ currentUser, categories }) => {
 
-  const hasProducts = products.length > 0;
+  const hasCategories = categories.length > 0;
 
-  const productList = products.map(product => {
+  const categoryList = categories.map(category => {
     return (
-      <tr key={product.id}>
-        <td>{product.title}</td>
-        <td>{product.price}</td>
-        <td>
-          <Link href={'/products/[productId]'} as={`/products/${product.id}`}>
-            <a>
-              view
-            </a>
-          </Link>
-        </td>
-      </tr>
+      <div className="card" style={{ width: '18rem' }}>
+        <img className="card-img-top" src={category.imageUrl} alt={category.title} />
+        <div className="card-body">
+          <h3>{category.title}</h3>
+          <p className="card-text">
+            {category.description}
+          </p>
+        </div>
+      </div>
     )
   })
 
   return (
     <div>
-      <h1>Products</h1>
+      <h1>Categories</h1>
       {
-        !hasProducts
+        !hasCategories
           ? <p>No products available</p>
-          : <table className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Link</th>
-              </tr>
-            </thead>
-            <tbody>
-              {productList}
-            </tbody>
-          </table>
+          : (
+            <div className="card-columns">
+              {categoryList}
+            </div>
+          )
       }
     </div>
   )
 };
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await client.get('/api/products');
+  const { data } = await client.get('/api/categories');
 
-  return { products: data };
+  return { categories: data };
 };
 
 export default LandingPage;
