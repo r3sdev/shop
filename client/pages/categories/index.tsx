@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Error404 from '../404';
 
 const CategoryIndex = ({ currentUser, categories }) => {
 
@@ -46,7 +45,7 @@ const CategoryIndex = ({ currentUser, categories }) => {
               <Link href={'/categories/new'}>
                 <a className="btn btn-primary mb-5">
                   Add new category
-        </a>
+                </a>
               </Link>
             )
           }
