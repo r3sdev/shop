@@ -20,41 +20,56 @@ const CategoryIndex = ({ currentUser, categories }) => {
               view
             </a>
           </Link>
+          {
+            isAdmin && (
+              <Link href={'/categories/[categoryId]/edit'} as={`/categories/${category.id}/edit`}>
+                <a className="btn btn-outline-primary btn-sm">
+                  edit
+                </a>
+              </Link>
+            )
+          }
         </td>
       </tr>
     )
   })
 
   return (
-    <div>
-      <h1>Categories</h1>
-      {
-        isAdmin && (
-          <Link href={'/categories/new'}>
-            <a className="btn btn-primary mb-5">
-              Add new category
-        </a>
-          </Link>
-        )
-      }
+    <div className="col-12">
+      <div className="card">
+        <div className="card-body">
 
-      {
-        !hasCategories
-          ? <p>No categories available</p>
-          : <table className="table">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Image</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {categoryList}
-            </tbody>
-          </table>
-      }
+
+          <h1>Categories</h1>
+          {
+            isAdmin && (
+              <Link href={'/categories/new'}>
+                <a className="btn btn-primary mb-5">
+                  Add new category
+        </a>
+              </Link>
+            )
+          }
+
+          {
+            !hasCategories
+              ? <p>No categories available</p>
+              : <table className="table">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {categoryList}
+                </tbody>
+              </table>
+          }
+        </div>
+      </div>
     </div>
   )
 };
