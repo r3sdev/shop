@@ -2,11 +2,11 @@ import { Request, Response, NextFunction } from 'express';
 import axios from 'axios';
 import { NotAuthorizedError } from '../errors/not-authorized-error';
 
-export const requireAdmin = async (
+export async function requireAdmin(
   req: Request,
   res: Response,
   next: NextFunction,
-) => {
+) {
   if (!req.currentUser) {
     throw new NotAuthorizedError();
   }
@@ -18,14 +18,14 @@ export const requireAdmin = async (
 
   const { data: user } = await client.get<{ isAdmin?: boolean }>(
     '/api/users/currentuser',
-    {
-      withCredentials: true,
-    },
+    { withCredentials: true },
   );
 
-  if (!user.isAdmin) {
+  console.log('requireAdmin', user);
+  
+  if (!user || !user.isAdmin) {
     throw new NotAuthorizedError();
   }
 
   next();
-};
+}
