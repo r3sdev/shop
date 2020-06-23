@@ -15,7 +15,11 @@ const CategoryShow = ({ category, currentUser }) => {
             {
               !category.imageUrl
                 ? <p>No image set</p>
-                : <img src={category.imageUrl} className="img-responsive" alt={category.imageUrl} />
+                : <img
+                  src={category.imageUrl}
+                  className="col-6 rounded mx-auto d-block"
+                  alt={category.imageUrl}
+                />
             }
           </div>
           <button className="btn btn-primary" onClick={onGoBack}>
