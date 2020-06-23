@@ -50,7 +50,7 @@ const start = async () => {
   }
 
   app.listen(3000, () => {
-    console.log('Products Service is listening on port 3000');
+    console.log('Categories Service is listening on port 3000');
   });
 };
 

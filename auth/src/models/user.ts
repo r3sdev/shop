@@ -29,6 +29,7 @@ export interface UserDoc extends mongoose.Document {
   emailToken?: string;
   emailVerifiedAt?: Date;
   fullName: string;
+  isAdmin: boolean;
   password: string;
   phoneNumber?: string;
   phoneNumberToken?: string;
