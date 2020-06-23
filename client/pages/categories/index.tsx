@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { ButtonToolbar } from 'react-bootstrap';
 
 const CategoryIndex = ({ currentUser, categories }) => {
 
@@ -14,61 +15,59 @@ const CategoryIndex = ({ currentUser, categories }) => {
         <td>{category.description}</td>
         <td>{category.image}</td>
         <td>
-          <Link href={'/categories/[categoryId]'} as={`/categories/${category.id}`}>
-            <a className="btn btn-outline-primary btn-sm">
-              view
-            </a>
-          </Link>
-          {
-            isAdmin && (
-              <Link href={'/categories/[categoryId]/edit'} as={`/categories/${category.id}/edit`}>
-                <a className="btn btn-outline-primary btn-sm">
-                  edit
-                </a>
-              </Link>
-            )
-          }
+          <ButtonToolbar>
+            <Link href={'/categories/[categoryId]'} as={`/categories/${category.id}`}>
+              <button className="btn btn-outline-primary btn-sm">
+                view
+            </button>
+            </Link>
+            {
+              isAdmin && (
+                <Link href={'/categories/[categoryId]/edit'} as={`/categories/${category.id}/edit`}>
+                  <button className="btn btn-outline-primary btn-sm">
+                    edit
+                </button>
+                </Link>
+              )
+            }
+          </ButtonToolbar>
         </td>
       </tr>
     )
   })
 
   return (
-    <div className="col-12">
-      <div className="card">
-        <div className="card-body">
+    <div className="col-xs-12 col-md-12">
 
 
-          <h1>Categories</h1>
-          {
-            isAdmin && (
-              <Link href={'/categories/new'}>
-                <a className="btn btn-primary mb-5">
-                  Add new category
+      <h1>Categories</h1>
+      {
+        isAdmin && (
+          <Link href={'/categories/new'}>
+            <a className="btn btn-primary mb-5">
+              Add new category
                 </a>
-              </Link>
-            )
-          }
+          </Link>
+        )
+      }
 
-          {
-            !hasCategories
-              ? <p>No categories available</p>
-              : <table className="table">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Image</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {categoryList}
-                </tbody>
-              </table>
-          }
-        </div>
-      </div>
+      {
+        !hasCategories
+          ? <p>No categories available</p>
+          : <table className="table table-bordered">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {categoryList}
+            </tbody>
+          </table>
+      }
     </div>
   )
 };
