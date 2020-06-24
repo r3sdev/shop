@@ -1,6 +1,10 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
-import { requireAuth, validateRequest, BadRequestError } from '@ramsy-dev/microservices-shop-common';
+import {
+  requireAuth,
+  validateRequest,
+  BadRequestError,
+} from '@ramsy-dev/microservices-shop-common';
 import { Product } from '../models/product';
 import { ProductCreatedPublisher } from '../events/publishers/product-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
@@ -9,7 +13,8 @@ const router = express.Router();
 
 router.post(
   '/api/products',
-  requireAuth,
+  (req: Request, res: Response, next: NextFunction) =>
+    requireAuth(req, res, next),
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
@@ -26,7 +31,11 @@ router.post(
       throw new BadRequestError('Product with same title already exists');
     }
 
-    const product = Product.build({ title, price, userId: req.currentUser!.id });
+    const product = Product.build({
+      title,
+      price,
+      userId: req.currentUser!.id,
+    });
     await product.save();
 
     /**

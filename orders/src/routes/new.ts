@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import {
   requireAuth,
   validateRequest,
@@ -24,7 +24,8 @@ const EXPIRATION_WINDOW_IN_MINUTES = Number(process.env.EXPIRATION_WINDOW_IN_MIN
 
 router.post(
   '/api/orders',
-  requireAuth,
+  (req: Request, res: Response, next: NextFunction) =>
+    requireAuth(req, res, next),
   [
     body('productId')
       .not()
@@ -61,7 +62,7 @@ router.post(
     // Calculate an expiration date for this order
     const expiration = new Date();
     expiration.setSeconds(
-      expiration.getSeconds() + (EXPIRATION_WINDOW_IN_MINUTES * 60),
+      expiration.getSeconds() + EXPIRATION_WINDOW_IN_MINUTES * 60,
     );
 
     // Build the order and save it to the database

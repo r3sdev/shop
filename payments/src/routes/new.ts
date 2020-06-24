@@ -18,7 +18,8 @@ const router = express.Router();
 
 router.post(
   '/api/payments',
-  requireAuth,
+  (req: Request, res: Response, next: NextFunction) =>
+    requireAuth(req, res, next),
   [body('token').not().isEmpty(), body('orderId').not().isEmpty()],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -28,25 +29,25 @@ router.post(
 
     // Make sure the order exists
     if (!order) {
-      throw new NotFoundError()
+      throw new NotFoundError();
     }
 
     // Make sure we are the owner
     if (order.userId !== req.currentUser!.id) {
-      throw new NotAuthorizedError()
+      throw new NotAuthorizedError();
     }
 
     // Make sure the order is not cancelled
     if (order.status === OrderStatus.Cancelled) {
-      throw new BadRequestError('Cannot pay for a cancelled order')
+      throw new BadRequestError('Cannot pay for a cancelled order');
     }
 
     const charge = await stripe.charges.create({
       amount: order.price * 100, // Stripe works uses cents
       currency: 'eur',
       source: token, // tok_visa
-      description: order.id
-    })
+      description: order.id,
+    });
 
     const payment = Payment.build({
       stripeId: charge.id,
@@ -58,8 +59,8 @@ router.post(
     await new PaymentCreatedPublisher(natsWrapper.client).publish({
       id: payment.id,
       orderId: payment.orderId,
-      stripeId: payment.stripeId
-    })
+      stripeId: payment.stripeId,
+    });
 
     res.status(201).send({ id: payment.id });
   },

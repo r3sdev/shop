@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { body } from 'express-validator';
 import {
   validateRequest,
@@ -15,6 +15,8 @@ const router = express.Router();
 
 router.put(
   '/api/products/:id',
+  (req: Request, res: Response, next: NextFunction) =>
+    requireAuth(req, res, next),
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
@@ -22,7 +24,6 @@ router.put(
       .withMessage('Price is required and must be greater than 0'),
   ],
   validateRequest,
-  requireAuth,
   async (req: Request, res: Response) => {
     const product = await Product.findById(req.params.id);
 
@@ -30,12 +31,12 @@ router.put(
       throw new NotFoundError();
     }
 
-    if (product.orderId) {
-      throw new BadRequestError('Cannot edit a reserved product');
+    if (product.userId !== req.currentUser?.id) {
+      throw new NotAuthorizedError();
     }
 
-    if (product.userId !== req.currentUser!.id) {
-      throw new NotAuthorizedError();
+    if (product.orderId) {
+      throw new BadRequestError('Cannot edit a reserved product');
     }
 
     product.set({
