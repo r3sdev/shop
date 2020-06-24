@@ -4,7 +4,7 @@ const OrderIndex = ({ orders }) => {
   const hasNoOrders = orders.length === 0;
 
   const myOrders = hasNoOrders
-    ? <li>No orders have been placed yet</li>
+    ? <li>You have not placed any orders</li>
     : orders.map(order => (
       <li key={order.id}>
         {order.product.title} ({order.status})
