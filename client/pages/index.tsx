@@ -1,19 +1,25 @@
 import React from 'react';
-import Link from 'next/link';
+import Router from 'next/router';
 
 const LandingPage = ({ currentUser, categories }) => {
 
   const hasCategories = categories.length > 0;
 
+  const onSelectCategory = (category) => {
+    Router.push(`/categories/${category.id}/products`)
+  }
+
   const categoryList = categories.map(category => {
     return (
-      <div className="card" style={{ width: '18rem' }}>
-        <img className="card-img-top" src={category.imageUrl} alt={category.title} />
-        <div className="card-body">
-          <h3>{category.title}</h3>
-          <p className="card-text">
-            {category.description}
-          </p>
+      <div className="col-md-4 mb-5" key={category.id}>
+        <div className="card" onClick={() => onSelectCategory(category)}>
+          <img className="card-img-top" src={category.imageUrl} alt={category.title} />
+          <div className="card-body">
+            <h4>{category.title}</h4>
+            <p className="card-text">
+              {category.description}
+            </p>
+          </div>
         </div>
       </div>
     )
@@ -26,7 +32,7 @@ const LandingPage = ({ currentUser, categories }) => {
         !hasCategories
           ? <p>No products available</p>
           : (
-            <div className="card-columns">
+            <div className="card-deck">
               {categoryList}
             </div>
           )

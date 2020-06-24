@@ -1,11 +1,11 @@
 import express, { Response, Request } from 'express';
 import { body } from 'express-validator';
 import { validateRequest, BadRequestError } from '@ramsy-dev/microservices-shop-common';
-import { natsWrapper } from '../nats-wrapper';
 
 import { Password } from '../services/password';
 import { User } from '../models/user';
 import { setCookie } from '../services/set-cookie';
+import updateTrackableFields from '../services/update-trackable-fields';
 
 const router = express.Router();
 
@@ -42,8 +42,11 @@ router.post(
       setCookie(existingUser, req);
     }
 
+    const user = await updateTrackableFields(existingUser);
 
-    res.status(201).send(existingUser);
+    console.log({user})
+
+    res.status(201).send(user);
   },
 );
 

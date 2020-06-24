@@ -11,7 +11,7 @@ const NewProduct = () => {
     url: '/api/products',
     method: 'post',
     body: { title, price },
-    onSuccess: () => Router.push('/')
+    onSuccess: () => Router.push('/products')
   });
 
   const onSubmit = (event) => {
