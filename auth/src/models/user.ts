@@ -38,69 +38,99 @@ export interface UserDoc extends mongoose.Document {
   resetPasswordTokenExpires?: Date;
   twoFactorAuthEnabled?: boolean;
   twoFactorAuthSecret?: string;
+
+  signInCount: number;
+  currentSignInAt: Date;
+  lastSignInAt: Date;
+  currentSignInIP: string;
+  lastSignInIP: string;
 }
 
-const userSchema = new mongoose.Schema({
-  backupToken: {
-    type: String
+const userSchema = new mongoose.Schema(
+  {
+    backupToken: {
+      type: String,
+    },
+    email: {
+      required: true,
+      type: String,
+    },
+    emailToken: {
+      type: String,
+    },
+    emailVerifiedAt: {
+      type: Date,
+    },
+    fullName: {
+      required: true,
+      type: String,
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    password: {
+      required: true,
+      type: String,
+    },
+    phoneNumber: {
+      type: String,
+    },
+    phoneNumberToken: {
+      type: String,
+    },
+    phoneNumberVerifiedAt: {
+      type: Date,
+    },
+    registeredAt: {
+      type: Date,
+      default: new Date(),
+    },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordTokenExpires: {
+      type: Date,
+    },
+    twoFactorAuthEnabled: {
+      default: false,
+      type: Boolean,
+    },
+    twoFactorAuthSecret: {
+      type: String,
+    },
+    // Increased every time a sign in is made (by form, openid, oauth)
+    signInCount: {
+      type: Number,
+      default: 0,
+    },
+    // A timestamp updated when the user signs in
+    currentSignInAt: {
+      type: Date,
+    },
+    // Holds the timestamp of the previous sign in
+    lastSignInAt: {
+      type: Date,
+    },
+    // The remote ip updated when the user sign in
+    currentSignInIP: {
+      type: String,
+    },
+    // Holds the remote ip of the previous sign in
+    lastSignInIP: {
+      type: String,
+    },
   },
-  email: {
-    required: true,
-    type: String
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.password;
+      },
+    },
   },
-  emailToken: {
-    type: String
-  },
-  emailVerifiedAt: {
-    type: Date
-  },
-  fullName: {
-    required: true,
-    type: String
-  },
-  isAdmin: {
-    type: Boolean,
-    default: false
-  },
-  password: {
-    required: true,
-    type: String
-  },
-  phoneNumber: {
-    type: String
-  },
-  phoneNumberToken: {
-    type: String
-  },
-  phoneNumberVerifiedAt: {
-    type: Date
-  },
-  registeredAt: {
-    type: Date,
-    default: new Date()
-  },
-  resetPasswordToken: {
-    type: String
-  },
-  resetPasswordTokenExpires: {
-    type: Date
-  },
-  twoFactorAuthEnabled: {
-    default: false,
-    type: Boolean
-  },
-  twoFactorAuthSecret: {
-    type: String
-  }
-}, {
-  toJSON: {
-    transform(doc, ret) {
-      ret.id = ret._id;
-      delete ret._id;
-      delete ret.password;
-    }
-  }
-});
+);
 
 userSchema.set('versionKey', 'version');
 
