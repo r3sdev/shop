@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import { requireAuth, NotFoundError, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import { Order } from '../models/order';
 
@@ -7,9 +7,9 @@ const router = express.Router();
 
 router.get(
   '/api/orders/:orderId',
-  requireAuth,
+  (req: Request, res: Response, next: NextFunction) =>
+    requireAuth(req, res, next),
   async (req: Request, res: Response) => {
-    
     if (!mongoose.Types.ObjectId.isValid(req.params.orderId)) {
       throw new BadRequestError('Invalid order ID passed');
     }

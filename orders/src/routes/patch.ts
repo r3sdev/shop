@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import {
   requireAuth,
   NotFoundError,
@@ -14,7 +14,8 @@ const router = express.Router();
 
 router.patch(
   '/api/orders/:orderId',
-  requireAuth,
+  (req: Request, res: Response, next: NextFunction) =>
+    requireAuth(req, res, next),
   async (req: Request, res: Response) => {
     const { orderId } = req.params;
 
