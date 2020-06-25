@@ -1,12 +1,14 @@
 import React from 'react';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 
 const LandingPage = ({ currentUser, categories }) => {
+
+  const router = useRouter()
 
   const hasCategories = categories.length > 0;
 
   const onSelectCategory = (category) => {
-    Router.push(`/categories/${category.id}/products`)
+    router.push(`/categories/${category.id}/products`)
   }
 
   const categoryList = categories.map(category => {
