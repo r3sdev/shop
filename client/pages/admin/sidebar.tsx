@@ -1,56 +1,92 @@
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faTachometerAlt, faUser, faTasks, faCalendar, faEnvelope, faQuestion, 
-  faAngleDoubleLeft, faCaretDown, faShoppingCart
+  faQuestion,faAngleDoubleLeft, faCaretDown, faShoppingCart, faListAlt, faShoppingBasket
 } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link'
+
+
+/**
+ * Note:
+ * 
+ * For a simpler version see: https://startbootstrap.com/templates/simple-sidebar/
+ */
 
 const AdminSidebar = () => {
+
+  const [collapsed, setCollapsed] = React.useState<string[]>(['categories', 'products'])
+
+  const isCollapsed = (item: string) => collapsed.includes(item)
+
+  const onCollapse = (item: string) => {
+    if (isCollapsed(item)) {
+      setCollapsed(prevState => prevState.filter(i => i !== item))
+    } else {
+      setCollapsed(prevState => [...prevState, item])
+    }
+  }
+
   return (
-    <div id="sidebar-container" className="sidebar-expanded d-none d-md-block col-2" style={{ zIndex: -1 }}>
+    <div id="sidebar-container" className="sidebar-expanded d-none d-md-block col-2">
       <ul className="list-group sticky-top sticky-offset">
         <li className="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-          <small>MAIN MENU</small>
+          <small>CATALOG</small>
         </li>
-        <a href="#submenu1" data-toggle="collapse" aria-expanded="false" className="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+
+        <a data-toggle="collapse" aria-expanded="false"
+          className="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+          onClick={() => onCollapse('categories')}
+        >
           <div className="d-flex w-100 justify-content-start align-items-center">
-            <FontAwesomeIcon icon={faTachometerAlt} fixedWidth={true} className="mr-3" />
-            <span className="menu-collapsed">Dashboard</span>
+            <FontAwesomeIcon icon={faListAlt} fixedWidth={true} className="mr-3" />
+            <span className="menu-collapsed">Categories</span>
             <FontAwesomeIcon icon={faCaretDown} fixedWidth={true} className="ml-auto" />
           </div>
         </a>
-        <div id="submenu1" className="collapse sidebar-submenu">
-          <a href="#" className="list-group-item list-group-item-action bg-dark text-white">
-            <span className="menu-collapsed">Charts</span>
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-dark text-white">
-            <span className="menu-collapsed">Reports</span>
-          </a>
-          <a href="#" className="list-group-item list-group-item-action bg-dark text-white">
-            <span className="menu-collapsed">Tables</span>
-          </a>
+        <div id="submenu2" className={isCollapsed('categories') ? "collapse sidebar-submenu" : "sidebar-submenu"}>
+          <Link href="/admin/categories">
+            <a className="list-group-item list-group-item-action bg-dark text-white">
+              <span className="menu-collapsed">View categories</span>
+            </a>
+          </Link>
+          <Link href="/admin/categories/add">
+            <a className="list-group-item list-group-item-action bg-dark text-white">
+              <span className="menu-collapsed">Add category</span>
+            </a>
+          </Link>
         </div>
-        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" className="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+
+        <a data-toggle="collapse" aria-expanded="false"
+          className="bg-dark list-group-item list-group-item-action flex-column align-items-start"
+          onClick={() => onCollapse('products')}
+        >
           <div className="d-flex w-100 justify-content-start align-items-center">
-            <FontAwesomeIcon icon={faUser} fixedWidth={true} className="mr-3" />
-            <span className="menu-collapsed">Profile</span>
+            <FontAwesomeIcon icon={faShoppingBasket} fixedWidth={true} className="mr-3" />
+            <span className="menu-collapsed">Products</span>
             <FontAwesomeIcon icon={faCaretDown} fixedWidth={true} className="ml-auto" />
           </div>
         </a>
-        <div id="submenu2" className="collapse sidebar-submenu">
-          <a href="#" className="list-group-item list-group-item-action bg-dark text-white">
-            <span className="menu-collapsed">Settings</span>
+        <div id="submenu1" className={isCollapsed('products') ? "collapse sidebar-submenu" : "sidebar-submenu"}>
+          <Link href="/admin/products">
+          <a className="list-group-item list-group-item-action bg-dark text-white">
+            <span className="menu-collapsed">View products</span>
           </a>
+          </Link>
+          <Link href="/admin/products/add">
           <a href="#" className="list-group-item list-group-item-action bg-dark text-white">
-            <span className="menu-collapsed">Password</span>
+            <span className="menu-collapsed">Add product</span>
           </a>
+          </Link>
         </div>
-        <a href="#" className="bg-dark list-group-item list-group-item-action">
+
+        {/* <a href="#" className="bg-dark list-group-item list-group-item-action">
           <div className="d-flex w-100 justify-content-start align-items-center">
             <FontAwesomeIcon icon={faTasks} fixedWidth={true} className="mr-3" />
             <span className="menu-collapsed">Tasks</span>
           </div>
-        </a>
-        <li className="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+        </a> */}
+
+        {/* <li className="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
           <small>OPTIONS</small>
         </li>
         <a href="#" className="bg-dark list-group-item list-group-item-action">
@@ -64,7 +100,10 @@ const AdminSidebar = () => {
             <FontAwesomeIcon icon={faEnvelope} fixedWidth={true} className="mr-3" />
             <span className="menu-collapsed">Messages <span className="badge badge-pill badge-primary ml-2">5</span></span>
           </div>
-        </a>
+        </a> */}
+
+
+        
         <li className="list-group-item sidebar-separator menu-collapsed"></li>
         <a href="#" className="bg-dark list-group-item list-group-item-action">
           <div className="d-flex w-100 justify-content-start align-items-center">
@@ -83,7 +122,7 @@ const AdminSidebar = () => {
           <FontAwesomeIcon
             icon={faShoppingCart}
             color="#808080"
-            style={{height: 30, width: 30}}
+            style={{ height: 30, width: 30 }}
           />
         </li>
       </ul>

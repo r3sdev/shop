@@ -8,7 +8,6 @@ const Admin = ({ currentUser }) => {
   }
 
   return (
-    <div>
       <div className="row" id="body-row">
         
         <Sidebar />
@@ -77,7 +76,6 @@ const Admin = ({ currentUser }) => {
         </div>
 
       </div>
-    </div>
   )
 }
 

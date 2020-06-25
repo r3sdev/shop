@@ -13,7 +13,9 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   const router = useRouter();
 
   const pathname = router.pathname;
-  const isAdminRoute = pathname.includes('admin');
+  const isAdminRoute = pathname.startsWith('/admin');
+
+  console.log({pathname, isAdminRoute})
 
   return (
     <div>
