@@ -1,8 +1,10 @@
 import React from 'react';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import useRequest from '../../../hooks/use-request';
 
 const ResetPassword = ({ resetPasswordToken, error }) => {
+
+  const router = useRouter();
 
   const [password, setPassword] = React.useState('');
   const [confirmation, setConfirmation] = React.useState('')
@@ -11,7 +13,7 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
     url: `/api/users/reset-password`,
     method: 'post',
     body: { resetPasswordToken, password, confirmation },
-    onSuccess: () => Router.push('/')
+    onSuccess: () => router.push('/')
   })
 
   const isDisabled = password.length === 0 || password !== confirmation
@@ -23,7 +25,7 @@ const ResetPassword = ({ resetPasswordToken, error }) => {
   }
 
   const onRequestPassword = () => {
-    Router.push('/auth/forgot-password')
+    router.push('/auth/forgot-password')
   }
 
   if (error === 'NotFound') {

@@ -1,5 +1,5 @@
 import React from 'react';
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import useRequest from '../../hooks/use-request';
 import Error404 from '../404';
 
@@ -8,6 +8,8 @@ const NewCategory = ({ currentUser }) => {
   if (!currentUser?.isAdmin) {
     return <Error404 />
   }
+
+  const router = useRouter();
 
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
@@ -18,7 +20,7 @@ const NewCategory = ({ currentUser }) => {
     url: '/api/categories',
     method: 'post',
     body: { title, description, imageUrl },
-    onSuccess: () => Router.push('/categories')
+    onSuccess: () => router.push('/categories')
   });
 
   const onSubmit = (event) => {

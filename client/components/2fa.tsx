@@ -1,15 +1,17 @@
 import React from 'react'
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import useRequest from '../hooks/use-request';
 
 export default ({ userId }) => {
   const [userToken, setUserToken] = React.useState('')
 
+  const router = useRouter();
+
   const { doRequest, errors } = useRequest({
     url: '/api/users/2fa/validate',
     method: 'post',
     body: { userId, userToken },
-    onSuccess: () => Router.push('/')
+    onSuccess: () => router.push('/')
   });
 
   const onSubmit = (event) => {

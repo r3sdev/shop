@@ -1,8 +1,10 @@
 import React from 'react';
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import useRequest from '../../hooks/use-request';
 
 const NewProduct = () => {
+
+  const router = useRouter();
 
   const [title, setTitle] = React.useState('');
   const [price, setPrice] = React.useState('');
@@ -11,7 +13,7 @@ const NewProduct = () => {
     url: '/api/products',
     method: 'post',
     body: { title, price },
-    onSuccess: () => Router.push('/products')
+    onSuccess: () => router.push('/products')
   });
 
   const onSubmit = (event) => {

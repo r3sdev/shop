@@ -1,8 +1,10 @@
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 
 const CategoryShow = ({ category, currentUser }) => {
 
-  const onGoBack = () => Router.push('/categories')
+  const router = useRouter();
+
+  const onGoBack = () => router.push('/categories')
 
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
