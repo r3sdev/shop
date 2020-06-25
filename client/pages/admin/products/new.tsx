@@ -1,8 +1,9 @@
 import React from 'react';
 import {useRouter} from 'next/router'
-import useRequest from '../../hooks/use-request';
+import useRequest from '../../../hooks/use-request';
+import WithSidebar from '../with-sidebar';
 
-const NewProduct = () => {
+const NewProduct = ({currentUser}) => {
 
   const router = useRouter();
 
@@ -33,6 +34,7 @@ const NewProduct = () => {
 
 
   return (
+    <WithSidebar currentUser={currentUser}>
     <div className="col-xs-12 offset-md-3 col-md-6">
       <div className="card">
         <div className="card-body">
@@ -65,6 +67,7 @@ const NewProduct = () => {
         </div>
       </div>
     </div>
+    </WithSidebar>
   )
 };
 

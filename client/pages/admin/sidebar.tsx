@@ -49,7 +49,7 @@ const AdminSidebar = () => {
               <span className="menu-collapsed">View categories</span>
             </a>
           </Link>
-          <Link href="/admin/categories/add">
+          <Link href="/admin/categories/new">
             <a className="list-group-item list-group-item-action bg-dark text-white">
               <span className="menu-collapsed">Add category</span>
             </a>
@@ -72,7 +72,7 @@ const AdminSidebar = () => {
             <span className="menu-collapsed">View products</span>
           </a>
           </Link>
-          <Link href="/admin/products/add">
+          <Link href="/admin/products/new">
           <a href="#" className="list-group-item list-group-item-action bg-dark text-white">
             <span className="menu-collapsed">Add product</span>
           </a>
