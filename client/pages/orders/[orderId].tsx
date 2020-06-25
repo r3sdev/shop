@@ -1,9 +1,12 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import useRequest from '../../hooks/use-request';
 
 const OrderShow = ({ order, currentUser }) => {
+
+  const router = useRouter();
+
   const [timeLeft, setTimeLeft] = React.useState(0);
   const {doRequest, errors} = useRequest({
     url: '/api/payments',
@@ -11,7 +14,7 @@ const OrderShow = ({ order, currentUser }) => {
     body: {
       orderId: order.id,
     },
-    onSuccess: () => Router.push('/orders')
+    onSuccess: () => router.push('/orders')
   })
 
   React.useEffect(() => {

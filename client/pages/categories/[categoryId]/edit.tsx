@@ -1,8 +1,10 @@
 import React from 'react';
-import Router from 'next/router'
+import {useRouter} from 'next/router'
 import useRequest from '../../../hooks/use-request';
 
 const EditCategory = ({ category }) => {
+
+  const router = useRouter();
 
   const [title, setTitle] = React.useState(category.title);
   const [description, setDescription] = React.useState(category.description || '')
@@ -12,7 +14,7 @@ const EditCategory = ({ category }) => {
     url: `/api/categories/${category.id}`,
     method: 'put',
     body: { title, description, imageUrl },
-    onSuccess: () => Router.push('/categories')
+    onSuccess: () => router.push('/categories')
   });
 
   const onSubmit = (event: React.FormEvent) => {
@@ -22,7 +24,7 @@ const EditCategory = ({ category }) => {
 
   const onGoBack = (event: React.MouseEvent) => {
     event.preventDefault()
-    Router.push('/categories')
+    router.push('/categories')
   }
 
 

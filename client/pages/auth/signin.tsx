@@ -1,10 +1,12 @@
 import React from 'react';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import Link from 'next/link';
 import useRequest from '../../hooks/use-request';
 import ConfirmTwoFactorAuth from '../../components/2fa';
 
 export default () => {
+
+  const router = useRouter();
 
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -29,7 +31,7 @@ export default () => {
       setTwoFactAuth(true)
       setUserId(result.id)
     } else {
-      Router.push('/')
+      router.push('/')
     }
   }
 
@@ -44,7 +46,7 @@ export default () => {
         <div className="card-body">
 
           <form onSubmit={onSubmit}>
-            <h1>Sign In</h1>
+            <h2>Sign In</h2>
             <div className="form-group">
               <label>Email Address</label>
               <input

@@ -1,8 +1,10 @@
 import React from 'react';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import useRequest from '../../hooks/use-request';
 
 export default () => {
+
+  const router = useRouter();
 
   const [email, setEmail] = React.useState('');
 
@@ -11,8 +13,7 @@ export default () => {
     method: 'post',
     body: { email },
     onSuccess: () => {
-      console.log('forgot-password')
-      Router.push('/auth/signin')
+      router.push('/auth/signin')
     }
   });
 

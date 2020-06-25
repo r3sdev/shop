@@ -1,10 +1,12 @@
 import React from 'react';
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import owasp from 'owasp-password-strength-test';
 
 import useRequest from '../../hooks/use-request';
 
 export default () => {
+
+  const router = useRouter();
 
   const [fullName, setFullName] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -67,7 +69,7 @@ export default () => {
     url: '/api/users/signup',
     method: 'post',
     body: { fullName, email, password, passwordConfirmation: confirmation },
-    onSuccess: () => Router.push('/auth/email/confirm')
+    onSuccess: () => router.push('/auth/email/confirm')
   });
 
   const onSubmit = async (event: React.FormEvent) => {
