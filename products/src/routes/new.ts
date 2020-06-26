@@ -23,7 +23,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
+    const { title, price, cost, categoryId } = req.body;
 
     const existingProduct = await Product.findOne({ title });
 
@@ -34,6 +34,8 @@ router.post(
     const product = Product.build({
       title,
       price,
+      cost,
+      categoryId,
       userId: req.currentUser!.id,
     });
     await product.save();
@@ -57,6 +59,8 @@ router.post(
       version: product.version,
       title: product.title,
       price: product.price,
+      cost: product.cost,
+      categoryId: product.categoryId,
       userId: product.userId,
     });
 

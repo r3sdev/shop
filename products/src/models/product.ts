@@ -9,6 +9,7 @@ interface ProductAttrs {
   title: string;
   price: number;
   cost: number;
+  categoryId: string;
   userId: string;
 }
 
@@ -28,6 +29,7 @@ interface ProductDoc extends mongoose.Document {
   title: string;
   price: number;
   cost: number;
+  categoryId: string;
   userId: string;
   version: number;
   orderId?: string;
@@ -45,6 +47,10 @@ const productSchema = new mongoose.Schema(
     },
     cost: {
       type: Number
+    },
+    categoryId: {
+      type: String,
+      required: true,
     },
     userId: {
       type: String,
