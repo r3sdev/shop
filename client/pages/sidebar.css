@@ -7,7 +7,7 @@
     margin-right:0;
 }
 #sidebar-container {
-    min-height: 100vh;   
+    min-height: calc(100vh - 60px);   
     background-color: #333;
     padding: 0;
 }

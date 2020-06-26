@@ -1,18 +1,31 @@
 import mongoose from 'mongoose';
-import { OrderCreatedEvent, OrderStatus } from '@ramsy-dev/microservices-shop-common';
+import {
+  OrderCreatedEvent,
+  OrderStatus,
+} from '@ramsy-dev/microservices-shop-common';
 import { OrderCreatedListener } from '../order-created-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Product } from '../../../models/product';
 import { Mongoose } from 'mongoose';
+import { Category } from '../../../models/category';
 
 const setup = async () => {
   // Create a listener
   const listener = new OrderCreatedListener(natsWrapper.client);
 
+  const category = Category.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'Test category',
+  });
+
+  await category.save();
+
   // Create and save a product
   const product = Product.build({
     title: 'Test',
     price: 99,
+    cost: 10,
+    category,
     userId: 'testId',
   });
 

@@ -1,10 +1,21 @@
+import mongoose from 'mongoose';
 import { Product } from '../product';
+import { Category } from '../category';
 
 it('implements optimistic concurrency control', async () => {
+  const category = Category.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'Test category',
+  });
+
+  await category.save();
+
   // Create a product instance
   const product = Product.build({
     title: 'Test product',
     price: 10,
+    cost: 5,
+    category,
     userId: 'testUserId',
   });
 
@@ -34,10 +45,18 @@ it('implements optimistic concurrency control', async () => {
 });
 
 it('increments the version number on multiple saves', async () => {
+  const category = Category.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'Test category',
+  });
+
+  await category.save();
   // Create a product instance
   const product = Product.build({
     title: 'Test Product',
     price: 10,
+    cost: 5,
+    category,
     userId: 'testUserId',
   });
 

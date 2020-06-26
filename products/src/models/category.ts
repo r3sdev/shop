@@ -12,8 +12,8 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 interface CategoryAttrs {
   id: string;
   title: string;
-  description: string;
-  imageUrl: string;
+  description?: string;
+  imageUrl?: string;
 }
 
 export interface CategoryDoc extends mongoose.Document {

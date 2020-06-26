@@ -4,9 +4,7 @@ import { Product } from '../models/product';
 const router = express.Router();
 
 router.get('/api/products', async (req: Request, res: Response) => {
-  const products = await Product.find({
-    orderId: undefined,
-  });
+  const products = await Product.find({}).populate('category');
 
   res.send(products);
 });

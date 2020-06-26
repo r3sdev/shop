@@ -7,6 +7,11 @@ export interface ProductCreatedEvent {
     version: number;
     title: string;
     price: number;
+    cost: number;
     userId: string;
+    category: {
+      id: string;
+      title: string;
+    }
   };
 }

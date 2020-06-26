@@ -4,26 +4,36 @@ import {
   requireAuth,
   validateRequest,
   BadRequestError,
+  NotFoundError,
 } from '@ramsy-dev/microservices-shop-common';
 import { Product } from '../models/product';
 import { ProductCreatedPublisher } from '../events/publishers/product-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
+import { Category } from '../models/category';
 
 const router = express.Router();
 
 router.post(
   '/api/products',
   (req: Request, res: Response, next: NextFunction) =>
-    requireAuth(req, res, next),
+    requireAuth(req, res, next, ({withAdmin: true})),
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
+    body('cost').isFloat({ gt: 0 }).withMessage('Price must be greater than 0'),
+    body('categoryId').not().isEmpty().withMessage('Category ID is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price } = req.body;
+    const { title, price, cost, categoryId } = req.body;
+
+    const category = await Category.findById(categoryId);
+
+    if (!category) {
+      throw new NotFoundError();
+    }
 
     const existingProduct = await Product.findOne({ title });
 
@@ -34,6 +44,8 @@ router.post(
     const product = Product.build({
       title,
       price,
+      cost,
+      category,
       userId: req.currentUser!.id,
     });
     await product.save();
@@ -57,6 +69,11 @@ router.post(
       version: product.version,
       title: product.title,
       price: product.price,
+      cost: product.cost,
+      category: {
+        id: category.id,
+        title: category.title,
+      },
       userId: product.userId,
     });
 

@@ -3,19 +3,27 @@ import { OrderCancelledEvent } from '@ramsy-dev/microservices-shop-common';
 import { OrderCancelledListener } from '../order-cancelled-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Product } from '../../../models/product';
+import { Category } from '../../../models/category';
 import { Mongoose } from 'mongoose';
 
 const setup = async () => {
   // Create a listener
   const listener = new OrderCancelledListener(natsWrapper.client);
 
+  const category = Category.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'Test category',
+  });
 
+  await category.save();
   const orderId = new mongoose.Types.ObjectId().toHexString();
 
   // Create and save a product
   const product = Product.build({
     title: 'Test',
     price: 99,
+    cost: 50,
+    category,
     userId: 'testId',
   });
 

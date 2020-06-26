@@ -4,8 +4,6 @@ import { ButtonToolbar } from 'react-bootstrap';
 
 const CategoryIndex = ({ currentUser, categories }) => {
 
-  const { isAdmin } = currentUser || {}
-
   const hasCategories = categories.length > 0;
 
   const categoryList = categories.map(category => {
@@ -21,15 +19,6 @@ const CategoryIndex = ({ currentUser, categories }) => {
                 view
             </button>
             </Link>
-            {
-              isAdmin && (
-                <Link href={'/categories/[categoryId]/edit'} as={`/categories/${category.id}/edit`}>
-                  <button className="btn btn-outline-primary btn-sm">
-                    edit
-                </button>
-                </Link>
-              )
-            }
           </ButtonToolbar>
         </td>
       </tr>
@@ -39,17 +28,7 @@ const CategoryIndex = ({ currentUser, categories }) => {
   return (
     <div className="col-xs-12 col-md-12">
 
-
       <h1>Categories</h1>
-      {
-        isAdmin && (
-          <Link href={'/categories/new'}>
-            <a className="btn btn-primary mb-5">
-              Add new category
-                </a>
-          </Link>
-        )
-      }
 
       {
         !hasCategories

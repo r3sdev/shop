@@ -16,6 +16,8 @@ build:
       manual:
       - src: '**/*.ts*'
         dest: .
+      - src: '**/*.css*'
+        dest: .
     docker:
       dockerfile: Dockerfile-dev
   - image: docker.pkg.github.com/tcd1980/shop/categories
@@ -76,6 +78,7 @@ build:
       dockerfile: Dockerfile
 deploy:
   kubeContext: docker-desktop
+  statusCheckDeadlineSeconds: 300
   kubectl:
     manifests:
     - ./infra/k8s/*

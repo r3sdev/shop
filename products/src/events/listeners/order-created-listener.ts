@@ -26,12 +26,17 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     // Emit updated event
     await new ProductUpdatedPublisher(this.client).publish({
       id: product.id,
-      price: product.price,
       title: product.title,
+      price: product.price,
+      cost: product.cost,
+      category: {
+        id: product.category.id,
+        title: product.category.title
+      },
       userId: product.userId,
       orderId: product.orderId,
-      version: product.version
-    })
+      version: product.version,
+    });
 
     // Acknowledge the message
     msg.ack();

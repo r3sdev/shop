@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faQuestion,faAngleDoubleLeft, faCaretDown, faShoppingCart, faListAlt, faShoppingBasket
+  faQuestion,faAngleDoubleLeft, faCaretDown, faShoppingCart, faListAlt, faTag
 } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link'
 
@@ -14,18 +14,6 @@ import Link from 'next/link'
 
 const AdminSidebar = () => {
 
-  const [collapsed, setCollapsed] = React.useState<string[]>(['categories', 'products'])
-
-  const isCollapsed = (item: string) => collapsed.includes(item)
-
-  const onCollapse = (item: string) => {
-    if (isCollapsed(item)) {
-      setCollapsed(prevState => prevState.filter(i => i !== item))
-    } else {
-      setCollapsed(prevState => [...prevState, item])
-    }
-  }
-
   return (
     <div id="sidebar-container" className="sidebar-expanded d-none d-md-block col-2">
       <ul className="list-group sticky-top sticky-offset">
@@ -35,7 +23,6 @@ const AdminSidebar = () => {
 
         <a data-toggle="collapse" aria-expanded="false"
           className="bg-dark list-group-item list-group-item-action flex-column align-items-start"
-          onClick={() => onCollapse('categories')}
         >
           <div className="d-flex w-100 justify-content-start align-items-center">
             <FontAwesomeIcon icon={faListAlt} fixedWidth={true} className="mr-3" />
@@ -43,13 +30,13 @@ const AdminSidebar = () => {
             <FontAwesomeIcon icon={faCaretDown} fixedWidth={true} className="ml-auto" />
           </div>
         </a>
-        <div id="submenu2" className={isCollapsed('categories') ? "collapse sidebar-submenu" : "sidebar-submenu"}>
+        <div id="submenu2" className={"sidebar-submenu"}>
           <Link href="/admin/categories">
             <a className="list-group-item list-group-item-action bg-dark text-white">
               <span className="menu-collapsed">View categories</span>
             </a>
           </Link>
-          <Link href="/admin/categories/add">
+          <Link href="/admin/categories/new">
             <a className="list-group-item list-group-item-action bg-dark text-white">
               <span className="menu-collapsed">Add category</span>
             </a>
@@ -58,21 +45,20 @@ const AdminSidebar = () => {
 
         <a data-toggle="collapse" aria-expanded="false"
           className="bg-dark list-group-item list-group-item-action flex-column align-items-start"
-          onClick={() => onCollapse('products')}
         >
           <div className="d-flex w-100 justify-content-start align-items-center">
-            <FontAwesomeIcon icon={faShoppingBasket} fixedWidth={true} className="mr-3" />
+            <FontAwesomeIcon icon={faTag} fixedWidth={true} className="mr-3" />
             <span className="menu-collapsed">Products</span>
             <FontAwesomeIcon icon={faCaretDown} fixedWidth={true} className="ml-auto" />
           </div>
         </a>
-        <div id="submenu1" className={isCollapsed('products') ? "collapse sidebar-submenu" : "sidebar-submenu"}>
+        <div id="submenu1" className={"sidebar-submenu"}>
           <Link href="/admin/products">
           <a className="list-group-item list-group-item-action bg-dark text-white">
             <span className="menu-collapsed">View products</span>
           </a>
           </Link>
-          <Link href="/admin/products/add">
+          <Link href="/admin/products/new">
           <a href="#" className="list-group-item list-group-item-action bg-dark text-white">
             <span className="menu-collapsed">Add product</span>
           </a>

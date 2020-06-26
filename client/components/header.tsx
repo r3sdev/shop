@@ -13,9 +13,11 @@ export default ({ currentUser }) => {
 
   const pathname = router?.pathname || ''
 
+  const isRegularRoute = !pathname.startsWith("/admin")
+
   const links = [
-    currentUser?.isAdmin && { label: 'Categories', href: '/categories' },
-    currentUser && { label: 'Products', href: '/products' },
+    (currentUser && isRegularRoute) && { label: 'Categories', href: '/categories' },
+    (currentUser && isRegularRoute) && { label: 'Products', href: '/products' },
   ]
     .filter(linkConfig => linkConfig)
     .map(({ label, href }) => {
@@ -95,14 +97,14 @@ export default ({ currentUser }) => {
               )
               : (
                 <>
-                  <ButtonToolbar>
-                    <Link href={'/auth/signin'}>
-                      <button type="button" className="btn btn-link">Sign in</button>
-                    </Link>
-                    <Link href={'/auth/signup'}>
-                      <button type="button" className="btn btn-primary">Sign up</button>
-                    </Link>
-                  </ButtonToolbar>
+                  <Nav>
+                      <Link href={'/auth/signin'}>
+                        <a className="btn btn-link btn-sm">Sign in</a>
+                      </Link>
+                      <Link href={'/auth/signup'}>
+                        <a className="btn btn-primary btn-sm">Sign up</a>
+                      </Link>
+                  </Nav>
                 </>
               )
           }

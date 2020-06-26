@@ -1,7 +1,10 @@
 import express, { Request, Response, response } from 'express';
 import { body } from 'express-validator';
 import { randomBytes } from 'crypto';
-import { validateRequest, BadRequestError } from '@ramsy-dev/microservices-shop-common';
+import {
+  validateRequest,
+  BadRequestError,
+} from '@ramsy-dev/microservices-shop-common';
 import owasp from 'owasp-password-strength-test';
 
 import { User } from '../models/user';
@@ -53,6 +56,11 @@ router.post(
     const emailToken = randomBytes(16).toString('hex');
 
     user.set({ emailToken });
+
+    // Check if an admin is registrering
+    if (process.env.ADMIN_EMAIL === email) {
+      user.set({ isAdmin: true });
+    }
 
     await user.save();
 
