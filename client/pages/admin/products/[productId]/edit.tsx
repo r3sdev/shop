@@ -1,8 +1,9 @@
 import React from 'react';
 import { useRouter } from 'next/router'
+import { Form } from 'react-bootstrap';
+
 import useRequest from '../../../../hooks/use-request';
 import WithSidebar from '../../with-sidebar';
-import { Form } from 'react-bootstrap';
 
 const EditProduct = ({ currentUser, product, categories }) => {
 
@@ -13,7 +14,7 @@ const EditProduct = ({ currentUser, product, categories }) => {
   const [title, setTitle] = React.useState(product.title);
   const [price, setPrice] = React.useState(product.price);
   const [cost, setCost] = React.useState(product.cost);
-  const [categoryId, setCategoryId] = React.useState(product.category.id);
+  const [categoryId, setCategoryId] = React.useState(product.category?.id || "default-category-value");
 
   const { doRequest, errors } = useRequest({
     url: `/api/products/${product.id}`,
@@ -53,6 +54,11 @@ const EditProduct = ({ currentUser, product, categories }) => {
     setCategoryId(event.target.value)
   }
 
+  const onCancel = (event: React.MouseEvent) => {
+    event.preventDefault();
+
+    router.push(`/admin/products/${product.id}`)
+  }
 
   return (
     <WithSidebar currentUser={currentUser}>
@@ -109,6 +115,8 @@ const EditProduct = ({ currentUser, product, categories }) => {
 
                 {errors}
                 <button className="btn btn-primary">Save</button>
+                <button className="btn btn-link" onClick={onCancel}>Cancel</button>
+
               </form>
             </div>
 

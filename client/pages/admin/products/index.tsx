@@ -75,7 +75,7 @@ const AdminProductIndex = ({ currentUser, products }) => {
         <td>{product.title}</td>
         <td>{product.price}</td>
         <td>{product.cost}</td>
-        <td>{product.category.title}</td>
+        <td>{product.category?.title}</td>
         <td>{product.image}</td>
         <td>
           <ButtonGroup className="float-right">
