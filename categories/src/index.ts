@@ -2,9 +2,9 @@ import 'express-async-errors';
 import mongoose from 'mongoose';
 import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
+import seed from './seed';
 
 const start = async () => {
-  
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
   }
@@ -45,6 +45,8 @@ const start = async () => {
       useCreateIndex: true,
     });
     console.log('Connected to database');
+
+    seed();
   } catch (err) {
     console.error(err);
   }
