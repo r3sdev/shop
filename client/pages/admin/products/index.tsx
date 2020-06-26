@@ -16,14 +16,14 @@ const AdminProductIndex = ({ currentUser, products }) => {
         <td>{product.image}</td>
         <td>
           <ButtonToolbar>
-            <Link href={'/products/[productId]'} as={`/products/${product.id}`}>
+            <Link href={'/admin/products/[productId]'} as={`/admin/products/${product.id}`}>
               <button className="btn btn-outline-primary btn-sm">
                 view
             </button>
             </Link>
             {
               isAdmin && (
-                <Link href={'/products/[productId]/edit'} as={`/products/${product.id}/edit`}>
+                <Link href={'/admin/products/[productId]/edit'} as={`/admin/products/${product.id}/edit`}>
                   <button className="btn btn-outline-primary btn-sm">
                     edit
                 </button>
@@ -43,7 +43,7 @@ const AdminProductIndex = ({ currentUser, products }) => {
       <h1>Products</h1>
       {
         isAdmin && (
-          <Link href={'/products/new'}>
+          <Link href={'/admin/products/new'}>
             <a className="btn btn-primary mb-5">
               Add new product
                 </a>

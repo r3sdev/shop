@@ -1,11 +1,44 @@
 import Error from '../_error';
 import WithSidebar from './with-sidebar';
+import { Card } from 'react-bootstrap';
 
-const Admin = ({ currentUser }) => {
+const Admin = ({ 
+  currentUser,
+  totalProducts,
+  totalCategories
+ }) => {
 
   return (
     <WithSidebar currentUser={currentUser}>
-      <h1>Admin section</h1>
+      <h2>Dashboard</h2>
+      <hr />
+      <div className="row">
+        <div className="col-md-2">
+          <Card
+            bg={'light'}
+            text={'dark'}
+            className="mb-2"
+          >
+            <Card.Header as="h5">Categories</Card.Header>
+            <Card.Body>
+              Total:  {totalCategories}
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-2">
+          <Card
+            bg={'light'}
+            text={'dark'}
+            className="mb-2"
+          >
+            <Card.Header as="h5">Products</Card.Header>
+            <Card.Body>
+              Total:  {totalProducts} 
+            </Card.Body>
+            <Card.Text></Card.Text>
+          </Card>
+        </div>
+      </div>
     </WithSidebar>
   )
 }
@@ -13,13 +46,13 @@ const Admin = ({ currentUser }) => {
 Admin.getInitialProps = async (context, client, currentUser) => {
   const { res } = context;
 
-  // if (res && !currentUser?.isAdmin) {
-  //   res.writeHead(301, {
-  //     Location: '/'
-  //   });
-  //   res.end();
-  // }
-  return {};
+  const { data: products } = await client.get('/api/products');
+  const { data: categories } = await client.get('/api/categories');
+
+  return {
+    totalProducts: products.length,
+    totalCategories: categories.length
+  };
 }
 
 

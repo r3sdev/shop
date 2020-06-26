@@ -17,14 +17,14 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
         <td>{category.image}</td>
         <td>
           <ButtonToolbar>
-            <Link href={'/categories/[categoryId]'} as={`/categories/${category.id}`}>
+            <Link href={'/admin/categories/[categoryId]'} as={`/admin/categories/${category.id}`}>
               <button className="btn btn-outline-primary btn-sm">
                 view
             </button>
             </Link>
             {
               isAdmin && (
-                <Link href={'/categories/[categoryId]/edit'} as={`/categories/${category.id}/edit`}>
+                <Link href={'/admin/categories/[categoryId]/edit'} as={`/admin/categories/${category.id}/edit`}>
                   <button className="btn btn-outline-primary btn-sm">
                     edit
                 </button>
@@ -45,7 +45,7 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
       <h1>Categories</h1>
       {
         isAdmin && (
-          <Link href={'/categories/new'}>
+          <Link href={'/admin/categories/new'}>
             <a className="btn btn-primary mb-5">
               Add new category
                 </a>

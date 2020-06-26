@@ -17,7 +17,7 @@ const NewCategory = ({ currentUser }) => {
     url: '/api/categories',
     method: 'post',
     body: { title, description, imageUrl },
-    onSuccess: () => router.push('/categories')
+    onSuccess: () => router.push('/admin/categories')
   });
 
   const onSubmit = (event) => {

@@ -13,9 +13,11 @@ export default ({ currentUser }) => {
 
   const pathname = router?.pathname || ''
 
+  const isRegularRoute = !pathname.startsWith("/admin")
+
   const links = [
-    currentUser && { label: 'Categories', href: '/categories' },
-    currentUser && { label: 'Products', href: '/products' },
+    (currentUser && isRegularRoute) && { label: 'Categories', href: '/categories' },
+    (currentUser && isRegularRoute) && { label: 'Products', href: '/products' },
   ]
     .filter(linkConfig => linkConfig)
     .map(({ label, href }) => {
