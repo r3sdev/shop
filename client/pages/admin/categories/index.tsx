@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ButtonGroup } from 'react-bootstrap';
+import { ButtonGroup, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,6 +9,17 @@ import WithSidebar from '../with-sidebar';
 import useRequest from '../../../hooks/use-request';
 
 const AdminCategoryIndex = ({ currentUser, categories }) => {
+
+  const [show, setShow] = React.useState(false);
+  const [categoryId, setCategoryId] = React.useState('');
+
+  let selectedCategory = categoryId ? categories.find(c => c.id === categoryId) : null
+
+  const handleClose = () => {
+    setShow(false);
+    setCategoryId('');
+  }
+  const handleShow = () => setShow(true);
 
   const router = useRouter();
 
@@ -19,13 +30,41 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
     onSuccess: () => router.push('/admin/categories')
   });
 
-  const onDeleteCategory = (categoryId: string) => {
-    if (confirm('Are you sure you?')) {
-      console.log('Deleting category', categoryId)
-      doRequest({ uri: `/${categoryId}` })
-    }
+  const onConfirmDeleteCategory = (categoryId: string) => {
+    setCategoryId(categoryId);
+    handleShow()
   }
 
+  const onDeleteCategory = () => {
+    doRequest({ uri: `/${categoryId}` })
+    handleClose()
+  }
+
+  const ConfirmDeleteModal = () => {
+    return (
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Category</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete the following category?
+          <ul className="mt-3">
+            <li>
+              {selectedCategory?.title}
+            </li>
+          </ul>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="link" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={onDeleteCategory}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    )
+  }
   const hasCategories = categories.length > 0;
 
   const categoryList = categories.map(category => {
@@ -46,7 +85,7 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
                 <FontAwesomeIcon icon={faPencilAlt} />
               </button>
             </Link>
-            <button className="btn btn-outline-danger btn-sm" onClick={() => onDeleteCategory(category.id)}>
+            <button className="btn btn-outline-danger btn-sm" onClick={() => onConfirmDeleteCategory(category.id)}>
               <FontAwesomeIcon icon={faTrash} />
             </button>
           </ButtonGroup>
@@ -87,6 +126,8 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
             </div>
         }
       </div>
+      {errors}
+      <ConfirmDeleteModal />
     </WithSidebar>
   )
 };
