@@ -1,8 +1,12 @@
 import { Message } from 'node-nats-streaming';
-import { Subjects, Listener, OrderCreatedEvent } from '@ramsy-dev/microservices-shop-common';
+import {
+  Subjects,
+  Listener,
+  OrderCreatedEvent,
+} from '@ramsy-dev/microservices-shop-common';
 import { Product } from '../../models/product';
 import { queueGroupName } from './queue-group-name';
-import {ProductUpdatedPublisher} from '../publishers/product-updated-publisher';
+import { ProductUpdatedPublisher } from '../publishers/product-updated-publisher';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
   subject: Subjects.OrderCreated = Subjects.OrderCreated;
@@ -29,10 +33,12 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       title: product.title,
       price: product.price,
       cost: product.cost,
-      category: {
-        id: product.category.id,
-        title: product.category.title
-      },
+      category: product.category
+        ? {
+            id: product.category.id,
+            title: product.category.title,
+          }
+        : undefined,
       userId: product.userId,
       orderId: product.orderId,
       version: product.version,
