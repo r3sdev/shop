@@ -9,6 +9,9 @@ export interface ProductCreatedEvent {
     price: number;
     cost: number;
     userId: string;
-    categoryId: string;
+    category: {
+      id: string;
+      title: string;
+    }
   };
 }
