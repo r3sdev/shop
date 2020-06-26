@@ -6,6 +6,7 @@ import { OrderCreatedListener } from './events/listeners/order-created-listener'
 import { OrderCancelledListener } from './events/listeners/order-cancelled-listener';
 import { CategoryCreatedListener } from './events/listeners/category-created-listener';
 import { CategoryUpdatedListener } from './events/listeners/category-updated-listener';
+import {CategoryDeletedListener} from './events/listeners/category-deleted-listener';
 
 const start = async () => {
   if (!process.env.JWT_KEY) {
@@ -44,6 +45,7 @@ const start = async () => {
 
     new CategoryCreatedListener(natsWrapper.client).listen();
     new CategoryUpdatedListener(natsWrapper.client).listen();
+    new CategoryDeletedListener(natsWrapper.client).listen();
 
     new OrderCreatedListener(natsWrapper.client).listen();
     new OrderCancelledListener(natsWrapper.client).listen();
