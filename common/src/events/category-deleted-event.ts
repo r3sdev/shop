@@ -1,7 +1,7 @@
 import { Subjects } from './types/subjects';
 
-export interface ProductDeletedEvent {
-  subject: Subjects.ProductDeleted;
+export interface CategoryDeletedEvent {
+  subject: Subjects.CategoryDeleted;
   data: {
     id: string;
   };
