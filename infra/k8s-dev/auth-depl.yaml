@@ -35,6 +35,8 @@ spec:
               value: 'http://nats-srv:4222'
             - name: NATS_CLUSTER_ID
               value: shop
+            - name: ADMIN_EMAIL
+              value: ramsy@ramsy.io
       imagePullSecrets:
         - name: regcred
 ---
