@@ -25,6 +25,12 @@ const NewCategory = ({ currentUser }) => {
     doRequest();
   }
 
+  const onCancel = (event: React.MouseEvent) => {
+    event.preventDefault()
+
+    router.push('/admin/categories')
+  }
+
   return (
     <WithSidebar currentUser={currentUser}>
       <div className="col-xs-12 offset-md-3 col-md-6">
@@ -62,6 +68,9 @@ const NewCategory = ({ currentUser }) => {
                 </div>
                 {errors}
                 <button className="btn btn-primary">Add</button>
+                <button className="btn btn-link" onClick={onCancel}>
+                  Cancel
+                </button>
               </form>
             </div>
 
