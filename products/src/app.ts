@@ -4,11 +4,16 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import requestIp from 'request-ip';
-import { errorHandler, NotFoundError, currentUser } from '@ramsy-dev/microservices-shop-common';
+import {
+  errorHandler,
+  NotFoundError,
+  currentUser,
+} from '@ramsy-dev/microservices-shop-common';
 import { createProductRouter } from './routes/new';
 import { showProductRouter } from './routes/show';
 import { indexProductRouter } from './routes';
-import {updateProductRouter} from './routes/update';
+import { updateProductRouter } from './routes/update';
+import { deleteProductRouter } from './routes/delete';
 
 const app = express();
 
@@ -31,6 +36,7 @@ app.use(createProductRouter);
 app.use(showProductRouter);
 app.use(indexProductRouter);
 app.use(updateProductRouter);
+app.use(deleteProductRouter);
 
 // Catch all non defined urls
 app.all('*', () => {

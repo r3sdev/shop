@@ -17,7 +17,7 @@ const router = express.Router();
 router.put(
   '/api/products/:id',
   (req: Request, res: Response, next: NextFunction) =>
-    requireAuth(req, res, next),
+    requireAuth(req, res, next, { withAdmin: true }),
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
@@ -79,7 +79,6 @@ router.put(
 
       res.send(product);
     } else {
-
       //category is not changed, just use the preview value
       product.set({
         title,

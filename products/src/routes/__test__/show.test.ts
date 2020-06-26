@@ -1,6 +1,7 @@
 import request from 'supertest';
-import { app } from '../../app';
 import mongoose from 'mongoose';
+import { Category } from '../../models/category';
+import { app } from '../../app';
 
 it('returns a 404 if the product is not found', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
@@ -9,15 +10,27 @@ it('returns a 404 if the product is not found', async () => {
 });
 
 it('returns the product if the product is found', async () => {
+  const cookie = global.signin({ isAdmin: true });
+
+  const category = Category.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'Test category',
+  });
+
+  await category.save();
+
   const title = 'concert';
   const price = 20;
+  const cost = 10;
 
   const response = await request(app)
     .post('/api/products')
-    .set('Cookie', global.signin())
+    .set('Cookie', cookie)
     .send({
       title,
       price,
+      cost,
+      categoryId: category.id,
     })
     .expect(201);
 

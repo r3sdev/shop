@@ -1,5 +1,9 @@
 import { Message } from 'node-nats-streaming';
-import { Subjects, Listener, OrderCancelledEvent } from '@ramsy-dev/microservices-shop-common';
+import {
+  Subjects,
+  Listener,
+  OrderCancelledEvent,
+} from '@ramsy-dev/microservices-shop-common';
 import { Product } from '../../models/product';
 import { queueGroupName } from './queue-group-name';
 import { ProductUpdatedPublisher } from '../publishers/product-updated-publisher';
@@ -26,8 +30,13 @@ export class OrderCancelledListener extends Listener<OrderCancelledEvent> {
     // Emit updated event
     await new ProductUpdatedPublisher(this.client).publish({
       id: product.id,
-      price: product.price,
       title: product.title,
+      price: product.price,
+      cost: product.cost,
+      category: {
+        id: product.category.id,
+        title: product.category.title,
+      },
       userId: product.userId,
       orderId: product.orderId,
       version: product.version,

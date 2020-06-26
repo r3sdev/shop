@@ -1,22 +1,25 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import { app } from '../app';
-import request from 'supertest';
 import jwt from 'jsonwebtoken';
+
+interface SigninOptions {
+  isAdmin?: boolean
+}
 
 declare global {
   namespace NodeJS {
     interface Global {
-      signin: () => string[];
+      signin: (options?: SigninOptions) => string[];
     }
   }
 }
 
-global.signin = () => {
+global.signin = (options = {}) => {
   // Build a JWT payload. { id, email }
   const payload = {
     id: new mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com',
+    isAdmin: !!options?.isAdmin,
   };
 
   // Create the JWT!

@@ -16,7 +16,7 @@ const router = express.Router();
 router.post(
   '/api/products',
   (req: Request, res: Response, next: NextFunction) =>
-    requireAuth(req, res, next),
+    requireAuth(req, res, next, ({withAdmin: true})),
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
