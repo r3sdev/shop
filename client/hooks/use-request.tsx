@@ -3,6 +3,8 @@ import axios from 'axios';
 
 interface DoRequestProps {
   uri?: string
+
+  [key: string]: any
 }
 
 export default ({ url, method, body, onSuccess }) => {
