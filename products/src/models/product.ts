@@ -8,6 +8,7 @@ import {updateIfCurrentPlugin} from 'mongoose-update-if-current';
 interface ProductAttrs {
   title: string;
   price: number;
+  cost: number;
   userId: string;
 }
 
@@ -26,6 +27,7 @@ interface ProductModel extends mongoose.Model<ProductDoc> {
 interface ProductDoc extends mongoose.Document {
   title: string;
   price: number;
+  cost: number;
   userId: string;
   version: number;
   orderId?: string;
@@ -40,6 +42,9 @@ const productSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
+    },
+    cost: {
+      type: Number
     },
     userId: {
       type: String,
