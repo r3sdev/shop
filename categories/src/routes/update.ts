@@ -14,7 +14,7 @@ const router = express.Router();
 router.put(
   '/api/categories/:id',
   (req: Request, res: Response, next: NextFunction) =>
-    requireAuth(req, res, next, {withAdmin: true}),
+    requireAuth(req, res, next, { withAdmin: true }),
   [body('title').not().isEmpty().withMessage('Title is required')],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -45,3 +45,4 @@ router.put(
 );
 
 export { router as updateCategoryRouter };
+

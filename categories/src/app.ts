@@ -13,6 +13,7 @@ import { createCategoryRouter } from './routes/new';
 import { showCategoryRouter } from './routes/show';
 import { indexCategoryRouter } from './routes/index';
 import { updateCategoryRouter } from './routes/update';
+import { deleteCategoryRouter } from './routes/delete';
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(createCategoryRouter);
 app.use(showCategoryRouter);
 app.use(indexCategoryRouter);
 app.use(updateCategoryRouter);
+app.use(deleteCategoryRouter);
 
 // Catch all non defined urls
 app.all('*', () => {

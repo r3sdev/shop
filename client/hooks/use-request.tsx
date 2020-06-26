@@ -1,14 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 
+interface DoRequestProps {
+  uri?: string
+}
+
 export default ({ url, method, body, onSuccess }) => {
   const [errors, setErrors] = React.useState(null);
 
-  const doRequest = async (props = {}) => {
+  const doRequest = async (props: DoRequestProps = {},) => {
     try {
       setErrors(null);
-      const response = await axios[method](url,
-        { ...body, ...props }
+
+      const { uri, ...rest } = props;
+
+      let _url = uri ? `${url}${uri}` : url
+      const response = await axios[method](_url,
+        { ...body, ...rest }
       );
 
       if (onSuccess) {
