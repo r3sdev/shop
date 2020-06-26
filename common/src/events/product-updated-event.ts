@@ -7,6 +7,8 @@ export interface ProductUpdatedEvent {
     version: number;
     title: string;
     price: number;
+    cost: number;
+    categoryId: string;
     userId: string;
     orderId?: string;
   };
