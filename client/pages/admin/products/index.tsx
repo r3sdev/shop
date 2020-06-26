@@ -1,18 +1,31 @@
 import React from 'react';
 import Link from 'next/link';
-import { ButtonToolbar, ButtonGroup } from 'react-bootstrap';
-import WithSidebar from '../with-sidebar';
+import { ButtonGroup } from 'react-bootstrap';
 import { faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRouter } from 'next/router';
+
+import WithSidebar from '../with-sidebar';
+import useRequest from '../../../hooks/use-request';
+
 
 const AdminProductIndex = ({ currentUser, products }) => {
-  const { isAdmin } = currentUser || {}
+
+  const router = useRouter();
+
+  const { doRequest, errors } = useRequest({
+    url: '/api/products',
+    method: 'delete',
+    body: {},
+    onSuccess: () => router.push('/admin/products')
+  });
 
   const hasProducts = products.length > 0;
 
   const onDeleteProduct = (productId: string) => {
     if (confirm('Are you sure you?')) {
       console.log('Deleting product', productId)
+      doRequest({ uri: `/${productId}` })
     }
   }
 
