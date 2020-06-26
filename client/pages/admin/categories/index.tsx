@@ -35,7 +35,7 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
         <td>{category.description}</td>
         <td>{category.image}</td>
         <td>
-          <ButtonGroup>
+          <ButtonGroup className="float-right">
             <Link href={'/admin/categories/[categoryId]'} as={`/admin/categories/${category.id}`}>
               <button className="btn btn-outline-primary btn-sm">
                 <FontAwesomeIcon icon={faEye} />
@@ -77,7 +77,7 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
                     <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
-                    <th></th>
+                    <th className="text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>

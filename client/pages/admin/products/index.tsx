@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ButtonGroup } from 'react-bootstrap';
+import { ButtonGroup, Modal, Button } from 'react-bootstrap';
 import { faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
@@ -10,6 +10,17 @@ import useRequest from '../../../hooks/use-request';
 
 
 const AdminProductIndex = ({ currentUser, products }) => {
+
+  const [show, setShow] = React.useState(false);
+  const [productId, setProductId] = React.useState('');
+
+  let selectedProduct = productId ? products.find(p => p.id === productId) : null
+
+  const handleClose = () => {
+    setShow(false);
+    setProductId('');
+  }
+  const handleShow = () => setShow(true);
 
   const router = useRouter();
 
@@ -22,11 +33,40 @@ const AdminProductIndex = ({ currentUser, products }) => {
 
   const hasProducts = products.length > 0;
 
-  const onDeleteProduct = (productId: string) => {
-    if (confirm('Are you sure you?')) {
-      console.log('Deleting product', productId)
-      doRequest({ uri: `/${productId}` })
-    }
+  const onConfirmDeleteProduct = (productId: string) => {
+    setProductId(productId);
+    handleShow()
+  }
+
+  const onDeleteProduct = () => {
+    doRequest({ uri: `/${productId}` })
+    handleClose()
+  }
+
+  const ConfirmDeleteModal = () => {
+    return (
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete Product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete the following product?
+          <ul className="mt-3">
+            <li>
+              {selectedProduct?.title}
+            </li>
+          </ul>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="link" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={onDeleteProduct}>
+            Confirm
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    )
   }
 
   const productList = products.map(product => {
@@ -38,7 +78,7 @@ const AdminProductIndex = ({ currentUser, products }) => {
         <td>{product.category.title}</td>
         <td>{product.image}</td>
         <td>
-          <ButtonGroup>
+          <ButtonGroup className="float-right">
             <Link href={'/admin/products/[productId]'} as={`/admin/products/${product.id}`}>
               <button className="btn btn-outline-primary btn-sm">
                 <FontAwesomeIcon icon={faEye} />
@@ -49,7 +89,7 @@ const AdminProductIndex = ({ currentUser, products }) => {
                 <FontAwesomeIcon icon={faPencilAlt} />
               </button>
             </Link>
-            <button className="btn btn-outline-danger btn-sm" onClick={() => onDeleteProduct(product.id)}>
+            <button className="btn btn-outline-danger btn-sm" onClick={() => onConfirmDeleteProduct(product.id)}>
               <FontAwesomeIcon icon={faTrash} />
             </button>
           </ButtonGroup>
@@ -82,7 +122,7 @@ const AdminProductIndex = ({ currentUser, products }) => {
                     <th>Cost</th>
                     <th>Category</th>
                     <th>Image</th>
-                    <th>Actions</th>
+                    <th className="text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -92,6 +132,8 @@ const AdminProductIndex = ({ currentUser, products }) => {
             </div>
         }
       </div>
+      {errors}
+      <ConfirmDeleteModal />
     </WithSidebar>
   )
 }
