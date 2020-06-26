@@ -11,7 +11,6 @@ export const requireAuth = (
   next: NextFunction,
   options: RequireAuthOptions = {},
 ) => {
-  console.log('requireAuth', req.currentUser, options);
 
   // User needs to be logged in
   if (!req.currentUser) {

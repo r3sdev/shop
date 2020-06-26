@@ -16,14 +16,13 @@ const router = express.Router();
 router.post(
   '/api/products',
   (req: Request, res: Response, next: NextFunction) =>
-    requireAuth(req, res, next, ({withAdmin: true})),
+    requireAuth(req, res, next, { withAdmin: true }),
   [
     body('title').not().isEmpty().withMessage('Title is required'),
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
     body('cost').isFloat({ gt: 0 }).withMessage('Price must be greater than 0'),
-    body('categoryId').not().isEmpty().withMessage('Category ID is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -70,10 +69,12 @@ router.post(
       title: product.title,
       price: product.price,
       cost: product.cost,
-      category: {
-        id: category.id,
-        title: category.title,
-      },
+      category: category
+        ? {
+            id: category.id,
+            title: category.title,
+          }
+        : undefined,
       userId: product.userId,
     });
 

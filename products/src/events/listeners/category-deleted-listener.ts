@@ -21,15 +21,6 @@ export class CategoryDeletedListener extends Listener<CategoryDeletedEvent> {
       throw new Error('Category not found');
     }
 
-    // Find the uncategorized category
-    const uncategorized = await Category.findOne({
-      title: 'Uncategorized',
-    });
-
-    if (!uncategorized) {
-      throw new Error('Uncategorized category not found');
-    }
-
     // Assign uncategorized to all products assigned to to-be-deleted category
     // Save products
     await Product.updateMany(
@@ -37,8 +28,8 @@ export class CategoryDeletedListener extends Listener<CategoryDeletedEvent> {
         category: category.id,
       },
       {
-        $set: {
-          category: uncategorized.id,
+        $unsetset: {
+          category: undefined,
         },
       },
     );

@@ -26,7 +26,6 @@ router.put(
     body('cost')
       .isFloat({ gt: 0 })
       .withMessage('Price is required and must be greater than 0'),
-    body('categoryId').not().isEmpty().withMessage('CategoryID is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -48,12 +47,8 @@ router.put(
     }
 
     // Only update the category if it's changed
-    if (product.category.id !== categoryId) {
+    if (product.category?.id !== categoryId) {
       category = await Category.findById(categoryId);
-
-      if (!category) {
-        throw new NotFoundError();
-      }
 
       product.set({
         title,
@@ -70,10 +65,12 @@ router.put(
         title: product.title,
         price: product.price,
         cost: product.cost,
-        category: {
-          id: category.id,
-          title: category.title,
-        },
+        category: category
+          ? {
+              id: category.id,
+              title: category.title,
+            }
+          : undefined,
         userId: product.userId,
       });
 
@@ -94,10 +91,12 @@ router.put(
         title: product.title,
         price: product.price,
         cost: product.cost,
-        category: {
-          id: product.category.id,
-          title: product.category.title,
-        },
+        category: product.category
+          ? {
+              id: product.category.id,
+              title: product.category.title,
+            }
+          : undefined,
         userId: product.userId,
       });
 

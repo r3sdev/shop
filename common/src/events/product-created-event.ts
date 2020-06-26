@@ -9,7 +9,7 @@ export interface ProductCreatedEvent {
     price: number;
     cost: number;
     userId: string;
-    category: {
+    category?: {
       id: string;
       title: string;
     }

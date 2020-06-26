@@ -100,7 +100,7 @@ it('creates a product with valid inputs', async () => {
   expect(products[0].title).toEqual(title);
   expect(products[0].price).toEqual(price);
   expect(products[0].cost).toEqual(cost);
-  expect(products[0].category.toString()).toBe(category.id);
+  expect(products[0].category?.toString()).toBe(category.id);
 });
 
 it('publishes an event', async () => {
