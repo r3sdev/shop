@@ -61,7 +61,7 @@ const NewCategory = ({ currentUser }) => {
                   />
                 </div>
                 {errors}
-                <button className="btn btn-primary">Submit</button>
+                <button className="btn btn-primary">Add</button>
               </form>
             </div>
 

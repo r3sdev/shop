@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-  faQuestion,faAngleDoubleLeft, faCaretDown, faShoppingCart, faListAlt, faShoppingBasket
+  faQuestion,faAngleDoubleLeft, faCaretDown, faShoppingCart, faListAlt, faTag
 } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link'
 
@@ -47,7 +47,7 @@ const AdminSidebar = () => {
           className="bg-dark list-group-item list-group-item-action flex-column align-items-start"
         >
           <div className="d-flex w-100 justify-content-start align-items-center">
-            <FontAwesomeIcon icon={faShoppingBasket} fixedWidth={true} className="mr-3" />
+            <FontAwesomeIcon icon={faTag} fixedWidth={true} className="mr-3" />
             <span className="menu-collapsed">Products</span>
             <FontAwesomeIcon icon={faCaretDown} fixedWidth={true} className="ml-auto" />
           </div>

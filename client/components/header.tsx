@@ -98,16 +98,12 @@ export default ({ currentUser }) => {
               : (
                 <>
                   <Nav>
-                    <Nav.Link>
                       <Link href={'/auth/signin'}>
                         <a className="btn btn-link btn-sm">Sign in</a>
                       </Link>
-                    </Nav.Link>
-                    <Nav.Link>
                       <Link href={'/auth/signup'}>
                         <a className="btn btn-primary btn-sm">Sign up</a>
                       </Link>
-                    </Nav.Link>
                   </Nav>
                 </>
               )

@@ -132,7 +132,7 @@ export default () => {
                 <ul>
                   {
                     passwordErrors.map(error => (
-                      <li>
+                      <li key={error}>
                       <small id="emailHelp" className="form-text text-danger">
                         {error}
                       </small>
