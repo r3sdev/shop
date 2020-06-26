@@ -1,8 +1,9 @@
 import React from 'react';
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import useRequest from '../../../../hooks/use-request';
+import WithSidebar from '../../with-sidebar';
 
-const EditCategory = ({ category }) => {
+const EditCategory = ({ currentUser, category }) => {
 
   const router = useRouter();
 
@@ -22,63 +23,64 @@ const EditCategory = ({ category }) => {
     doRequest();
   }
 
-  const onGoBack = (event: React.MouseEvent) => {
+  const onCancel = (event: React.MouseEvent) => {
     event.preventDefault()
-    router.push('/categories')
+    router.push('/admin/categories')
   }
 
-
   return (
-    <div className="col-xs-12 offset-md-3 col-md-6">
-      <div className="card">
-        <div className="card-body">
-          <h1>Edit category</h1>
-          <hr />
-          <form onSubmit={onSubmit}>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                id="title"
-                onChange={e => setTitle(e.target.value)}
-                onBlur={e => setTitle(e.target.value.trim())}
-                value={title}
-                className="form-control"
-                placeholder="Enter a title"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="description">Description</label>
-              <input
-                id="description"
-                onChange={e => setDescription(e.target.value)}
-                onBlur={e => setDescription(e.target.value.trim())}
-                value={description}
-                className="form-control"
-                placeholder="Enter a description"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="imageUrl">Image URL</label>
-              <input
-                id="imageUrl"
-                onChange={e => setImageUrl(e.target.value)}
-                onBlur={e => setImageUrl(e.target.value.trim())}
-                value={imageUrl}
-                className="form-control"
-                placeholder="Enter a valid image URL"
-              />
-            </div>
-            {errors}
-            <button className="btn btn-link" onClick={onGoBack}>
-              Go back
+    <WithSidebar currentUser={currentUser}>
+      <div className="col-xs-12 offset-md-3 col-md-6">
+        <div className="card">
+          <div className="card-body">
+            <h1>Edit category</h1>
+            <hr />
+            <form onSubmit={onSubmit}>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  id="title"
+                  onChange={e => setTitle(e.target.value)}
+                  onBlur={e => setTitle(e.target.value.trim())}
+                  value={title}
+                  className="form-control"
+                  placeholder="Enter a title"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <input
+                  id="description"
+                  onChange={e => setDescription(e.target.value)}
+                  onBlur={e => setDescription(e.target.value.trim())}
+                  value={description}
+                  className="form-control"
+                  placeholder="Enter a description"
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="imageUrl">Image URL</label>
+                <input
+                  id="imageUrl"
+                  onChange={e => setImageUrl(e.target.value)}
+                  onBlur={e => setImageUrl(e.target.value.trim())}
+                  value={imageUrl}
+                  className="form-control"
+                  placeholder="Enter a valid image URL"
+                />
+              </div>
+              {errors}
+              <button className="btn btn-primary">
+                Edit
             </button>
-            <button className="btn btn-primary">
-              Edit
+              <button className="btn btn-link" onClick={onCancel}>
+                Cancel
             </button>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    </WithSidebar>
   )
 }
 

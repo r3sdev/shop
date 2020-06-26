@@ -1,26 +1,26 @@
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import useRequest from '../../../hooks/use-request';
+import WithSidebar from '../with-sidebar';
+import { EventEmitter } from 'events';
 
-const ProductShow = ({ product }) => {
+const ProductShow = ({ currentUser, product }) => {
 
   const router = useRouter();
 
-  const { doRequest, errors } = useRequest({
-    url: '/api/orders',
-    method: 'post',
-    body: { productId: product.id },
-    onSuccess: (order) => router.push('/orders/[orderId]', `/orders/${order.id}`)
-  })
-
+  const onGoBack = (event: React.MouseEvent) => {
+    event.preventDefault();
+    router.push('/admin/products')
+  }
   return (
-    <div>
-      <h1>{product.title}</h1>
-      <h4>Price: {product.price}</h4>
-      {errors}
-      <button onClick={() => doRequest()} className="btn btn-primary">
-        Purchase
-      </button>
-    </div>
+    <WithSidebar currentUser={currentUser}>
+      <div>
+        <h1>{product.title}</h1>
+        <h4>Price: {product.price}</h4>
+        <button onClick={onGoBack} className="btn btn-link">
+          Back
+        </button>
+      </div>
+    </WithSidebar>
   )
 }
 
