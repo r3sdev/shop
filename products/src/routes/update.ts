@@ -10,6 +10,7 @@ import {
 import { Product } from '../models/product';
 import { ProductUpdatedPublisher } from '../events/publishers/product-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
+import { Category, CategoryDoc } from '../models/category';
 
 const router = express.Router();
 
@@ -22,10 +23,17 @@ router.put(
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price is required and must be greater than 0'),
+    body('cost')
+      .isFloat({ gt: 0 })
+      .withMessage('Price is required and must be greater than 0'),
+    body('categoryId').not().isEmpty().withMessage('CategoryID is required'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const product = await Product.findById(req.params.id);
+    const { title, price, cost, categoryId } = req.body;
+
+    let category: CategoryDoc | null;
+    const product = await Product.findById(req.params.id).populate('category');
 
     if (!product) {
       throw new NotFoundError();
@@ -39,22 +47,63 @@ router.put(
       throw new BadRequestError('Cannot edit a reserved product');
     }
 
-    product.set({
-      title: req.body.title,
-      price: req.body.price,
-    });
+    // Only update the category if it's changed
+    if (product.category.id !== categoryId) {
+      category = await Category.findById(categoryId);
 
-    await product.save();
+      if (!category) {
+        throw new NotFoundError();
+      }
 
-    await new ProductUpdatedPublisher(natsWrapper.client).publish({
-      id: product.id,
-      version: product.version,
-      title: product.title,
-      price: product.price,
-      userId: product.userId,
-    });
+      product.set({
+        title,
+        price,
+        cost,
+        category,
+      });
 
-    res.send(product);
+      await product.save();
+
+      await new ProductUpdatedPublisher(natsWrapper.client).publish({
+        id: product.id,
+        version: product.version,
+        title: product.title,
+        price: product.price,
+        cost: product.cost,
+        category: {
+          id: category.id,
+          title: category.title,
+        },
+        userId: product.userId,
+      });
+
+      res.send(product);
+    } else {
+
+      //category is not changed, just use the preview value
+      product.set({
+        title,
+        price,
+        cost,
+      });
+
+      await product.save();
+
+      await new ProductUpdatedPublisher(natsWrapper.client).publish({
+        id: product.id,
+        version: product.version,
+        title: product.title,
+        price: product.price,
+        cost: product.cost,
+        category: {
+          id: product.category.id,
+          title: product.category.title,
+        },
+        userId: product.userId,
+      });
+
+      res.send(product);
+    }
   },
 );
 
