@@ -10,7 +10,7 @@ interface ProductAttrs {
   title: string;
   price: number;
   cost: number;
-  category?: CategoryDoc;
+  category?: CategoryDoc | null;
   userId: string;
 }
 
