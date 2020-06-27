@@ -6,6 +6,8 @@ import {
   BadRequestError,
   NotFoundError,
 } from '@ramsy-dev/microservices-shop-common';
+import mongoose from 'mongoose';
+
 import { Product } from '../models/product';
 import { ProductCreatedPublisher } from '../events/publishers/product-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
@@ -22,18 +24,23 @@ router.post(
     body('price')
       .isFloat({ gt: 0 })
       .withMessage('Price must be greater than 0'),
-    body('cost').isFloat({ gt: 0 }).withMessage('Price must be greater than 0'),
+    body('cost').isFloat({ gt: 0 }).withMessage('Cost must be greater than 0'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { title, price, cost, categoryId } = req.body;
 
-    const category = await Category.findById(categoryId);
+    let category = undefined;
 
-    if (!category) {
-      throw new NotFoundError();
+    if (mongoose.Types.ObjectId.isValid(categoryId)) {
+      const _category = await Category.findById(categoryId);
+
+      if (!_category) {
+        throw new NotFoundError();
+      }
+      category = _category
     }
-
+    
     const existingProduct = await Product.findOne({ title });
 
     if (existingProduct) {

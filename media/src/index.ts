@@ -1,9 +1,10 @@
-import 'express-async-errors';
 import mongoose from 'mongoose';
-import { app } from './app';
 import { natsWrapper } from './nats-wrapper';
+import { app } from './app';
 
 const start = async () => {
+  console.log('Logs service started ...');
+
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
   }
@@ -31,7 +32,7 @@ const start = async () => {
     );
 
     natsWrapper.client.on('close', () => {
-      console.log('NATS connection closed');
+      console.log('NATS connection closed!');
       process.exit();
     });
 
@@ -45,12 +46,13 @@ const start = async () => {
     });
     console.log('Connected to database');
 
+    console.log('Media service started!');
   } catch (err) {
     console.error(err);
   }
 
   app.listen(3000, () => {
-    console.log('Categories Service is listening on port 3000');
+    console.log('Media Service is listening on port 3000');
   });
 };
 

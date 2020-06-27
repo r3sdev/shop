@@ -13,7 +13,7 @@ const NewProduct = ({ currentUser, categories }) => {
   const [title, setTitle] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [cost, setCost] = React.useState('');
-  const [categoryId, setCategoryId] = React.useState('default-category-value');
+  const [categoryId, setCategoryId] = React.useState('');
 
   const { doRequest, errors } = useRequest({
     url: '/api/products',
@@ -94,7 +94,7 @@ const NewProduct = ({ currentUser, categories }) => {
                 <Form.Group controlId="product-category">
                   <Form.Label>Category</Form.Label>
                   <Form.Control as="select" onChange={onCategorySelect} value={categoryId}>
-                    <option key="default-category-value" disabled={true} value="default-category-value">
+                    <option key="default-category-value" disabled={true} value={""}>
                       -- select a category --
                     </option>
 

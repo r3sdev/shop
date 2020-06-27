@@ -1,16 +1,27 @@
 import React from 'react';
 import axios from 'axios';
 
-interface DoRequestProps {
-  uri?: string
+interface UseRequestAttrs<D> {
+  url: string;
+  method: string;
+  body?: Record<string, any>
+  onSuccess: (data: D) => void
+  onError?: (err: Error) => void
+}
 
+interface DoRequestAttrs {
+  uri?: string
+  // Allows any
   [key: string]: any
 }
 
-export default ({ url, method, body, onSuccess }) => {
-  const [errors, setErrors] = React.useState(null);
+const useRequest = <D extends {}>({ url, method, body, onSuccess, onError }: UseRequestAttrs<D>) => {
 
-  const doRequest = async (props: DoRequestProps = {},) => {
+  const [errors, setErrors] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+
+  const doRequest = async (props: DoRequestAttrs = {},) => {
+    setLoading(true)
     try {
       setErrors(null);
 
@@ -23,10 +34,13 @@ export default ({ url, method, body, onSuccess }) => {
 
       if (onSuccess) {
         onSuccess(response.data);
+        setLoading(false)
       }
 
       return response.data;
     } catch (err) {
+      setLoading(false)
+      onError(err);
       setErrors(
         <div className="alert alert-danger">
           <h4>Ooops.....</h4>
@@ -43,5 +57,8 @@ export default ({ url, method, body, onSuccess }) => {
   return {
     doRequest,
     errors,
+    loading,
   };
 };
+
+export default useRequest
