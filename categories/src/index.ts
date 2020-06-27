@@ -46,7 +46,6 @@ const start = async () => {
     });
     console.log('Connected to database');
 
-    seed();
   } catch (err) {
     console.error(err);
   }
