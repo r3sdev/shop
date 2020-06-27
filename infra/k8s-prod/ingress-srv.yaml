@@ -41,7 +41,7 @@ spec:
             backend:
               serviceName: orders-srv
               servicePort: 3000
-          - path: /api/upload/?(.*)
+          - path: /api/media/upload/?(.*)
             backend:
               serviceName: media-srv
               servicePort: 3000
