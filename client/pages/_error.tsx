@@ -1,4 +1,11 @@
+import Error404 from './404';
+
 function Error({ statusCode }) {
+
+  if (statusCode === 404) {
+    return <Error404 />
+  }
+
   return (
     <p>
       {statusCode
