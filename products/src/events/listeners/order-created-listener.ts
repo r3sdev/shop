@@ -33,6 +33,7 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       title: product.title,
       price: product.price,
       cost: product.cost,
+      imageUrl: product.imageUrl,
       category: product.category
         ? {
             id: product.category.id,
