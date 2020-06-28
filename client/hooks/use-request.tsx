@@ -12,7 +12,7 @@ interface UseRequestAttrs<D> {
 
 interface DoRequestAttrs {
   uri?: string
-  formData: FormData
+  formData?: FormData
   // Allows any
   [key: string]: any
 }
