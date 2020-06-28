@@ -4,7 +4,7 @@ import Link from 'next/link';
 import useRequest from '../../hooks/use-request';
 import ConfirmTwoFactorAuth from '../../components/2fa';
 
-export default () => {
+const Signin = () => {
 
   const router = useRouter();
 
@@ -86,3 +86,24 @@ export default () => {
     </div>
   );
 };
+
+Signin.getInitialProps = async (context, client, currentUser) => {
+  const { res } = context;
+
+  if (res && currentUser) {
+    if (currentUser.isAdmin) {
+      res.writeHead(301, {
+        Location: '/admin'
+      });
+      return res.end();
+    }
+
+    res.writeHead(301, {
+      Location: '/'
+    });
+    res.end();
+  }
+  return {};
+}
+
+export default Signin
