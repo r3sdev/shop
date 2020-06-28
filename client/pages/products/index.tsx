@@ -11,7 +11,13 @@ const ProductIndex = ({currentUser, products}) => {
       <tr key={product.id}>
         <td>{product.title}</td>
         <td>{product.price}</td>
-        <td>{product.image}</td>
+        <td>
+          {
+            product.imageUrl
+              ? <img src={product.imageUrl} alt={product.title} className="img-responsive" style={{ height: 40 }} />
+              : 'No image assigned'
+          }
+          </td>
         <td>
           <ButtonToolbar>
             <Link href={'/products/[productId]'} as={`/products/${product.id}`}>
