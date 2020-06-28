@@ -24,6 +24,14 @@ const start = async () => {
     throw new Error('NATS_CLUSTER_ID must be defined');
   }
 
+  if (!process.env.SPACES_KEY) {
+    throw new Error('SPACES_KEY must be defined');
+  }
+
+  if (!process.env.SPACES_SECRET) {
+    throw new Error('SPACES_SECRET must be defined');
+  }
+
   try {
     await natsWrapper.connect(
       process.env.NATS_CLUSTER_ID,

@@ -8,3 +8,7 @@ kubectl create secret generic smtp-password-secret --from-literal=SMTP_PASSWORD=
 
 kubectl create secret generic twilio-auth-token --from-literal=TWILIO_AUTH_TOKEN=<key_here>
 kubectl create secret generic twilio-account-sid --from-literal=TWILIO_ACCOUNT_SID=<key_here>
+
+kubectl create secret generic spaces-key --from-literal=SPACES_KEY=<key_here>
+kubectl create secret generic spaces-secret --from-literal=SPACES_SECRET=<key_here>
+
