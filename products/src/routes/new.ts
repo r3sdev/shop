@@ -28,7 +28,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { title, price, cost, categoryId } = req.body;
+    const { title, price, cost, categoryId, imageUrl } = req.body;
 
     let category = undefined;
 
@@ -52,6 +52,7 @@ router.post(
       price,
       cost,
       category,
+      imageUrl,
       userId: req.currentUser!.id,
     });
     await product.save();
@@ -76,6 +77,7 @@ router.post(
       title: product.title,
       price: product.price,
       cost: product.cost,
+      imageUrl: product.imageUrl,
       category: category
         ? {
             id: category.id,

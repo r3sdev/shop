@@ -8,10 +8,11 @@ export interface ProductCreatedEvent {
     title: string;
     price: number;
     cost: number;
-    userId: string;
+    imageUrl: string;
     category?: {
       id: string;
       title: string;
-    }
+    };
+    userId: string;
   };
 }

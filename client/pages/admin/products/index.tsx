@@ -76,7 +76,7 @@ const AdminProductIndex = ({ currentUser, products }) => {
         <td>{product.price}</td>
         <td>{product.cost}</td>
         <td>{product.category?.title}</td>
-        <td>{product.image}</td>
+        <td>{product.imageUrl}</td>
         <td>
           <ButtonGroup className="float-right">
             <Link href={'/admin/products/[productId]'} as={`/admin/products/${product.id}`}>
@@ -121,7 +121,7 @@ const AdminProductIndex = ({ currentUser, products }) => {
                     <th>Price</th>
                     <th>Cost</th>
                     <th>Category</th>
-                    <th>Image</th>
+                    <th>Image URL</th>
                     <th className="text-right">Actions</th>
                   </tr>
                 </thead>

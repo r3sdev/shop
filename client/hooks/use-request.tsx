@@ -5,31 +5,36 @@ interface UseRequestAttrs<D> {
   url: string;
   method: string;
   body?: Record<string, any>
+  headers?: Record<string, any>
   onSuccess: (data: D) => void
   onError?: (err: Error) => void
 }
 
 interface DoRequestAttrs {
   uri?: string
+  formData: FormData
   // Allows any
   [key: string]: any
 }
 
-const useRequest = <D extends {}>({ url, method, body, onSuccess, onError }: UseRequestAttrs<D>) => {
+const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onError }: UseRequestAttrs<D>) => {
 
   const [errors, setErrors] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
 
-  const doRequest = async (props: DoRequestAttrs = {},) => {
+  const doRequest = async (props: DoRequestAttrs = {} as DoRequestAttrs) => {
     setLoading(true)
     try {
       setErrors(null);
 
-      const { uri, ...rest } = props;
+      const { uri, formData, ...rest } = props;
 
       let _url = uri ? `${url}${uri}` : url
       const response = await axios[method](_url,
-        { ...body, ...rest }
+        formData
+          ? formData
+          : { ...body, ...rest },
+        formData ? { headers: { 'Content-Type': 'multipart/form-data' }, } : headers
       );
 
       if (onSuccess) {

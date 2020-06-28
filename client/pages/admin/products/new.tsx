@@ -3,8 +3,6 @@ import { useRouter } from 'next/router'
 import useRequest from '../../../hooks/use-request';
 import WithSidebar from '../with-sidebar';
 import { Form } from 'react-bootstrap';
-import * as crypto from 'crypto';
-import axios from 'axios';
 
 const NewProduct = ({ currentUser, categories }) => {
 
@@ -13,16 +11,21 @@ const NewProduct = ({ currentUser, categories }) => {
   const [title, setTitle] = React.useState('');
   const [price, setPrice] = React.useState('');
   const [cost, setCost] = React.useState('');
-  const [image, setImage] = React.useState<File>();
-  const [imageHash, setImageHash] = React.useState('');
-
+  const [imageUrl, setImageUrl] = React.useState('');
   const [categoryId, setCategoryId] = React.useState('');
 
   const { doRequest, errors } = useRequest({
     url: '/api/products',
     method: 'post',
-    body: { title, price, cost, categoryId },
+    body: { title, price, cost, imageUrl, categoryId },
     onSuccess: () => router.push('/admin/products')
+  });
+
+  const { doRequest: doUpload, errors: errorsUpload } = useRequest({
+    url: '/api/media/upload',
+    method: 'post',
+    onSuccess: (result: any) => setImageUrl(result.image),
+    onError: (error) => console.log({ error })
   });
 
 
@@ -56,66 +59,21 @@ const NewProduct = ({ currentUser, categories }) => {
     setCategoryId(event.target.value)
   }
 
-  function previewFile(file: File) {
-    const preview = document.querySelector('img');
-    const reader = new FileReader();
-
-    reader.addEventListener("progress", (e) => {
-      console.log({ e })
-    })
-
-    reader.addEventListener("load", function () {
-      // convert image file to base64 string
-      const result = reader.result;
-      // @ts-ignore
-      preview.src = result;
-
-      const md5 = crypto.createHash('md5').update(result.toString()).digest("hex");
-      setImageHash(md5)
-    }, false);
-
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
-  }
-
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const image = event.target.files[0];
-    setImage(image)
-    previewFile(image)
+
+    const bodyFormData = new FormData();
+    bodyFormData?.append('image', image);
+
+    doUpload({ formData: bodyFormData })
+
   }
 
   const onRemoveImage = (event: React.MouseEvent) => {
     event.preventDefault()
-    setImage(null)
-    setImageHash('')
+    setImageUrl('')
   }
-
-  React.useEffect(() => {
-    if (image && imageHash) {
-
-      const bodyFormData = new FormData();
-      bodyFormData.append('file', image);
-
-      axios({
-        method: 'post',
-        url: '/api/media/upload',
-        data: bodyFormData,
-        headers: { 'Content-Type': 'multipart/form-data' }
-      })
-        .then(function (response) {
-          //handle success
-          console.log(response);
-        })
-        .catch(function (response) {
-          //handle error
-          console.log(response);
-        });
-
-    }
-  }, [image, imageHash])
 
   return (
     <WithSidebar currentUser={currentUser}>
@@ -160,9 +118,10 @@ const NewProduct = ({ currentUser, categories }) => {
 
                   <div className="custom-file">
                     {
-                      !image &&
+                      !imageUrl &&
                       (
                         <React.Fragment>
+                          {errorsUpload}
                           <input
                             type="file"
                             className="custom-file-input"
@@ -170,21 +129,21 @@ const NewProduct = ({ currentUser, categories }) => {
                             onChange={onSelectImage}
                           />
                           <label className="custom-file-label" htmlFor="customFile">
-                            {image || 'Choose file'}
+                            {imageUrl || 'Choose file'}
                           </label>
                         </React.Fragment>
                       )}
                     <div className="d-flex flex-row justify-content-start align-items-center">
                       <img
                         className="img-responsive"
-                        src="/image-placeholder.png"
+                        src={imageUrl || "/image-placeholder.png"}
                         height="100"
                         alt="Image preview..."
-                        style={{ display: image ? 'inherit' : 'none' }}
+                        style={{ display: imageUrl ? 'inherit' : 'none' }}
                       />
 
                       {
-                        image && (
+                        imageUrl && (
                           <button className="btn btn-sm btn-danger ml-auto" onClick={onRemoveImage}>
                             Remove image
                           </button>
@@ -224,7 +183,7 @@ const NewProduct = ({ currentUser, categories }) => {
 NewProduct.getInitialProps = async (context, client, currentUser) => {
   const { data } = await client.get('/api/categories');
 
-  return { categories: data };
+  return { categories: data, client };
 };
 
 
