@@ -9,7 +9,7 @@ const ProductShow = ({ product }) => {
     url: '/api/orders',
     method: 'post',
     body: { productId: product.id },
-    onSuccess: (order) => router.push('/orders/[orderId]', `/orders/${order.id}`)
+    onSuccess: (order) => console.log(order)
   })
 
   return (
