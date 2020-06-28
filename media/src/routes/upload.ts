@@ -5,9 +5,11 @@ const router = express.Router();
 
 router.post(
   '/api/media/upload',
-  (req: Request, res: Response, next: NextFunction) =>
-    requireAuth(req, res, next, {withAdmin: true}),
+  // (req: Request, res: Response, next: NextFunction) =>
+  //   requireAuth(req, res, next, {withAdmin: true}),
   async (req: Request, res: Response) => {
+    console.log(req.files)
+    
     res.send(req.body);
   },
 );

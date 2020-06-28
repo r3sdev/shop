@@ -40,7 +40,7 @@ const useRequest = <D extends {}>({ url, method, body, onSuccess, onError }: Use
       return response.data;
     } catch (err) {
       setLoading(false)
-      onError(err);
+      onError && onError(err);
       setErrors(
         <div className="alert alert-danger">
           <h4>Ooops.....</h4>
