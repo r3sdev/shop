@@ -45,8 +45,6 @@ const start = async () => {
       useCreateIndex: true,
     });
     console.log('Connected to database');
-
-    console.log('Media service started!');
   } catch (err) {
     console.error(err);
   }
