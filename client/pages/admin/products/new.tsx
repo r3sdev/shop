@@ -22,7 +22,7 @@ const NewProduct = ({ currentUser, categories }) => {
   });
 
   const { doRequest: doUpload, errors: errorsUpload } = useRequest({
-    url: '/api/media/upload',
+    url: '/api/media/upload?kind=product-image',
     method: 'post',
     onSuccess: (result: any) => setImageUrl(result.image),
     onError: (error) => console.log({ error })
@@ -59,9 +59,15 @@ const NewProduct = ({ currentUser, categories }) => {
     setCategoryId(event.target.value)
   }
 
+  const onCancel = (event: React.MouseEvent) => {
+    event.preventDefault()
+
+    router.push('/admin/products')
+  }
+
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    const image = event.target.files[0];
+    const image: File = event.target.files[0];
 
     const bodyFormData = new FormData();
     bodyFormData?.append('image', image);
@@ -121,7 +127,6 @@ const NewProduct = ({ currentUser, categories }) => {
                       !imageUrl &&
                       (
                         <React.Fragment>
-                          {errorsUpload}
                           <input
                             type="file"
                             className="custom-file-input"
@@ -168,8 +173,12 @@ const NewProduct = ({ currentUser, categories }) => {
                   </Form.Control>
                 </Form.Group>
 
+                {errorsUpload}
                 {errors}
                 <button className="btn btn-primary">Add</button>
+                <button className="btn btn-link" onClick={onCancel}>
+                  Cancel
+                </button>
               </form>
             </div>
 

@@ -12,12 +12,18 @@ const NewCategory = ({ currentUser }) => {
   const [description, setDescription] = React.useState('');
   const [imageUrl, setImageUrl] = React.useState('');
 
-
   const { doRequest, errors } = useRequest({
     url: '/api/categories',
     method: 'post',
     body: { title, description, imageUrl },
     onSuccess: () => router.push('/admin/categories')
+  });
+
+  const { doRequest: doUpload, errors: errorsUpload } = useRequest({
+    url: '/api/media/upload?kind=category-image',
+    method: 'post',
+    onSuccess: (result: any) => setImageUrl(result.image),
+    onError: (error) => console.log({ error })
   });
 
   const onSubmit = (event) => {
@@ -29,6 +35,22 @@ const NewCategory = ({ currentUser }) => {
     event.preventDefault()
 
     router.push('/admin/categories')
+  }
+
+  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    const image: File = event.target.files[0];
+
+    const bodyFormData = new FormData();
+    bodyFormData?.append('image', image);
+
+    doUpload({ formData: bodyFormData })
+
+  }
+
+  const onRemoveImage = (event: React.MouseEvent) => {
+    event.preventDefault()
+    setImageUrl('')
   }
 
   return (
@@ -57,16 +79,50 @@ const NewCategory = ({ currentUser }) => {
                     className="form-control"
                   />
                 </div>
+
+
                 <div className="form-group">
-                  <label>Image URL</label>
-                  <input
-                    value={imageUrl}
-                    onBlur={e => setImageUrl(e.target.value.trim())}
-                    onChange={e => setImageUrl(e.target.value)}
-                    className="form-control"
-                  />
+                  <label>Image</label>
+
+                  <div className="custom-file">
+                    {
+                      !imageUrl &&
+                      (
+                        <React.Fragment>
+                          <input
+                            type="file"
+                            className="custom-file-input"
+                            id="customFile"
+                            onChange={onSelectImage}
+                          />
+                          <label className="custom-file-label" htmlFor="customFile">
+                            {imageUrl || 'Choose file'}
+                          </label>
+                        </React.Fragment>
+                      )}
+                    <div className="d-flex flex-row justify-content-start align-items-center">
+                      <img
+                        className="img-responsive"
+                        src={imageUrl || "/image-placeholder.png"}
+                        height="100"
+                        alt="Image preview..."
+                        style={{ display: imageUrl ? 'inherit' : 'none' }}
+                      />
+
+                      {
+                        imageUrl && (
+                          <button className="btn btn-sm btn-danger ml-auto" onClick={onRemoveImage}>
+                            Remove image
+                          </button>
+                        )
+                      }
+                    </div>
+                  </div>
                 </div>
+
+                {errorsUpload}
                 {errors}
+                
                 <button className="btn btn-primary">Add</button>
                 <button className="btn btn-link" onClick={onCancel}>
                   Cancel

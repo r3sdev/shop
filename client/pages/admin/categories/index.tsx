@@ -72,7 +72,13 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
       <tr key={category.id}>
         <td>{category.title}</td>
         <td>{category.description}</td>
-        <td>{category.image}</td>
+        <td>
+          {
+            category.imageUrl
+              ? <img src={category.imageUrl} alt={category.title} className="img-responsive" style={{ height: 40 }} />
+              : 'No image assigned'
+          }
+        </td>
         <td>
           <ButtonGroup className="float-right">
             <Link href={'/admin/categories/[categoryId]'} as={`/admin/categories/${category.id}`}>
