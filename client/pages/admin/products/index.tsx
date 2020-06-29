@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { ButtonGroup, Modal, Button } from 'react-bootstrap';
-import { faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencilAlt, faTrash, faAngleLeft, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router';
 
@@ -9,12 +9,18 @@ import WithSidebar from '../with-sidebar';
 import useRequest from '../../../hooks/use-request';
 
 
-const AdminProductIndex = ({ currentUser, products }) => {
+const AdminProductIndex = ({ currentUser, products, category }) => {
+
+  const router = useRouter();
 
   const [show, setShow] = React.useState(false);
   const [productId, setProductId] = React.useState('');
 
   let selectedProduct = productId ? products.find(p => p.id === productId) : null
+
+  const hasProducts = products.length > 0;
+
+  /* Functions */
 
   const handleClose = () => {
     setShow(false);
@@ -22,7 +28,6 @@ const AdminProductIndex = ({ currentUser, products }) => {
   }
   const handleShow = () => setShow(true);
 
-  const router = useRouter();
 
   const { doRequest, errors } = useRequest({
     url: '/api/products',
@@ -31,7 +36,6 @@ const AdminProductIndex = ({ currentUser, products }) => {
     onSuccess: () => router.push('/admin/products')
   });
 
-  const hasProducts = products.length > 0;
 
   const onConfirmDeleteProduct = (productId: string) => {
     setProductId(productId);
@@ -41,6 +45,10 @@ const AdminProductIndex = ({ currentUser, products }) => {
   const onDeleteProduct = () => {
     doRequest({ uri: `/${productId}` })
     handleClose()
+  }
+
+  const onGoBack = () => {
+    router.push('/admin/categories')
   }
 
   const ConfirmDeleteModal = () => {
@@ -75,12 +83,26 @@ const AdminProductIndex = ({ currentUser, products }) => {
         <td>{product.title}</td>
         <td>{product.price}</td>
         <td>{product.cost}</td>
-        <td>{product.category?.title}</td>
         <td>
           {
-            product.imageUrl 
-            ? <img src={product.imageUrl} alt={product.title} className="img-responsive" style={{height: 40}}/>
-            : 'No image assigned'
+            product.category 
+            ? (
+                <Link href={`/admin/categories/${product.category.id}`}>
+                  <a>
+                    {product.category.title}
+                  </a>
+                </Link>
+            ) 
+            : (
+              'No category assigned'
+            )
+          }
+        </td>
+        <td>
+          {
+            product.imageUrl
+              ? <img src={product.imageUrl} alt={product.title} className="img-responsive" style={{ height: 40 }} />
+              : 'No image assigned'
           }
         </td>
         <td>
@@ -104,16 +126,22 @@ const AdminProductIndex = ({ currentUser, products }) => {
     )
   })
 
+  /* Render */
+
   return (
     <WithSidebar currentUser={currentUser}>
       <div className="col-xs-12 col-md-12">
 
-        <h1>Products</h1>
+        {
+          category ? <h1>Products for {category.title}</h1> : <h1>Products</h1>
+        }
+
 
         <Link href={'/admin/products/new'}>
           <a className="btn btn-primary mb-5">
+            <FontAwesomeIcon icon={faPlus} className="mr-1" />
             Add new product
-                </a>
+          </a>
         </Link>
         {
           !hasProducts
@@ -137,6 +165,16 @@ const AdminProductIndex = ({ currentUser, products }) => {
               </table>
             </div>
         }
+        {
+          category && (
+            <button className="d-flex justify-content-center align-items-center btn btn-secondary"
+              onClick={onGoBack}
+            >
+              <FontAwesomeIcon icon={faAngleLeft} className="mr-1" />
+              Back to categories
+            </button>
+          )
+        }
       </div>
       {errors}
       <ConfirmDeleteModal />
@@ -145,9 +183,36 @@ const AdminProductIndex = ({ currentUser, products }) => {
 }
 
 AdminProductIndex.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await client.get('/api/products');
+  const { query, res } = context;
+  const { category: categoryId } = query;
 
-  return { products: data };
+  const { data: products } = await client.get('/api/products');
+
+  if (categoryId) {
+
+    try {
+      const { data: category } = await client.get(`/api/categories/${categoryId}`);
+
+      if (category && category.products.length > 0) {
+        console.log(`Products for category ${category.title}`, category.products)
+
+        const filteredProducts = products.filter(p => category.products.map(p => p.id).includes(p.id))
+        
+
+        return { products: filteredProducts, category }
+      }
+    }
+    catch {
+      res.writeHead(302, {
+        Location: '/404'
+      });
+      return res.end()
+    }
+
+  }
+
+
+  return { products };
 };
 
 export default AdminProductIndex

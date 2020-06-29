@@ -10,7 +10,7 @@ export default function Custom404() {
   }
 
   return (
-    <div className={`d-flex flex-column justify-content-center align-items-center ${style({ height: 'calc(100vh - 60px)' })}`}>
+    <div className={`d-flex flex-column justify-content-center align-items-center ${style({ height: 'calc(100vh - 56px)' })}`}>
       <div className="d-flex flex-row justify-content-center align-items-center">
         <h1>404</h1>
         <span className="ml-5 mr-5">|</span>
