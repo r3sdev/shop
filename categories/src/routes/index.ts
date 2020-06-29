@@ -7,7 +7,7 @@ const router = express.Router();
 router.get(
   '/api/categories',
   async (req: Request, res: Response) => {
-    const categories = await Category.find({});
+    const categories = await Category.find({}).populate('products');
 
     res.send(categories);
   },
