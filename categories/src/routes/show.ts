@@ -4,6 +4,7 @@ import {
   requireAuth,
 } from '@ramsy-dev/microservices-shop-common';
 import { Category } from '../models/category';
+require('../models/product')
 
 const router = express.Router();
 

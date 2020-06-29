@@ -16,18 +16,6 @@ interface ProductAttrs {
 
 /**
  * An interface that describes the properties
- * that a Product Model has
- */
-interface ProductModel extends mongoose.Model<ProductDoc> {
-  build(attrs: ProductAttrs): ProductDoc;
-  findByEvent(event: {
-    id: string;
-    version: number;
-  }): Promise<ProductDoc | null>;
-}
-
-/**
- * An interface that describes the properties
  * that a Product Document has
  */
 export interface ProductDoc extends mongoose.Document {
@@ -36,6 +24,18 @@ export interface ProductDoc extends mongoose.Document {
   imageUrl?: string;
   category?: CategoryDoc;
   version: number;
+}
+
+/**
+ * An interface that describes the properties
+ * that a Product Model has
+ */
+interface ProductModel extends mongoose.Model<ProductDoc> {
+  build(attrs: ProductAttrs): ProductDoc;
+  findByEvent(event: {
+    id: string;
+    version: number;
+  }): Promise<ProductDoc | null>;
 }
 
 const productSchema = new mongoose.Schema(
