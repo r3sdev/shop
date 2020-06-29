@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import {updateIfCurrentPlugin} from 'mongoose-update-if-current';
+import { ProductDoc } from './product';
 
 /**
  * An interface that describes the properties
@@ -9,6 +10,7 @@ interface CategoryAttrs {
   title: string;
   description: string;
   imageUrl: string;
+  products?: ProductDoc[]
 }
 
 /**
@@ -23,11 +25,12 @@ interface CategoryModel extends mongoose.Model<CategoryDoc> {
  * An interface that describes the properties
  * that a Product Document has
  */
-interface CategoryDoc extends mongoose.Document {
+export interface CategoryDoc extends mongoose.Document {
   title: string;
   description: string;
   imageUrl: string;
   version: number;
+  products?: ProductDoc[]
 }
 
 const categorySchema = new mongoose.Schema(
@@ -42,6 +45,12 @@ const categorySchema = new mongoose.Schema(
     imageUrl: {
       type: String,
     },
+    products: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+      },
+    ],
   },
   {
     toJSON: {

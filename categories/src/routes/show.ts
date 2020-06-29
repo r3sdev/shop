@@ -4,13 +4,14 @@ import {
   requireAuth,
 } from '@ramsy-dev/microservices-shop-common';
 import { Category } from '../models/category';
+require('../models/product')
 
 const router = express.Router();
 
 router.get(
   '/api/categories/:id', 
   async (req: Request, res: Response) => {
-  const category = await Category.findById(req.params.id);
+  const category = await Category.findById(req.params.id).populate('products');
 
   if (!category) {
     throw new NotFoundError();

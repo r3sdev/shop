@@ -1,36 +1,41 @@
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import WithSidebar from '../with-sidebar';
 
 const CategoryShow = ({ category, currentUser }) => {
 
   const router = useRouter();
 
-  const onGoBack = () => router.push('/categories')
+  const onGoBack = () => router.back()
 
   return (
-    <div className="col-xs-12 offset-md-3 col-md-6">
-      <div className="card">
-        <div className="card-body">
+    <WithSidebar currentUser={currentUser}>
 
-          <div>
-            <h1>{category.title}</h1>
-            <h4>{category.description}</h4>
-            {
-              !category.imageUrl
-                ? <p>No image set</p>
-                : <img
-                  src={category.imageUrl}
-                  className="col-6 rounded mx-auto d-block"
-                  alt={category.imageUrl}
-                />
-            }
-          </div>
-          <button className="btn btn-primary" onClick={onGoBack}>
-            Go back
+      <div className="col-xs-12 offset-md-3 col-md-6">
+        <div className="card">
+          <div className="card-body">
+
+            <div>
+              <h1>{category.title}</h1>
+              <h4>{category.description}</h4>
+              {
+                !category.imageUrl
+                  ? <p>No image set</p>
+                  : <img
+                    src={category.imageUrl}
+                    className="col-6 rounded mx-auto d-block"
+                    alt={category.imageUrl}
+                  />
+              }
+            </div>
+            <button className="btn btn-primary" onClick={onGoBack}>
+              Go back
           </button>
 
+          </div>
         </div>
       </div>
-    </div>
+    </WithSidebar>
+
   )
 }
 

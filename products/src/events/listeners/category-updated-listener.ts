@@ -12,6 +12,10 @@ export class CategoryUpdatedListener extends Listener<CategoryUpdatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: CategoryUpdatedEvent['data'], msg: Message) {
+
+
+    console.log({data, msg})
+
     // Find product with correct ID and version
     const category = await Category.findByEvent(data);
 

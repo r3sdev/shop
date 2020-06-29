@@ -129,11 +129,20 @@ export default () => {
                 type="password"
                 autoComplete="new-password"
               />
+              {
+                !password && (
+                  <small id="passwordHelp" className="form-text text-muted">
+                    The password must be at least 10 characters long, 
+                    contain at least one lowercase letter, 
+                    one uppercase letter, one number and one special character..
+                  </small>
+                )
+              }
                 <ul>
                   {
                     passwordErrors.map(error => (
                       <li key={error}>
-                      <small id="emailHelp" className="form-text text-danger">
+                        <small id="passwordErrors" className="form-text text-danger">
                         {error}
                       </small>
                       </li>

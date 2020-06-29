@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ButtonGroup, Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencilAlt, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import WithSidebar from '../with-sidebar';
 import useRequest from '../../../hooks/use-request';
@@ -80,6 +80,19 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
           }
         </td>
         <td>
+          {
+            category.products.length > 0
+              ? (
+                <Link href={`/admin/products?category=${category.id}`}>
+                  <a>
+                    {category.products.length.toString()}
+                  </a>
+                </Link>
+              )
+              : 'No products'
+          }
+        </td>
+        <td>
           <ButtonGroup className="float-right">
             <Link href={'/admin/categories/[categoryId]'} as={`/admin/categories/${category.id}`}>
               <button className="btn btn-outline-primary btn-sm">
@@ -108,6 +121,7 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
 
         <Link href={'/admin/categories/new'}>
           <a className="btn btn-primary mb-5">
+            <FontAwesomeIcon icon={faPlus} className="mr-1" />
             Add new category
           </a>
         </Link>
@@ -122,6 +136,7 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
                     <th>Title</th>
                     <th>Description</th>
                     <th>Image</th>
+                    <th>Products</th>
                     <th className="text-right">Actions</th>
                   </tr>
                 </thead>

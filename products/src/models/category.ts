@@ -20,6 +20,7 @@ export interface CategoryDoc extends mongoose.Document {
   title: string;
   description: string;
   imageUrl: string;
+  version: number;
 }
 
 interface CategoryModel extends mongoose.Model<CategoryDoc> {

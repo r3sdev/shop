@@ -28,9 +28,7 @@ export class CategoryDeletedListener extends Listener<CategoryDeletedEvent> {
         category: category.id,
       },
       {
-        $unsetset: {
-          category: undefined,
-        },
+        $unset: { category: "" }
       },
     );
 
