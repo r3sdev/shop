@@ -41,7 +41,7 @@ export default ({ currentUser }) => {
 
   return (
 
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" sticky="top">
+    <Navbar collapseOnSelect expand="lg" bg="white" variant="light" sticky="top">
       <Link href="/">
         <Navbar.Brand>
           <FontAwesomeIcon
