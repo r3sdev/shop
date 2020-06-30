@@ -1,5 +1,5 @@
 import React from 'react';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import owasp from 'owasp-password-strength-test';
 
 import useRequest from '../../hooks/use-request';
@@ -132,23 +132,23 @@ export default () => {
               {
                 !password && (
                   <small id="passwordHelp" className="form-text text-muted">
-                    The password must be at least 10 characters long, 
-                    contain at least one lowercase letter, 
+                    The password must be at least 10 characters long,
+                    contain at least one lowercase letter,
                     one uppercase letter, one number and one special character..
                   </small>
                 )
               }
-                <ul>
-                  {
-                    passwordErrors.map(error => (
-                      <li key={error}>
-                        <small id="passwordErrors" className="form-text text-danger">
+              <ul>
+                {
+                  passwordErrors.map(error => (
+                    <li key={error}>
+                      <small id="passwordErrors" className="form-text text-danger">
                         {error}
                       </small>
-                      </li>
-                    ))
-                  }
-                </ul>
+                    </li>
+                  ))
+                }
+              </ul>
             </div>
 
             <div className="form-group">
@@ -162,7 +162,10 @@ export default () => {
                 autoComplete="password-confirmation"
               />
               {
-                error?.message === 'PasswordDoNotMatch' && (
+                error?.message === 'PasswordDoNotMatch' || (
+                  (password && confirmation) &&
+                  (password !== confirmation)) &&
+                (
                   <small id="emailHelp" className="form-text text-danger">
                     Passwords do not match
                   </small>

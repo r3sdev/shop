@@ -18,9 +18,7 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   return (
     <div>
       <Header currentUser={currentUser} />
-      <div className={isAdminRoute ? "" : "container-fluid mt-3"}>
-        <Component currentUser={currentUser} {...pageProps}/>
-      </div>
+      <Component currentUser={currentUser} {...pageProps}/>
     </div>
   )
 }

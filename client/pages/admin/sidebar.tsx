@@ -15,7 +15,7 @@ import Link from 'next/link'
 const AdminSidebar = () => {
 
   return (
-    <div id="sidebar-container" className="sidebar-expanded d-none d-md-block col-2">
+    <div id="sidebar-container" className="sidebar-expanded d-none d-md-block">
       <ul className="list-group sticky-top sticky-offset">
         <li className="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
           <small>CATALOG</small>

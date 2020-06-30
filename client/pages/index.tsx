@@ -1,5 +1,8 @@
 import React from 'react';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
+import { Carousel, Card } from 'react-bootstrap';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const LandingPage = ({ currentUser, categories }) => {
 
@@ -29,16 +32,33 @@ const LandingPage = ({ currentUser, categories }) => {
 
   return (
     <div>
-      <h1>Categories</h1>
-      {
-        !hasCategories
-          ? <p>No products available</p>
-          : (
-            <div className="card-deck">
-              {categoryList}
-            </div>
-          )
-      }
+
+      <div className="w-100 bg-light mb-1" style={{ height: 'auto', position: 'relative' }}>
+        <img
+          src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/banner.jpg" alt="banner"
+          style={{ width: '100%' }}
+        />
+        <div className="text-white" style={{ position: 'absolute', top: 10, left: 10, cursor: 'pointer' }}>
+          <h1>This is our summer holiday</h1>
+          <h3>
+            Get some tips and inspiration
+            <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
+          </h3>
+        </div>
+      </div>
+
+      <div className="container-fluid">
+        <h1>Categories</h1>
+        {
+          !hasCategories
+            ? <p>No products available</p>
+            : (
+              <div className="card-deck">
+                {categoryList}
+              </div>
+            )
+        }
+      </div>
     </div>
   )
 };
