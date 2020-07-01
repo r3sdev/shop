@@ -48,7 +48,6 @@ const LandingPage = ({ currentUser, categories }) => {
       </div>
 
       <div className="container-fluid">
-        <h1>Categories</h1>
         {
           !hasCategories
             ? <p>No products available</p>
