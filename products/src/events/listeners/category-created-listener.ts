@@ -12,10 +12,10 @@ export class CategoryCreatedListener extends Listener<CategoryCreatedEvent> {
   queueGroupName = queueGroupName;
 
   async onMessage(data: CategoryCreatedEvent['data'], msg: Message) {
-    const { id, title, description, imageUrl } = data;
-    const product = Category.build({ id, title, description, imageUrl });
+    const { id, title, description, imageUrl, version } = data;
+    const category = Category.build({ id, title, description, imageUrl, version });
 
-    await product.save();
+    await category.save();
 
     msg.ack();
   }
