@@ -4,11 +4,14 @@ import { Carousel, Card } from 'react-bootstrap';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const LandingPage = ({ currentUser, categories }) => {
+const LandingPage = ({ currentUser, categories, products }) => {
+
+  console.log({categories, products})
 
   const router = useRouter()
 
   const hasCategories = categories.length > 0;
+  const hasProducts = products.length > 0;
 
   const onSelectCategory = (category) => {
     router.push(`/categories/${category.id}/products`)
@@ -46,7 +49,20 @@ const LandingPage = ({ currentUser, categories }) => {
           </h3>
         </div>
       </div>
-
+      <div className="row">
+        <h1>BONUS</h1>
+        {
+          hasProducts ? (
+            <div className="col-md-2">
+              <article>
+                <figure>
+                  <img src={products[0].imageUrl} />
+                </figure>
+              </article>
+            </div>
+          ) : <h6>No bonus</h6>
+        }
+      </div>
       <div className="container-fluid">
         {
           !hasCategories
@@ -63,9 +79,11 @@ const LandingPage = ({ currentUser, categories }) => {
 };
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await client.get('/api/categories');
+  const { data: categories } = await client.get('/api/categories');
+  const { data: products } = await client.get('/api/products');
 
-  return { categories: data };
+
+  return { categories, products };
 };
 
 export default LandingPage;
