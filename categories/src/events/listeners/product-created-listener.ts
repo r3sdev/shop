@@ -28,6 +28,10 @@ export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
     if (category) {
       category.products?.push(product);
 
+      // This results in an update which needs to be emitted
+
+      throw new Error('fixme')
+
       await category.save();
     }
 
