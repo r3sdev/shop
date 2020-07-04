@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: logs-mongo-depl
+  namespace: development
 spec:
   replicas: 1
   selector:
@@ -20,6 +21,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: logs-mongo-srv
+  namespace: development
 spec:
   selector:
     app: logs-mongo

@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: categories-depl
+  name: orders-depl
+  namespace: development
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: categories
+      app: orders
   template:
     metadata:
       labels:
-        app: categories
+        app: orders
     spec:
       containers:
-        - name: categories
-          image: docker.pkg.github.com/tcd1980/shop/categories
+        - name: orders
+          image: docker.pkg.github.com/tcd1980/shop/orders
           env:
+            - name: EXPIRATION_WINDOW_IN_MINUTES
+              value: '15'
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
@@ -25,7 +28,7 @@ spec:
             - name: NATS_CLUSTER_ID
               value: shop
             - name: MONGO_URI
-              value: 'mongodb://categories-mongo-srv:27017/categories'
+              value: 'mongodb://orders-mongo-srv:27017/orders'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -37,12 +40,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: categories-srv
+  name: orders-srv
+  namespace: development
 spec:
   selector:
-    app: categories
+    app: orders
   ports:
-    - name: categories
+    - name: orders
       protocol: TCP
       port: 3000
       targetPort: 3000

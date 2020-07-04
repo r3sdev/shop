@@ -1,28 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payments-mongo-depl
+  name: orders-mongo-depl
+  namespace: development
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: payments-mongo
+      app: orders-mongo
   template:
     metadata:
       labels:
-        app: payments-mongo
+        app: orders-mongo
     spec:
       containers:
-        - name: payments-mongo
+        - name: orders-mongo
           image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: payments-mongo-srv
+  name: orders-mongo-srv
+  namespace: development
 spec:
   selector:
-    app: payments-mongo
+    app: orders-mongo
   ports:
     - name: db
       protocol: TCP
