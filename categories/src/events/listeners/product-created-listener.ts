@@ -7,6 +7,8 @@ import {
 import { Product } from '../../models/product';
 import { Category } from '../../models/category';
 import { queueGroupName } from './queue-group-name';
+import { CategoryUpdatedPublisher } from '../publishers/category-updated-publisher';
+import { natsWrapper } from '../../nats-wrapper';
 
 export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
   subject: Subjects.ProductCreated = Subjects.ProductCreated;
@@ -18,7 +20,7 @@ export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
     const category = await Category.findById(_category?.id);
 
     if (!category) {
-      throw new Error('Category not found')
+      throw new Error('Category not found');
     }
 
     const product = Product.build({ id, title, price, imageUrl, category });
@@ -30,9 +32,15 @@ export class ProductCreatedListener extends Listener<ProductCreatedEvent> {
 
       // This results in an update which needs to be emitted
 
-      throw new Error('fixme')
+      await category!.save();
 
-      await category.save();
+      await new CategoryUpdatedPublisher(natsWrapper.client).publish({
+        id: category.id,
+        version: category.version,
+        title: category.title,
+        description: category.description,
+        imageUrl: category.imageUrl,
+      });
     }
 
     msg.ack();
