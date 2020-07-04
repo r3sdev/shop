@@ -14,7 +14,6 @@ interface CategoryAttrs {
   title: string;
   description?: string;
   imageUrl?: string;
-  version: number;
 }
 
 export interface CategoryDoc extends mongoose.Document {
