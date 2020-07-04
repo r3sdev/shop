@@ -1,21 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: categories-depl
-  namespace: production
+  name: media-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: categories
+      app: media
   template:
     metadata:
       labels:
-        app: categories
+        app: media
     spec:
       containers:
-        - name: categories
-          image: docker.pkg.github.com/tcd1980/shop/categories
+        - name: logs
+          image: docker.pkg.github.com/tcd1980/shop/media
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -26,25 +25,34 @@ spec:
             - name: NATS_CLUSTER_ID
               value: shop
             - name: MONGO_URI
-              value: 'mongodb://categories-mongo-srv:27017/categories'
+              value: 'mongodb://media-mongo-srv:27017/media'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+            - name: SPACES_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: spaces-key
+                  key: SPACES_KEY
+            - name: SPACES_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: spaces-secret
+                  key: SPACES_SECRET
       imagePullSecrets:
         - name: regcred
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: categories-srv
-  namespace: production
+  name: media-srv
 spec:
   selector:
-    app: categories
+    app: media
   ports:
-    - name: categories
+    - name: media
       protocol: TCP
       port: 3000
       targetPort: 3000

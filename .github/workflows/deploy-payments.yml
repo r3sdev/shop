@@ -22,5 +22,5 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save ramsy-dev
-      - run: kubectl -n production rollout restart deployment payments-depl
+      - run: kubectl rollout restart deployment payments-depl
 
