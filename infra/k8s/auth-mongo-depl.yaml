@@ -1,30 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: logs-mongo-depl
-  namespace: production
+  name: auth-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: logs-mongo
+      app: auth-mongo
   template:
     metadata:
       labels:
-        app: logs-mongo
+        app: auth-mongo
     spec:
       containers:
-        - name: logs-mongo
+        - name: auth-mongo
           image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: logs-mongo-srv
-  namespace: production
+  name: auth-mongo-srv
 spec:
   selector:
-    app: logs-mongo
+    app: auth-mongo
   ports:
     - name: db
       protocol: TCP
