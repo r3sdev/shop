@@ -1,20 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: payments-depl
+  name: logs-depl
+  namespace: development
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: payments
+      app: logs
   template:
     metadata:
       labels:
-        app: payments
+        app: logs
     spec:
       containers:
-        - name: payments
-          image: docker.pkg.github.com/tcd1980/shop/payments
+        - name: logs
+          image: docker.pkg.github.com/tcd1980/shop/logs
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -25,29 +26,25 @@ spec:
             - name: NATS_CLUSTER_ID
               value: shop
             - name: MONGO_URI
-              value: 'mongodb://payments-mongo-srv:27017/payments'
+              value: 'mongodb://logs-mongo-srv:27017/logs'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-            - name: STRIPE_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: stripe-secret
-                  key: STRIPE_KEY
       imagePullSecrets:
         - name: regcred
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: payments-srv
+  name: logs-srv
+  namespace: development
 spec:
   selector:
-    app: payments
+    app: logs
   ports:
-    - name: payments
+    - name: logs
       protocol: TCP
       port: 3000
       targetPort: 3000

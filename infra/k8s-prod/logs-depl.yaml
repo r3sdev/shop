@@ -1,33 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-depl
+  name: logs-depl
   namespace: production
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: logs
   template:
     metadata:
       labels:
-        app: auth
+        app: logs
     spec:
       containers:
-        - name: auth
-          image: docker.pkg.github.com/tcd1980/shop/auth
+        - name: logs
+          image: docker.pkg.github.com/tcd1980/shop/logs
           env:
-            - name: MONGO_URI
-              value: 'mongodb://auth-mongo-srv:27017/auth'
-            - name: JWT_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: jwt-secret
-                  key: JWT_KEY
-            - name: TWO_FACTOR_AUTHENTICATION_APP_NAME
-              value: 'shop.ramsy.dev'
-            - name: BASE_URL
-              value: https://shop.ramsy.dev
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
@@ -36,21 +25,26 @@ spec:
               value: 'http://nats-srv:4222'
             - name: NATS_CLUSTER_ID
               value: shop
-            - name: ADMIN_EMAIL
-              value: ramsy@ramsy.io
+            - name: MONGO_URI
+              value: 'mongodb://logs-mongo-srv:27017/logs'
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
       imagePullSecrets:
         - name: regcred
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv
+  name: logs-srv
   namespace: production
 spec:
   selector:
-    app: auth
+    app: logs
   ports:
-    - name: auth
+    - name: logs
       protocol: TCP
       port: 3000
       targetPort: 3000
