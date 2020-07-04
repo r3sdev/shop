@@ -34,45 +34,52 @@ const LandingPage = ({ currentUser, categories, products }) => {
   })
 
   return (
-    <div>
+    <div className="container-fluid">
 
-      <div className="w-100 bg-light mb-1" style={{ height: 'auto', position: 'relative' }}>
-        <img
-          src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/banner.jpg" alt="banner"
-          style={{ width: '100%' }}
-        />
-        <div className="text-white" style={{ position: 'absolute', top: 10, left: 10, cursor: 'pointer' }}>
-          <h1>This is our summer holiday</h1>
-          <h3>
-            Get some tips and inspiration
+      <div className="row">
+        <div className="w-100 bg-light mb-1" style={{ height: 'auto', position: 'relative' }}>
+          <img
+            src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/banner.jpg" alt="banner"
+            style={{ width: '100%' }}
+          />
+          <div className="text-white" style={{ position: 'absolute', top: 10, left: 10, cursor: 'pointer' }}>
+            <h1>This is our summer holiday</h1>
+            <h3>
+              Get some tips and inspiration
             <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
-          </h3>
+            </h3>
+          </div>
+        </div>
+      </div>
+
+      <div className="row">
+        <div className="col-12">
+          <h1>BONUS</h1>
+          {
+            hasProducts ? (
+              <div className="col-md-2">
+                <article>
+                  <figure>
+                    <img src={products[0].imageUrl} />
+                  </figure>
+                </article>
+              </div>
+            ) : <h6>No bonus</h6>
+          }
         </div>
       </div>
       <div className="row">
-        <h1>BONUS</h1>
-        {
-          hasProducts ? (
-            <div className="col-md-2">
-              <article>
-                <figure>
-                  <img src={products[0].imageUrl} />
-                </figure>
-              </article>
-            </div>
-          ) : <h6>No bonus</h6>
-        }
-      </div>
-      <div className="container-fluid">
-        {
-          !hasCategories
-            ? <p>No products available</p>
-            : (
-              <div className="card-deck">
-                {categoryList}
-              </div>
-            )
-        }
+          <div className="col-md-12">
+          {
+            !hasCategories
+              ? <p>No products available</p>
+              : (
+                <div className="card-deck">
+                  {categoryList}
+                </div>
+              )
+          }
+          </div>
       </div>
     </div>
   )
