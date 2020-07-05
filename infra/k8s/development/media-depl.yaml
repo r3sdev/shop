@@ -42,6 +42,7 @@ spec:
                 secretKeyRef:
                   name: spaces-secret
                   key: SPACES_SECRET
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

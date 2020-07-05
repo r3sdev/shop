@@ -54,6 +54,7 @@ spec:
                 secretKeyRef:
                   name: twilio-auth-token
                   key: TWILIO_AUTH_TOKEN
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

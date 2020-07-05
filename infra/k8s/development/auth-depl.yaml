@@ -38,6 +38,7 @@ spec:
               value: shop
             - name: ADMIN_EMAIL
               value: ramsy@ramsy.io
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---
