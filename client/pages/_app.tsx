@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router';
+import { ThemeProvider } from 'styled-components'
 
 import buildClient from '../api/build-client';
 import Header from '../components/header';
@@ -8,6 +9,12 @@ import 'react-phone-number-input/style.css'
 import './overrides.css'
 import './sidebar.css'
 
+const theme = {
+  colors: {
+    primary: '#0070f3',
+  },
+}
+
 const AppComponent = ({ Component, pageProps, currentUser }) => {
 
   const router = useRouter();
@@ -16,10 +23,10 @@ const AppComponent = ({ Component, pageProps, currentUser }) => {
   const isAdminRoute = pathname.startsWith('/admin');
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <Header currentUser={currentUser} />
       <Component currentUser={currentUser} {...pageProps}/>
-    </div>
+    </ThemeProvider>
   )
 }
 

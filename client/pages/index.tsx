@@ -1,9 +1,12 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Carousel, Card } from 'react-bootstrap';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
 
+const Title = styled.h3`
+  color: ${({ theme }) => theme.colors.primary};
+`
 const LandingPage = ({ currentUser, categories, products }) => {
 
   console.log({ categories, products })
@@ -58,25 +61,25 @@ const LandingPage = ({ currentUser, categories, products }) => {
         <div className="col-12">
           {
             hasProducts && products.map(product => {
-                return (
-                  <div className="col-md-2">
-                    <article>
-                      <figure>
-                        <img src={product.imageUrl} />
-                      </figure>
-                    </article>
-                  </div>
-                )
-              })
+              return (
+                <div className="col-md-2">
+                  <article>
+                    <figure>
+                      <img src={product.imageUrl} />
+                    </figure>
+                  </article>
+                </div>
+              )
+            })
           }
         </div>
       </div>
-      
+
       <div className="row">
         <div className="col-md-12">
           {
             !hasCategories
-              ? <p>No products available</p>
+              ? <Title>No products available</Title>
               : (
                 <div className="card-deck">
                   {categoryList}
