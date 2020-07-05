@@ -15,7 +15,7 @@ const EditCategory = ({ currentUser, category }) => {
     url: `/api/categories/${category.id}`,
     method: 'put',
     body: { title, description, imageUrl },
-    onSuccess: () => router.push('/categories')
+    onSuccess: () => router.push('/admin/categories')
   });
 
   const onSubmit = (event: React.FormEvent) => {
