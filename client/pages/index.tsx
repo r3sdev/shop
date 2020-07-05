@@ -7,6 +7,7 @@ import styled from 'styled-components';
 const Title = styled.h3`
   color: ${({ theme }) => theme.colors.primary};
 `
+
 const LandingPage = ({ currentUser, categories, products }) => {
 
   console.log({ categories, products })
@@ -40,12 +41,12 @@ const LandingPage = ({ currentUser, categories, products }) => {
     <div className="container-fluid">
 
       <div className="row">
-        <div className="w-100 bg-light mb-1" style={{ height: '', position: 'relative' }}>
+        <div className="w-100 bg-light mb-1">
           <img
             alt="banner"
-            className="img-fluid"
+            className="img-fluid h-100"
             src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/banner.jpg"
-            style={{ width: '100%' }}
+            style={{objectFit: 'cover'}}
           />
           <div className="text-white" style={{ position: 'absolute', top: 10, left: 10, cursor: 'pointer' }}>
             <h1>This is our summer holiday</h1>
