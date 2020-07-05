@@ -85,8 +85,6 @@ build:
     docker:
       dockerfile: Dockerfile
 deploy:
-  kubeContext: docker-desktop
-  statusCheckDeadlineSeconds: 300
   kubectl:
     manifests:
     - ./infra/k8s/*

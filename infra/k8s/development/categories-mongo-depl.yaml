@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: categories-mongo-depl
+  namespace: development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: categories-mongo
+  template:
+    metadata:
+      labels:
+        app: categories-mongo
+    spec:
+      containers:
+        - name: categories-mongo
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: categories-mongo-srv
+  namespace: development
+spec:
+  selector:
+    app: categories-mongo
+  ports:
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
