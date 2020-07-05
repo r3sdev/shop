@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: logs
-          image: docker.pkg.github.com/tcd1980/shop/media
+          image: shopramsydev/media
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -42,6 +42,7 @@ spec:
                 secretKeyRef:
                   name: spaces-secret
                   key: SPACES_SECRET
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

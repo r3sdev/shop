@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: payments
-          image: docker.pkg.github.com/tcd1980/shop/payments
+          image: shopramsydev/payments
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -37,6 +37,7 @@ spec:
                 secretKeyRef:
                   name: stripe-secret
                   key: STRIPE_KEY
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

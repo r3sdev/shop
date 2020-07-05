@@ -15,13 +15,14 @@ spec:
     spec:
       containers:
         - name: api
-          image: docker.pkg.github.com/tcd1980/shop/api
+          image: shopramsydev/api
           env:
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

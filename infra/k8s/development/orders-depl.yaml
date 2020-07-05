@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: orders
-          image: docker.pkg.github.com/tcd1980/shop/orders
+          image: shopramsydev/orders
           env:
             - name: EXPIRATION_WINDOW_IN_MINUTES
               value: '15'
@@ -34,6 +34,7 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

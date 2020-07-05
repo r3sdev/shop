@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: logs
-          image: docker.pkg.github.com/tcd1980/shop/logs
+          image: shopramsydev/logs
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -32,6 +32,7 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---
