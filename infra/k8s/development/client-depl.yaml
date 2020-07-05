@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: docker.pkg.github.com/tcd1980/shop/client
+          image: shopramsydev/client
           env:
             - name: JWT_KEY
               valueFrom:

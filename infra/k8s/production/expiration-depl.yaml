@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: expiration
-          image: docker.pkg.github.com/tcd1980/shop/expiration
+          image: shopramsydev/expiration
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

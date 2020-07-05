@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: notifications
-          image: docker.pkg.github.com/tcd1980/shop/notifications
+          image: shopramsydev/notifications
           env:
             - name: JWT_KEY
               valueFrom:
