@@ -13,8 +13,7 @@ export class CategoryUpdatedListener extends Listener<CategoryUpdatedEvent> {
 
   async onMessage(data: CategoryUpdatedEvent['data'], msg: Message) {
 
-
-    console.log({data, msg})
+    console.log({data})
 
     // Find product with correct ID and version
     const category = await Category.findByEvent(data);

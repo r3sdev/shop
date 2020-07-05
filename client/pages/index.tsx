@@ -1,12 +1,15 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { Carousel, Card } from 'react-bootstrap';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
 
+const Title = styled.h3`
+  color: ${({ theme }) => theme.colors.primary};
+`
 const LandingPage = ({ currentUser, categories, products }) => {
 
-  console.log({categories, products})
+  console.log({ categories, products })
 
   const router = useRouter()
 
@@ -37,9 +40,11 @@ const LandingPage = ({ currentUser, categories, products }) => {
     <div className="container-fluid">
 
       <div className="row">
-        <div className="w-100 bg-light mb-1" style={{ height: 'auto', position: 'relative' }}>
+        <div className="w-100 bg-light mb-1" style={{ height: '', position: 'relative' }}>
           <img
-            src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/banner.jpg" alt="banner"
+            alt="banner"
+            className="img-fluid"
+            src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/banner.jpg"
             style={{ width: '100%' }}
           />
           <div className="text-white" style={{ position: 'absolute', top: 10, left: 10, cursor: 'pointer' }}>
@@ -54,32 +59,34 @@ const LandingPage = ({ currentUser, categories, products }) => {
 
       <div className="row">
         <div className="col-12">
-          <h1>BONUS</h1>
           {
-            hasProducts ? (
-              <div className="col-md-2">
-                <article>
-                  <figure>
-                    <img src={products[0].imageUrl} />
-                  </figure>
-                </article>
-              </div>
-            ) : <h6>No bonus</h6>
+            hasProducts && products.map(product => {
+              return (
+                <div className="col-md-2">
+                  <article>
+                    <figure>
+                      <img src={product.imageUrl} />
+                    </figure>
+                  </article>
+                </div>
+              )
+            })
           }
         </div>
       </div>
+
       <div className="row">
-          <div className="col-md-12">
+        <div className="col-md-12">
           {
             !hasCategories
-              ? <p>No products available</p>
+              ? <Title>No products available</Title>
               : (
                 <div className="card-deck">
                   {categoryList}
                 </div>
               )
           }
-          </div>
+        </div>
       </div>
     </div>
   )
