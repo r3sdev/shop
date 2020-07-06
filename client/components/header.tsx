@@ -41,7 +41,10 @@ export default ({ currentUser }) => {
 
   return (
 
-    <Navbar collapseOnSelect expand="lg" bg="white" variant="light" sticky="top" className="border-bottom">
+    <Navbar
+      collapseOnSelect={true} expand="lg" bg="white" variant="light" sticky="top"
+      className="border-bottom"
+    >
       <Link href="/">
         <Navbar.Brand>
           <FontAwesomeIcon
@@ -56,9 +59,7 @@ export default ({ currentUser }) => {
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
         <Nav className="mr-auto">
-
           {links}
-
         </Nav>
         <Nav>
           {
@@ -98,12 +99,12 @@ export default ({ currentUser }) => {
               : (
                 <>
                   <Nav>
-                      <Link href={'/auth/signin'}>
-                        <a className="btn btn-link btn-sm">Sign in</a>
-                      </Link>
-                      <Link href={'/auth/signup'}>
-                        <a className="btn btn-primary btn-sm">Sign up</a>
-                      </Link>
+                    <Link href={'/auth/signin'}>
+                      <a className="btn btn-link btn-sm">Sign in</a>
+                    </Link>
+                    <Link href={'/auth/signup'}>
+                      <a className="btn btn-primary btn-sm">Sign up</a>
+                    </Link>
                   </Nav>
                 </>
               )
