@@ -48,7 +48,7 @@ const LandingPage = ({ currentUser, categories, products }) => {
             src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/banner.jpg"
             style={{objectFit: 'cover'}}
           />
-          <div className="text-white" style={{ position: 'absolute', top: 10, left: 10, cursor: 'pointer' }}>
+          <div className="text-white" style={{ position: 'absolute', top: 60, left: 10, cursor: 'pointer' }}>
             <h1>This is our summer holiday</h1>
             <h3>
               Get some tips and inspiration
