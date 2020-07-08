@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart, faUser, faShoppingBasket, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { ButtonToolbar, DropdownButton, ButtonGroup, Dropdown, Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { useRouter } from 'next/router'
 
@@ -109,6 +109,22 @@ export default ({ currentUser }) => {
                 </>
               )
           }
+        </Nav>
+        <Nav>
+          <Link href="/cart">
+            <a>
+              <FontAwesomeIcon
+                icon={faShoppingBag}
+                size="2x"
+                className="ml-2 mr-2 text-warning"
+              />
+              <span className="badge badge-dark"
+                style={{ position: 'relative', bottom: 10, right: 15 }}
+              >
+                4
+            </span>
+            </a>
+          </Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
