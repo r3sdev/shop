@@ -24,6 +24,6 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx", "server/index.ts", "server/events/listeners/product-created-listener.js"
   ]
 }
