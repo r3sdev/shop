@@ -189,7 +189,7 @@ const LandingPage = ({ currentUser, categories, products }) => {
           </ProductRow>
         )
       }
-      <CardRow marginTop="12rem">
+      <CardRow marginTop={hasProducts ? "-2rem" : "2rem"}>
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
             <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF?text=Ad1" alt="Card image" />
