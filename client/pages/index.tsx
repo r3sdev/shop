@@ -26,8 +26,8 @@ const BannerRow = styled.div`
 `
 
 const ProductRow = styled.div`
-  position: absolute;
-  top: 18rem;
+  position: relative;
+  top: -5rem;
   width: 100%;
   height: 300px;
   z-index: 1;
@@ -159,7 +159,7 @@ const LandingPage = ({ currentUser, categories, products }) => {
                 const [euro, cents] = product.price.toFixed(2).split(".");
 
                 return (
-                  <div className="col-6 col-md-3" key={product.id}>
+                  <div className="col-12 col-md-3" key={product.id}>
                     <ProductDiv>
                       <ProductArticle>
                         <ProductFigure>
