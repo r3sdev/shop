@@ -16,6 +16,19 @@ spec:
       containers:
         - name: payments-mongo
           image: mongo
+          env:
+            - name: MONGO_DATA_DIR
+              value: /data/db
+            - name: MONGO_LOG_DIR
+              value: /dev/null
+          volumeMounts:
+            - name: payments-mongo-storage
+              mountPath: /data/db
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: payments-mongo-storage
+          persistentVolumeClaim:
+            claimName: payments-mongo-pvc
 ---
 apiVersion: v1
 kind: Service

@@ -16,6 +16,19 @@ spec:
       containers:
         - name: orders-mongo
           image: mongo
+          env:
+            - name: MONGO_DATA_DIR
+              value: /data/db
+            - name: MONGO_LOG_DIR
+              value: /dev/null
+          volumeMounts:
+            - name: orders-mongo-storage
+              mountPath: /data/db
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: orders-mongo-storage
+          persistentVolumeClaim:
+            claimName: orders-mongo-pvc
 ---
 apiVersion: v1
 kind: Service
