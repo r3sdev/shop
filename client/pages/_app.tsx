@@ -40,27 +40,16 @@ class AppComponent extends React.Component<any, any> {
     const key = "srdguid"
     const srdguid = localStorage.getItem(key)
 
-    if (!this.props.currentUser) {
-      console.log('Not logged in')
-      if (!srdguid) {
-        console.log('No GUID found ...')
-        const guid = uuidv4();
-        localStorage.setItem(key, guid)
-        console.log('Setting GUID ...', guid)
-      } else {
-        console.log('GUID found!', srdguid)
-      }
-    } else if (this.props.currentUser) {
-      console.log('Logged in', this.props.currentUser)
-      if (srdguid) {
-        console.log('Removing GUID ...')
-        localStorage.removeItem(key)
-      }
+    if (!srdguid) {
+      console.log('No GUID found ...')
+      const guid = uuidv4();
+      localStorage.setItem(key, guid)
+      console.log('Setting GUID ...', guid)
     }
   }
 
-  render(){
-    const { Component, pageProps, currentUser} = this.props;
+  render() {
+    const { Component, pageProps, currentUser } = this.props;
 
     return (
       <ThemeProvider theme={theme}>
