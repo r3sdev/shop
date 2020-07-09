@@ -1,5 +1,7 @@
-import {useRouter} from 'next/router';
+import React from 'react';
 import { ThemeProvider } from 'styled-components'
+import { v4 as uuidv4 } from 'uuid';
+
 
 import buildClient from '../api/build-client';
 import Header from '../components/header';
@@ -15,37 +17,58 @@ const theme = {
   },
 }
 
-const AppComponent = ({ Component, pageProps, currentUser }) => {
+class AppComponent extends React.Component<any, any> {
 
-  const router = useRouter();
+  static async getInitialProps(appContext) {
+    const client = buildClient(appContext.ctx);
+    const { data } = await client.get('/api/users/currentuser');
 
-  const pathname = router.pathname;
-  const isAdminRoute = pathname.startsWith('/admin');
+    let pageProps = {};
 
-  return (
-    <ThemeProvider theme={theme}>
-      <Header currentUser={currentUser} />
-      <Component currentUser={currentUser} {...pageProps}/>
-    </ThemeProvider>
-  )
-}
+    if (appContext.Component.getInitialProps) {
+      pageProps = await appContext.Component
+        .getInitialProps(appContext.ctx, client, data.currentUser)
+    }
 
-AppComponent.getInitialProps = async (appContext) => {
-
-  const client = buildClient(appContext.ctx);
-  const { data } = await client.get('/api/users/currentuser');
-
-  let pageProps = {};
-
-  if (appContext.Component.getInitialProps) {
-    pageProps = await appContext.Component
-      .getInitialProps(appContext.ctx, client, data.currentUser)
+    return {
+      pageProps,
+      ...data
+    };
   }
 
-  return {
-    pageProps,
-    ...data
-  };
-};
+  componentDidMount() {
+    const key = "srdguid"
+    const srdguid = localStorage.getItem(key)
+
+    if (!this.props.currentUser) {
+      console.log('Not logged in')
+      if (!srdguid) {
+        console.log('No GUID found ...')
+        const guid = uuidv4();
+        localStorage.setItem(key, guid)
+        console.log('Setting GUID ...', guid)
+      } else {
+        console.log('GUID found!', srdguid)
+      }
+    } else if (this.props.currentUser) {
+      console.log('Logged in', this.props.currentUser)
+      if (srdguid) {
+        console.log('Removing GUID ...')
+        localStorage.removeItem(key)
+      }
+    }
+  }
+
+  render(){
+    const { Component, pageProps, currentUser} = this.props;
+
+    return (
+      <ThemeProvider theme={theme}>
+        <Header currentUser={currentUser} />
+        <Component currentUser={currentUser} {...pageProps} />
+      </ThemeProvider>
+    )
+  }
+}
 
 export default AppComponent;
