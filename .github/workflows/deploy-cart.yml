@@ -1,0 +1,26 @@
+name: deploy-cart
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'cart/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: cd cart && docker build -t shopramsydev/cart .
+      - run: docker login docker.io -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: docker push shopramsydev/cart
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save ramsy-dev
+      - run: kubectl -n production rollout restart deployment cart-depl
+

@@ -17,5 +17,5 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save ramsy-dev
       - run: kubectl -n production apply -f infra/k8s/production
-
+      - run: kubectl -n production apply -f infra/k8s/storage/production
 

@@ -3,7 +3,6 @@ import helmet from 'helmet';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
-import requestIp from 'request-ip';
 import {
   errorHandler,
   NotFoundError,
@@ -29,8 +28,6 @@ app.use(
 );
 
 app.use(currentUser);
-
-app.use(requestIp.mw());
 
 app.use(createProductRouter);
 app.use(showProductRouter);

@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: orders-mongo-depl
-  namespace: development
+  name: cart-mongo-depl
+  namespace: production
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: orders-mongo
+      app: cart-mongo
   template:
     metadata:
       labels:
-        app: orders-mongo
+        app: cart-mongo
     spec:
       containers:
-        - name: orders-mongo
+        - name: cart-mongo
           image: mongo
           env:
             - name: MONGO_DATA_DIR
@@ -22,22 +22,22 @@ spec:
             - name: MONGO_LOG_DIR
               value: /dev/null
           volumeMounts:
-            - name: orders-mongo-storage
+            - name: cart-mongo-storage
               mountPath: /data/db
       terminationGracePeriodSeconds: 10
       volumes:
-        - name: orders-mongo-storage
+        - name: cart-mongo-storage
           persistentVolumeClaim:
-            claimName: orders-mongo-pvc
+            claimName: cart-mongo-pvc
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: orders-mongo-srv
+  name: cart-mongo-srv
   namespace: development
 spec:
   selector:
-    app: orders-mongo
+    app: cart-mongo
   ports:
     - name: db
       protocol: TCP

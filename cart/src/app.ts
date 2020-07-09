@@ -8,11 +8,7 @@ import {
   NotFoundError,
   currentUser,
 } from '@ramsy-dev/microservices-shop-common';
-import { createCategoryRouter } from './routes/new';
-import { showCategoryRouter } from './routes/show';
-import { indexCategoryRouter } from './routes/index';
-import { updateCategoryRouter } from './routes/update';
-import { deleteCategoryRouter } from './routes/delete';
+import { indexCartRouter } from './routes';
 
 const app = express();
 
@@ -29,11 +25,7 @@ app.use(
 
 app.use(currentUser);
 
-app.use(createCategoryRouter);
-app.use(showCategoryRouter);
-app.use(indexCategoryRouter);
-app.use(updateCategoryRouter);
-app.use(deleteCategoryRouter);
+app.use(indexCartRouter);
 
 // Catch all non defined urls
 app.all('*', () => {
