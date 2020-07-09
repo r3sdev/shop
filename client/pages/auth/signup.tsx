@@ -1,8 +1,16 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import owasp from 'owasp-password-strength-test';
+import styled from 'styled-components';
 
 import useRequest from '../../hooks/use-request';
+
+const ErrorSpan = styled.span`
+  margin-right: 5px;
+`
+
+const HelpText = styled.small`
+`
 
 export default () => {
 
@@ -79,18 +87,17 @@ export default () => {
   };
 
   return (
-    <div className="col-xs-12 offset-md-3 col-md-6 mt-4">
+    <div className="col-xs-12 offset-md-4 col-md-4 mt-3">
+
       <div className="card">
         <div className="card-body">
+          <h2>Sign Up</h2>
 
           <form onSubmit={onSubmit}>
-            <h2>Sign Up</h2>
-            <hr />
-
             <div className="form-group">
-              <label>Full name</label>
               <input
                 value={fullName}
+                placeholder="Full name"
                 onChange={(e) => setFullName(e.target.value)}
                 onBlur={(e) => setFullName(e.target.value.trim())}
                 className="form-control"
@@ -99,9 +106,9 @@ export default () => {
             </div>
 
             <div className="form-group">
-              <label>Email Address</label>
               <input
                 value={email}
+                placeholder="Email Address"
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={validateEmail}
                 className="form-control"
@@ -109,20 +116,22 @@ export default () => {
               />
               {
                 error?.message === 'InvalidEmail' ?
-                  <small id="emailHelp" className="form-text text-danger">
+                  <HelpText id="emailHelp" className="form-text text-danger">
                     Please check your email address
-                  </small>
+                  </HelpText>
                   :
-                  <small id="emailHelp" className="form-text text-muted">
-                    We'll never share your email with anyone else.
-                  </small>
+                  !email && (
+                    <HelpText id="emailHelp" className="form-text text-muted">
+                      We'll never share your email with anyone else.
+                    </HelpText>
+                  )
               }
 
             </div>
             <div className="form-group">
-              <label>Password</label>
               <input
                 value={password}
+                placeholder="Password"
                 onChange={onChangePassword}
                 onBlur={validatePassword}
                 className="form-control"
@@ -131,30 +140,32 @@ export default () => {
               />
               {
                 !password && (
-                  <small id="passwordHelp" className="form-text text-muted">
+                  <HelpText id="passwordHelp" className="form-text text-muted">
                     The password must be at least 10 characters long,
                     contain at least one lowercase letter,
                     one uppercase letter, one number and one special character..
-                  </small>
+                  </HelpText>
                 )
               }
-              <ul>
-                {
-                  passwordErrors.map(error => (
-                    <li key={error}>
-                      <small id="passwordErrors" className="form-text text-danger">
-                        {error}
-                      </small>
-                    </li>
-                  ))
-                }
-              </ul>
+              {
+                passwordErrors.length > 0 && (
+                  <HelpText id="passwordErrors" className="form-text text-danger">
+                    {
+                      passwordErrors.map(error => (
+                        <ErrorSpan key={error}>
+                          {error}
+                        </ErrorSpan>
+                      ))
+                    }
+                  </HelpText>
+                )
+              }
             </div>
 
             <div className="form-group">
-              <label>Password Confirmation</label>
               <input
                 value={confirmation}
+                placeholder="Password Confirmation"
                 onChange={(e) => setConfirmation(e.target.value)}
                 onBlur={validateConfirmation}
                 className="form-control"
@@ -162,13 +173,20 @@ export default () => {
                 autoComplete="password-confirmation"
               />
               {
+                !confirmation && (
+                  <HelpText id="passwordConfirmationHelp" className="form-text text-muted">
+                    Please confirm your password
+                  </HelpText>
+                )
+              }
+              {
                 error?.message === 'PasswordDoNotMatch' || (
                   (password && confirmation) &&
                   (password !== confirmation)) &&
                 (
-                  <small id="emailHelp" className="form-text text-danger">
+                  <HelpText id="emailHelp" className="form-text text-danger">
                     Passwords do not match
-                  </small>
+                  </HelpText>
                 )
               }
             </div>

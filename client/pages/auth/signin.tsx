@@ -1,8 +1,21 @@
 import React from 'react';
-import {useRouter} from 'next/router';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+import styled from 'styled-components';
 import useRequest from '../../hooks/use-request';
 import ConfirmTwoFactorAuth from '../../components/2fa';
+
+const Divider = styled.hr`
+  position: relative;
+  bottom: 1rem;
+  margin: 0;
+`
+
+const DividerText = styled.span`
+  background: white;
+  padding: 5px 15px;
+  z-index: 1;
+`
 
 const Signin = () => {
 
@@ -40,25 +53,24 @@ const Signin = () => {
   }
 
   return (
-    <div className="col-xs-12 offset-md-3 col-md-6 mt-3">
+    <div className="col-xs-12 offset-md-4 col-md-4 mt-3">
 
       <div className="card">
         <div className="card-body">
+          <h2>Sign In</h2>
 
           <form onSubmit={onSubmit}>
-            <h2>Sign In</h2>
             <div className="form-group">
-              <label>Email Address</label>
               <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={(e) => setEmail(e.target.value.trim())}
                 className="form-control"
                 autoComplete="email"
+                placeholder="Email Address"
               />
             </div>
             <div className="form-group">
-              <label>Password</label>
               <input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -66,23 +78,37 @@ const Signin = () => {
                 className="form-control"
                 type="password"
                 autoComplete="current-password"
+                placeholder="Password"
               />
             </div>
 
             {errors}
 
-            <button className="btn btn-primary">Sign In</button>
+            <div className="d-flex justify-content-center align-items-center">
+              <button className="btn btn-primary btn-block">Sign In</button>
+            </div>
+            <div className="d-flex justify-content-start align-items-center">
+              <p className="mt-3">
+                <Link href="/auth/forgot-password">
+                  <a>Forgot your password?</a>
+                </Link>
+              </p>
+            </div>
 
-            <p className="mt-3">
-              <Link href="/auth/forgot-password">
-                <a>Forgot your password?</a>
-              </Link>
-            </p>
+
           </form>
+          <div className="d-flex justify-content-center align-items-center">
+            <DividerText>New here?</DividerText>
+          </div>
+          <Divider />
 
+          <div className="d-flex justify-content-center align-items-center">
+            <Link href="/auth/signup">
+              <a className="btn btn-sm btn-link mt-1">Sign up for a new account</a>
+            </Link>
+          </div>
         </div>
       </div>
-
     </div>
   );
 };
