@@ -66,8 +66,9 @@ const Signin = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 onBlur={(e) => setEmail(e.target.value.trim())}
                 className="form-control"
-                autoComplete="email"
+                autoComplete="off"
                 placeholder="Email Address"
+                autoFocus={true}
               />
             </div>
             <div className="form-group">
@@ -77,7 +78,7 @@ const Signin = () => {
                 onBlur={(e) => setPassword(e.target.value.trim())}
                 className="form-control"
                 type="password"
-                autoComplete="current-password"
+                autoComplete="off"
                 placeholder="Password"
               />
             </div>
