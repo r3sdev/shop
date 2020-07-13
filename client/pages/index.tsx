@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 
+import BonusProducts from '../components/product/bonus-products'
+
 const Title = styled.h3`
   color: ${({ theme }) => theme.colors.primary};
 `
@@ -14,7 +16,6 @@ const CardRow = styled.div`
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
-  margin-top: 10rem;
   margin-top: ${(props: { marginTop?: number | string }) => props.marginTop ? props.marginTop : 0};
 `
 
@@ -24,95 +25,16 @@ const BannerRow = styled.div`
   margin-right: -15px;
   margin-left: -15px;
 `
+const LandingPage = ({ currentUser, categories, products, cart }) => {
 
-const ProductRow = styled.div`
-  position: relative;
-  top: -5rem;
-  width: 100%;
-  height: 300px;
-  z-index: 1;
-  margin: 0 -15px;
-  overflow-x: auto;
-  margin-top: -3rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-const ProductDiv = styled.div`
-  height: 255px;
-  background: white;
-  display: flex;
-  flex-direction: center;
-  align-items: center;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-
-  &:hover {
-    ox-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  }
-`
-
-const ProductImage = styled.img`
-    src: url(${props => props.src});
-    width: 150px;
-    height: 150px;
-    position: relative;
-    top: 1rem;
-    left: 2rem;
-`;
-
-const ProductArticle = styled.article`
-`
-
-const ProductFigure = styled.figure`
-`
-
-
-const PriceRow = styled.div`
-  background: white;
-  display: flex;
-  align-items: flex-start;
-  position: absolute;
-  right: 4rem;
-  bottom: 4rem;
-  padding: .5rem;
-`
-const PriceEuro = styled.span`
-  font-size: 2rem;
-  font-weight: bold;
-`
-const PriceSeperator = styled.span`
-  font-size: 1rem;
-  position: relative;
-  top: 1.4rem;
-`
-
-const PriceCents = styled.span`
-  margin-top: 7px;
-  margin-left: -4px;
-`
-
-const CircleButton = styled.button`
-  color: white;
-  position: absolute;
-  right: 2rem;
-  bottom: 1rem;
-`
-const LandingPage = ({ currentUser, categories, products }) => {
-
-  console.log({ categories, products })
+  console.log({ categories, products, cart })
 
   const router = useRouter()
 
-  const hasCategories = categories.length > 0;
   const hasProducts = products.length > 0;
 
   const onSelectCategory = (category) => {
     router.push(`/categories/${category.id}/products`)
-  }
-
-  const onAddProduct = (productId: string) => {
-    console.log('Adding product', productId, currentUser.id)
   }
 
   const categoryList = categories.map(category => {
@@ -139,7 +61,7 @@ const LandingPage = ({ currentUser, categories, products }) => {
           <img
             alt="banner"
             className="img-fluid h-100"
-            src="https://via.placeholder.com/1264x300/38A6DB/FFFFFF?text=Banner"
+            src="https://via.placeholder.com/1264x300/38A6DB/FFFFFF?text=%20"
             style={{ objectFit: 'cover' }}
           />
           <div className="text-white" style={{ position: 'absolute', top: 60, left: 10, cursor: 'pointer' }}>
@@ -151,48 +73,13 @@ const LandingPage = ({ currentUser, categories, products }) => {
           </div>
         </div>
       </BannerRow>
-      {
-        hasProducts && (
-          <ProductRow>
-            {
-              products.map(product => {
-                const [euro, cents] = product.price.toFixed(2).split(".");
+      
+      <BonusProducts products={products} currentUser={currentUser}/>
 
-                return (
-                  <div className="col-12 col-md-3" key={product.id}>
-                    <ProductDiv>
-                      <ProductArticle>
-                        <ProductFigure>
-                          <ProductImage
-                            className="img-fluid"
-                            src={product.imageUrl}
-                            alt={product.title}
-                          />
-                        </ProductFigure>
-                        <PriceRow>
-                          <PriceEuro>{euro}</PriceEuro>
-                          <PriceSeperator>▪</PriceSeperator>
-                          <PriceCents>{cents}</PriceCents>
-                        </PriceRow>
-                        <CircleButton
-                          className="btn btn-warning btn-circle"
-                          onClick={() => onAddProduct(product.id)}
-                        >
-                          <FontAwesomeIcon icon={faPlus} />
-                        </CircleButton>
-                      </ProductArticle>
-                    </ProductDiv>
-                  </div>
-                )
-              })
-            }
-          </ProductRow>
-        )
-      }
-      <CardRow marginTop={hasProducts ? "-2rem" : "2rem"}>
+      <CardRow marginTop={hasProducts ? "-8rem" : "2rem"}>
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
-            <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF?text=Ad1" alt="Card image" />
+            <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF" alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title>Card title</Card.Title>
             </Card.ImgOverlay>
@@ -231,11 +118,12 @@ const LandingPage = ({ currentUser, categories, products }) => {
 };
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
+
+  const { data: cart } = await client.get('/api/cart');
   const { data: categories } = await client.get('/api/categories');
   const { data: products } = await client.get('/api/products');
 
-
-  return { categories, products };
+  return { categories, products, cart };
 };
 
 export default LandingPage;
