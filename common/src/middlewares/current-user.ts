@@ -20,6 +20,7 @@ declare global {
   namespace Express {
     interface Request {
       currentUser?: UserPayload;
+      guestId?: string;
     }
   }
 }
@@ -32,9 +33,14 @@ export const currentUser = (
   if (!req.session?.jwt) {
 
     if(!req.session?.guestId) {
+
+      const guestId = v4();
+
       req.session = {
-        guestId: v4()
+        guestId
       }
+
+      req.guestId = guestId;
     }
 
     return next();
