@@ -4,8 +4,6 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default ({ products, currentUser }) => {
 
-    console.log({ products })
-
     const hasProducts = products.length > 0;
 
     const onAddProduct = (productId: string) => {

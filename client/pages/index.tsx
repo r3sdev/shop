@@ -16,7 +16,6 @@ const CardRow = styled.div`
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
-  margin-top: 10rem;
   margin-top: ${(props: { marginTop?: number | string }) => props.marginTop ? props.marginTop : 0};
 `
 
@@ -26,9 +25,9 @@ const BannerRow = styled.div`
   margin-right: -15px;
   margin-left: -15px;
 `
-const LandingPage = ({ currentUser, categories, products }) => {
+const LandingPage = ({ currentUser, categories, products, cart }) => {
 
-  console.log({ categories, products })
+  console.log({ categories, products, cart })
 
   const router = useRouter()
 
@@ -62,7 +61,7 @@ const LandingPage = ({ currentUser, categories, products }) => {
           <img
             alt="banner"
             className="img-fluid h-100"
-            src="https://via.placeholder.com/1264x300/38A6DB/FFFFFF?text=Banner"
+            src="https://via.placeholder.com/1264x300/38A6DB/FFFFFF?text=%20"
             style={{ objectFit: 'cover' }}
           />
           <div className="text-white" style={{ position: 'absolute', top: 60, left: 10, cursor: 'pointer' }}>
@@ -77,10 +76,10 @@ const LandingPage = ({ currentUser, categories, products }) => {
       
       <BonusProducts products={products} currentUser={currentUser}/>
 
-      <CardRow marginTop={hasProducts ? "-2rem" : "2rem"}>
+      <CardRow marginTop={hasProducts ? "-8rem" : "2rem"}>
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
-            <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF?text=Ad1" alt="Card image" />
+            <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF" alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title>Card title</Card.Title>
             </Card.ImgOverlay>
@@ -119,11 +118,12 @@ const LandingPage = ({ currentUser, categories, products }) => {
 };
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
+
+  const { data: cart } = await client.get('/api/cart');
   const { data: categories } = await client.get('/api/categories');
   const { data: products } = await client.get('/api/products');
 
-
-  return { categories, products };
+  return { categories, products, cart };
 };
 
 export default LandingPage;
