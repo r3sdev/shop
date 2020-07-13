@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import {v4} from 'uuid';
 
 /**
  * The interface describes the UserPayload
@@ -19,6 +20,7 @@ declare global {
   namespace Express {
     interface Request {
       currentUser?: UserPayload;
+      guestId?: string;
     }
   }
 }
@@ -29,6 +31,18 @@ export const currentUser = (
   next: NextFunction,
 ) => {
   if (!req.session?.jwt) {
+
+    if(!req.session?.guestId) {
+
+      const guestId = v4();
+
+      req.session = {
+        guestId
+      }
+
+      req.guestId = guestId;
+    }
+
     return next();
   }
 
