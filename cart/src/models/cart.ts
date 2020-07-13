@@ -8,6 +8,12 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 interface CartAttrs {
   userId?: string;
   guestId?: string;
+  products: [
+    {
+      id: string;
+      price: number;
+    },
+  ];
 }
 
 /**
@@ -25,7 +31,15 @@ interface CartModel extends mongoose.Model<CartDoc> {
 interface CartDoc extends mongoose.Document {
   userId?: string;
   guestId?: string;
+  products: [
+    {
+      id: string;
+      price: number;
+    },
+  ];
 }
+
+var productSchema = new mongoose.Schema({ price: Number });
 
 const cartSchema = new mongoose.Schema(
   {
@@ -35,11 +49,10 @@ const cartSchema = new mongoose.Schema(
     guestId: {
       type: String,
     },
-    // category: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Category',
-    //   required: false
-    // },
+    products: {
+      type: [productSchema],
+      default: []
+    },
   },
   {
     toJSON: {
