@@ -35,8 +35,6 @@ export default ({ currentUser }) => {
   const theme = useTheme();
   const router = useRouter();
 
-  console.log(theme)
-
   const pathname = router?.pathname || ''
 
   const isRegularRoute = !pathname.startsWith("/admin")
