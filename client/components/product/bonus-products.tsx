@@ -7,7 +7,7 @@ export default ({ products, currentUser }) => {
     const hasProducts = products.length > 0;
 
     const onAddProduct = (productId: string) => {
-        console.log('Adding product', productId, currentUser.id)
+        console.log('Adding product', productId, currentUser)
     }
 
     if (!hasProducts) return null;
