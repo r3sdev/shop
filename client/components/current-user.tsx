@@ -18,7 +18,7 @@ const CurrentUser = ({ currentUser }: CurrentUserProps) => {
   const pathname = router?.pathname || ''
 
 
-  const onSelect = (uri: string) => {
+  const onSelect = (uri: any) => {
     switch (uri) {
       case 'signout':
         return router.push('/auth/signout');
