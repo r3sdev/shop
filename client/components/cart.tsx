@@ -4,13 +4,15 @@ import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons"
 import styled from 'styled-components';
-import io from 'socket.io-client';
+
 
 interface CartProps {
     currentUser: {
         id: string;
     }
-    products: {id: string, price: number}[]
+    cart:{
+        products: { id: string, price: number }[]
+    }
 }
 
 const CartBadge = styled.span`
@@ -19,7 +21,7 @@ const CartBadge = styled.span`
     right: 15px;
 `
 
-class Cart extends React.Component<any, any> {
+class Cart extends React.Component<CartProps, CartProps['cart']> {
 
     socket: any
 
