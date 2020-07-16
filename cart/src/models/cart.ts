@@ -8,7 +8,7 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 interface CartAttrs {
   userId?: string;
   guestId?: string;
-  products: [
+  products?: [
     {
       id: string;
       price: number;
@@ -31,12 +31,10 @@ interface CartModel extends mongoose.Model<CartDoc> {
 interface CartDoc extends mongoose.Document {
   userId?: string;
   guestId?: string;
-  products: [
-    {
+  products: {
       id: string;
       price: number;
-    },
-  ];
+    }[];
 }
 
 var productSchema = new mongoose.Schema({ price: Number });

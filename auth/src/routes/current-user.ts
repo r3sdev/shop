@@ -9,6 +9,7 @@ router.get(
   '/api/users/currentuser',
   currentUser,
   asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
+
     if (!req.currentUser) {
       return res.send({ currentUser: null });
     }

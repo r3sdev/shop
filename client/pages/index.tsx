@@ -25,9 +25,7 @@ const BannerRow = styled.div`
   margin-right: -15px;
   margin-left: -15px;
 `
-const LandingPage = ({ currentUser, categories, products, cart }) => {
-
-  console.log({ categories, products, cart })
+const LandingPage = ({ currentUser, categories, products }) => {
 
   const router = useRouter()
 
@@ -117,9 +115,8 @@ const LandingPage = ({ currentUser, categories, products, cart }) => {
   )
 };
 
-LandingPage.getInitialProps = async (context, client, currentUser) => {
+LandingPage.getInitialProps = async (context, client, currentUser, cart) => {
 
-  const { data: cart } = await client.get('/api/cart');
   const { data: categories } = await client.get('/api/categories');
   const { data: products } = await client.get('/api/products');
 

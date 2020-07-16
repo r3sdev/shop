@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import {v4} from 'uuid';
+import { v4 } from 'uuid';
 
 /**
  * The interface describes the UserPayload
@@ -9,7 +9,7 @@ import {v4} from 'uuid';
 interface UserPayload {
   id: string;
   email: string;
-  isAdmin: boolean
+  isAdmin: boolean;
 }
 
 /**
@@ -31,14 +31,12 @@ export const currentUser = (
   next: NextFunction,
 ) => {
   if (!req.session?.jwt) {
-
-    if(!req.session?.guestId) {
-
+    if (!req.session?.guestId) {
       const guestId = v4();
 
       req.session = {
-        guestId
-      }
+        guestId,
+      };
 
       req.guestId = guestId;
     }

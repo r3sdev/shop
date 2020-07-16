@@ -8,10 +8,9 @@ export const ProductRow = styled.div`
   z-index: 1;
   margin-left: -15px;
   margin-right: -15px;
-  overflow-x: auto;
+  overflow-x: scroll;
   display: flex;
   align-items: center;
-  justify-content: center;
 `
 export const ProductDiv = styled.div`
   height: 255px;
@@ -22,7 +21,10 @@ export const ProductDiv = styled.div`
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   transition: 0.3s;
   &:hover {
-    ox-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  @media (max-width: 768px) {
+    height: 240px;
   }
 `
 
@@ -33,6 +35,10 @@ export const ProductImage = styled.img`
     position: relative;
     top: 1rem;
     left: 2rem;
+    @media (max-width: 768px) {
+      width: 120px;
+      height: 120px;
+    }
 `;
 
 export const ProductArticle = styled.article`

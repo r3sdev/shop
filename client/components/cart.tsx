@@ -4,11 +4,13 @@ import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons"
 import styled from 'styled-components';
+import io from 'socket.io-client';
 
 interface CartProps {
     currentUser: {
         id: string;
     }
+    products: {id: string, price: number}[]
 }
 
 const CartBadge = styled.span`
@@ -17,26 +19,43 @@ const CartBadge = styled.span`
     right: 15px;
 `
 
-const Cart = ({currentUser}: CartProps) => {
+class Cart extends React.Component<any, any> {
 
-    const [count, setCount] = React.useState(0)
+    socket: any
 
-    return (
-        <Nav>
-            <Link href="/cart">
-                <a>
-                    <FontAwesomeIcon
-                        icon={faShoppingBag}
-                        size="2x"
-                        className="ml-2 mr-2 text-warning"
-                    />
-                    <CartBadge className="badge badge-dark">
-                        {count}
-                    </CartBadge>
-                </a>
-            </Link>
-        </Nav>
-    )
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            products: this.props.cart?.products || []
+        }
+    }
+
+    componentDidMount() {
+        console.log('Cart mounted', this.props)
+    }
+
+    render(){
+
+        let count = this.state.products.length
+
+        return (
+            <Nav>
+                <Link href="/cart">
+                    <a>
+                        <FontAwesomeIcon
+                            icon={faShoppingBag}
+                            size="2x"
+                            className="ml-2 mr-2 text-warning"
+                        />
+                        <CartBadge className="badge badge-dark">
+                            {count}
+                        </CartBadge>
+                    </a>
+                </Link>
+            </Nav>
+        )
+    }
 }
 
 export default Cart

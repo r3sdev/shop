@@ -9,7 +9,7 @@ import {
   currentUser,
 } from '@ramsy-dev/microservices-shop-common';
 import { indexCartRouter } from './routes';
-import { newCartRouter } from './routes/new';
+import { addProductCartRouter } from './routes/add-product';
 
 const app = express();
 
@@ -27,7 +27,7 @@ app.use(
 app.use(currentUser);
 
 app.use(indexCartRouter);
-app.use(newCartRouter);
+app.use(addProductCartRouter);
 
 // Catch all non defined urls
 app.all('*', () => {
