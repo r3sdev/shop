@@ -18,13 +18,13 @@
   },
   "dependencies": {
     "@ramsy-dev/microservices-shop-common": "1.0.57",
-    "@types/bull": "^3.13.0",
+    "@types/bull": "^3.14.0",
     "bull": "^3.14.0",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.6",
+    "ts-node-dev": "^1.0.0-pre.51"
   },
   "devDependencies": {
-    "@types/jest": "^25.2.1",
+    "@types/jest": "^26.0.4",
     "jest": "25.5.4",
     "ts-jest": "^25.4.0"
   }
