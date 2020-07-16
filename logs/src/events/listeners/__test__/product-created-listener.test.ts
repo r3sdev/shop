@@ -13,6 +13,7 @@ const setup = async () => {
   const data: ProductCreatedEvent['data'] = {
     id: mongoose.Types.ObjectId().toHexString(),
     price: 20,
+    cost: 10,
     title: 'Test product',
     userId: 'testUser',
     version: 0
