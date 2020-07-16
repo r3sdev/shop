@@ -16,7 +16,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.29",
     "@fortawesome/free-solid-svg-icons": "^5.13.1",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@ramsy-dev/microservices-shop-common": "1.0.56",
+    "@ramsy-dev/microservices-shop-common": "1.0.57",
     "@types/node": "^14.0.19",
     "@types/owasp-password-strength-test": "^1.3.0",
     "@types/styled-components": "^5.1.0",
