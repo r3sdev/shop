@@ -15,11 +15,11 @@
     "pub": "npm version patch && git add . -A && git commit -m \"Updates\" && npm run build"
   },
   "devDependencies": {
-    "del-cli": "^3.0.0",
+    "del-cli": "^3.0.1",
     "typescript": "^3.9.6"
   },
   "dependencies": {
-    "@types/cookie-session": "^2.0.39",
+    "@types/cookie-session": "^2.0.41",
     "@types/express": "^4.17.7",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/node": "^14.0.23",
