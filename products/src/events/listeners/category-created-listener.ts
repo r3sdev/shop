@@ -13,7 +13,13 @@ export class CategoryCreatedListener extends Listener<CategoryCreatedEvent> {
 
   async onMessage(data: CategoryCreatedEvent['data'], msg: Message) {
     const { id, title, description, imageUrl, version } = data;
-    const category = Category.build({ id, title, description, imageUrl, version });
+    const category = Category.build({
+      id,
+      title,
+      description,
+      imageUrl,
+      version,
+    });
 
     await category.save();
 
