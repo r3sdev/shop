@@ -27,8 +27,8 @@
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
-    "express-validator": "^6.4.1",
     "helmet": "^3.23.3",
+    "express-validator": "^6.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.24",
     "mongoose-update-if-current": "^1.4.0",
@@ -39,7 +39,7 @@
     "@types/jest": "^25.2.1",
     "@types/supertest": "^2.0.9",
     "jest": "25.5.4",
-    "mongodb-memory-server": "^6.5.2",
+    "mongodb-memory-server": "^6.6.1",
     "supertest": "^4.0.2",
     "ts-jest": "^25.4.0"
   }
