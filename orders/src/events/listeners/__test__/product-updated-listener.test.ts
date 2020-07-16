@@ -22,6 +22,7 @@ const setup = async () => {
     id: product.id,
     version: product.version + 1,
     price: 11,
+    cost: 5,
     title: 'TestTitle',
     userId: new mongoose.Types.ObjectId().toHexString(),
   };
