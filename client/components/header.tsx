@@ -10,10 +10,6 @@ import Cart from '../components/cart';
 import CurrentUser from '../components/current-user';
 import useTheme from '../hooks/use-theme';
 
-const HeaderLink = styled.a`
-  color: ${useTheme().linkColor} !important;
-`
-
 const ProfileMenuContainer = styled.div`
   position: absolute;
   top: 40px;
@@ -28,7 +24,14 @@ const ProfileMenuContainer = styled.div`
   padding: 10px;
 `
 
-export default ({ currentUser }) => {
+interface HeaderProps {
+  currentUser: any;
+  cart:{
+    products: { id: string; price: number }[]    
+  }
+}
+
+const Header = ({ currentUser, cart }: HeaderProps) => {
 
   const [isHovering, setHovering] = React.useState(false)
 
@@ -60,14 +63,14 @@ export default ({ currentUser }) => {
   const ProfileMenu = () => {
     return (
       <ProfileMenuContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        <li key={'/auth/signin'} onClick={handleClick}>
+        <div key={'/auth/signin'} onClick={handleClick}>
           <Link href={'/auth/signin'}>
             <a className="btn btn-link btn-sm">
               Sign in
               <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
             </a>
           </Link>
-        </li>
+        </div>
       </ProfileMenuContainer>
     )
   }
@@ -135,14 +138,19 @@ export default ({ currentUser }) => {
                         : (
                           <>
                             <li key={'/auth/signin'}>
-                              <HeaderLink className="btn btn-link btn-sm"
+                              <a 
+                                className="btn btn-link btn-sm"
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
                                 onClick={handleClick}
+                                style={{color: theme.linkColor}}
                               >
                                 Sign in
-                          <FontAwesomeIcon icon={isHovering ? faAngleUp : faAngleDown} className="ml-1" />
-                              </HeaderLink>
+                                <FontAwesomeIcon 
+                                  icon={isHovering ? faAngleUp : faAngleDown} 
+                                  className="ml-1" 
+                                />
+                              </a>
                               {
                                 isHovering && (
                                   <ProfileMenu />
@@ -155,7 +163,10 @@ export default ({ currentUser }) => {
                   }
                 </Nav>
 
-                <Cart currentUser={currentUser} />
+                <Cart 
+                  currentUser={currentUser} 
+                  cart={cart}
+                />
               </Navbar.Collapse>
           </React.Fragment>
         )
@@ -164,3 +175,5 @@ export default ({ currentUser }) => {
 
   )
 }
+
+export default Header;

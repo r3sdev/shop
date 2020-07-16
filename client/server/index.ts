@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import next from 'next';
 import { natsWrapper } from './nats-wrapper';
-import { ProductCreatedListener } from './events/listeners/product-created-listener';
+import { CartUpdatedListener } from './events/listeners/cart-updated-listener';
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -43,8 +43,7 @@ const port = process.env.PORT || 3000;
     process.on('SIGTERM', () => natsWrapper.client.close());
 
 
-    new ProductCreatedListener(natsWrapper.client).listen();
-
+    new CartUpdatedListener(natsWrapper.client).listen();
 
     await app.prepare();
     

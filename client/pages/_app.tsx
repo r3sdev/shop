@@ -1,7 +1,5 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components'
-import { v4 as uuidv4 } from 'uuid';
-
 
 import buildClient from '../api/build-client';
 import Header from '../components/header';
@@ -21,31 +19,22 @@ class AppComponent extends React.Component<any, any> {
 
   static async getInitialProps(appContext) {
     const client = buildClient(appContext.ctx);
-    const { data } = await client.get('/api/users/currentuser');
+
+    const { data: currentUser } = await client.get('/api/users/currentuser');
+    const { data: cart } = await client.get('/api/cart');
+
 
     let pageProps = {};
 
     if (appContext.Component.getInitialProps) {
       pageProps = await appContext.Component
-        .getInitialProps(appContext.ctx, client, data.currentUser)
+        .getInitialProps(appContext.ctx, client, currentUser, cart)
     }
 
     return {
       pageProps,
-      ...data
+      ...currentUser
     };
-  }
-
-  componentDidMount() {
-    const key = "srdguid"
-    const srdguid = localStorage.getItem(key)
-
-    if (!srdguid) {
-      console.log('No GUID found ...')
-      const guid = uuidv4();
-      localStorage.setItem(key, guid)
-      console.log('Setting GUID ...', guid)
-    }
   }
 
   render() {
@@ -53,7 +42,7 @@ class AppComponent extends React.Component<any, any> {
 
     return (
       <ThemeProvider theme={theme}>
-        <Header currentUser={currentUser} />
+        <Header currentUser={currentUser} {...pageProps}/>
         <Component currentUser={currentUser} {...pageProps} />
       </ThemeProvider>
     )

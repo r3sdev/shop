@@ -13,6 +13,7 @@ interface UseRequestAttrs<D> {
 interface DoRequestAttrs {
   uri?: string
   formData?: FormData
+  body?: any
   // Allows any
   [key: string]: any
 }
@@ -33,7 +34,7 @@ const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onErr
       const response = await axios[method](_url,
         formData
           ? formData
-          : { ...body, ...rest },
+          : { ...body, ...props.body, ...rest },
         formData ? { headers: { 'Content-Type': 'multipart/form-data' }, } : headers
       );
 
