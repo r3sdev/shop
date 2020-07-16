@@ -8,7 +8,7 @@ export const ProductRow = styled.div`
   z-index: 1;
   margin-left: -15px;
   margin-right: -15px;
-  overflow-x: scroll;
+  overflow-x: auto;
   display: flex;
   align-items: center;
 `
@@ -24,7 +24,7 @@ export const ProductDiv = styled.div`
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
   @media (max-width: 768px) {
-    height: 240px;
+    height: 220px;
   }
 `
 
@@ -36,8 +36,8 @@ export const ProductImage = styled.img`
     top: 1rem;
     left: 2rem;
     @media (max-width: 768px) {
-      width: 120px;
-      height: 120px;
+      width: 110px;
+      height: 110px;
     }
 `;
 
