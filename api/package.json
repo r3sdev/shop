@@ -29,7 +29,7 @@
     "helmet": "^3.22.0",
     "swagger-ui-express": "^4.1.4",
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.6"
   },
   "devDependencies": {
     "@types/jest": "^25.2.1",
