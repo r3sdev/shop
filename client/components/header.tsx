@@ -27,6 +27,7 @@ const ProfileMenuContainer = styled.div`
 interface HeaderProps {
   currentUser: any;
   cart:{
+    id: string
     products: { id: string; price: number }[]    
   }
 }
