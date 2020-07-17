@@ -1053,10 +1053,10 @@ buffer-from@1.x, buffer-from@^1.0.0:
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
 
-bull@^3.14.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/bull/-/bull-3.15.0.tgz#1cebf9f7fbf5ceb1aa5348e86910c2097554d980"
-  integrity sha512-5+HoYZXy5tYIpWdod7Xa0nahRkN2uItfmoCqgWEokabDjD4igvfB9CHf3uPWBnXngQ8EiTlglim5IGdz4MzdvA==
+bull@^3.16.0:
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/bull/-/bull-3.16.0.tgz#adabb8404ebecedfbe4f3b9b2163e249de1915ff"
+  integrity sha512-5RAeKPJwhzuk5y4TL5ys+mX1p1r8TOKUF537c2VFVqg0Z+Y2zL1gXfgk0OAlIhD+9E/q3BgRvN96AxUz6nfBDA==
   dependencies:
     cron-parser "^2.13.0"
     debuglog "^1.0.0"
@@ -1067,7 +1067,7 @@ bull@^3.14.0:
     promise.prototype.finally "^3.1.2"
     semver "^6.3.0"
     util.promisify "^1.0.1"
-    uuid "^3.4.0"
+    uuid "^8.2.0"
 
 bytes@3.1.0:
   version "3.1.0"
@@ -4668,7 +4668,7 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.3.2, uuid@^3.4.0:
+uuid@^3.3.2:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
   integrity sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
