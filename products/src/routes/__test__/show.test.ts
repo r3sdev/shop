@@ -15,6 +15,7 @@ it('returns the product if the product is found', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
