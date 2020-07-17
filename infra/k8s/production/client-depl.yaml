@@ -17,14 +17,6 @@ spec:
         - name: client
           image: shopramsydev/client
           env:
-            - name: NATS_CLIENT_ID
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name # Get pod name
-            - name: NATS_URL
-              value: 'http://nats-srv:4222'
-            - name: NATS_CLUSTER_ID
-              value: shop
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

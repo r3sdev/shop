@@ -5,14 +5,20 @@ import {
   CartUpdatedEvent,
 } from '@ramsy-dev/microservices-shop-common';
 import { queueGroupName } from './queue-group-name';
+import { socket } from '../../websocket';
 
 export class CartUpdatedListener extends Listener<CartUpdatedEvent> {
   subject: Subjects.CartUpdated = Subjects.CartUpdated;
   queueGroupName = queueGroupName;
 
   async onMessage(data: CartUpdatedEvent['data'], msg: Message) {
-    console.log('*** CART UPDATED ***', data);
+    const { cartId, products } = data;
 
+    if (cartId) {
+      console.log(`*** CART ${cartId} UPDATED ***`, products);
+
+      socket.emit(data.cartId, products);
+    }
     msg.ack();
   }
 }

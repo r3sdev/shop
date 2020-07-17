@@ -19,8 +19,10 @@
   "dependencies": {
     "@ramsy-dev/microservices-shop-common": ">= 1.0.57",
     "@types/nodemailer": "^6.4.0",
+    "@types/socket.io": "^2.1.8",
     "@types/twilio": "^2.11.0",
     "nodemailer": "^6.4.10",
+    "socket.io": "^2.3.0",
     "ts-node-dev": "^1.0.0-pre.52",
     "twilio": "^3.45.0",
     "typescript": "^3.9.7"
@@ -29,5 +31,9 @@
     "@types/jest": "^26.0.4",
     "jest": "25.5.4",
     "ts-jest": "^25.4.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.1",
+    "utf-8-validate": "^5.0.2"
   }
 }
