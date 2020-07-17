@@ -26,7 +26,7 @@
     "@types/mongoose": "^5.7.32",
     "@types/multer": "^1.4.3",
     "@types/multer-s3": "^2.7.7",
-    "aws-sdk": "^2.714.0",
+    "aws-sdk": "^2.714.2",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -37,8 +37,8 @@
     "mongoose-update-if-current": "^1.4.0",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
-    "typescript": "^3.9.6",
-    "ts-node-dev": "^1.0.0-pre.51"
+    "typescript": "^3.9.7",
+    "ts-node-dev": "^1.0.0-pre.52"
   },
   "devDependencies": {
     "@types/supertest": "^2.0.10",
@@ -46,6 +46,6 @@
     "jest": "25.5.4",
     "mongodb-memory-server": "^6.5.2",
     "supertest": "^4.0.2",
-    "ts-jest": "^25.4.0"
+    "ts-jest": "^26.1.3"
   }
 }

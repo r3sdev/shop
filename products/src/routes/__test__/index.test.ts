@@ -8,6 +8,7 @@ const createProduct = async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();

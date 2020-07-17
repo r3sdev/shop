@@ -42,6 +42,7 @@ it('returns a 401 of the user does not own the product', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
@@ -60,6 +61,7 @@ it('returns a 401 of the user does not own the product', async () => {
   const categoryTwo = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await categoryTwo.save();
@@ -91,6 +93,7 @@ it('returns a 400 if user does not provide a valid title or price', async () => 
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
@@ -144,6 +147,7 @@ it('update the product provided valid input', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
@@ -168,6 +172,7 @@ it('update the product provided valid input', async () => {
   const categoryTwo = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await categoryTwo.save();
@@ -201,6 +206,7 @@ it('publishes an event', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
@@ -224,6 +230,7 @@ it('publishes an event', async () => {
   const categoryTwo = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await categoryTwo.save();
@@ -248,6 +255,7 @@ it('rejects updates if the product is reserved', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
@@ -273,6 +281,7 @@ it('rejects updates if the product is reserved', async () => {
   const categoryTwo = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await categoryTwo.save();

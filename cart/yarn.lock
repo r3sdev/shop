@@ -3423,13 +3423,6 @@ mkdirp@1.x, mkdirp@^1.0.3, mkdirp@^1.0.4:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-1.0.4.tgz#3eb5ed62622756d79a5f0e2a221dfebad75c2f7e"
   integrity sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==
 
-mkdirp@^0.5.1:
-  version "0.5.5"
-  resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.5.tgz#d91cefd62d1436ca0f41620e251288d420099def"
-  integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
-  dependencies:
-    minimist "^1.2.5"
-
 mongodb-memory-server-core@6.6.1:
   version "6.6.1"
   resolved "https://registry.yarnpkg.com/mongodb-memory-server-core/-/mongodb-memory-server-core-6.6.1.tgz#942ec372534cb0b58095b291a0984f4d9d8b5389"
@@ -4850,10 +4843,10 @@ ts-nkeys@^1.0.16:
   dependencies:
     tweetnacl "^1.0.3"
 
-ts-node-dev@^1.0.0-pre.51:
-  version "1.0.0-pre.51"
-  resolved "https://registry.yarnpkg.com/ts-node-dev/-/ts-node-dev-1.0.0-pre.51.tgz#841c41b927363bce0a630e443a7c626926636e8f"
-  integrity sha512-b+OMsGtxYDsPPN2CMKcIYSwffTSDFB4pzna+10mTwIvl6DLw04ge9VfyTycfKEQ2ZSWt+ecWCylNfZJIyUWs/Q==
+ts-node-dev@^1.0.0-pre.52:
+  version "1.0.0-pre.52"
+  resolved "https://registry.yarnpkg.com/ts-node-dev/-/ts-node-dev-1.0.0-pre.52.tgz#cc3a77f7956c1766a562ddcda5e96980a2671592"
+  integrity sha512-lHDVPNWNumgPFQ2cHJj8hKFp5c+JY8VyMgBTybIAkVBz5xlj/muIotuXG8Le6V1MCncZTglEVjakdxeIF/d/Xg==
   dependencies:
     chokidar "^3.4.0"
     dateformat "~1.0.4-1.2.3"
@@ -4953,10 +4946,10 @@ typedarray-to-buffer@^3.1.5:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@^3.9.6:
-  version "3.9.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.6.tgz#8f3e0198a34c3ae17091b35571d3afd31999365a"
-  integrity sha512-Pspx3oKAPJtjNwE92YS05HQoY7z2SFyOpHo9MqJor3BXAGNaPUs83CuVp9VISFkSjyRfiTpmKuAYGJB7S7hOxw==
+typescript@^3.9.7:
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
+  integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==
 
 union-value@^1.0.0:
   version "1.0.1"
