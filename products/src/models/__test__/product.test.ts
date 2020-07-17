@@ -6,6 +6,7 @@ it('implements optimistic concurrency control', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
@@ -48,6 +49,7 @@ it('increments the version number on multiple saves', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();

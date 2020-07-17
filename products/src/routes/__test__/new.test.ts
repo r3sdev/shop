@@ -80,6 +80,7 @@ it('creates a product with valid inputs', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
@@ -113,6 +114,7 @@ it('publishes an event', async () => {
   const category = Category.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     title: 'Test category',
+    version: 1
   });
 
   await category.save();
