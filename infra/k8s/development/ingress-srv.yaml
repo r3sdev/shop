@@ -54,6 +54,10 @@ spec:
             backend:
               serviceName: media-srv
               servicePort: 3000
+          - path: /socket.io/?(.*)
+            backend:
+              serviceName: notifications-srv
+              servicePort: 3000
           - path: /?(.*)
             backend:
               serviceName: client-srv

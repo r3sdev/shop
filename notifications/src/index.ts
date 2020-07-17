@@ -1,8 +1,11 @@
 import nodemailer from 'nodemailer';
+
 import { natsWrapper } from './nats-wrapper';
 import { ForgetPasswordListener } from './events/listeners/forget-password-listener';
 import { UserSignedUpListener } from './events/listeners/signed-up-listener';
 import { VerifyPhoneNumberListener } from './events/listeners/verify-phone-number-listener';
+import { CartUpdatedListener } from './events/listeners/cart-updated-listener';
+import startWebsocketServer from './websocket';
 
 if (!process.env.SMTP_HOST) {
   throw new Error('SMTP_HOST must be defined');
@@ -72,9 +75,13 @@ const start = async () => {
     process.on('SIGINT', () => natsWrapper.client.close());
     process.on('SIGTERM', () => natsWrapper.client.close());
 
+    // Start up Socket.io
+    startWebsocketServer();
+
     new ForgetPasswordListener(natsWrapper.client).listen();
     new UserSignedUpListener(natsWrapper.client).listen();
     new VerifyPhoneNumberListener(natsWrapper.client).listen();
+    new CartUpdatedListener(natsWrapper.client).listen();
 
     console.log('Notifications service started');
   } catch (err) {
