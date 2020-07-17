@@ -13,7 +13,7 @@ interface CartProps {
         id: string;
     }
     cart: {
-        id: string;
+        id?: string;
         products: { id: string, price: number }[]
     }
 }
