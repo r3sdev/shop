@@ -85,7 +85,7 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
         isAuthRoute 
         ? (
           <React.Fragment>
-              <Nav>
+              <Nav style={{position: 'absolute'}}>
                 <li key={'/'}>
                   <Link href={'/'}>
                     <a className="btn btn-link btn-sm">
@@ -95,6 +95,17 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
                   </Link>
                 </li>
               </Nav>
+
+              <Link href="/">
+                <Navbar.Brand className="mx-auto">
+                  <FontAwesomeIcon
+                    icon={faShoppingCart}
+                    className="mr-2"
+                    color={theme.brandColor}
+                    size="lg"
+                  />
+                </Navbar.Brand>
+              </Link>
           </React.Fragment>
         ) 
         : (

@@ -23,9 +23,6 @@ export const ProductDiv = styled.div`
   &:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
-  @media (max-width: 768px) {
-    height: 220px;
-  }
 `
 
 export const ProductImage = styled.img`
@@ -35,10 +32,6 @@ export const ProductImage = styled.img`
     position: relative;
     top: 1rem;
     left: 2rem;
-    @media (max-width: 768px) {
-      width: 110px;
-      height: 110px;
-    }
 `;
 
 export const ProductArticle = styled.article`
