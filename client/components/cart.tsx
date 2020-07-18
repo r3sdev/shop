@@ -55,14 +55,8 @@ class Cart extends React.Component<CartProps, CartState> {
             this.socket.on(cartId, data => {
                 console.log("Received cart changes", data)
 
-                this.setState((prevState) => {
-                    return {
-                        ...prevState,
-                        products: [
-                            ...prevState.products,
-                            data
-                        ]
-                    }
+                this.setState({
+                    products: data
                 })
             });
         }
