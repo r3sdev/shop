@@ -32,12 +32,24 @@ interface CartDoc extends mongoose.Document {
   userId?: string;
   guestId?: string;
   products: {
-      id: string;
-      price: number;
-    }[];
+    id: string;
+    price: number;
+  }[];
 }
 
-var productSchema = new mongoose.Schema({ price: Number });
+var productSchema = new mongoose.Schema(
+  {
+    price: Number,
+  },
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id;
+      },
+    },
+  },
+);
 
 const cartSchema = new mongoose.Schema(
   {
@@ -49,7 +61,7 @@ const cartSchema = new mongoose.Schema(
     },
     products: {
       type: [productSchema],
-      default: []
+      default: [],
     },
   },
   {
