@@ -46,9 +46,17 @@ spec:
             backend:
               serviceName: orders-srv
               servicePort: 3000
+          - path: /api/cart/?(.*)
+            backend:
+              serviceName: cart-srv
+              servicePort: 3000
           - path: /api/media/upload/?(.*)
             backend:
               serviceName: media-srv
+              servicePort: 3000
+          - path: /socket.io/?(.*)
+            backend:
+              serviceName: notifications-srv
               servicePort: 3000
           - path: /?(.*)
             backend:
