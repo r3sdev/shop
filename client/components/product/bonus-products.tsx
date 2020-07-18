@@ -4,21 +4,40 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useRequest from '../../hooks/use-request';
 import { useRouter } from "next/router";
 
-export default ({ products, currentUser }) => {
+interface BonusProductAttrs {
+    id: string;
+    title: string;
+    price: number;
+    imageUrl: string;
+}
 
-    const router = useRouter();
+interface BonusProductsProps {
+    products: BonusProductAttrs[];
+    currentUser: any;
+    cart: {
+        id: string;
+    }
+}
+
+
+export default ({ products, cart }: BonusProductsProps) => {
+
+    console.log('Bonus Products', cart.id)
+
 
     const { doRequest, errors } = useRequest({
         url: '/api/cart',
         method: 'post',
-        body: {  },
+        body: {
+            cartId: cart.id,
+        },
         onSuccess: (result) => console.log('Added Product', result)
     });
 
     const hasProducts = products.length > 0;
 
-    const onAddProduct = (product: {id: string, price: number}) => {
-        doRequest({product: {id: product.id, price: product.price}})
+    const onAddProduct = (product: BonusProductAttrs) => {
+        doRequest({ product })
     }
 
     if (!hasProducts) return null;

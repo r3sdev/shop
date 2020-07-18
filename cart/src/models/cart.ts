@@ -1,6 +1,13 @@
 import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
+interface ProductAttrs {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+}
+
 /**
  * An interface that describes the properties
  * that are required to create a new product
@@ -8,12 +15,7 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 interface CartAttrs {
   userId?: string;
   guestId?: string;
-  products?: [
-    {
-      id: string;
-      price: number;
-    },
-  ];
+  products?: ProductAttrs[];
 }
 
 /**
@@ -31,15 +33,27 @@ interface CartModel extends mongoose.Model<CartDoc> {
 interface CartDoc extends mongoose.Document {
   userId?: string;
   guestId?: string;
-  products: {
-    id: string;
-    price: number;
-  }[];
+  products: ProductAttrs[];
 }
 
 var productSchema = new mongoose.Schema(
   {
-    price: Number,
+    id: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    imageUrl: {
+      type: String,
+      required: true,
+    },
   },
   {
     toJSON: {
