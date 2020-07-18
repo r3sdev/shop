@@ -25,6 +25,14 @@ const BannerRow = styled.div`
   margin-right: -15px;
   margin-left: -15px;
 `
+
+const BannerTextContainer = styled.div`
+  position: absolute; 
+  top: 60px;
+  left: 10px;
+  cursor: pointer;
+`
+
 const LandingPage = ({ currentUser, categories, products }) => {
 
   const router = useRouter()
@@ -62,13 +70,13 @@ const LandingPage = ({ currentUser, categories, products }) => {
             src="https://via.placeholder.com/1264x300/38A6DB/FFFFFF?text=%20"
             style={{ objectFit: 'cover' }}
           />
-          <div className="text-white" style={{ position: 'absolute', top: 60, left: 10, cursor: 'pointer' }}>
+          <BannerTextContainer className="text-white">
             <h1>This is our summer holiday</h1>
             <h3>
               Get some tips & inspiration
             <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
             </h3>
-          </div>
+          </BannerTextContainer>
         </div>
       </BannerRow>
       
