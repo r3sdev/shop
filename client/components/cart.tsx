@@ -41,7 +41,7 @@ class Cart extends React.Component<CartProps, CartState> {
     }
 
     componentDidMount() {
-        console.log('Cart mounted', this.props)
+        console.log('Cart mounted', this.props.cart.id)
 
         this.socket = io(ENDPOINT, {
             transports: ['websocket']

@@ -33,7 +33,7 @@ const BannerTextContainer = styled.div`
   cursor: pointer;
 `
 
-const LandingPage = ({ currentUser, categories, products }) => {
+const LandingPage = ({ currentUser, categories, products, cart }) => {
 
   const router = useRouter()
 
@@ -80,7 +80,7 @@ const LandingPage = ({ currentUser, categories, products }) => {
         </div>
       </BannerRow>
       
-      <BonusProducts products={products} currentUser={currentUser}/>
+      <BonusProducts products={products} currentUser={currentUser} cart={cart}/>
 
       <CardRow marginTop={hasProducts ? "-8rem" : "2rem"}>
         <div className="col-md-6">

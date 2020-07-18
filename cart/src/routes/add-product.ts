@@ -12,17 +12,28 @@ import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
+interface ProductAttrs {
+  id: string;
+  title: string;
+  price: number;
+  imageUrl: string;
+}
+
 interface RequestWithProps extends Request {
   body: {
-    product: {
-      id: string;
-      price: number;
-    };
+    cartId: string;
+    product: ProductAttrs;
   };
 }
 
 router.post(
   '/api/cart',
+  body('cartId').custom((value, { req }) => {
+    if (!mongoose.Types.ObjectId.isValid(value)) {
+      throw new Error('Cart needs to have a valid ID');
+    }
+    return true;
+  }),
   body('product').custom((value, { req }) => {
     if (!mongoose.Types.ObjectId.isValid(value?.id)) {
       throw new Error('Product needs to have a valid ID');
@@ -31,65 +42,28 @@ router.post(
     if (!value.price || value.price <= 0) {
       throw new Error('Product needs to have a price');
     }
-
-    // Indicates the success of this synchronous custom validator
     return true;
   }),
   validateRequest,
   async (req: RequestWithProps, res: Response) => {
-    const { product } = req.body;
+    const { product, cartId } = req.body;
 
-    /**
-     * Logged in user
-     */
-    if (req.currentUser) {
-      const existingCart = await Cart.findOne({ userId: req.currentUser.id });
+    const existingCart = await Cart.findById(cartId);
 
-      if (!existingCart) {
-        throw new BadRequestError('Unable to add product');
-      }
-
-      existingCart.products.push(product);
-
-      await existingCart.save();
-
-      await new CartUpdatedPublisher(natsWrapper.client).publish({
-        cartId: existingCart.id,
-        products: existingCart.products,
-      });
-
-      console.log('Published CartUpdatedPublisher currentUser');
-
-      return res.send({ currentUser: req.currentUser, existingCart });
+    if (!existingCart) {
+      throw new BadRequestError('Unable to add product');
     }
 
-    /**
-     * Guests
-     */
-    if (req.session?.guestId) {
-      const existingCart = await Cart.findOne({
-        guestId: req.session.guestId,
-      });
+    existingCart.products.push(product);
 
-      if (!existingCart) {
-        throw new BadRequestError('Unable to add product');
-      }
+    await existingCart.save();
 
-      existingCart.products.push(product);
+    await new CartUpdatedPublisher(natsWrapper.client).publish({
+      cartId: existingCart.id,
+      products: existingCart.products,
+    });
 
-      await existingCart.save();
-
-      await new CartUpdatedPublisher(natsWrapper.client).publish({
-        cartId: existingCart.id,
-        products: existingCart.products,
-      });
-
-      console.log('Published CartUpdatedPublisher guest');
-
-      return res.send({ guestId: req.session.guestId, existingCart });
-    }
-
-    throw new BadRequestError('Unable to add product');
+    return res.send({ existingCart });
   },
 );
 
