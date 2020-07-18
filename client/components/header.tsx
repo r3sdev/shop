@@ -121,7 +121,10 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
                   />
                 </Navbar.Brand>
               </Link>
-
+              <Cart
+                currentUser={currentUser}
+                cart={cart}
+              />
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <CurrentUser currentUser={currentUser} />
@@ -174,11 +177,6 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
                     )
                   }
                 </Nav>
-
-                <Cart 
-                  currentUser={currentUser} 
-                  cart={cart}
-                />
               </Navbar.Collapse>
           </React.Fragment>
         )
