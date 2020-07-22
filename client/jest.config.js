@@ -36,4 +36,9 @@ module.exports = {
     ],
     verbose: true,
     silent: false,
+    globals: {
+        'ts-jest': {
+            tsConfig: 'tsconfig.test.json'
+        }
+    }
 };
