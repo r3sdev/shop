@@ -57,30 +57,45 @@ const Signin = () => {
 
       <div className="card">
         <div className="card-body">
-          <h2>Sign In</h2>
+          <h2 className="text-center">Sign In</h2>
 
-          <form onSubmit={onSubmit}>
+          <form onSubmit={onSubmit} className="pt-3">
             <div className="form-group">
-              <input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                onBlur={(e) => setEmail(e.target.value.trim())}
-                className="form-control"
-                autoComplete="off"
-                placeholder="Email Address"
-                autoFocus={true}
-              />
+              <span className="has-float-label">
+                <input
+                  autoComplete="off"
+                  autoFocus={true}
+                  className="form-control"
+                  name="emai"
+                  id="email"
+                  onBlur={(e) => setEmail(e.target.value.trim())}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email Address"
+                  value={email}
+                />
+                <label htmlFor="email">
+                  Email address <span className="required">*</span>
+                </label>
+              </span>
             </div>
+
             <div className="form-group">
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onBlur={(e) => setPassword(e.target.value.trim())}
-                className="form-control"
-                type="password"
-                autoComplete="off"
-                placeholder="Password"
-              />
+              <span className="has-float-label">
+                <input
+                  autoComplete="off"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  onBlur={(e) => setPassword(e.target.value.trim())}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  type="password"
+                  value={password}
+                />
+                <label htmlFor="password">
+                  Password <span className="required">*</span>
+                </label>
+              </span>
             </div>
 
             {errors}
