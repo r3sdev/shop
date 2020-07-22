@@ -4,6 +4,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import useRequest from '../../hooks/use-request';
 import ConfirmTwoFactorAuth from '../../components/2fa';
+import { Button, Spinner } from 'react-bootstrap';
 
 const Divider = styled.hr`
   position: relative;
@@ -26,7 +27,7 @@ const Signin = () => {
   const [twoFactAuth, setTwoFactAuth] = React.useState(false)
   const [userId, setUserId] = React.useState('');
 
-  const { doRequest, errors } = useRequest({
+  const { doRequest, errors, loading } = useRequest({
     url: '/api/users/signin',
     method: 'post',
     body: { email, password },
@@ -66,6 +67,7 @@ const Signin = () => {
                   autoComplete="off"
                   autoFocus={true}
                   className="form-control"
+                  disabled={loading}
                   name="emai"
                   id="email"
                   onBlur={(e) => setEmail(e.target.value.trim())}
@@ -84,6 +86,7 @@ const Signin = () => {
                 <input
                   autoComplete="off"
                   className="form-control"
+                  disabled={loading}
                   id="password"
                   name="password"
                   onBlur={(e) => setPassword(e.target.value.trim())}
@@ -101,7 +104,26 @@ const Signin = () => {
             {errors}
 
             <div className="d-flex justify-content-center align-items-center">
-              <button className="btn btn-primary btn-block">Sign In</button>
+              {
+                loading
+                  ? (
+                    <Button variant="primary" disabled>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">Loading...</span>
+                    </Button>
+                  )
+                  : (
+                    <button className="btn btn-primary btn-block" disabled={loading}>
+                      Sign In
+                    </button>
+                  )
+              }
             </div>
             <div className="d-flex justify-content-start align-items-center">
               <p className="mt-3">
@@ -120,7 +142,9 @@ const Signin = () => {
 
           <div className="d-flex justify-content-center align-items-center">
             <Link href="/auth/signup">
-              <a className="btn btn-sm btn-link mt-1">Sign up for a new account</a>
+              <a className="btn btn-sm btn-link mt-1">
+                Sign up for a new account
+              </a>
             </Link>
           </div>
         </div>
