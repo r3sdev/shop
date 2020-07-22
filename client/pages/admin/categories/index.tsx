@@ -153,7 +153,7 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
   )
 };
 
-AdminCategoryIndex.getInitialProps = async (context, client, currentUser) => {
+AdminCategoryIndex.getInitialProps = async (_context, client, _currentUser) => {
   const { data } = await client.get('/api/categories');
 
   return { categories: data };

@@ -20,7 +20,7 @@ interface DoRequestAttrs {
 
 const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onError }: UseRequestAttrs<D>) => {
 
-  const [errors, setErrors] = React.useState(null);
+  const [errors, setErrors] = React.useState<any>(null);
   const [loading, setLoading] = React.useState(false);
 
   const doRequest = async (props: DoRequestAttrs = {} as DoRequestAttrs) => {
@@ -31,6 +31,7 @@ const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onErr
       const { uri, formData, ...rest } = props;
 
       let _url = uri ? `${url}${uri}` : url
+      // @ts-ignore
       const response = await axios[method](_url,
         formData
           ? formData
@@ -40,7 +41,7 @@ const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onErr
 
       if (onSuccess) {
         onSuccess(response.data);
-        setLoading(false)
+        // setLoading(false)
       }
 
       return response.data;

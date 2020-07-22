@@ -20,8 +20,8 @@ export default () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmation, setConfirmation] = React.useState('');
-  const [error, setError] = React.useState(null)
-  const [passwordErrors, setPasswordErrors] = React.useState([])
+  const [error, setError] = React.useState<Error | null>(null)
+  const [passwordErrors, setPasswordErrors] = React.useState<string[]>([])
 
   const isValidEmailRegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   const isValidEmail = (email: string) => isValidEmailRegExp.test(email)
@@ -192,7 +192,7 @@ export default () => {
             </div>
             <hr />
             {errors}
-            <button className="btn btn-primary btn-block" disabled={disableSignupButton}>
+            <button className="btn btn-primary btn-block" disabled={!!disableSignupButton}>
               Sign Up
             </button>
           </form>

@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
-import useRequest from '../../../hooks/use-request';
 import WithSidebar from '../with-sidebar';
-import { EventEmitter } from 'events';
 
 const ProductShow = ({ currentUser, product }) => {
 

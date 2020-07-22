@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ButtonToolbar } from 'react-bootstrap';
 
-const CategoryIndex = ({ currentUser, categories }) => {
+const CategoryIndex = ({ categories }) => {
 
   const hasCategories = categories.length > 0;
 
@@ -51,7 +51,7 @@ const CategoryIndex = ({ currentUser, categories }) => {
   )
 };
 
-CategoryIndex.getInitialProps = async (context, client, currentUser) => {
+CategoryIndex.getInitialProps = async (_context, client, _currentUser) => {
   const { data } = await client.get('/api/categories');
 
   return { categories: data };

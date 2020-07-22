@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'react-phone-number-input/style.css'
 import './overrides.css'
 import './sidebar.css'
+import './floating-label.css'
 
 const theme = {
   colors: {
