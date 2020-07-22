@@ -1,6 +1,6 @@
 import {useRouter} from 'next/router';
 
-const CategoryShow = ({ category, currentUser }) => {
+const CategoryShow = ({ category }) => {
 
   const router = useRouter();
 

@@ -20,7 +20,7 @@ export default ({ userId }) => {
     doRequest();
   }
 
-  const onSendBackupCode = () => {
+  const onSendBackupCode = (event) => {
     event.preventDefault()
 
   }

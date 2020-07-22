@@ -20,7 +20,7 @@ interface DoRequestAttrs {
 
 const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onError }: UseRequestAttrs<D>) => {
 
-  const [errors, setErrors] = React.useState(null);
+  const [errors, setErrors] = React.useState<any>(null);
   const [loading, setLoading] = React.useState(false);
 
   const doRequest = async (props: DoRequestAttrs = {} as DoRequestAttrs) => {

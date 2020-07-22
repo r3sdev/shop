@@ -23,7 +23,7 @@ const CurrentUser = ({ currentUser }: CurrentUserProps) => {
       case 'signout':
         return router.push('/auth/signout');
       default:
-        router.push(`/${uri}`);
+        return router.push(`/${uri}`);
     }
   }
 

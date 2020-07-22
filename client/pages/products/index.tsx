@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ButtonToolbar } from 'react-bootstrap';
 
-const ProductIndex = ({currentUser, products}) => {
+const ProductIndex = ({products}) => {
 
   const hasProducts = products.length > 0;
 
@@ -57,7 +57,7 @@ const ProductIndex = ({currentUser, products}) => {
   )
 }
 
-ProductIndex.getInitialProps = async (context, client, currentUser) => {
+ProductIndex.getInitialProps = async (_context, client, _currentUser) => {
   const { data } = await client.get('/api/products');
 
   return { products: data };

@@ -127,7 +127,7 @@ const EditProduct = ({ currentUser, product, categories }) => {
   )
 };
 
-EditProduct.getInitialProps = async (context, client, currentUser) => {
+EditProduct.getInitialProps = async (context, client, _currentUser) => {
   const { productId } = context.query;
 
   const { data: product } = await client.get(`/api/products/${productId}`);

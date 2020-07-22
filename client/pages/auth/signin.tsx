@@ -153,7 +153,7 @@ const Signin = () => {
   );
 };
 
-Signin.getInitialProps = async (context, client, currentUser) => {
+Signin.getInitialProps = async (context, _client, currentUser) => {
   const { res } = context;
 
   if (res && currentUser) {
