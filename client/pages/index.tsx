@@ -1,15 +1,10 @@
 import React from 'react';
-import { useRouter } from 'next/router';
-import { faAngleRight, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 
 import BonusProducts from '../components/product/bonus-products'
-
-const Title = styled.h3`
-  color: ${({ theme }) => theme.colors.primary};
-`
 
 const CardRow = styled.div`
   display: flex;
@@ -33,31 +28,9 @@ const BannerTextContainer = styled.div`
   cursor: pointer;
 `
 
-const LandingPage = ({ currentUser, categories, products, cart }) => {
-
-  const router = useRouter()
+const LandingPage = ({ currentUser, products, cart }) => {
 
   const hasProducts = products.length > 0;
-
-  const onSelectCategory = (category) => {
-    router.push(`/categories/${category.id}/products`)
-  }
-
-  const categoryList = categories.map(category => {
-    return (
-      <div className="col-md-4 mb-5" key={category.id}>
-        <div className="card" onClick={() => onSelectCategory(category)}>
-          <img className="card-img-top" src={category.imageUrl} alt={category.title} />
-          <div className="card-body">
-            <h4>{category.title}</h4>
-            <p className="card-text">
-              {category.description}
-            </p>
-          </div>
-        </div>
-      </div>
-    )
-  })
 
   return (
     <div className="container-fluid pb-5">
@@ -123,7 +96,7 @@ const LandingPage = ({ currentUser, categories, products, cart }) => {
   )
 };
 
-LandingPage.getInitialProps = async (context, client, currentUser, cart) => {
+LandingPage.getInitialProps = async (_context, client, _currentUser, cart) => {
 
   const { data: categories } = await client.get('/api/categories');
   const { data: products } = await client.get('/api/products');

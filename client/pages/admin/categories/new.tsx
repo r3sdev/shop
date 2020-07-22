@@ -39,7 +39,7 @@ const NewCategory = ({ currentUser }) => {
 
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    const image: File = event.target.files[0];
+    const image: File = event.target.files![0];
 
     const bodyFormData = new FormData();
     bodyFormData?.append('image', image);

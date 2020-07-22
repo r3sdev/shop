@@ -1,4 +1,3 @@
-import Error from '../_error';
 import WithSidebar from './with-sidebar';
 import { Card } from 'react-bootstrap';
 
@@ -43,8 +42,7 @@ const Admin = ({
   )
 }
 
-Admin.getInitialProps = async (context, client, currentUser) => {
-  const { res } = context;
+Admin.getInitialProps = async (_context, client, _currentUser) => {
 
   const { data: products } = await client.get('/api/products');
   const { data: categories } = await client.get('/api/categories');

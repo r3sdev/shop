@@ -182,7 +182,7 @@ const AdminProductIndex = ({ currentUser, products, category }) => {
   )
 }
 
-AdminProductIndex.getInitialProps = async (context, client, currentUser) => {
+AdminProductIndex.getInitialProps = async (context, client, _currentUser) => {
   const { query, res } = context;
   const { category: categoryId } = query;
 

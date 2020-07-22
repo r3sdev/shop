@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, CardProps } from "react-bootstrap"
+import { Nav } from "react-bootstrap"
 import Link from "next/link"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons"
@@ -30,7 +30,7 @@ const CartBadge = styled.span`
 
 class Cart extends React.Component<CartProps, CartState> {
 
-    socket: SocketIOClient.Socket;
+    socket: SocketIOClient.Socket | undefined = undefined;
 
     constructor(props) {
         super(props)
@@ -63,7 +63,7 @@ class Cart extends React.Component<CartProps, CartState> {
     }
 
     componentWillUnmount() {
-        this.socket.disconnect()
+        this.socket!.disconnect()
     }
 
     render() {

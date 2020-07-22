@@ -9,7 +9,7 @@ const Profile = ({ currentUser }) => {
   const [twoFactAuthEnabled, setTwoFactAuthEnabled] = React.useState(currentUser?.twoFactorAuthEnabled)
   const [isHoveringDisable2fa, setHoveredDisable2fa] = React.useState(false)
   const [isHoveringRemoveBackup, setHoveredRemoveBackup] = React.useState(false)
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = React.useState<any>(null);
   const [userToken, setUserToken] = React.useState('');
   const [phoneNumber, setPhoneNumber] = React.useState('');
   const [phoneNumberToken, setPhoneNumberToken] = React.useState('');
@@ -40,7 +40,7 @@ const Profile = ({ currentUser }) => {
     body: {
       userToken: userToken
     },
-    onSuccess: (res) => {
+    onSuccess: () => {
       setImage(null);
       setUserToken('');
       setTwoFactAuthEnabled(true)
@@ -54,7 +54,7 @@ const Profile = ({ currentUser }) => {
     url: '/api/users/2fa/disable',
     method: 'post',
     body: {},
-    onSuccess: (res) => {
+    onSuccess: () => {
       setTwoFactAuthEnabled(false)
     }
   });
@@ -152,7 +152,7 @@ const Profile = ({ currentUser }) => {
         <React.Fragment>
           {enable2FAErrors}
           <button className="btn btn-success" onClick={onEnable2FA}
-            disabled={image && !userToken}
+            disabled={!!(image && !userToken)}
           >
             Enable Two-factor Authentication
           </button>
@@ -163,7 +163,7 @@ const Profile = ({ currentUser }) => {
   const showQRCode = () => {
     return image && (
       <div>
-        <img src={image} />
+        <img src={image!} />
         <input
           className="form-control mt-1 mb-3"
           type="text"
@@ -354,7 +354,7 @@ const Profile = ({ currentUser }) => {
   )
 }
 
-Profile.getInitialProps = async (context, client, currentUser) => {
+Profile.getInitialProps = async (context, _client, currentUser) => {
   const { res } = context;
 
   if (res && !currentUser) {

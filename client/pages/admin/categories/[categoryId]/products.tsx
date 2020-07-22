@@ -6,7 +6,7 @@ const CategoryProductsIndex = ({ categoryId}) => {
   )
 }
 
-CategoryProductsIndex.getInitialProps = async (context, client) => {
+CategoryProductsIndex.getInitialProps = async (context, _client) => {
   const { categoryId } = context.query;
 
 

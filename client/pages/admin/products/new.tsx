@@ -67,7 +67,7 @@ const NewProduct = ({ currentUser, categories }) => {
 
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
-    const image: File = event.target.files[0];
+    const image: File = event.target.files![0];
 
     const bodyFormData = new FormData();
     bodyFormData?.append('image', image);
@@ -189,7 +189,7 @@ const NewProduct = ({ currentUser, categories }) => {
   )
 };
 
-NewProduct.getInitialProps = async (context, client, currentUser) => {
+NewProduct.getInitialProps = async (_context, client, _currentUser) => {
   const { data } = await client.get('/api/categories');
 
   return { categories: data, client };
