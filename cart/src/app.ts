@@ -11,6 +11,7 @@ import {
 import { indexCartRouter } from './routes';
 import { addProductCartRouter } from './routes/add-product';
 import { emptyCartRouter } from './routes/empty-cart';
+import { updateCartRouter } from './routes/update';
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(
 app.use(currentUser);
 
 app.use(indexCartRouter);
+app.use(updateCartRouter);
 app.use(addProductCartRouter);
 app.use(emptyCartRouter);
 
