@@ -40,7 +40,7 @@ const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onErr
 
       if (onSuccess) {
         onSuccess(response.data);
-        setLoading(false)
+        // setLoading(false)
       }
 
       return response.data;
