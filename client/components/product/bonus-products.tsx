@@ -2,7 +2,6 @@ import { ProductRow, ProductDiv, ProductArticle, ProductFigure, ProductImage, Pr
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useRequest from '../../hooks/use-request';
-import { useRouter } from "next/router";
 
 interface BonusProductAttrs {
     id: string;
