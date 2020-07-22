@@ -31,6 +31,7 @@ const useRequest = <D extends {}>({ url, method, body, headers, onSuccess, onErr
       const { uri, formData, ...rest } = props;
 
       let _url = uri ? `${url}${uri}` : url
+      // @ts-ignore
       const response = await axios[method](_url,
         formData
           ? formData
