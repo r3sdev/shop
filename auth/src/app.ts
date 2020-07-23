@@ -24,6 +24,8 @@ import { verifyPhoneNumberRouter } from './routes/phone-number/verify-phone-numb
 import { validatePhoneNumberVerificationRouter } from './routes/phone-number/validate-phone-number-verification';
 import { removePhoneNumberRouter } from './routes/phone-number/remove-phone-number';
 
+const { healthz } = require('express-healthz');
+
 const app = express();
 app.use(helmet());
 app.set('trust proxy', true);
@@ -38,6 +40,8 @@ app.use(
 );
 
 app.use(cors());
+
+app.use(healthz);
 
 app.use(currentUserRouter);
 app.use(signinRouter);

@@ -16,6 +16,15 @@ spec:
       containers:
         - name: orders
           image: shopramsydev/orders
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+              httpHeaders:
+              - name: Custom-Header
+                value: Awesome
+            initialDelaySeconds: 3
+            periodSeconds: 3    
           env:
             - name: EXPIRATION_WINDOW_IN_MINUTES
               value: '15'

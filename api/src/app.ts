@@ -17,6 +17,9 @@ import {swaggerRouter} from './routes/swagger';
 
 import { COOKIE_NAME } from '.';
 
+const { healthz } = require('express-healthz');
+
+
 const app = express();
 app.use(helmet());
 app.set('trust proxy', true);
@@ -29,6 +32,8 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use(healthz)
 
 app.use(indexRouter);
 app.use(authRouter);
