@@ -1964,6 +1964,11 @@ express-async-errors@^3.1.1:
   resolved "https://registry.yarnpkg.com/express-async-errors/-/express-async-errors-3.1.1.tgz#6053236d61d21ddef4892d6bd1d736889fc9da41"
   integrity sha512-h6aK1da4tpqWSbyCa3FxB/V6Ehd4EEB15zyQq9qe75OZBp0krinNKuH4rAY+S/U/2I36vdLAUFSjQJ+TFmODng==
 
+express-healthz@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/express-healthz/-/express-healthz-1.1.0.tgz#93d0ad338074239ff7050a404fa50b15ea766f64"
+  integrity sha512-lROJn0FTrSUzI/SIxVUOcfh+HCNR/vNoM05uKjSac1reu7cNpQlSSo0i7sleF0KJRWMi0gDXnWz/KKFNrmIcoA==
+
 express-validator@^6.4.1:
   version "6.6.0"
   resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-6.6.0.tgz#46b8327926e9b1752f9823ee0631e534b6ac41e8"

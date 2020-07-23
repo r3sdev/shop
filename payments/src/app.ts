@@ -6,6 +6,9 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@ramsy-dev/microservices-shop-common';
 import {createPaymentRouter} from './routes/new';
 
+const { healthz } = require('express-healthz');
+
+
 const app = express();
 app.use(helmet());
 app.set('trust proxy', true);
@@ -18,6 +21,8 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use(healthz);
 app.use(currentUser);
 
 app.use(createPaymentRouter);

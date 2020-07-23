@@ -14,6 +14,9 @@ import { indexCategoryRouter } from './routes/index';
 import { updateCategoryRouter } from './routes/update';
 import { deleteCategoryRouter } from './routes/delete';
 
+const { healthz } = require('express-healthz');
+
+
 const app = express();
 
 app.use(helmet());
@@ -26,6 +29,8 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use(healthz);
 
 app.use(currentUser);
 

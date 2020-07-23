@@ -16,6 +16,15 @@ spec:
       containers:
         - name: products
           image: shopramsydev/products
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+              httpHeaders:
+              - name: Custom-Header
+                value: Awesome
+            initialDelaySeconds: 3
+            periodSeconds: 3    
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
