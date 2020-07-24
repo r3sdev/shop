@@ -13,4 +13,5 @@ export enum Subjects {
   UserSignedUp = 'user:signed-up',
   UserForgotPassword = 'user:forgot-password',
   UserVerifyPhoneNumber = 'user:verify-phone-number',
+  Error = 'error'
 }
