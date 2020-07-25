@@ -16,15 +16,21 @@ spec:
       containers:
         - name: categories
           image: shopramsydev/categories
+          ports:
+          - name: server-port
+            containerPort: 3000
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 3000
-              httpHeaders:
-              - name: Custom-Header
-                value: Awesome
-            initialDelaySeconds: 3
-            periodSeconds: 3    
+              port: server-port
+            failureThreshold: 1
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: server-port
+            failureThreshold: 30
+            periodSeconds: 10 
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

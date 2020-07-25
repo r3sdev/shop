@@ -6,6 +6,7 @@ import { OrderCreatedListener } from './events/listeners/order-created-listener'
 import { PaymentCreatedListener } from './events/listeners/payment-created-listener';
 import { ProductCreatedListener } from './events/listeners/product-created-listener';
 import { ProductUpdatedListener } from './events/listeners/product-updated-listener';
+import { app } from './app';
 
 const start = async () => {
   console.log('Logs service started ...');
@@ -51,17 +52,21 @@ const start = async () => {
     new ProductCreatedListener(natsWrapper.client).listen();
     new ProductUpdatedListener(natsWrapper.client).listen();
 
-        await mongoose.connect(process.env.MONGO_URI, {
-          useNewUrlParser: true,
-          useUnifiedTopology: true,
-          useCreateIndex: true,
-        });
-        console.log('Connected to database');
+    await mongoose.connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+    });
+    console.log('Connected to database');
 
     console.log('Logs service started!');
   } catch (err) {
     console.error(err);
   }
+
+  app.listen(3000, () => {
+    console.log('Logs service is listening on port 3000');
+  });
 };
 
 start();
