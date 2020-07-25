@@ -18,6 +18,7 @@ spec:
           image: shopramsydev/products
           ports:
           - name: server-port
+            containerPort: 3000
           livenessProbe:
             httpGet:
               path: /healthz
