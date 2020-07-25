@@ -62,6 +62,7 @@ const start = async () => {
     console.log('Logs service started!');
   } catch (err) {
     console.error(err);
+    process.exit();
   }
 
   app.listen(3000, () => {

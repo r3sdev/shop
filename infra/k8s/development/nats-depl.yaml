@@ -31,13 +31,11 @@ spec:
           '-cid',
           'shop'
         ]
-        ports:
-        - name: monitoring
-          containerPort: 8222
+        resources: {}
         livenessProbe:
           httpGet:
             path: /
-            port: monitoring
+            port: 8222
           initialDelaySeconds: 30
           periodSeconds: 10
           timeoutSeconds: 5
@@ -46,7 +44,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /
-            port: monitoring
+            port: 8222
           initialDelaySeconds: 5
           periodSeconds: 10
           timeoutSeconds: 5

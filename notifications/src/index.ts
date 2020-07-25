@@ -86,6 +86,7 @@ const start = async () => {
     console.log('Notifications service started');
   } catch (err) {
     console.error(err);
+    process.exit();
   }
 };
 

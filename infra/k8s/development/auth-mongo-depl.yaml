@@ -16,6 +16,7 @@ spec:
       containers:
         - name: auth-mongo
           image: mongo
+          resources: {}
           ports:
           - name: mongodb
             containerPort: 27017

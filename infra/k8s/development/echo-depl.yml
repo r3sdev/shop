@@ -18,6 +18,7 @@ spec:
       containers:
       - name: echo
         image: mendhak/http-https-echo
+        resources: {}
         ports:
         - containerPort: 80
         - containerPort: 443

@@ -16,9 +16,7 @@ spec:
       containers:
         - name: media-mongo
           image: mongo
-          ports:
-          - name: mongodb
-            containerPort: 27017
+          resources: {}
           livenessProbe:
             exec:
               command:
