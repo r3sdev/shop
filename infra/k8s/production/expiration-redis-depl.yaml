@@ -16,6 +16,35 @@ spec:
       containers:
         - name: expiration-redis
           image: redis
+          livenessProbe:
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+            successThreshold: 1
+            tcpSocket:
+              port: 6379
+          readinessProbe:
+            exec:
+              command:
+                - "redis-cli"
+                - "PING"
+                - "|"
+                - "tr"
+                - "-d"
+                - "[:space:]"
+                - "|"
+                - "xargs"
+                - "-n1"
+                - "-r"
+                - "test"
+                - "PONG"
+                - "="
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+            successThreshold: 1
 ---
 apiVersion: v1
 kind: Service
