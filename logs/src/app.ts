@@ -2,33 +2,27 @@ import express from 'express';
 import helmet from 'helmet';
 import 'express-async-errors';
 import { json } from 'body-parser';
-import cookieSession from 'cookie-session';
-import { errorHandler, NotFoundError, currentUser } from '@ramsy-dev/microservices-shop-common';
-import {createPaymentRouter} from './routes/new';
+import {
+  errorHandler,
+  NotFoundError,
+} from '@ramsy-dev/microservices-shop-common';
+import { createLogRouter } from './routes/new';
 
 const { healthz } = require('express-healthz');
-
 
 const app = express();
 app.use(helmet());
 app.set('trust proxy', true);
 
 app.use(json());
-app.use(
-  cookieSession({
-    name: 'shop',
-    signed: false,
-    secure: process.env.NODE_ENV !== 'test',
-  }),
-);
 
 app.use(healthz);
-app.use(currentUser);
 
-app.use(createPaymentRouter);
+app.use(createLogRouter);
 
 // Catch all non defined urls
-app.all('*', () => {
+app.all('*', (req) => {
+  console.log(req.url);
   throw new NotFoundError();
 });
 

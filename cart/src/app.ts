@@ -8,6 +8,8 @@ import {
   NotFoundError,
   currentUser,
 } from '@ramsy-dev/microservices-shop-common';
+const { healthz } = require('express-healthz');
+
 import { indexCartRouter } from './routes';
 import { addProductCartRouter } from './routes/add-product';
 import { emptyCartRouter } from './routes/empty-cart';
@@ -25,6 +27,8 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use(healthz);
 
 app.use(currentUser);
 

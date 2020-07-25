@@ -24,11 +24,11 @@
     "nodemailer": "^6.4.10",
     "socket.io": "^2.3.0",
     "ts-node-dev": "^1.0.0-pre.52",
-    "twilio": "^3.45.0",
+    "twilio": "^3.48.1",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.5",
+    "@types/jest": "^26.0.7",
     "jest": "25.5.4",
     "ts-jest": "^25.4.0"
   },

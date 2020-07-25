@@ -9,6 +9,9 @@ import {indexOrderRouter} from './routes/index';
 import {newOrderRouter} from './routes/new';
 import {showOrderRouter} from './routes/show'
 
+const { healthz } = require('express-healthz');
+
+
 const app = express();
 app.use(helmet());
 app.set('trust proxy', true);
@@ -21,6 +24,8 @@ app.use(
     secure: process.env.NODE_ENV !== 'test',
   }),
 );
+
+app.use(healthz);
 
 app.use(currentUser);
 
