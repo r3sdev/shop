@@ -19,7 +19,6 @@ spec:
           ports:
           - name: server-port
             containerPort: 3000
-            hostPort: 3000
           livenessProbe:
             httpGet:
               path: /healthz
@@ -29,7 +28,7 @@ spec:
           startupProbe:
             httpGet:
               path: /healthz
-              port: liveness-port
+              port: server-port
             failureThreshold: 30
             periodSeconds: 10    
           env:
