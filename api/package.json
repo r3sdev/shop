@@ -29,11 +29,11 @@
     "express-healthz": "^1.1.0",
     "helmet": "^3.23.3",
     "swagger-ui-express": "^4.1.4",
-    "ts-node-dev": "^1.0.0-pre.52",
+    "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.5",
+    "@types/jest": "^26.0.7",
     "@types/supertest": "^2.0.10",
     "jest": "25.5.4",
     "supertest": "^4.0.2",
