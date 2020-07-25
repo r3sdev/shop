@@ -16,6 +16,7 @@ spec:
       containers:
         - name: categories
           image: shopramsydev/categories
+          resources: {}
           ports:
           - name: server-port
             containerPort: 3000

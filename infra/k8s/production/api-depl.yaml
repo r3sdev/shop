@@ -16,6 +16,7 @@ spec:
       containers:
         - name: api
           image: shopramsydev/api
+          resources: {}
           ports:
           - name: server-port
             containerPort: 3000

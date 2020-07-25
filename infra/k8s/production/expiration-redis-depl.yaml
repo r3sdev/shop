@@ -16,6 +16,7 @@ spec:
       containers:
         - name: expiration-redis
           image: redis
+          resources: {}
           livenessProbe:
             initialDelaySeconds: 30
             periodSeconds: 10

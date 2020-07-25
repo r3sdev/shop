@@ -16,6 +16,7 @@ spec:
       containers:
         - name: payments
           image: shopramsydev/payments
+          resources: {}
           ports:
           - name: server-port
             containerPort: 3000

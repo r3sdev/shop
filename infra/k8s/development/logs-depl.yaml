@@ -16,6 +16,7 @@ spec:
       containers:
         - name: logs
           image: shopramsydev/logs
+          resources: {}
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

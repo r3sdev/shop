@@ -16,6 +16,7 @@ spec:
       containers:
         - name: logs
           image: shopramsydev/media
+          resources: {}
           ports:
           - name: server-port
             containerPort: 3000

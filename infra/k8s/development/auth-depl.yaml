@@ -16,6 +16,7 @@ spec:
       containers:
         - name: auth
           image: shopramsydev/auth
+          resources: {}
           ports:
           - name: server-port
             containerPort: 3000

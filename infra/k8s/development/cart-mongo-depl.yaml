@@ -16,6 +16,13 @@ spec:
       containers:
         - name: cart-mongo
           image: mongo
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           ports:
           - name: mongodb
             containerPort: 27017

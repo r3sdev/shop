@@ -16,6 +16,7 @@ spec:
       containers:
         - name: notifications
           image: shopramsydev/notifications
+          resources: {}
           env:
             - name: JWT_KEY
               valueFrom:

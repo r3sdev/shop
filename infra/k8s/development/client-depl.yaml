@@ -16,6 +16,7 @@ spec:
       containers:
         - name: client
           image: shopramsydev/client
+          resources: {}
           ports:
           - name: server-port
             containerPort: 3000

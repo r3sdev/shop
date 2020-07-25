@@ -16,6 +16,13 @@ spec:
       containers:
         - name: api
           image: shopramsydev/api
+          resources:
+            limits:
+              cpu: 10m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 128Mi
           ports:
           - name: server-port
             containerPort: 3000
