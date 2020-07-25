@@ -17,7 +17,6 @@ spec:
         - name: api
           image: shopramsydev/api
           resources: {}
-          ports:
           livenessProbe:
             httpGet:
               path: /healthz

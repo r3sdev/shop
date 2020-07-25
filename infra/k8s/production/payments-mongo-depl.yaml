@@ -17,9 +17,6 @@ spec:
         - name: payments-mongo
           image: mongo
           resources: {}
-          ports:
-          - name: mongodb
-            containerPort: 27017
           livenessProbe:
             exec:
               command:
