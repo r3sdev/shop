@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 import { natsWrapper } from './nats-wrapper';
 import { app } from './app';
 
-
 // Configure secure passwords
 owasp.config({
   allowPassphrases: true,
@@ -60,6 +59,7 @@ const start = async () => {
     console.log('Connected to database');
   } catch (err) {
     console.error(err);
+    process.exit();
   }
 
   app.listen(3000, () => {
