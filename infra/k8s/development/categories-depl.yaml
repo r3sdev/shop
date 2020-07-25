@@ -17,19 +17,22 @@ spec:
         - name: categories
           image: shopramsydev/categories
           resources: {}
-          ports:
-          - name: server-port
-            containerPort: 3000
           livenessProbe:
             httpGet:
               path: /healthz
-              port: server-port
+              port: 3000
+              httpHeaders:
+              - name: X-Custom-Header
+                value: Awesome
             failureThreshold: 1
             periodSeconds: 10
           startupProbe:
             httpGet:
               path: /healthz
-              port: server-port
+              port: 3000
+              httpHeaders:
+              - name: X-Custom-Header
+                value: Awesome
             failureThreshold: 30
             periodSeconds: 10    
           env:
