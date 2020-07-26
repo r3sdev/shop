@@ -13,8 +13,6 @@ router.get(
     const existingCart = await Cart.findOne({ userId: req.currentUser?.id });
     // Return existing cart
     if (existingCart) {
-      console.log('Returning existing cart for currentUser', existingCart)
-      
       return res.send(existingCart);
     }
 
@@ -22,8 +20,6 @@ router.get(
 
     await newCart.save();
     
-    console.log('Returning new cart for currentUser', newCart);
-
     return res.send(newCart);
   }
 
@@ -32,16 +28,12 @@ router.get(
     const existingCart = await Cart.findOne({ guestId: req.session.guestId });
     // Return existing cart
     if (existingCart) {
-      console.log('Returning existing cart for guest', req.session.guestId, existingCart);
-
       return res.send(existingCart);
     }
 
     const newCart = Cart.build({ guestId: req.session.guestId });
 
     await newCart.save();
-
-    console.log('Returning new cart for guest', req.session.guestId, newCart);
 
     return res.send(newCart);
   }
