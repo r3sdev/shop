@@ -5,22 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faShoppingBag } from "@fortawesome/free-solid-svg-icons"
 import styled from 'styled-components';
 import io from "socket.io-client";
+import { CartIconAttrs } from '../types';
 
 const ENDPOINT = "wss://shop-dev.ramsy.dev";
-
-interface CartProps {
-    currentUser: {
-        id: string;
-    }
-    cart: {
-        id?: string;
-        products: { id: string, price: number }[]
-    }
-}
-
-interface CartState {
-    products: CartProps['cart']['products']
-}
 
 const CartBadge = styled.span`
     position: relative;
@@ -28,7 +15,7 @@ const CartBadge = styled.span`
     right: 15px;
 `
 
-class Cart extends React.Component<CartProps, CartState> {
+class CartIcon extends React.Component<CartIconAttrs['props'], CartIconAttrs['state']> {
 
     socket: SocketIOClient.Socket | undefined = undefined;
 
@@ -89,4 +76,4 @@ class Cart extends React.Component<CartProps, CartState> {
     }
 }
 
-export default Cart
+export default CartIcon

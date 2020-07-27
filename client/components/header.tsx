@@ -6,9 +6,10 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router'
 import styled from 'styled-components';
 
-import Cart from '../components/cart';
+import Cart from './cart-icon';
 import CurrentUser from '../components/current-user';
 import useTheme from '../hooks/use-theme';
+import { HeaderProps } from '../types';
 
 const ProfileMenuContainer = styled.div`
   position: absolute;
@@ -24,13 +25,6 @@ const ProfileMenuContainer = styled.div`
   padding: 10px;
 `
 
-interface HeaderProps {
-  currentUser: any;
-  cart:{
-    id: string
-    products: { id: string; price: number }[]    
-  }
-}
 
 const Header = ({ currentUser, cart }: HeaderProps) => {
 

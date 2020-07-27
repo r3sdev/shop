@@ -2,13 +2,8 @@ import { Nav, NavDropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import { CurrentUserProps } from "../types";
 
-interface CurrentUserProps {
-  currentUser: {
-    fullName: string;
-    isAdmin: boolean;
-  }
-}
 
 const CurrentUser = ({ currentUser }: CurrentUserProps) => {
   const isAdmin = currentUser?.isAdmin
