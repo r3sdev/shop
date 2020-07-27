@@ -1,23 +1,10 @@
-import { ProductRow, ProductDiv, ProductArticle, ProductFigure, ProductImage, PriceRow, PriceEuro, PriceSeperator, PriceCents, CircleButton, ProductTitle } from "./styled-components";
+import { ProductRow, ProductDiv, ProductArticle, ProductFigure, ProductImage, PriceRow, PriceEuro, PriceSeperator, PriceCents, CircleButton, ProductTitle } from "../styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
 import useRequest from '../../hooks/use-request';
 
-interface BonusProductAttrs {
-    id: string;
-    title: string;
-    price: number;
-    imageUrl: string;
-}
-
-interface BonusProductsProps {
-    products: BonusProductAttrs[];
-    currentUser: any;
-    cart: {
-        id: string;
-    }
-}
-
+import type { BonusProductsProps, BonusProductAttrs } from "../../types";
 
 export default ({ products, cart }: BonusProductsProps) => {
 
