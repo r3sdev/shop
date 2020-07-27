@@ -18,7 +18,7 @@
     ]
   },
   "dependencies": {
-    "@ramsy-dev/microservices-shop-common": ">= 1.0.57",
+    "@ramsy-dev/microservices-shop-common": ">= 1.0.59",
     "@types/cookie-session": "^2.0.41",
     "@types/helmet": "^0.0.47",
     "@types/jsonwebtoken": "^8.5.0",
