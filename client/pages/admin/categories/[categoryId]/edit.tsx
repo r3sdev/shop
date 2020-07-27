@@ -7,12 +7,12 @@ const EditCategory = ({ currentUser, category }) => {
 
   const router = useRouter();
 
-  const [title, setTitle] = React.useState(category.title);
-  const [description, setDescription] = React.useState(category.description || '')
-  const [imageUrl, setImageUrl] = React.useState(category.imageUrl || '')
+  const [title, setTitle] = React.useState(category?.title || '');
+  const [description, setDescription] = React.useState(category?.description || '')
+  const [imageUrl, setImageUrl] = React.useState(category?.imageUrl || '')
 
   const { doRequest, errors } = useRequest({
-    url: `/api/categories/${category.id}`,
+    url: `/api/categories/${category?.id}`,
     method: 'put',
     body: { title, description, imageUrl },
     onSuccess: () => router.push('/admin/categories')

@@ -2,11 +2,11 @@ import React from 'react';
 
 const OrderIndex = ({ orders }) => {
 
-  const hasNoOrders = orders.length === 0;
+  const hasNoOrders = orders?.length === 0;
 
   const myOrders = hasNoOrders
     ? <li>You have not placed any orders</li>
-    : orders.map(order => (
+    : orders?.map(order => (
       <li key={order.id}>
         {order.product.title} ({order.status})
       </li>

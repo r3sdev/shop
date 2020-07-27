@@ -7,6 +7,10 @@ const CategoryShow = ({ category }) => {
 
   const onGoBack = () => router.push('/categories')
 
+  if (!category) {
+    return <small>Invalid category</small>
+  }
+
   return (
     <div className="col-xs-12 offset-md-3 col-md-6">
       <div className="card">

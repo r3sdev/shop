@@ -6,14 +6,14 @@ const ProductShow = ({ product }) => {
   const { doRequest, errors } = useRequest({
     url: '/api/orders',
     method: 'post',
-    body: { productId: product.id },
+    body: { productId: product?.id },
     onSuccess: (order) => console.log(order)
   })
 
   return (
     <div>
-      <h1>{product.title}</h1>
-      <h4>Price: {product.price}</h4>
+      <h1>{product?.title}</h1>
+      <h4>Price: {product?.price}</h4>
       {errors}
       <button onClick={() => doRequest()} className="btn btn-primary">
         Purchase

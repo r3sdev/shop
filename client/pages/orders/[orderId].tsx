@@ -12,14 +12,14 @@ const OrderShow = ({ order, currentUser }) => {
     url: '/api/payments',
     method: 'post',
     body: {
-      orderId: order.id,
+      orderId: order?.id,
     },
     onSuccess: () => router.push('/orders')
   })
 
   React.useEffect(() => {
     const findTimeLeft = () => {
-      const msLeft = +new Date(order.expiresAt) - +new Date();
+      const msLeft = +new Date(order?.expiresAt) - +new Date();
       setTimeLeft(Math.round(msLeft / 1000))
     }
     findTimeLeft();
@@ -38,16 +38,16 @@ const OrderShow = ({ order, currentUser }) => {
 
   return (
     <div>
-      <h1>{order.product.title}</h1>
+      <h1>{order?.product?.title}</h1>
       <div>
         Time left to pay: {timeLeft} seconds.
       </div>
       {errors}
       <StripeCheckout
         token={({id}) => doRequest({token: id})}
-        stripeKey="pk_test_48TfjwRZUf3ZaEfQgorkqcpI00z3YfZAg8" // FIXME env variable
-        amount={order.product.price * 100}
-        email={currentUser.email}
+        stripeKey={process.env.STRIPE_KEY as string}
+        amount={order?.product?.price * 100}
+        email={currentUser?.email}
       />
     </div>
   )

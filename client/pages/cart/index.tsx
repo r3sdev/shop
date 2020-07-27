@@ -21,12 +21,12 @@ const CartImage = styled.img`
 `;
 const Cart = ({ cart }) => {
 
-    const [products, setProducts] = React.useState(cart.products);
+    const [products, setProducts] = React.useState(cart?.products);
 
-    const hasProducts = products.length > 0;
+    const hasProducts = products?.length > 0;
 
     const { doRequest, errors } = useRequest({
-        url: `/api/cart/${cart.id}`,
+        url: `/api/cart/${cart?.id}`,
         method: 'put',
         onSuccess: (result: any) => setProducts(result.products)
     });

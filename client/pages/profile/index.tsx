@@ -17,7 +17,7 @@ const Profile = ({ currentUser }) => {
   const [backupEnabled, setBackupEnabled] = React.useState(!!currentUser?.phoneNumberVerified);
 
 
-  const md5Email = crypto.createHash('md5').update(currentUser?.email).digest("hex");
+  const md5Email = crypto.createHash('md5').update(currentUser?.email || '').digest("hex");
 
   /**
    * Request 2FA code
@@ -271,9 +271,9 @@ const Profile = ({ currentUser }) => {
                         <div className="card-body">
                           <img src={`https://gravatar.com/avatar/${md5Email}`} className="rounded float-left pr-3" alt={md5Email} />
                           <div>
-                            <h6>{currentUser.fullName}</h6>
+                            <h6>{currentUser?.fullName}</h6>
                             <p>
-                              Member since {new Date(currentUser.registeredAt).toLocaleDateString()}
+                              Member since {new Date(currentUser?.registeredAt).toLocaleDateString()}
                             </p>
                           </div>
                         </div>
@@ -290,7 +290,7 @@ const Profile = ({ currentUser }) => {
                         aria-describedby="emailHelp"
                         placeholder="Enter email"
                         autoComplete="email"
-                        defaultValue={currentUser.email}
+                        defaultValue={currentUser?.email}
                       />
                     </div>
 

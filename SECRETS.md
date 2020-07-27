@@ -11,4 +11,4 @@ kubectl create secret generic twilio-account-sid --from-literal=TWILIO_ACCOUNT_S
 
 kubectl create secret generic spaces-key --from-literal=SPACES_KEY=<key_here>
 kubectl create secret generic spaces-secret --from-literal=SPACES_SECRET=<key_here>
-
+kubectl create secret generic stripe-key --from-literal=STRIPE_KEY=<key_here>

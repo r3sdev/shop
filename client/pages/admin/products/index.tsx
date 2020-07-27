@@ -18,7 +18,7 @@ const AdminProductIndex = ({ currentUser, products, category }) => {
 
   let selectedProduct = productId ? products.find(p => p.id === productId) : null
 
-  const hasProducts = products.length > 0;
+  const hasProducts = products?.length > 0;
 
   /* Functions */
 
@@ -77,7 +77,7 @@ const AdminProductIndex = ({ currentUser, products, category }) => {
     )
   }
 
-  const productList = products.map(product => {
+  const productList = products?.map(product => {
     return (
       <tr key={product.id}>
         <td>{product.title}</td>

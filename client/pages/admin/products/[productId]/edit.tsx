@@ -11,13 +11,13 @@ const EditProduct = ({ currentUser, product, categories }) => {
 
   const router = useRouter();
 
-  const [title, setTitle] = React.useState(product.title);
-  const [price, setPrice] = React.useState(product.price);
-  const [cost, setCost] = React.useState(product.cost);
-  const [categoryId, setCategoryId] = React.useState(product.category?.id || "default-category-value");
+  const [title, setTitle] = React.useState(product?.title || '');
+  const [price, setPrice] = React.useState(product?.price || '');
+  const [cost, setCost] = React.useState(product?.cost || 0);
+  const [categoryId, setCategoryId] = React.useState(product?.category?.id || "default-category-value");
 
   const { doRequest, errors } = useRequest({
-    url: `/api/products/${product.id}`,
+    url: `/api/products/${product?.id}`,
     method: 'put',
     body: { title, price, cost, categoryId },
     onSuccess: () => router.push('/admin/products')
@@ -105,7 +105,7 @@ const EditProduct = ({ currentUser, product, categories }) => {
                       -- select a category --
                     </option>
 
-                    {categories.map(category =>
+                    {categories?.map(category =>
                       <option value={category.id} key={category.id}>
                         {category.title}
                       </option>

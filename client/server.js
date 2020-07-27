@@ -8,6 +8,10 @@ const handle = next.getRequestHandler()
 
 const { healthz } = require('express-healthz');
 
+if (!process.env.STRIPE_KEY) {
+    throw new Error('STRIPE_KEY must be defined');
+}
+
 const app = express()
 app.use(healthz);
 

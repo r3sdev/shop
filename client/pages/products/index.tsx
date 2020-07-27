@@ -4,9 +4,9 @@ import { ButtonToolbar } from 'react-bootstrap';
 
 const ProductIndex = ({products}) => {
 
-  const hasProducts = products.length > 0;
+  const hasProducts = products?.length > 0;
 
-  const productList = products.map(product => {
+  const productList = products?.map(product => {
     return (
       <tr key={product.id}>
         <td>{product.title}</td>

@@ -8,6 +8,10 @@ const CategoryShow = ({ category, currentUser }) => {
 
   const onGoBack = () => router.back()
 
+  if (!category) {
+    return <small>Invalid category</small>
+  }
+
   return (
     <WithSidebar currentUser={currentUser}>
 

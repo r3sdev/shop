@@ -2,7 +2,7 @@ import React from 'react';
 
 const CategoryProductsIndex = ({ category }) => {
 
-  const products = category.products
+  const products = category?.products || []
 
   const renderProducts = products.map(product => {
     return (

@@ -30,7 +30,7 @@ const BannerTextContainer = styled.div`
 
 const LandingPage = ({ currentUser, products, cart }) => {
 
-  const hasProducts = products.length > 0;
+  const hasProducts = products?.length > 0;
 
   return (
     <div className="container-fluid pb-5">

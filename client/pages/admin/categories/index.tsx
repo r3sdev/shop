@@ -65,9 +65,9 @@ const AdminCategoryIndex = ({ currentUser, categories }) => {
       </Modal>
     )
   }
-  const hasCategories = categories.length > 0;
+  const hasCategories = categories?.length > 0;
 
-  const categoryList = categories.map(category => {
+  const categoryList = categories?.map(category => {
     return (
       <tr key={category.id}>
         <td>{category.title}</td>
