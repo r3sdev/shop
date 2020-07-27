@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 
-import BonusProducts from '../components/product/bonus-products'
+import BonusProducts from '../components/bonus-products'
 
 const CardRow = styled.div`
   display: flex;

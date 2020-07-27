@@ -1,13 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import BonusProducts from '../bonus-products';
+import CartIcon from '../cart-icon';
 
-describe('BonusProducts', () => {
+describe('CartIcon', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
-            <BonusProducts products={[]} cart={{id: 'test'}} currentUser={null} />
-            , div);
+        // @ts-ignore
+        ReactDOM.render(<CartIcon />, div)
         ReactDOM.unmountComponentAtNode(div);
     })
 })

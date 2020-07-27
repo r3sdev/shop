@@ -1,3 +1,4 @@
+import React from 'react';
 import useRequest from '../../hooks/use-request';
 
 const ProductShow = ({ product }) => {

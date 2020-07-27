@@ -29,13 +29,13 @@ module.exports = {
         '!**/*.d.ts',
         '!**/node_modules/**',
     ],
-    testPathIgnorePatterns: ['/node_modules/', '/.next/', '/out'],
+    testPathIgnorePatterns: ['/node_modules/', '/.next/', '/dist'],
     transformIgnorePatterns: [
         '/node_modules/',
         '^.+\\.module\\.(css|sass|scss)$',
     ],
     verbose: true,
-    silent: false,
+    silent: true,
     globals: {
         'ts-jest': {
             tsConfig: 'tsconfig.test.json'

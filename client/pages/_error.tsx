@@ -1,3 +1,4 @@
+import React from 'react';
 import Error404 from './404';
 
 function Error({ statusCode }) {

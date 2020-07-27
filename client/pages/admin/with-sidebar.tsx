@@ -1,3 +1,4 @@
+import React from 'react';
 import Error from '../_error';
 import Sidebar from './sidebar';
 

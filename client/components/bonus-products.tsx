@@ -2,25 +2,22 @@ import { ProductRow, ProductDiv, ProductArticle, ProductFigure, ProductImage, Pr
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import useRequest from '../../hooks/use-request';
+import useRequest from '../hooks/use-request';
 
-import type { BonusProductsProps, BonusProductAttrs } from "../../types";
+import type { BonusProductsProps, BonusProductAttrs } from "../types";
 
 export default ({ products, cart }: BonusProductsProps) => {
-
-    console.log('Bonus Products', cart.id)
-
 
     const { doRequest, errors } = useRequest({
         url: '/api/cart',
         method: 'post',
         body: {
-            cartId: cart.id,
+            cartId: cart?.id,
         },
         onSuccess: (result) => console.log('Added Product', result)
     });
 
-    const hasProducts = products.length > 0;
+    const hasProducts = products?.length > 0;
 
     const onAddProduct = (product: BonusProductAttrs) => {
         doRequest({ product })

@@ -28,20 +28,14 @@ class CartIcon extends React.Component<CartIconAttrs['props'], CartIconAttrs['st
     }
 
     componentDidMount() {
-        console.log('Cart mounted', this.props.cart.id)
-
         this.socket = io(ENDPOINT, {
             transports: ['websocket']
         });
 
-        const cartId = this.props.cart.id;
+        const cartId = this.props.cart?.id;
 
         if (cartId) {
-            console.log('Listening for cart changes', cartId)
-
             this.socket.on(cartId, data => {
-                console.log("Received cart changes", data)
-
                 this.setState({
                     products: data
                 })

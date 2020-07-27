@@ -1,3 +1,4 @@
+import React from 'react';
 import WithSidebar from './with-sidebar';
 import { Card } from 'react-bootstrap';
 
