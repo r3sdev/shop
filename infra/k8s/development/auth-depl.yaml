@@ -46,7 +46,7 @@ spec:
             periodSeconds: 10    
           env:
             - name: MONGO_URI
-              value: 'mongodb://auth-mongo-srv:27017/auth'
+              value: 'mongodb://shop-mongodb-replicaset-0.shop-mongodb-replicaset,shop-mongodb-replicaset-1.shop-mongodb-replicaset,shop-mongodb-replicaset-2.shop-mongodb-replicaset:27017/auth'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

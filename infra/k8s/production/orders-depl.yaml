@@ -56,7 +56,7 @@ spec:
             - name: NATS_CLUSTER_ID
               value: shop
             - name: MONGO_URI
-              value: 'mongodb://orders-mongo-srv:27017/orders'
+              value: 'mongodb://shop-mongodb-replicaset-0.shop-mongodb-replicaset,shop-mongodb-replicaset-1.shop-mongodb-replicaset,shop-mongodb-replicaset-2.shop-mongodb-replicaset:27017/orders'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
