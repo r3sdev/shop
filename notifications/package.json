@@ -30,7 +30,7 @@
   "devDependencies": {
     "@types/jest": "^26.0.7",
     "jest": "25.5.4",
-    "ts-jest": "^25.4.0"
+    "ts-jest": "^26.1.4"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.1",
