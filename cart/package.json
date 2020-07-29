@@ -22,7 +22,7 @@
     "@types/cookie-session": "^2.0.41",
     "@types/helmet": "^0.0.47",
     "@types/jsonwebtoken": "^8.5.0",
-    "@types/mongoose": "^5.7.32",
+    "@types/mongoose": "^5.7.34",
     "@types/request-ip": "^0.0.35",
     "cookie-session": "^1.4.0",
     "express": "^4.17.1",
