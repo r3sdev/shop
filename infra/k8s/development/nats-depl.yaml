@@ -32,24 +32,6 @@ spec:
           'shop'
         ]
         resources: {}
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 8222
-          initialDelaySeconds: 30
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 6
-          successThreshold: 1
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 8222
-          initialDelaySeconds: 5
-          periodSeconds: 10
-          timeoutSeconds: 5
-          failureThreshold: 6
-          successThreshold: 1
 ---
 apiVersion: v1
 kind: Service

@@ -17,33 +17,6 @@ spec:
         - name: client
           image: shopramsydev/client
           resources: {}
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-              httpHeaders:
-              - name: X-Custom-Header
-                value: LivenessProbe
-            failureThreshold: 1
-            periodSeconds: 10
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-              httpHeaders:
-              - name: X-Custom-Header
-                value: ReadinessProbe
-            failureThreshold: 1
-            periodSeconds: 10
-          startupProbe:
-            httpGet:
-              path: /healthz
-              port: 3000
-              httpHeaders:
-              - name: X-Custom-Header
-                value: StartupProbe
-            failureThreshold: 30
-            periodSeconds: 10 
           env:
             - name: JWT_KEY
               valueFrom:

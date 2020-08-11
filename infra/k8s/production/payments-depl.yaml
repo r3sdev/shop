@@ -64,7 +64,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: stripe-secret
-                  key: STRIPE_KEY
+                  key: STRIPE_SECRET
       imagePullSecrets:
         - name: regcred
 ---
