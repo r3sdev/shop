@@ -33,7 +33,6 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

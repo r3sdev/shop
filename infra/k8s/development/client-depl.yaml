@@ -28,7 +28,6 @@ spec:
                 secretKeyRef:
                   name: stripe-key
                   key: STRIPE_KEY
-          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
 ---

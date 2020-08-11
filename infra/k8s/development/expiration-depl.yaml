@@ -28,6 +28,5 @@ spec:
               value: shop
             - name: REDIS_HOST
               value: expiration-redis-srv
-          imagePullPolicy: Always
       imagePullSecrets:
         - name: regcred
