@@ -2,7 +2,7 @@ kubectl create secret docker-registry regcred --docker-server=docker.io --docker
 
 kubectl create secret generic jwt-secret --from-literal=JWT_KEY=<key_here>
 
-kubectl create secret generic stripe-secret --from-literal=STRIPE_KEY=<key_here>
+kubectl create secret generic stripe-secret --from-literal=STRIPE_SECRET=<key_here>
 kubectl create secret generic stripe-key --from-literal=STRIPE_KEY=<key_here>
 
 kubectl create secret generic smtp-user-secret --from-literal=SMTP_USER=<key_here>
