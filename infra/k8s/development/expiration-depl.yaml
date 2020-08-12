@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: expiration-depl
-  namespace: development
 spec:
   replicas: 1
   selector:
@@ -27,6 +26,6 @@ spec:
             - name: NATS_CLUSTER_ID
               value: shop
             - name: REDIS_HOST
-              value: expiration-redis-srv
+              value: redis-srv
       imagePullSecrets:
         - name: regcred
