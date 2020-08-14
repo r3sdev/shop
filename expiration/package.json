@@ -17,7 +17,7 @@
     ]
   },
   "dependencies": {
-    "@ramsy-dev/microservices-shop-common": "1.0.57",
+    "@ramsy-dev/microservices-shop-common": "1.0.61",
     "@types/bull": "^3.14.0",
     "bull": "^3.17.0",
     "typescript": "^3.9.7",
