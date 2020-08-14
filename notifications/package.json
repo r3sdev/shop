@@ -17,7 +17,7 @@
     ]
   },
   "dependencies": {
-    "@ramsy-dev/microservices-shop-common": ">= 1.0.57",
+    "@ramsy-dev/microservices-shop-common": ">= 1.0.61",
     "@types/nodemailer": "^6.4.0",
     "@types/socket.io": "^2.1.11",
     "@types/twilio": "^2.11.0",
