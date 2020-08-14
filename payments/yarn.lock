@@ -455,15 +455,15 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@ramsy-dev/microservices-shop-common@1.0.58":
-  version "1.0.58"
-  resolved "https://registry.yarnpkg.com/@ramsy-dev/microservices-shop-common/-/microservices-shop-common-1.0.58.tgz#5bdb27a5f9abfdd95641b1de57c3266f8b77ae05"
-  integrity sha512-8936Cb2Iw5zP+NFD7GN8y+oAapZIBaBhGsRHk3xaIZ/8Y4NfKOE2n2MMHpRCLR0D5m1qTmprJ6ZWwg8S/PT2VQ==
+"@ramsy-dev/microservices-shop-common@1.0.61":
+  version "1.0.61"
+  resolved "https://registry.yarnpkg.com/@ramsy-dev/microservices-shop-common/-/microservices-shop-common-1.0.61.tgz#8094c3401a6f0c322374b74cf16e2ffd8101891b"
+  integrity sha512-wOXw+iw6MCqdmJKxMxPGGJOWrAiouDNLR3zy2aQBOYaX0XrZNlCd0V4U5nEtLMVCKyWTK7lPTaORW026SZ7/sQ==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.7"
     "@types/jsonwebtoken" "^8.5.0"
-    "@types/node" "^14.0.24"
+    "@types/node" "^14.0.26"
     "@types/uuid" "^8.0.0"
     axios "^0.19.2"
     cookie-session "^1.4.0"
@@ -699,10 +699,10 @@
     "@types/mongodb" "*"
     "@types/node" "*"
 
-"@types/node@*", "@types/node@>=8.1.0", "@types/node@^14.0.24":
-  version "14.0.25"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.25.tgz#7ad8b00a1206d6c9e94810e49f3115f0bcc30456"
-  integrity sha512-okMqUHqrMlGOxfDZliX1yFX5MV6qcd5PpRz96XYtjkM0Ws/hwg23FMUqt6pETrVRZS+EKUB5HY19mmo54EuQbA==
+"@types/node@*", "@types/node@>=8.1.0", "@types/node@^14.0.26":
+  version "14.0.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.27.tgz#a151873af5a5e851b51b3b065c9e63390a9e0eb1"
+  integrity sha512-kVrqXhbclHNHGu9ztnAwSncIgJv/FaxmzXJvGXNdcCpV1b8u1/Mi6z6m0vwy0LzKeXFTPLH0NzwmoJ3fNCIq0g==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
