@@ -13,8 +13,8 @@ metadata:
 spec:
   tls:
   - hosts:
-    - shop-dev.ramsy.dev
-    secretName: shop-dev-ramsy-dev-tls
+    - mygrocery-dev.ramsy.dev
+    secretName: mygrocery-dev-ramsy-dev-tls
   - hosts:
     - api-dev.ramsy.dev
     secretName: api-dev-ramsy-dev-tls
@@ -22,7 +22,7 @@ spec:
     - echo-dev.ramsy.dev
     secretName: echo-dev-ramsy-dev-tls
   rules:
-    - host: shop-dev.ramsy.dev
+    - host: mygrocery-dev.ramsy.dev
       http:
         paths:
           - path: /api/payments/?(.*)
