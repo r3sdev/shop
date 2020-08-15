@@ -15,6 +15,12 @@ spec:
       containers:
         - name: auth
           image: shopramsydev/auth
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 30
           resources: {}
           env:
             - name: MONGO_URI
@@ -27,7 +33,7 @@ spec:
             - name: TWO_FACTOR_AUTHENTICATION_APP_NAME
               value: 'shop.ramsy.dev'
             - name: BASE_URL
-              value: https://shop-dev.ramsy.dev
+              value: https://mygrocery-dev.ramsy.dev
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:

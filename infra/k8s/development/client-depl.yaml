@@ -15,10 +15,18 @@ spec:
       containers:
         - name: client
           image: shopramsydev/client
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 30
           resources: {}
           env:
             - name: BASE_URL
               value: http://ingress-nginx-controller.ingress-nginx.svc.cluster.local
+            - name: WS_ENDPOINT
+              value: wss://mygrocery-dev.ramsy.dev
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
