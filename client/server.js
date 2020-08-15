@@ -12,6 +12,10 @@ if (!process.env.STRIPE_KEY) {
     throw new Error('STRIPE_KEY must be defined');
 }
 
+if (!process.env.WS_ENDPOINT) {
+    throw new Error('WS_ENDPOINT must be defined')
+}
+
 const app = express()
 app.use(healthz);
 

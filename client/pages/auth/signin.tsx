@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styled from 'styled-components';
 import useRequest from '../../hooks/use-request';
-import ConfirmTwoFactorAuth from '../../components/2fa';
+import ConfirmTwoFactorAuth from '../../components/two-factor-auth-confirm';
 import { Button, Spinner } from 'react-bootstrap';
 
 const Divider = styled.hr`

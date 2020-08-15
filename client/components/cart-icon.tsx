@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import io from "socket.io-client";
 import { CartIconAttrs } from '../types';
 
-const ENDPOINT = "wss://shop-dev.ramsy.dev";
 
 const CartBadge = styled.span`
     position: relative;
@@ -28,7 +27,7 @@ class CartIcon extends React.Component<CartIconAttrs['props'], CartIconAttrs['st
     }
 
     componentDidMount() {
-        this.socket = io(ENDPOINT, {
+        this.socket = io( process.env.WS_ENDPOINT!, {
             transports: ['websocket']
         });
 
@@ -58,7 +57,8 @@ class CartIcon extends React.Component<CartIconAttrs['props'], CartIconAttrs['st
                         <FontAwesomeIcon
                             icon={faShoppingBag}
                             size="2x"
-                            className="ml-2 mr-2 text-warning"
+                            className="ml-2 mr-2"
+                            color={"#00ade6"}
                         />
                         <CartBadge className="badge badge-dark">
                             {count}

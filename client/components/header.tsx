@@ -1,30 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faAngleDown, faAngleUp, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faAngleRight, faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { Navbar, Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router'
-import styled from 'styled-components';
-
 import Cart from './cart-icon';
 import CurrentUser from '../components/current-user';
 import useTheme from '../hooks/use-theme';
-import { HeaderProps } from '../types';
-
-const ProfileMenuContainer = styled.div`
-  position: absolute;
-  top: 40px;
-  left: 60px;
-  background: #fff;
-  border-radius: 2px;
-  height: 300px;
-  margin: 1rem;
-  width: 250px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  padding: 10px;
-`
-
+import type { HeaderProps } from '../types';
+import { ProfileMenuContainer, BrandImage } from '../styled-components';
+import { Breadcrumbs } from './breadcrumbs';
 
 const Header = ({ currentUser, cart }: HeaderProps) => {
 
@@ -35,8 +20,11 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
 
   const pathname = router?.pathname || ''
 
-  const isRegularRoute = !pathname.startsWith("/admin")
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isRegularRoute = !isAdminRoute
   const isAuthRoute = pathname.startsWith("/auth")
+  const isProductRoute = pathname.startsWith("/product")
+
 
   let timer: any;
 
@@ -71,16 +59,16 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
   }
 
   return (
-
+<React.Fragment>
     <Navbar
       collapseOnSelect={true} expand="lg" bg="white" variant="light" sticky="top"
-      className="border-bottom"
+      style={{ minHeight: 80 }}
     >
       {
-        isAuthRoute 
-        ? (
-          <React.Fragment>
-              <Nav style={{position: 'absolute'}}>
+        isAuthRoute
+          ? (
+            <React.Fragment>
+              <Nav style={{ position: 'absolute' }}>
                 <li key={'/'}>
                   <Link href={'/'}>
                     <a className="btn btn-link btn-sm">
@@ -93,32 +81,27 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
 
               <Link href="/">
                 <Navbar.Brand className="mx-auto">
-                  <FontAwesomeIcon
-                    icon={faShoppingCart}
-                    className="mr-2"
-                    color={theme.brandColor}
-                    size="lg"
+                  <BrandImage
+                    src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/mygroceryph-cropped.png"
+                    alt="mygroceryph.com"
+                    className="img-fluid"
                   />
                 </Navbar.Brand>
               </Link>
-          </React.Fragment>
-        ) 
-        : (
-          <React.Fragment>
+            </React.Fragment>
+          )
+          : (
+            <React.Fragment>
               <Link href="/">
                 <Navbar.Brand>
-                  <FontAwesomeIcon
-                    icon={faShoppingCart}
-                    className="mr-2"
-                    color={theme.brandColor}
-                    size="lg"
+                <BrandImage
+                    src="https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com/images/mygroceryph-cropped.png"
+                    alt="mygroceryph.com"
+                    className="img-fluid"
                   />
                 </Navbar.Brand>
               </Link>
-              <Cart
-                currentUser={currentUser}
-                cart={cart}
-              />
+
               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
               <Navbar.Collapse id="responsive-navbar-nav">
                 <CurrentUser currentUser={currentUser} />
@@ -147,17 +130,17 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
                         : (
                           <>
                             <li key={'/auth/signin'}>
-                              <a 
+                              <a
                                 className="btn btn-link btn-sm"
                                 onMouseEnter={handleMouseEnter}
                                 onMouseLeave={handleMouseLeave}
                                 onClick={handleClick}
-                                style={{color: theme.linkColor}}
+                                style={{ color: theme.linkColor }}
                               >
                                 Sign in
-                                <FontAwesomeIcon 
-                                  icon={isHovering ? faAngleUp : faAngleDown} 
-                                  className="ml-1" 
+                                <FontAwesomeIcon
+                                  icon={isHovering ? faAngleUp : faAngleDown}
+                                  className="ml-1"
                                 />
                               </a>
                               {
@@ -171,13 +154,22 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
                     )
                   }
                 </Nav>
+                <Cart
+                currentUser={currentUser}
+                cart={cart}
+              />
               </Navbar.Collapse>
-          </React.Fragment>
-        )
+            </React.Fragment>
+          )
       }
     </Navbar>
-
+    {
+      isProductRoute && (
+        <Breadcrumbs />
+      )
+    }
+    </React.Fragment>
   )
 }
 
-export default Header;
+export {Header};

@@ -1,33 +1,69 @@
 import React from 'react';
 import useRequest from '../../hooks/use-request';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Button } from '../../styled-components';
 
-const ProductShow = ({ product }) => {
+const ProductShow = ({ product, cart }) => {
+
+  console.log('Showing product', product, cart)
+
+  // const { doRequest, errors } = useRequest({
+  //   url: '/api/orders',
+  //   method: 'post',
+  //   body: { productId: product?.id },
+  //   onSuccess: (order) => console.log(order)
+  // })
 
   const { doRequest, errors } = useRequest({
-    url: '/api/orders',
+    url: '/api/cart',
     method: 'post',
-    body: { productId: product?.id },
-    onSuccess: (order) => console.log(order)
-  })
+    body: {
+      cartId: cart?.id,
+    },
+    onSuccess: (result) => console.log('Added Product', result)
+  });
+
+
+  /* Functions */
+
+  const onAddProduct = () => {
+    doRequest({ product })
+  }
+
 
   return (
-    <div>
-      <h1>{product?.title}</h1>
-      <h4>Price: {product?.price}</h4>
-      {errors}
-      <button onClick={() => doRequest()} className="btn btn-primary">
-        Purchase
-      </button>
+    <div className="p-5">
+      <div className="row">
+        <div className="col-md-4">
+          <img src={product.imageUrl} className="img-fluid" />
+        </div>
+        <div className="col-md-8">
+          <h1>{product?.title}</h1>
+          <h4>Price: {product?.price}</h4>
+          {errors}
+          <Button onClick={onAddProduct} className="btn">
+            <span className="mr-2">
+            Add
+            </span>
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+          <hr />
+
+        </div>
+      </div>
+
     </div>
   )
 }
 
-ProductShow.getInitialProps = async (context, client) => {
+ProductShow.getInitialProps = async (context, client, _currentUser) => {
   const { productId } = context.query;
 
-  const { data } = await client.get(`/api/products/${productId}`);
+  const { data: product } = await client.get(`/api/products/${productId}`);
+  const { data: cart } = await client.get('/api/cart')
 
-  return { product: data }
+  return { product, cart }
 }
 
 export default ProductShow

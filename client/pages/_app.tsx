@@ -1,14 +1,14 @@
-import React from 'react';
-import { ThemeProvider } from 'styled-components'
-
-import buildClient from '../api/build-client';
-import Header from '../components/header';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-phone-number-input/style.css'
 import './overrides.css'
 import './sidebar.css'
 import './floating-label.css'
+
+import React from 'react';
+import { ThemeProvider } from 'styled-components'
+import {buildClient} from '../api/build-client';
+import Header from './_header';
 
 const theme = {
   colors: {

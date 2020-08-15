@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import TwoFactAuth from '../2fa';
+import TwoFactAuth from '../two-factor-auth-confirm';
 
 describe('2FA', () => {
     it('renders without crashing', () => {

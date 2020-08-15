@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ProductDiv = styled.div`
+  cursor: pointer;
   height: 255px;
   background: white;
   display: flex;

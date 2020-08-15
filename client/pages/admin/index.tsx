@@ -13,7 +13,7 @@ const Admin = ({
       <h2>Dashboard</h2>
       <hr />
       <div className="row">
-        <div className="col-md-2">
+        <div className="col-md-4">
           <Card
             bg={'light'}
             text={'dark'}
@@ -25,7 +25,7 @@ const Admin = ({
             </Card.Body>
           </Card>
         </div>
-        <div className="col-md-2">
+        <div className="col-md-4">
           <Card
             bg={'light'}
             text={'dark'}

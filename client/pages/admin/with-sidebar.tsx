@@ -9,7 +9,7 @@ const WithSidebar = ({ children, currentUser }) => {
   }
 
   return (
-    <div className="row" id="body-row">
+    <div className="row" id="body-row" style={{height: 'calc(100vh - 80px)'}}>
       <Sidebar />
 
       <div className="col py-3">

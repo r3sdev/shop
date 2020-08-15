@@ -7,7 +7,7 @@
     margin-right:0;
 }
 #sidebar-container {
-    min-height: calc(100vh - 60px);   
+    min-height: calc(100vh - 90px);   
     background-color: #333;
     padding: 0;
     z-index: 0;

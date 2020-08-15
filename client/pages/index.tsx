@@ -1,32 +1,11 @@
 import React from 'react';
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
 import { Card } from 'react-bootstrap';
 
-import BonusProducts from '../components/bonus-products'
+import {FeaturedProducts} from '../components/featured-products'
+import * as Styled from '../styled-components';
 
-const CardRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-  margin-top: ${(props: { marginTop?: number | string }) => props.marginTop ? props.marginTop : 0};
-`
-
-const BannerRow = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-`
-
-const BannerTextContainer = styled.div`
-  position: absolute; 
-  top: 60px;
-  left: 10px;
-  cursor: pointer;
-`
 
 const LandingPage = ({ currentUser, products, cart }) => {
 
@@ -35,7 +14,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
   return (
     <div className="container-fluid pb-5">
 
-      <BannerRow>
+      <Styled.BannerRow>
         <div className="w-100 bg-light mb-1">
           <img
             alt="banner"
@@ -43,19 +22,19 @@ const LandingPage = ({ currentUser, products, cart }) => {
             src="https://via.placeholder.com/1264x300/38A6DB/FFFFFF?text=%20"
             style={{ objectFit: 'cover' }}
           />
-          <BannerTextContainer className="text-white">
+          <Styled.BannerTextContainer className="text-white">
             <h1>This is our summer holiday</h1>
             <h3>
               Get some tips & inspiration
             <FontAwesomeIcon icon={faAngleRight} className="ml-1" />
             </h3>
-          </BannerTextContainer>
+          </Styled.BannerTextContainer>
         </div>
-      </BannerRow>
+      </Styled.BannerRow>
       
-      <BonusProducts products={products} currentUser={currentUser} cart={cart}/>
+      <FeaturedProducts products={products} currentUser={currentUser} cart={cart}/>
 
-      <CardRow marginTop={hasProducts ? "-8rem" : "2rem"}>
+      <Styled.CardRow marginTop={hasProducts ? "-8rem" : "2rem"}>
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
             <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF" alt="Card image" />
@@ -72,9 +51,9 @@ const LandingPage = ({ currentUser, products, cart }) => {
             </Card.ImgOverlay>
           </Card>
         </div>
-      </CardRow>
+      </Styled.CardRow>
 
-      <CardRow marginTop="2rem">
+      <Styled.CardRow marginTop="2rem">
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
             <Card.Img src="https://via.placeholder.com/620x168/38A6DB/FFFFFF?text=Ad3" alt="Card image" />
@@ -91,7 +70,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
             </Card.ImgOverlay>
           </Card>
         </div>
-      </CardRow>
+      </Styled.CardRow>
     </div>
   )
 };

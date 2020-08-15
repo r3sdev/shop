@@ -31,8 +31,8 @@ const CurrentUser = ({ currentUser }: CurrentUserProps) => {
         && (
           <NavDropdown title={
             <>
-              <FontAwesomeIcon icon={faUser} className="mr-2" />
-              {currentUser.fullName}
+              <span className="mr-1">of</span>
+              <span>{currentUser.fullName}</span>
             </>
           }
             id="collasible-nav-dropdown2"

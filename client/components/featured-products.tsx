@@ -4,9 +4,13 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import useRequest from '../hooks/use-request';
 
-import type { BonusProductsProps, BonusProductAttrs } from "../types";
+import type { FeaturedProductsProps, FeaturedProductAttrs } from "../types";
+import { useRouter } from "next/router";
 
-export default ({ products, cart }: BonusProductsProps) => {
+export const FeaturedProducts = ({ products, cart }: FeaturedProductsProps) => {
+
+    /* Hooks */
+    const router = useRouter();
 
     const { doRequest, errors } = useRequest({
         url: '/api/cart',
@@ -17,11 +21,23 @@ export default ({ products, cart }: BonusProductsProps) => {
         onSuccess: (result) => console.log('Added Product', result)
     });
 
+    /* Variables */
+
     const hasProducts = products?.length > 0;
 
-    const onAddProduct = (product: BonusProductAttrs) => {
+    /* Functions */
+
+    const onAddProduct = (event: React.MouseEvent, product: FeaturedProductAttrs) => {
+        event.stopPropagation();
         doRequest({ product })
     }
+    
+    const handleClick = (productId: string) => {
+        console.log(productId)
+        router.push(`/products/${productId}`)
+    }
+
+    /* Render */
 
     if (!hasProducts) return null;
 
@@ -35,7 +51,7 @@ export default ({ products, cart }: BonusProductsProps) => {
 
                     return (
                         <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" key={product.id}>
-                            <ProductDiv>
+                            <ProductDiv onClick={() => handleClick(product.id)}>
                                 <ProductArticle>
                                     <ProductFigure>
                                         <ProductImage
@@ -51,7 +67,7 @@ export default ({ products, cart }: BonusProductsProps) => {
                                     </PriceRow>
                                     <CircleButton
                                         className="btn btn-warning btn-circle"
-                                        onClick={() => onAddProduct(product)}
+                                        onClick={(e) => onAddProduct(e, product)}
                                     >
                                         <FontAwesomeIcon icon={faPlus} />
                                     </CircleButton>

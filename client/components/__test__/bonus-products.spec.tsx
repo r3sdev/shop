@@ -1,12 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import BonusProducts from '../bonus-products';
+import {FeaturedProducts} from '../featured-products';
 
 describe('BonusProducts', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         // @ts-ignore
-        ReactDOM.render(<BonusProducts  />, div);
+        ReactDOM.render(<FeaturedProducts  />, div);
         ReactDOM.unmountComponentAtNode(div);
     })
 })

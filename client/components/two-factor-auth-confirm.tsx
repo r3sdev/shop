@@ -2,7 +2,7 @@ import React from 'react'
 import {useRouter} from 'next/router';
 import useRequest from '../hooks/use-request';
 
-export default ({ userId }) => {
+const ConfirmTwoFactorAuth = ({ userId }) => {
   const [userToken, setUserToken] = React.useState('')
 
   const router = useRouter();
@@ -54,3 +54,5 @@ export default ({ userId }) => {
     </div>
   )
 }
+
+export default ConfirmTwoFactorAuth;
