@@ -15,7 +15,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
     <div className="container-fluid pb-5">
 
       <Styled.BannerRow>
-        <div className="w-100 bg-light mb-1">
+        <div className="w-100 bg-light mb-1" style={{position: 'relative'}}>
           <img
             alt="banner"
             className="img-fluid h-100"

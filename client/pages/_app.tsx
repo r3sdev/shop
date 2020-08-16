@@ -7,8 +7,9 @@ import './floating-label.css'
 
 import React from 'react';
 import { ThemeProvider } from 'styled-components'
-import {buildClient} from '../api/build-client';
+import { buildClient } from '../api/build-client';
 import Header from './_header';
+import { Notification } from '../components';
 
 const theme = {
   colors: {
@@ -43,7 +44,8 @@ class AppComponent extends React.Component<any, any> {
 
     return (
       <ThemeProvider theme={theme}>
-        <Header currentUser={currentUser} {...pageProps}/>
+        <Header currentUser={currentUser} {...pageProps} />
+        <Notification />
         <Component currentUser={currentUser} {...pageProps} />
       </ThemeProvider>
     )

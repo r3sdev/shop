@@ -1,3 +1,9 @@
+html, body {
+  font-family: HamburgTS,Arial,Helvetica,sans-serif;
+  color: #303030;
+  font-size: 1rem;
+}
+
 .PhoneInputInput {
   display: block;
   width: 100%;
