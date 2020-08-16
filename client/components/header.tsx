@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp, faAngleRight, faAngleLeft, faRocket, faHeart, faTruck, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faAngleUp, faAngleRight, faAngleLeft, faRocket, faHeart, faTruck, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Navbar, Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router'
 import Cart from './cart-icon';
@@ -45,11 +45,21 @@ const HeaderLink = styled.a`
   }
 `
 
+const InputContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`
+const SearchIcon = styled(FontAwesomeIcon)`
+  position: absolute;
+  right: 10px;
+`
+
 const MenuItem = styled.a`
   display: flex;
   flex-direct: row;
   align-items: center;
-  color: ${(props: {isLoggedIn?: boolean}) => props.isLoggedIn ? 'rgb(48,48,48)' : 'rgb(172, 172, 172)'};
+  color: ${(props: { isLoggedIn?: boolean }) => props.isLoggedIn ? 'rgb(48,48,48)' : 'rgb(172, 172, 172)'};
   padding-left: 1.5rem;
   cursor: pointer;
   font-weight: 200;
@@ -57,7 +67,7 @@ const MenuItem = styled.a`
   height: 42.25px;
 
   &:hover {
-    color: ${(props: {isLoggedIn?: boolean}) => props.isLoggedIn ? 'rgb(131,131,131)' : '#838383'};
+    color: ${(props: { isLoggedIn?: boolean }) => props.isLoggedIn ? 'rgb(131,131,131)' : '#838383'};
     text-decoration: none; /* no underline */
   }
   &:focus {
@@ -88,7 +98,6 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
   const pathname = router?.pathname || ''
 
   const isAdminRoute = pathname.startsWith("/admin");
-  const isRegularRoute = !isAdminRoute
   const isAuthRoute = pathname.startsWith("/auth")
   const isProductRoute = pathname.startsWith("/product")
   const isLoggedIn = !!currentUser;
@@ -291,7 +300,22 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
                     <HeaderLinks />
                   </Nav>
                   <Nav>
-                    <input type="search" className="form-control" placeholder="Search" />
+                    <InputContainer>
+                      <input
+                        type="search"
+                        className="form-control"
+                        placeholder="Search"
+                      />
+                      <SearchIcon icon={faSearch} />
+                    </InputContainer>
+                  </Nav>
+                  <Nav>
+                    <MenuItem 
+                    className="mr-3"
+                    style={{ color: theme.linkColor }}
+                    >
+                      Order online
+                    </MenuItem>
                   </Nav>
 
                   <Cart
