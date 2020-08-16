@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
 const NotificationContainer = styled.div`
     align-items: center;
@@ -21,6 +22,11 @@ export const Notification = () => {
 
     const [height, setHeight] = React.useState('0');
 
+    const router = useRouter();
+
+    const pathname = router?.pathname || ''
+    const isRootRoute = pathname === "/"
+  
     const isClosed = height === '0'
 
     const handleClose = () => {
@@ -34,6 +40,7 @@ export const Notification = () => {
         }, 300)
     },[])
     
+    if (!isRootRoute) return null;
 
     return (
         <NotificationContainer height={height}>
