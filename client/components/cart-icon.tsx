@@ -58,7 +58,7 @@ class CartIcon extends React.Component<CartIconAttrs['props'], CartIconAttrs['st
                             icon={faShoppingBag}
                             size="2x"
                             className="ml-2 mr-2"
-                            color={"#00ade6"}
+                            color={"#4c8c35"}
                         />
                         <CartBadge className="badge badge-dark">
                             {count}

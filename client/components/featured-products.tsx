@@ -6,6 +6,7 @@ import useRequest from '../hooks/use-request';
 
 import type { FeaturedProductsProps, FeaturedProductAttrs } from "../types";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 export const FeaturedProducts = ({ products, cart }: FeaturedProductsProps) => {
 
@@ -51,7 +52,8 @@ export const FeaturedProducts = ({ products, cart }: FeaturedProductsProps) => {
 
                     return (
                         <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3" key={product.id}>
-                            <ProductDiv onClick={() => handleClick(product.id)}>
+                            <Link href={`/products/${product.id}`}>
+                            <ProductDiv>
                                 <ProductArticle>
                                     <ProductFigure>
                                         <ProductImage
@@ -76,6 +78,7 @@ export const FeaturedProducts = ({ products, cart }: FeaturedProductsProps) => {
                                     </ProductTitle>
                                 </ProductArticle>
                             </ProductDiv>
+                            </Link>
                             {errors}
                         </div>
                     )

@@ -1,9 +1,11 @@
 import { Nav, NavDropdown } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { CurrentUserProps } from "../types";
+import styled from 'styled-components';
 
+const Textspan = styled.span`
+  color: #4c8c35;
+`
 
 const CurrentUser = ({ currentUser }: CurrentUserProps) => {
   const isAdmin = currentUser?.isAdmin
@@ -31,8 +33,8 @@ const CurrentUser = ({ currentUser }: CurrentUserProps) => {
         && (
           <NavDropdown title={
             <>
-              <span className="mr-1">of</span>
-              <span>{currentUser.fullName}</span>
+              <Textspan className="mr-1">of</Textspan>
+              <Textspan>{currentUser.fullName}</Textspan>
             </>
           }
             id="collasible-nav-dropdown2"
