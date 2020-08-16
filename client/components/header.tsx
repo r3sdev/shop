@@ -13,6 +13,10 @@ import { Breadcrumbs } from './breadcrumbs';
 
 import styled from 'styled-components';
 
+const Textspan = styled.span`
+  color: #4c8c35;
+`
+
 const HeaderLink = styled.a`
   color: black;
   padding-left: 1.5rem;
@@ -45,7 +49,7 @@ const MenuItem = styled.a`
   display: flex;
   flex-direct: row;
   align-items: center;
-  color: rgb(172, 172, 172);
+  color: ${(props: {isLoggedIn?: boolean}) => props.isLoggedIn ? 'rgb(48,48,48)' : 'rgb(172, 172, 172)'};
   padding-left: 1.5rem;
   cursor: pointer;
   font-weight: 200;
@@ -53,7 +57,7 @@ const MenuItem = styled.a`
   height: 42.25px;
 
   &:hover {
-    color: #838383;
+    color: ${(props: {isLoggedIn?: boolean}) => props.isLoggedIn ? 'rgb(131,131,131)' : '#838383'};
     text-decoration: none; /* no underline */
   }
   &:focus {
@@ -87,7 +91,7 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
   const isRegularRoute = !isAdminRoute
   const isAuthRoute = pathname.startsWith("/auth")
   const isProductRoute = pathname.startsWith("/product")
-
+  const isLoggedIn = !!currentUser;
 
   let timer: any;
 
@@ -106,62 +110,89 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
     setHovering(!isHovering)
   }
 
-  const ProfileMenu = () => {
+  const UserMenu = () => {
     return (
       <ProfileMenuContainer onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-        <MenuItem>
+        <MenuItem isLoggedIn={isLoggedIn}>
           <FontAwesomeIcon icon={faRocket} fixedWidth className="mr-3" />
           <span>Previously purchased</span>
         </MenuItem>
-        <MenuItem>
+        <MenuItem isLoggedIn={isLoggedIn}>
           <FontAwesomeIcon icon={faHeart} fixedWidth className="mr-3" />
           <span>My favorites</span>
         </MenuItem>
-        <MenuItem>
+        <MenuItem isLoggedIn={isLoggedIn}>
           <FontAwesomeIcon icon={faTruck} fixedWidth className="mr-3" />
           <span>My orders</span>
         </MenuItem>
-        <MenuItem>
+        <MenuItem isLoggedIn={isLoggedIn}>
           <FontAwesomeIcon icon={faUser} fixedWidth className="mr-3" />
           <span>My profile</span>
         </MenuItem>
-        <div key={'/auth/signin'} onClick={handleClick}>
-          <Link href={'/auth/signin'}>
-            <MenuItem style={{ color: theme.linkColor }}>
-              Sign in
+        {
+          isLoggedIn
+            ?
+            <div key={'/auth/signout'} onClick={handleClick}>
+              <Link href={'/auth/signout'}>
+                <MenuItem style={{ color: theme.linkColor }}>
+                  Sign out
               <FontAwesomeIcon icon={faAngleRight} className="ml-2" />
-            </MenuItem>
-          </Link>
-        </div>
+                </MenuItem>
+              </Link>
+            </div>
+            :
+            <div key={'/auth/signin'} onClick={handleClick}>
+              <Link href={'/auth/signin'}>
+                <MenuItem style={{ color: theme.linkColor }}>
+                  Sign in
+              <FontAwesomeIcon icon={faAngleRight} className="ml-2" />
+                </MenuItem>
+              </Link>
+            </div>
+        }
+
       </ProfileMenuContainer>
     )
   }
 
-  const GuestLinks = () => {
+  const ProfileMenuLink = () => {
     return (
       <>
         <li key={'/auth/signin'}>
           <HeaderLink
+            className="mr-5"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
             style={{ color: theme.linkColor }}
           >
-            Sign in
+            {
+              isLoggedIn
+                ?
+                <>
+                  <Textspan className="mr-1">of</Textspan>
+                  <Textspan>{currentUser.fullName}</Textspan>
+                </>
+                :
+                <span>
+                  Sign in
+                </span>
+            }
+
             <FontAwesomeIcon
               icon={isHovering ? faAngleUp : faAngleDown}
               className="ml-1"
             />
           </HeaderLink>
           {isHovering && (
-            <ProfileMenu />
+            <UserMenu />
           )}
         </li>
       </>
     )
   }
 
-  const LoggedInLinks = () => {
+  const HeaderLinks = () => {
     return (
       <>
         <li key={'/products'}>
@@ -255,18 +286,12 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
 
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
-                  <CurrentUser currentUser={currentUser} />
-                  <Nav className="ml-5 mr-auto">
-                    {
-                      isRegularRoute && (
-                        currentUser
-                          ? <LoggedInLinks />
-                          : <GuestLinks />
-                      )
-                    }
+                  <Nav className="mr-auto">
+                    <ProfileMenuLink />
+                    <HeaderLinks />
                   </Nav>
                   <Nav>
-                  <input type="search" className="form-control" placeholder="Search" />
+                    <input type="search" className="form-control" placeholder="Search" />
                   </Nav>
 
                   <Cart
