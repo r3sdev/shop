@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 export const ProfileMenuContainer = styled.div`
   position: absolute;
-  top: 40px;
-  left: 60px;
+  top: 64px;
+  left: 11.5rem;
   background: #fff;
   border-radius: 2px;
-  height: 300px;
   margin: 1rem;
   width: 250px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
