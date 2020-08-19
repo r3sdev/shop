@@ -21,7 +21,7 @@
     "@types/bull": "^3.14.0",
     "bull": "^3.18.0",
     "typescript": "^3.9.7",
-    "ts-node-dev": "^1.0.0-pre.57"
+    "ts-node-dev": "^1.0.0-pre.58"
   },
   "devDependencies": {
     "@types/jest": "^26.0.9",
