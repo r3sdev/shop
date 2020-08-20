@@ -8,7 +8,7 @@ router.get('/auth', async (req: Request, res: Response) => {
   });
 });
 
-const BASE_URL = 'https://shop.ramsy.dev';
+const BASE_URL = 'https://dev.mygroceryph.com';
 
 router.get('/auth/*', async (req: Request, res: Response) => {
   const url = req.url.split('/auth/')[1];
