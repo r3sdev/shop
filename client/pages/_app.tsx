@@ -9,7 +9,7 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components'
 import { buildClient } from '../api/build-client';
 import Header from './_header';
-import { Notification } from '../components';
+import { Notification, Footer } from '../components';
 
 const theme = {
   colors: {
@@ -47,6 +47,7 @@ class AppComponent extends React.Component<any, any> {
         <Header currentUser={currentUser} {...pageProps} />
         <Notification />
         <Component currentUser={currentUser} {...pageProps} />
+        <Footer />
       </ThemeProvider>
     )
   }

@@ -17,6 +17,7 @@ const NotificationContainer = styled.div`
     cursor: pointer;
 `
 
+const NOTIFICATION_DELAY = 1000;
 
 export const Notification = () => {
 
@@ -37,7 +38,7 @@ export const Notification = () => {
     React.useEffect(() => {
         setTimeout(() => {
             setHeight('42.25px')
-        }, 300)
+        }, NOTIFICATION_DELAY)
     },[])
     
     if (!isRootRoute) return null;

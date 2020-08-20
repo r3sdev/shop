@@ -19,7 +19,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
           <img
             alt="banner"
             className="img-fluid h-100"
-            src="https://via.placeholder.com/1264x300/38A6DB/FFFFFF?text=%20"
+            src="https://via.placeholder.com/1264x300/4c8c35/FFFFFF?text=%20"
             style={{ objectFit: 'cover' }}
           />
           <Styled.BannerTextContainer className="text-white">
@@ -37,7 +37,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
       <Styled.CardRow marginTop={hasProducts ? "-8rem" : "2rem"}>
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
-            <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF" alt="Card image" />
+            <Card.Img src="https://via.placeholder.com/620x248/4c8c35/FFFFFF" alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title>Card title</Card.Title>
             </Card.ImgOverlay>
@@ -45,7 +45,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
         </div>
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
-            <Card.Img src="https://via.placeholder.com/620x248/38A6DB/FFFFFF?text=Ad2" alt="Card image" />
+            <Card.Img src="https://via.placeholder.com/620x248/4c8c35/FFFFFF?text=Ad2" alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title>Card title</Card.Title>
             </Card.ImgOverlay>
@@ -56,7 +56,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
       <Styled.CardRow marginTop="2rem">
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
-            <Card.Img src="https://via.placeholder.com/620x168/38A6DB/FFFFFF?text=Ad3" alt="Card image" />
+            <Card.Img src="https://via.placeholder.com/620x168/4c8c35/FFFFFF?text=Ad3" alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title>Card title</Card.Title>
             </Card.ImgOverlay>
@@ -64,7 +64,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
         </div>
         <div className="col-md-6">
           <Card border="light" className="bg-dark text-white">
-            <Card.Img src="https://via.placeholder.com/620x168/38A6DB/FFFFFF?text=Ad4" alt="Card image" />
+            <Card.Img src="https://via.placeholder.com/620x168/4c8c35/FFFFFF?text=Ad4" alt="Card image" />
             <Card.ImgOverlay>
               <Card.Title>Card title</Card.Title>
             </Card.ImgOverlay>
