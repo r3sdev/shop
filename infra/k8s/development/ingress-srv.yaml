@@ -13,16 +13,13 @@ metadata:
 spec:
   tls:
   - hosts:
-    - mygrocery-dev.ramsy.dev
-    secretName: mygrocery-dev-ramsy-dev-tls
+    - dev.mygroceryph.com
+    secretName: dev-mygroceryph-com-tls
   - hosts:
-    - api-dev.ramsy.dev
-    secretName: api-dev-ramsy-dev-tls
-  - hosts:
-    - echo-dev.ramsy.dev
-    secretName: echo-dev-ramsy-dev-tls
+    - api-dev.mygroceryph.com
+    secretName: api-dev-mygroceryph-com-tls
   rules:
-    - host: mygrocery-dev.ramsy.dev
+    - host: dev.mygroceryph.com
       http:
         paths:
           - path: /api/payments/?(.*)
@@ -61,17 +58,10 @@ spec:
             backend:
               serviceName: client-srv
               servicePort: 3000
-    - host: api-dev.ramsy.dev
+    - host: api-dev.mygroceryph.com
       http:
         paths:
           - path: /?(.*)
             backend:
               serviceName: api-srv
               servicePort: 3000
-    - host: echo-dev.ramsy.dev
-      http:
-        paths:
-          - path: /?(.*)
-            backend:
-              serviceName: echo-service
-              servicePort: 80

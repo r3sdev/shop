@@ -31,9 +31,9 @@ spec:
                   name: jwt-secret
                   key: JWT_KEY
             - name: TWO_FACTOR_AUTHENTICATION_APP_NAME
-              value: 'shop.ramsy.dev'
+              value: 'dev.mygroceryph.com'
             - name: BASE_URL
-              value: https://mygrocery-dev.ramsy.dev
+              value: https://dev.mygroceryph.com
             - name: NATS_CLIENT_ID
               valueFrom:
                 fieldRef:
