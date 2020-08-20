@@ -1,10 +1,8 @@
 import express, { Response, Request } from 'express';
 import { currentUser, BadRequestError } from '@ramsy-dev/microservices-shop-common';
-import {
-  getTwoFactorAuthenticationCode,
-  respondWithQRCode,
-} from '../../2fa/get-2fa-code';
+import { generateTwoFactorAuthCode } from '../../services/two-factor-auth/generate-two-factor-auth-code';
 import { User } from '../../models/user';
+import { generateQRCode } from '../../services/two-factor-auth/generate-qr-code';
 
 const router = express.Router();
 
@@ -12,7 +10,7 @@ router.post(
   '/api/users/2fa/generate',
   currentUser,
   async (req: Request, res: Response) => {
-    const { otpauthUrl, base32 } = getTwoFactorAuthenticationCode();
+    const { otpauthUrl, base32 } = generateTwoFactorAuthCode();
 
     const user = await User.findById(req.currentUser!.id);
 
@@ -24,7 +22,7 @@ router.post(
 
     await user.save();
 
-    respondWithQRCode(otpauthUrl!, res);
+    generateQRCode(otpauthUrl!, res);
   },
 );
 

@@ -5,7 +5,7 @@ import {
   BadRequestError,
 } from '@ramsy-dev/microservices-shop-common';
 import { User } from '../../models/user';
-import { verifyTwoFactorAuthenticationCode } from '../../2fa/verify-2fa-code';
+import { verifyTwoFactorAuthenticationCode } from '../../services/two-factor-auth/verify-2fa-code';
 import { setCookie } from '../../services/set-cookie';
 
 const router = express.Router();
