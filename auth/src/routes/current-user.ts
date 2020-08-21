@@ -14,23 +14,32 @@ router.get(
       return res.send({ currentUser: null });
     }
 
-    const user = await User.findById(req.currentUser!.id);
+    try {
+      const user = await User.findById(req.currentUser!.id);
 
-    if (!user) {
-      // User does not exist in database.
-      // Remove cookie and return empty object
+      if (!user) {
+        // User does not exist in database.
+        // Remove cookie and return empty object
+        req.session = null;
+
+        return res.send({ currentUser: null });
+      }
+
+      res.send({
+        currentUser: {
+          ...req.currentUser,
+          ...user!.toJSON(),
+          emailVerified: !!user!.emailVerifiedAt,
+          phoneNumberVerified: !!user!.phoneNumberVerifiedAt,
+        },
+      });
+    }
+    catch(err) {
       req.session = null;
-      return res.send({ currentUser: null });
+
+      next(err)
     }
 
-    res.send({
-      currentUser: {
-        ...req.currentUser,
-        ...user!.toJSON(),
-        emailVerified: !!user!.emailVerifiedAt,
-        phoneNumberVerified: !!user!.phoneNumberVerifiedAt,
-      },
-    });
   }),
 );
 

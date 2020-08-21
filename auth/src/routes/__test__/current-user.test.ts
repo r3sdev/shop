@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-it.skip('responds with details about the current user', async () => {
+it.only('responds with details about the current user', async () => {
 
   const cookie = await global.signin()
   
