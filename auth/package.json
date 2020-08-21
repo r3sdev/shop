@@ -10,13 +10,6 @@
     "test": "jest --watchAll --no-cache",
     "test:ci": "jest"
   },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./src/test/setup.ts"
-    ]
-  },
   "dependencies": {
     "@ramsy-dev/microservices-shop-common": ">= 1.0.61",
     "@types/cookie-session": "^2.0.41",
