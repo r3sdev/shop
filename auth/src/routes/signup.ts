@@ -10,6 +10,7 @@ import owasp from 'owasp-password-strength-test';
 import { User } from '../models/user';
 import { UserSignedUpPublisher } from '../events/publisher/user-signed-up-publisher';
 import { natsWrapper } from '../nats-wrapper';
+import { setCookie } from '../services/set-cookie';
 
 const router = express.Router();
 
@@ -66,10 +67,17 @@ router.post(
 
     const link = `${process.env.BASE_URL}/api/users/verify-email/${emailToken}`;
 
-    new UserSignedUpPublisher(natsWrapper.client).publish({
-      email: user.email,
-      link,
-    });
+    // FIXME properly mock this
+    if (process.env.NODE_ENV !== "test") {
+      new UserSignedUpPublisher(natsWrapper.client).publish({
+        email: user.email,
+        link,
+      });
+    }
+
+    if (process.env.NODE_ENV === "test") {
+      setCookie(user, req);
+    }
 
     res.status(200).send({});
   },

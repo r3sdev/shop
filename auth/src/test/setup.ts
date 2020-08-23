@@ -1,7 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
-import  request  from 'supertest';
+import request from 'supertest';
 
 declare global {
   namespace NodeJS {
@@ -19,9 +19,8 @@ global.signin = async () => {
   const response = await request(app)
     .post('/api/users/signup')
     .send({ email, password, passwordConfirmation: password, fullName })
+    .expect(200)
 
-  expect(response.body).toEqual("")
-  
   const cookie = response.get('Set-Cookie');
 
   return cookie;
