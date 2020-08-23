@@ -17,6 +17,9 @@ const theme = {
   },
 }
 
+
+// TODO: translate routes
+// See https://stackoverflow.com/questions/56426126/how-do-i-localize-routes-with-next-js-and-next-i18next
 class AppComponent extends React.Component<any, any> {
 
   static async getInitialProps(appContext) {

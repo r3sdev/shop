@@ -13,13 +13,15 @@ declare global {
 
 global.signin = async () => {
   const email = 'test@test.com';
-  const password = 'password';
+  const password = 'Password12341!';
+  const fullName = 'Jest Test'
 
   const response = await request(app)
     .post('/api/users/signup')
-    .send({ email, password })
-    .expect(201);
+    .send({ email, password, passwordConfirmation: password, fullName })
 
+  expect(response.body).toEqual("")
+  
   const cookie = response.get('Set-Cookie');
 
   return cookie;
