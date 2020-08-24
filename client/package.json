@@ -43,7 +43,7 @@
     "uuid": "^8.3.0"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.3",
+    "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^10.4.8",
     "@types/jest": "^26.0.7",
     "babel-plugin-styled-components": "^1.11.1",
