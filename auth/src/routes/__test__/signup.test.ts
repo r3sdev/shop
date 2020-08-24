@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../app';
 import { User } from '../../models/user';
-import { response } from 'express';
+
 
 describe('/api/users/signup', () => {
 
@@ -52,15 +52,15 @@ describe('/api/users/signup', () => {
   });
 
   it('should return 400 with missing password confirmation', async () => {
-    const response =  await test({
+    const response = await test({
       email,
       password,
       fullName
     }, 400);
 
     expect(response.body.errors).toHaveLength(1);
-      expect(response.body.errors[0].field).toEqual("passwordConfirmation")
-      expect(response.body.errors[0].message).toEqual("Password confirmation does not match password")
+    expect(response.body.errors[0].field).toEqual("passwordConfirmation")
+    expect(response.body.errors[0].message).toEqual("Password confirmation does not match password")
   });
 
 
@@ -74,19 +74,30 @@ describe('/api/users/signup', () => {
         fullName
       })
 
-      expect(response.body.errors).toHaveLength(1);
-      expect(response.body.errors[0].field).toEqual("password")
-      expect(response.body.errors[0].message).toEqual("The password must be at least 10 characters long. The password must contain at least one uppercase letter. The password must contain at least one number. The password must contain at least one special character.")
+    expect(response.body.errors).toHaveLength(1);
+    expect(response.body.errors[0].field).toEqual("password")
+    expect(response.body.errors[0].message).toEqual("The password must be at least 10 characters long. The password must contain at least one uppercase letter. The password must contain at least one number. The password must contain at least one special character.")
   })
 
-  it('should disallow duplicate emails', async () => {
+  it.only('should disallow duplicate emails', async () => {
 
-    await test({
-      email,
-      password,
-      passwordConfirmation,
-      fullName
-    }, 200);
+    // await test({
+    //   email,
+    //   password,
+    //   passwordConfirmation,
+    //   fullName
+    // }, 200);
+
+    const response = await request(app)
+      .post('/api/users/signup')
+      .send({
+        email,
+        password,
+        passwordConfirmation,
+        fullName
+      })
+
+    expect(response).toEqual("")
 
     return test({
       email,
