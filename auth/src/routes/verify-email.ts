@@ -11,12 +11,6 @@ router.get(
   async (req: Request, res: Response) => {
     const emailToken = req.params.token;
 
-    console.log(emailToken);
-
-    if (!emailToken) {
-      return res.status(200).redirect('/auth/email/verification/error');
-    }
-
     const user = await User.findOne({ emailToken });
 
     if (!user) {
