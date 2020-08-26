@@ -68,9 +68,9 @@ router.post(
     const link = `${process.env.BASE_URL}/api/users/verify-email/${emailToken}`;
 
     // FIXME properly mock this
-    // if (process.env.NODE_ENV !== "test") {
-    new UserSignedUpPublisher(natsWrapper.client).publish({ email: user.email, link });
-    // }
+    if (process.env.NODE_ENV !== "test") {
+      new UserSignedUpPublisher(natsWrapper.client).publish({ email: user.email, link });
+    }
 
     if (process.env.NODE_ENV === "test") {
       setCookie(user, req);

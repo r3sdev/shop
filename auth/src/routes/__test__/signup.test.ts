@@ -79,25 +79,14 @@ describe('/api/users/signup', () => {
     expect(response.body.errors[0].message).toEqual("The password must be at least 10 characters long. The password must contain at least one uppercase letter. The password must contain at least one number. The password must contain at least one special character.")
   })
 
-  it.only('should disallow duplicate emails', async () => {
+  it('should disallow duplicate emails', async () => {
 
-    // await test({
-    //   email,
-    //   password,
-    //   passwordConfirmation,
-    //   fullName
-    // }, 200);
-
-    const response = await request(app)
-      .post('/api/users/signup')
-      .send({
-        email,
-        password,
-        passwordConfirmation,
-        fullName
-      })
-
-    expect(response).toEqual("")
+    await test({
+      email,
+      password,
+      passwordConfirmation,
+      fullName
+    }, 200);
 
     return test({
       email,
