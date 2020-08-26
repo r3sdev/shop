@@ -1,6 +1,5 @@
 import request from 'supertest';
 import { app } from '../../app';
-import { natsWrapper } from '../../nats-wrapper';
 
 it.skip('clears the cookie after signing out', async () => {
   await request(app)
