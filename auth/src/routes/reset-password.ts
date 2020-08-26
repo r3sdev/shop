@@ -1,12 +1,12 @@
 import express, { Response, Request, NextFunction } from 'express';
 import { body } from 'express-validator';
-import { User } from '../../models/user';
+import { User } from '../models/user';
 import {
   validateRequest,
   NotFoundError,
   BadRequestError,
 } from '@ramsy-dev/microservices-shop-common';
-import { setCookie } from '../../services/set-cookie';
+import { setCookie } from '../services/set-cookie';
 
 const router = express.Router();
 

@@ -6,7 +6,7 @@ import {
 } from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
 
-import { User } from '../../models/user';
+import { User } from '../models/user';
 
 const router = express.Router();
 

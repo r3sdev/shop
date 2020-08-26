@@ -2,9 +2,9 @@ import express, { Request, Response, response } from 'express';
 import { validateRequest, currentUser, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
 
-import { UserVerifyPhoneNumberPublisher } from '../../events/publisher/user-verify-phone-number';
-import { User } from '../../models/user';
-import { natsWrapper } from '../../nats-wrapper';
+import { UserVerifyPhoneNumberPublisher } from '../events/publisher/user-verify-phone-number';
+import { User } from '../models/user';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 

@@ -65,12 +65,16 @@ router.post(
 
     await user.save();
 
+    // FIXME does this belong here, or does this need to be moved to the notifiction service
+    
     const link = `${process.env.BASE_URL}/api/users/verify-email/${emailToken}`;
 
     // FIXME properly mock this
     if (process.env.NODE_ENV !== "test") {
       new UserSignedUpPublisher(natsWrapper.client).publish({ email: user.email, link });
     }
+
+    // FIXME maybe we need to set a cookie here with an unverified flag
 
     if (process.env.NODE_ENV === "test") {
       setCookie(user, req);
