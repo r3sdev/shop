@@ -10,36 +10,26 @@ router.get(
   currentUser,
   asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
 
-    if (!req.currentUser) {
+    const user = await User.findById(req.currentUser?.id);
+
+    if (!user) {
+      // User does not exist in database.
+      // Remove cookie and return empty object
+      req.session = null;
+
       return res.send({ currentUser: null });
     }
 
-    try {
-      const user = await User.findById(req.currentUser!.id);
+    // TODO: Check if JWT is expired
 
-      if (!user) {
-        // User does not exist in database.
-        // Remove cookie and return empty object
-        req.session = null;
-
-        return res.send({ currentUser: null });
-      }
-
-      res.send({
-        currentUser: {
-          ...req.currentUser,
-          ...user!.toJSON(),
-          emailVerified: !!user!.emailVerifiedAt,
-          phoneNumberVerified: !!user!.phoneNumberVerifiedAt,
-        },
-      });
-    }
-    catch(err) {
-      req.session = null;
-
-      next(err)
-    }
-
+    res.send({
+      currentUser: {
+        ...req.currentUser,
+        ...user!.toJSON(),
+        emailVerified: !!user!.emailVerifiedAt,
+        phoneNumberVerified: !!user!.phoneNumberVerifiedAt,
+      },
+    });
   }),
 );
 

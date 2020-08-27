@@ -16,14 +16,15 @@ describe('currentUser', () => {
 
   });
 
-  // it('responds with null if not authenticated', async () => {
-  //   const reponse = await request(app)
-  //   .get('/api/users/currentuser')
-  //   .send()
-  //   .expect(200);
+  it('responds with null if not authenticated', async () => {
+    const reponse = await request(app)
+    .get('/api/users/currentuser')
+    .send()
+    .expect(200);
 
-  //   expect(reponse.body.currentUser).toEqual(null)
+    expect(reponse.body.currentUser).toEqual(null)
 
-  // })
+  })
+
 })
 
