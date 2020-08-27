@@ -1,10 +1,12 @@
 import { generateQRCode } from '../generate-qr-code';
-import QRCode from 'qrcode';
 
-it('should generate a QR code', () => {
-  const res: any = jest.fn();
 
-  generateQRCode("test", res)
+it('should generate a QR code', async () => {
+  const res: any = {
+    send: jest.fn()
+  }
 
-  expect(QRCode.toDataURL).toHaveBeenCalledWith("test", expect.any(Function))
+  await generateQRCode("test", res)
+
+  expect(res.send).toHaveBeenCalledWith("test")
 })
