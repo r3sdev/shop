@@ -1,5 +1,7 @@
 import {natsWrapper} from '../nats-wrapper';
 
+
+
 describe('natsWrapper', () => {
     it('should throw an error when not connected', () => {
         expect(() => {
