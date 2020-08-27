@@ -1,8 +1,8 @@
 import express, { Response, Request } from 'express';
 import { currentUser, BadRequestError } from '@ramsy-dev/microservices-shop-common';
-import { generateTwoFactorAuthCode } from '../services/two-factor-auth/generate-two-factor-auth-code';
+import { generateTwoFactorAuthCode } from '../services/generate-two-factor-auth-code';
 import { User } from '../models/user';
-import { generateQRCode } from '../services/two-factor-auth/generate-qr-code';
+import { generateQRCode } from '../services/generate-qr-code';
 
 const router = express.Router();
 
