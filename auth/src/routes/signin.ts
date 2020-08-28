@@ -44,7 +44,7 @@ router.post(
 
     const user = await updateTrackableFields(existingUser);
 
-    res.status(201).send(user);
+    res.status(200).send(user);
   },
 );
 
