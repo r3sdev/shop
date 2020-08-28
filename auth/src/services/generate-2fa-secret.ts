@@ -1,6 +1,6 @@
 import speakeasy from 'speakeasy';
 
-export function generateTwoFactorAuthCode() {
+export function generateTwoFactorAuthSecret() {
 
   const name = process.env.TWO_FACTOR_AUTHENTICATION_APP_NAME || '2FA';
   const issuer = name;

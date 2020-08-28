@@ -5,7 +5,7 @@ import {
   BadRequestError,
 } from '@ramsy-dev/microservices-shop-common';
 import { User } from '../models/user';
-import { verifyTwoFactorAuthenticationCode } from '../services/verify-2fa-code';
+import { verifyTwoFactorAuthCode } from '../services/verify-2fa-code';
 import { setCookie } from '../services/set-cookie';
 
 const router = express.Router();
@@ -29,7 +29,7 @@ router.post(
       throw new BadRequestError('Unable to verify 2FA');
     }
 
-    const isCodeValid = await verifyTwoFactorAuthenticationCode(
+    const isCodeValid = await verifyTwoFactorAuthCode(
       user.twoFactorAuthSecret!,
       userToken,
     );
