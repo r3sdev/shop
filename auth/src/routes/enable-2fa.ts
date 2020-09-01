@@ -4,6 +4,7 @@ import {
   currentUser,
   validateRequest,
   BadRequestError,
+  NotAuthorizedError,
 } from '@ramsy-dev/microservices-shop-common';
 import { User } from '../models/user';
 import { verifyTwoFactorAuthCode } from '../services/verify-2fa-code';
@@ -26,8 +27,8 @@ router.post(
 
     const user = await User.findById(currentUser!.id);
 
-    if (!user || !user.twoFactorAuthSecret) {
-      throw new BadRequestError('Unable to enable 2FA');
+    if (!user) {
+      throw new NotAuthorizedError()
     }
 
     const isCodeValid = await verifyTwoFactorAuthCode(
