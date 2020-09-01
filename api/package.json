@@ -33,7 +33,7 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.9",
+    "@types/jest": "^26.0.12",
     "@types/supertest": "^2.0.10",
     "jest": "25.5.4",
     "supertest": "^4.0.2",
