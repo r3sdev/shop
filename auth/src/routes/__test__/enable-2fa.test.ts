@@ -53,7 +53,11 @@ describe('enable2FARouter', () => {
         const {base32: twoFactorAuthSecret} = generateTwoFactorAuthSecret()
         const code = generateTwoFactorAuthCode(twoFactorAuthSecret)
 
-        await User.findOneAndUpdate({email: "test@test.com"}, {twoFactorAuthSecret})
+        const user = await User.findOne({email: "test@test.com"});
+
+        user!.set({twoFactorAuthSecret})
+
+        await user!.save();
 
         const response = await request(app)
         .post('/api/users/2fa/enable')
@@ -62,9 +66,9 @@ describe('enable2FARouter', () => {
             userToken: code
         })
 
-        const user = await User.findOne({email: 'test@test.com'});
+        const updatedUser = await User.findOne({email: 'test@test.com'});
 
-        expect(user!.twoFactorAuthEnabled).toBeTruthy();
+        expect(updatedUser!.twoFactorAuthEnabled).toBeTruthy();
         expect(response.body.message).toEqual("Two-factor Authentication enabled")
     })
 })

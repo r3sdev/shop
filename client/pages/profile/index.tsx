@@ -26,8 +26,9 @@ const Profile = ({ currentUser }) => {
     url: '/api/users/2fa/generate',
     method: 'post',
     body: {},
-    onSuccess: (base64) => {
-      setImage(base64)
+    onSuccess: (otpauthUrl) => {
+      // FIXME generate image here
+      setImage(otpauthUrl)
     }
   });
 

@@ -27,7 +27,7 @@ declare global {
 
 export const currentUser = (
   req: Request,
-  res: Response,
+  _: Response,
   next: NextFunction,
 ) => {
   if (!req.session?.jwt) {
