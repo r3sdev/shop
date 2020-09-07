@@ -2,11 +2,13 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import { app } from '../app';
 import request from 'supertest';
+import { UserDoc, User } from '../models/user';
 
 declare global {
   namespace NodeJS {
     interface Global {
       signin: () => Promise<string[]>
+      user: () => Promise<UserDoc>
     }
   }
 }
@@ -25,6 +27,12 @@ global.signin = async () => {
 
   return cookie;
 };
+
+global.user = async () => {
+  const user = User.findOne({email: 'test@test.com'})
+
+  return user as unknown as Promise<UserDoc>
+}
 
 let mongo: MongoMemoryServer;
 
