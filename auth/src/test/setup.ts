@@ -34,6 +34,8 @@ global.user = async () => {
   return user as unknown as Promise<UserDoc>
 }
 
+jest.mock('../nats-wrapper');
+
 let mongo: MongoMemoryServer;
 
 beforeAll(async () => {
