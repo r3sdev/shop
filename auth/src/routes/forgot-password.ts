@@ -24,7 +24,10 @@ router.post(
     const user = await User.findOne({ email: email.toLowerCase() });
 
     if (!user) {
-      return res.send({});
+      // Always return 204 because of security issues
+      // This way we cannot guess if an email address
+      // exists in the system
+      return res.status(204).send()
     }
 
     const resetPasswordToken = randomBytes(16).toString('hex');
@@ -42,7 +45,8 @@ router.post(
       link,
     });
 
-    res.status(200).send({ user });
+    // Again return 204
+    res.status(204).send();
   },
 );
 
