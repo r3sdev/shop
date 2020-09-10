@@ -1,7 +1,9 @@
-import express, { Request, Response, response } from 'express';
+import express, { Request, Response } from 'express';
+import mongoose from 'mongoose';
 import {
   currentUser,
   BadRequestError,
+  NotAuthorizedError,
 } from '@ramsy-dev/microservices-shop-common';
 import { User } from '../models/user';
 
@@ -12,10 +14,23 @@ router.post(
   currentUser,
   async (req: Request, res: Response) => {
 
-    const user = await User.findById(req.currentUser!.id);
+    const userId = req.currentUser?.id || "";
+    const isValidUserId = mongoose.Types.ObjectId.isValid(userId)
+
+    if (!isValidUserId) {
+      throw new NotAuthorizedError()
+    }
+
+    const user = await User.findById(userId);
+
+    // TODO check for permissions
 
     if (!user) {
-      throw new BadRequestError('Unable to remove phone number');
+      throw new NotAuthorizedError()
+    }
+
+    if (!user.phoneNumber) {
+      throw new BadRequestError('Phone number has not been set')
     }
 
     user.set({
@@ -26,7 +41,7 @@ router.post(
 
     await user.save();
 
-    res.status(200).send({});
+    res.status(200).send();
   },
 );
 
