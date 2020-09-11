@@ -1,11 +1,7 @@
 import express, { Response, Request, NextFunction } from 'express';
 import { body } from 'express-validator';
 import { User } from '../models/user';
-import {
-  validateRequest,
-  NotFoundError,
-  BadRequestError,
-} from '@ramsy-dev/microservices-shop-common';
+import { validateRequest, NotFoundError, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import { setCookie } from '../services/set-cookie';
 
 const router = express.Router();
@@ -13,24 +9,23 @@ const router = express.Router();
 router.get(
   '/api/users/reset-password/:token',
   async (req: Request, res: Response, next: NextFunction) => {
-    let error = null;
 
     const user = await User.findOne({
       resetPasswordToken: req.params.token,
     });
 
     if (!user) {
-      error = 'NotFound';
+      throw new NotFoundError()
     }
 
-    if (user?.resetPasswordTokenExpires) {
-      const linkExpired = user!.resetPasswordTokenExpires < new Date();
-      if (linkExpired) {
-        error = 'LinkExpired';
-      }
+    if (
+      !user.resetPasswordTokenExpires ||
+      user.resetPasswordTokenExpires! < new Date()
+    ) {
+      throw new BadRequestError('Token is expired')
     }
 
-    res.send({ error });
+    res.status(200).send()
   },
 );
 
@@ -40,11 +35,11 @@ router.post(
     body('resetPasswordToken')
       .trim()
       .notEmpty()
-      .withMessage('You must supply valid passwordToken'),
+      .withMessage('resetPasswordToken is missing'),
     body('password')
       .trim()
       .notEmpty()
-      .withMessage('You must supply valid password'),
+      .withMessage('password is missing'),
   ],
   validateRequest,
   async (req: Request, res: Response, next: NextFunction) => {
@@ -66,7 +61,7 @@ router.post(
 
     setCookie(user, req);
 
-    return res.send({});
+    return res.status(200).send();
   },
 );
 
