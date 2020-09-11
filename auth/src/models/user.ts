@@ -33,8 +33,10 @@ export interface UserDoc extends mongoose.Document {
   password: string;
   phoneNumber?: string;
   phoneNumberToken?: string;
+  phoneNumberSecret?: string;
   phoneNumberVerifiedAt?: Date;
   resetPasswordToken?: string;
+  resetPasswordSecret?: string;
   resetPasswordTokenExpires?: Date;
   twoFactorAuthEnabled?: boolean;
   twoFactorAuthSecret?: string;
@@ -79,6 +81,9 @@ const userSchema = new mongoose.Schema(
     phoneNumberToken: {
       type: String,
     },
+    phoneNumberSecret: {
+      type: String,
+    },  
     phoneNumberVerifiedAt: {
       type: Date,
     },
@@ -87,6 +92,9 @@ const userSchema = new mongoose.Schema(
       default: new Date(),
     },
     resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordSecret: {
       type: String,
     },
     resetPasswordTokenExpires: {

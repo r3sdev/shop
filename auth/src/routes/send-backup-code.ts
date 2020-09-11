@@ -31,9 +31,10 @@ router.post(
     const backupToken = Math.floor(100000 + Math.random() * 900000);
 
     user.set({ backupToken });
+    
     await user.save();
 
-    res.status(200).send({});
+    res.status(200).send();
   },
 );
 

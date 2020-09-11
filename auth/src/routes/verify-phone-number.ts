@@ -1,10 +1,11 @@
 import express, { Request, Response, response } from 'express';
-import { validateRequest, currentUser, BadRequestError } from '@ramsy-dev/microservices-shop-common';
+import { validateRequest, currentUser, BadRequestError, NotFoundError } from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
 
 import { UserVerifyPhoneNumberPublisher } from '../events/publisher/user-verify-phone-number-publisher';
 import { User } from '../models/user';
 import { natsWrapper } from '../nats-wrapper';
+import { generateTwoFactorAuthCode, generateTwoFactorAuthSecret } from '../services';
 
 const router = express.Router();
 
@@ -23,12 +24,17 @@ router.post(
     const user = await User.findById(req.currentUser!.id);
 
     if (!user) {
-      throw new BadRequestError('Unable to verify phone number')
+      throw new NotFoundError()
     }
 
-    const phoneNumberToken = Math.floor(100000 + Math.random() * 900000);
+    const {base32: phoneNumberSecret} = generateTwoFactorAuthSecret()
+    const phoneNumberToken = generateTwoFactorAuthCode(phoneNumberSecret)
 
-    user.set({ phoneNumberToken, phoneNumber });
+    user.set({ 
+      phoneNumberToken, 
+      phoneNumber,
+      phoneNumberSecret
+    });
 
     await user.save()
 
@@ -37,7 +43,7 @@ router.post(
       body: `${phoneNumberToken} is your Shop verification code.`,
     });
 
-    res.status(200).send({});
+    res.status(200).send();
   },
 );
 
