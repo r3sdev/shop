@@ -2,8 +2,7 @@ import request from 'supertest';
 import { app } from '../../app';
 import { User } from '../../models/user';
 import { natsWrapper } from '../../nats-wrapper';
-
-const URL = '/api/users/phone-number/verification/request'
+import { URL } from '../verify-phone-number';
 
 describe('verify-phone-number', () => {
 
@@ -72,7 +71,7 @@ describe('verify-phone-number', () => {
             })
             .expect(200)
     });
-    
+
     it('should emit an event and return 200', async () => {
         const cookie = await global.signin();
 
