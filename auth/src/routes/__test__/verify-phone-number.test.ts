@@ -2,9 +2,10 @@ import request from 'supertest';
 import { app } from '../../app';
 import { User } from '../../models/user';
 import { natsWrapper } from '../../nats-wrapper';
-import { URL } from '../verify-phone-number';
 
 describe('verify-phone-number', () => {
+
+    const URL = '/api/users/phone-number/verification/request'
 
     beforeEach(() => {
         jest.resetAllMocks()

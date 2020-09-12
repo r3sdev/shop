@@ -9,10 +9,9 @@ import { generateTwoFactorAuthCode, generateTwoFactorAuthSecret } from '../servi
 
 const router = express.Router();
 
-const TOKEN_EXPIRES_IN_MIN = 15;
-export const URL = '/api/users/phone-number/verification/request'
+export const TOKEN_EXPIRES_IN_MIN = 15;
 
-router.post(URL, [
+router.post('/api/users/phone-number/verification/request', [
     body('phoneNumber')
       .isMobilePhone('nl-NL')
       .withMessage('You must supply a valid phone number'),
