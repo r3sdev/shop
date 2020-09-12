@@ -34,7 +34,7 @@ router.post(
     }
 
     user.set({
-      phoneNumberToken: undefined,
+      phoneNumberSecret: undefined,
       phoneNumber: undefined,
       phoneNumberVerifiedAt: undefined
     });

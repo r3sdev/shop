@@ -6,7 +6,7 @@ describe('remove-phone-number', () => {
     const url = "/api/users/phone-number/remove"
 
     it('should throw an error when user is not logged in', async () => {
-        const response = await request(app)
+        await request(app)
             .post(url)
             .send()
             .expect(401)
@@ -17,7 +17,7 @@ describe('remove-phone-number', () => {
 
         await User.findOneAndDelete({ email: "test@test.com" });
 
-        const response = await request(app)
+        await request(app)
             .post(url)
             .set('Cookie', cookie)
             .send()
@@ -42,7 +42,7 @@ describe('remove-phone-number', () => {
 
         user.set({
             phoneNumber: "+316123456789", 
-            phoneNumberToken: "test",
+            phoneNumberSecret: "test",
             phoneNumberVerifiedAt: new Date()
         })
 
@@ -57,7 +57,7 @@ describe('remove-phone-number', () => {
         const updatedUser = await User.findOne({email: "test@test.com"});
 
         expect(updatedUser!.phoneNumber).toBeUndefined();
-        expect(updatedUser!.phoneNumberToken).toBeUndefined();
+        expect(updatedUser!.phoneNumberSecret).toBeUndefined();
         expect(updatedUser!.phoneNumberVerifiedAt).toBeUndefined();
 
     })
