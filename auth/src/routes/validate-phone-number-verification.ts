@@ -1,38 +1,48 @@
-import express, { Request, Response, response } from 'express';
-import {
-  validateRequest,
-  currentUser,
-  BadRequestError,
-} from '@ramsy-dev/microservices-shop-common';
+import express, { Request, Response } from 'express';
+import mongoose from 'mongoose';
+import { validateRequest, currentUser, BadRequestError, NotAuthorizedError } from '@ramsy-dev/microservices-shop-common';
 import { body } from 'express-validator';
-
 import { User } from '../models/user';
+import { verifyTwoFactorAuthCode } from '../services';
+import { TOKEN_EXPIRES_IN_MIN } from './verify-phone-number';
 
 const router = express.Router();
 
-router.post(
-  '/api/users/phone-number/verification/validate',
-  [
-    body('phoneNumberToken')
-      .isNumeric()
-      .withMessage('You must supply a valid token'),
-  ],
+router.post('/api/users/phone-number/verification/validate', [
+  body('phoneNumberToken')
+    .isNumeric()
+    .withMessage('phoneNumberToken is missing'),
+],
   validateRequest,
   currentUser,
   async (req: Request, res: Response) => {
     const { phoneNumberToken } = req.body;
 
-    const user = await User.findOne({ phoneNumberToken });
-
-    if (!user) {
-      throw new BadRequestError('Unable to verify phone number');
+    if (!mongoose.Types.ObjectId.isValid(req.currentUser?.id || "invalid")) {
+      throw new NotAuthorizedError();
     }
 
-    user.set({ phoneNumberToken, phoneNumberVerifiedAt: new Date() });
+    const user = await User.findById(req.currentUser!.id);
+
+    if (!user) {
+      throw new NotAuthorizedError();
+    }
+
+    if (!user.phoneNumberSecret) {
+      throw new BadRequestError('Secret not set')
+    }
+
+    const isValid = await verifyTwoFactorAuthCode(user.phoneNumberSecret!, phoneNumberToken, TOKEN_EXPIRES_IN_MIN)
+
+    if (!isValid) {
+      throw new BadRequestError('Invalid token')
+    }
+
+    user.set({ phoneNumberVerifiedAt: new Date() });
 
     await user.save();
 
-    res.status(200).send({});
+    res.status(200).send();
   },
 );
 
