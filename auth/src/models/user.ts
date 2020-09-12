@@ -24,6 +24,7 @@ interface UserModel extends mongoose.Model<UserDoc> {
  * that a User Document has
  */
 export interface UserDoc extends mongoose.Document {
+  isDisabled?: boolean
   backupToken?: string;
   email: string;
   emailToken?: string;
