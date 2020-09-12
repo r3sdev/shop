@@ -32,7 +32,6 @@ export interface UserDoc extends mongoose.Document {
   isAdmin: boolean;
   password: string;
   phoneNumber?: string;
-  phoneNumberToken?: string;
   phoneNumberSecret?: string;
   phoneNumberVerifiedAt?: Date;
   resetPasswordToken?: string;

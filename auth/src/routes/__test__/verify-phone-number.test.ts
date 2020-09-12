@@ -72,6 +72,7 @@ describe('verify-phone-number', () => {
             })
             .expect(200)
     });
+    
     it('should emit an event and return 200', async () => {
         const cookie = await global.signin();
 
@@ -83,13 +84,7 @@ describe('verify-phone-number', () => {
             })
             .expect(200)
 
-
-        // const regExp = /{\"email\":\"test@test.com\",\"link\":\"https:\/\/www.test-base.url\/auth\/reset-password\/[\S]{32}\"}/
-
-
-        const regExp = /{\"to\":\"[\d]{10}\",\"body\":\"\\n[\d]{6} is your Shop verification code.\\nThis is only valid for [\d]{2} minutes.\\n\"}/
-
-
+        const regExp = /{\"to\":\"[\d]{10}\",\"body\":\"\\n[\d]{6} is your Shop verification code.\\nThis will expire in [\d]{2} minutes.\\n\"}/
 
         expect(natsWrapper.client.publish)
             .toHaveBeenCalledWith(

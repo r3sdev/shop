@@ -35,11 +35,7 @@ router.post(
       const {base32: phoneNumberSecret} = generateTwoFactorAuthSecret()
       const phoneNumberToken = generateTwoFactorAuthCode(phoneNumberSecret, validTime)
   
-      user.set({ 
-        phoneNumberToken, 
-        phoneNumber,
-        phoneNumberSecret
-      });
+      user.set({ phoneNumber, phoneNumberSecret });
   
       await user.save()
   
@@ -47,7 +43,7 @@ router.post(
         to: phoneNumber,
         body: `
 ${phoneNumberToken} is your Shop verification code.
-This is only valid for ${TOKEN_EXPIRES_IN_MIN} minutes.
+This will expire in ${TOKEN_EXPIRES_IN_MIN} minutes.
 `,
       });
   
