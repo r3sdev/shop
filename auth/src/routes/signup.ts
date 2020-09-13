@@ -1,10 +1,7 @@
 import express, { Request, Response, response } from 'express';
 import { body } from 'express-validator';
 import { randomBytes } from 'crypto';
-import {
-  validateRequest,
-  BadRequestError,
-} from '@ramsy-dev/microservices-shop-common';
+import { validateRequest, BadRequestError } from '@ramsy-dev/microservices-shop-common';
 import owasp from 'owasp-password-strength-test';
 
 import { User } from '../models/user';
@@ -70,9 +67,7 @@ router.post(
     const link = `${process.env.BASE_URL}/api/users/verify-email/${emailToken}`;
 
     // FIXME properly mock this
-    if (process.env.NODE_ENV !== "test") {
       new UserSignedUpPublisher(natsWrapper.client).publish({ email: user.email, link });
-    }
 
     // FIXME maybe we need to set a cookie here with an unverified flag
 
