@@ -21,7 +21,7 @@
     "@ramsy-dev/microservices-shop-common": ">= 1.0.61",
     "@types/cookie-session": "^2.0.41",
     "@types/express": "^4.17.7",
-    "@types/helmet": "^0.0.47",
+    "@types/helmet": "^0.0.48",
     "@types/jsonwebtoken": "^8.3.9",
     "@types/mongoose": "^5.7.36",
     "@types/multer": "^1.4.3",
