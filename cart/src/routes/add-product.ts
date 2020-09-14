@@ -2,11 +2,7 @@ import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { body } from 'express-validator';
 import { Cart } from '../models/cart';
-import {
-  validateRequest,
-  BadRequestError,
-  currentUser,
-} from '@ramsy-dev/microservices-shop-common';
+import { validateRequest, NotFoundError } from '@ramsy-dev/microservices-shop-common';
 import { CartUpdatedPublisher } from '../events/publishers/cart-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
@@ -28,19 +24,19 @@ interface RequestWithProps extends Request {
 
 router.post(
   '/api/cart',
-  body('cartId').custom((value, { req }) => {
+  body('cartId').custom((value) => {
     if (!mongoose.Types.ObjectId.isValid(value)) {
-      throw new Error('Cart needs to have a valid ID');
+      throw new Error('cartId is invalid');
     }
     return true;
   }),
-  body('product').custom((value, { req }) => {
+  body('product').custom((value) => {
     if (!mongoose.Types.ObjectId.isValid(value?.id)) {
-      throw new Error('Product needs to have a valid ID');
+      throw new Error('Product ID missing');
     }
 
     if (!value.price || value.price <= 0) {
-      throw new Error('Product needs to have a price');
+      throw new Error('Price needs to be > 0');
     }
     return true;
   }),
@@ -51,7 +47,7 @@ router.post(
     const existingCart = await Cart.findById(cartId);
 
     if (!existingCart) {
-      throw new BadRequestError('Unable to add product');
+      throw new NotFoundError();
     }
 
     existingCart.products.push(product);
