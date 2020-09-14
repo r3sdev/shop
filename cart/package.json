@@ -20,7 +20,7 @@
   "dependencies": {
     "@ramsy-dev/microservices-shop-common": ">= 1.0.64",
     "@types/cookie-session": "^2.0.41",
-    "@types/helmet": "^0.0.47",
+    "@types/helmet": "^0.0.48",
     "@types/jsonwebtoken": "^8.5.0",
     "@types/mongoose": "^5.7.36",
     "@types/request-ip": "^0.0.35",
