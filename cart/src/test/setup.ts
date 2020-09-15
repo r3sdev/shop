@@ -9,15 +9,21 @@ interface SigninOptions {
 declare global {
   namespace NodeJS {
     interface Global {
-      signin: (options?: SigninOptions) => string[];
+      signin: (options?: SigninOptions) => string[],
+      signinAsGuest: () => string[]
     }
   }
 }
 
-global.signin = (options = {}) => {
+interface SigninOptions {
+  id?: string;
+  isAdmin?: boolean
+}
+
+global.signin = (options: SigninOptions = {}) => {
   // Build a JWT payload. { id, email }
   const payload = {
-    id: new mongoose.Types.ObjectId().toHexString(),
+    id: options?.id || mongoose.Types.ObjectId().toHexString(),
     email: 'test@test.com',
     isAdmin: !!options?.isAdmin,
   };
@@ -36,7 +42,22 @@ global.signin = (options = {}) => {
 
   // return a string thats the cookie with the encode data
 
-  return [`shop=${base64}`];
+  return [`shop=${base64}`]
+};
+
+global.signinAsGuest = () => {
+  // Build session Object. { jwt: jwt_data }
+  const session = { guestId: "test-guestId" };
+
+  // Turn that session into JSON
+  const sessonJSON = JSON.stringify(session);
+
+  // Take JSON and encode it as base64
+  const base64 = Buffer.from(sessonJSON).toString('base64');
+
+  // return a string thats the cookie with the encode data
+
+  return [`shop=${base64}`]
 };
 
 jest.mock('../nats-wrapper');

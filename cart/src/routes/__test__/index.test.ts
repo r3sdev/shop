@@ -1,29 +1,70 @@
 import request from 'supertest';
 import mongoose from 'mongoose';
-
 import { app } from '../../app';
 import { Cart } from '../../models/cart';
 
-const createCart = async () => {
-  const cart = Cart.build({
-    userId: new mongoose.Types.ObjectId().toHexString(),
-  });
+describe('GET /api/cart', () => {
 
-  await cart.save();
-  return request(app)
-    .post('/api/cart')
-    .set('Cookie', global.signin({ isAdmin: true }))
-    .send({
-      title: new Date().getTime().toString(),
-      price: 20,
-      cost: 10,
-      categoryId: cart.id,
+  const URL = '/api/cart';
+
+  describe('as a logged in user', () => {
+
+    let cookie: string[];
+    let userId: string;
+    let cart;
+
+    async function setupCart() {
+      userId = mongoose.Types.ObjectId().toHexString();
+      cookie = global.signin({ id: userId });
+
+      cart = Cart.build({ userId });
+      await cart.save();
+    }
+
+    it('should return an existing cart when found', async () => {
+      await setupCart()
+      const response = await request(app)
+        .get(URL)
+        .set('Cookie', cookie)
+        .send()
+      expect(response.body.userId).toEqual(userId)
     });
-};
 
-it('can fetch a list of carts', async () => {
+    it('should return a new cart when no cart exists', async () => {
+      userId = mongoose.Types.ObjectId().toHexString();
+      cookie = global.signin({ id: userId });
 
+      const response = await request(app)
+        .get(URL)
+        .set('Cookie', cookie)
+        .send()
+      expect(response.body.userId).toEqual(userId)
+    });
+  })
 
-  const response = await request(app).get('/api/cart').send().expect(200);
+  describe('as a guest user', () => {
+    it('should return an existing cart when found', async () => {
+      const cookie = global.signinAsGuest();
 
-});
+      const cart = Cart.build({ guestId: 'test-guestId' });
+
+      await cart.save();
+
+      const response = await request(app)
+        .get(URL)
+        .set('Cookie', cookie)
+        .send()
+
+      expect(response.body.guestId).toEqual("test-guestId");
+    });
+
+    it('should return a new cart when no cart exists', async () => {
+
+      const response = await request(app)
+        .get(URL)
+        .send()
+
+      expect(response.body.guestId).toEqual(expect.any(String));
+    });
+  })
+})
