@@ -1,24 +1,27 @@
-import express, { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import { body } from 'express-validator';
+import express, { Request, Response } from 'express';
+import { BadRequestError, NotFoundError } from '@ramsy-dev/microservices-shop-common';
 import { Cart } from '../models/cart';
-import {
-  validateRequest,
-  BadRequestError,
-  currentUser,
-} from '@ramsy-dev/microservices-shop-common';
 import { CartUpdatedPublisher } from '../events/publishers/cart-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
+/**
+ * Remove all products from the cart
+ */
+
 router.post('/api/cart/:id', async (req: Request, res: Response) => {
   const cartId = req.params.id;
+
+  if (!mongoose.isValidObjectId(cartId)) {
+    throw new BadRequestError("/api/cart/:id is invalid")
+  }
 
   const existingCart = await Cart.findById(cartId);
 
   if (!existingCart) {
-    throw new BadRequestError('Unable to empty cart');
+    throw new NotFoundError()
   }
 
   existingCart.products = [];
