@@ -24,6 +24,7 @@ router.post('/api/cart/:id', async (req: Request, res: Response) => {
     throw new NotFoundError()
   }
 
+  // FIXME move this to the update function
   existingCart.products = [];
 
   await existingCart.save();
