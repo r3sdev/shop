@@ -30,7 +30,7 @@ router.put(
       .withMessage('should be array'),
     check('products.*.id', 'product.id must be a valid id').custom(value => {
       if (!value) return false;
-      
+
       return mongoose.isValidObjectId(value)
     }),
     check('products.*.title', 'product.title must be a string').isString(),
@@ -49,16 +49,17 @@ router.put(
     }
 
     // User is logged in
-    if (req.currentUser) {
-       /* istanbul ignore else */ 
+    if (!!req.currentUser) {
+      /* istanbul ignore else */
       if (cart.userId !== req.currentUser.id) {
         throw new NotAuthorizedError();
       }
-    }
-    // User is guest
-    if (req.session) {
-       /* istanbul ignore else */ 
-      if (cart.guestId !== req.session.guestId) {
+    } else {
+      // User is guest
+      // guestId is always set in this case
+
+      /* istanbul ignore else */
+      if (cart.guestId !== req.session!.guestId) {
         throw new NotAuthorizedError();
       }
     }

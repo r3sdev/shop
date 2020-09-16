@@ -80,8 +80,8 @@ describe('PUT /api/cart/:id', () => {
             .send({ products: [] })
             .expect(401)
     })
-
-    it('should update cart and emit an event', async () => {
+    
+    it('should update cart and emit an event when signed in', async () => {
         const _id = mongoose.Types.ObjectId().toHexString();
         const userId = mongoose.Types.ObjectId().toHexString();
 
@@ -89,6 +89,34 @@ describe('PUT /api/cart/:id', () => {
 
         const cart = Cart.build({});
         cart.set({_id, userId});
+
+        await cart.save();
+
+        await request(app)
+            .put(`${URL}/${_id}`)
+            .set('Cookie', cookie)
+            .send({ products: [] })
+            .expect(200)
+        
+
+        const data = {
+            cartId: _id,
+            products: []
+        }
+        expect(natsWrapper.client.publish).toHaveBeenLastCalledWith(
+            "cart:updated",
+            JSON.stringify(data),
+            expect.any(Function)
+        )
+    })
+
+    it('should update cart and emit an event as a guest', async () => {
+        const _id = mongoose.Types.ObjectId().toHexString();
+
+        const cookie = global.signinAsGuest()
+
+        const cart = Cart.build({});
+        cart.set({_id, guestId: "test-guestId"});
 
         await cart.save();
 
