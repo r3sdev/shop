@@ -34,7 +34,7 @@ it('returns a status other than 401 if the user is signed in', async () => {
 it('returns an error if an invalid title is provided', async () => {
   await request(app)
     .post('/api/categories')
-    .set('Cookie', global.signin({isAdmin: true}))
+    .set('Cookie', global.signin({ isAdmin: true }))
     .send({
       title: '',
     })
@@ -49,7 +49,35 @@ it('returns an error if an invalid title is provided', async () => {
     .expect(400);
 });
 
-it('creates a product with valid inputs', async () => {
+it('should throw an error when duplicate', async () => {
+  const title = 'Title';
+  const description = 'Description';
+  const imageUrl = 'http://www.url.img/image.png';
+
+  await request(app)
+    .post('/api/categories')
+    .set('Cookie', global.signin({ isAdmin: true }))
+    .send({
+      title,
+      description,
+      imageUrl,
+    })
+    .expect(201);
+
+  const response = await request(app)
+    .post('/api/categories')
+    .set('Cookie', global.signin({ isAdmin: true }))
+    .send({
+      title,
+      description,
+      imageUrl,
+    })
+    .expect(400);
+
+  expect(response.body.errors[0].message).toEqual("Category with same title already exists")
+})
+
+it('creates a category with valid inputs', async () => {
   // Get all products
   let categories = await Category.find({});
 
@@ -83,7 +111,7 @@ it('publishes an event', async () => {
 
   await request(app)
     .post('/api/categories')
-    .set('Cookie', global.signin({isAdmin: true}))
+    .set('Cookie', global.signin({ isAdmin: true }))
     .send({
       title,
       description,
