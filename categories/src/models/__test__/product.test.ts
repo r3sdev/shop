@@ -59,3 +59,48 @@ it('increments the version number on multiple saves', async () => {
   await product.save();
   expect(product.version).toBe(2);
 });
+
+it('should correctly set the id', async () => {
+  const id = new mongoose.Types.ObjectId().toHexString();
+
+  const product = Product.build({
+    id,
+    price: 10,
+    title: 'Test',
+  })
+
+  await product.save();
+
+  const newProduct =  await Product.findById(id);
+
+  expect(newProduct!.toJSON().id == id).toBeTruthy()
+})
+
+it('should correctly return the correct version', async () => {
+
+  const newProduct = Product.build({
+    price: 1,
+    title: 'Title 1'
+  })
+
+  await newProduct.save()
+
+  newProduct.set({price: 2})
+  await newProduct.save();
+  
+  newProduct.set({price: 3})
+  await newProduct.save();
+
+  newProduct.set({price: 4})
+  await newProduct.save();
+
+  expect(newProduct.version).toEqual(3)
+
+  const product = await Product.findByEvent({
+    id: newProduct.id,
+    version: 4
+  })
+
+  expect(product!.id).toEqual(newProduct.id)
+  expect(product!.version).toEqual(3)
+})

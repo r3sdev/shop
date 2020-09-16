@@ -7,7 +7,7 @@ import { CategoryDoc } from './category';
  * that are required to create a new product
  */
 interface ProductAttrs {
-  id: string;
+  id?: string;
   title: string;
   price: number;
   imageUrl?: string;
@@ -59,7 +59,7 @@ const productSchema = new mongoose.Schema(
   },
   {
     toJSON: {
-      transform(doc, ret) {
+      transform(_, ret) {
         ret.id = ret._id;
         delete ret._id;
       },
@@ -89,11 +89,15 @@ productSchema.statics.findByEvent = async (event: {
   id: string;
   version: number;
 }) => {
+
+  const {id, version} = event;
+
   return Product.findOne({
-    _id: event.id,
-    version: event.version - 1, // Concurrency
+    _id: id,
+    version: version - 1, // Concurrency
   });
 };
+
 const Product = mongoose.model<ProductDoc, ProductModel>(
   'Product',
   productSchema,
