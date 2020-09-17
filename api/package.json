@@ -29,7 +29,7 @@
     "express-healthz": "^1.1.0",
     "helmet": "^4.1.1",
     "swagger-ui-express": "^4.1.4",
-    "ts-node-dev": "^1.0.0-pre.57",
+    "ts-node-dev": "^1.0.0-pre.62",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
