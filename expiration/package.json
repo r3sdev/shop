@@ -20,7 +20,7 @@
     "@ramsy-dev/microservices-shop-common": "1.0.61",
     "@types/bull": "^3.14.0",
     "bull": "^3.18.0",
-    "ts-node-dev": "^1.0.0-pre.57",
+    "ts-node-dev": "^1.0.0-pre.62",
     "typescript": "^3.9.7"
   },
   "devDependencies": {
