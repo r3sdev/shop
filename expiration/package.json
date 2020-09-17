@@ -20,12 +20,14 @@
     "@ramsy-dev/microservices-shop-common": "1.0.61",
     "@types/bull": "^3.14.0",
     "bull": "^3.18.0",
-    "typescript": "^3.9.7",
-    "ts-node-dev": "^1.0.0-pre.57"
+    "ts-node-dev": "^1.0.0-pre.57",
+    "typescript": "^3.9.7"
   },
   "devDependencies": {
     "@types/jest": "^26.0.9",
+    "@types/redis-mock": "^0.17.0",
     "jest": "25.5.4",
+    "redis-mock": "^0.52.0",
     "ts-jest": "^25.4.0"
   }
 }

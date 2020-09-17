@@ -14,12 +14,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     console.log(`Waiting ${delay / 1000}s before cancelling order ...`)
 
     await expirationQueue.add(
-      {
-        orderId: data.id,
-      },
-      {
-        delay,
-      },
+      { orderId: data.id },
+      { delay },
     );
 
     msg.ack();
