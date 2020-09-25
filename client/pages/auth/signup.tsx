@@ -11,8 +11,7 @@ const ErrorSpan = styled.span`
 
 const HelpText = styled.small`
 `
-
-export default () => {
+const SignUp = () => {
 
   const router = useRouter();
 
@@ -203,3 +202,5 @@ export default () => {
     </div>
   );
 };
+
+export default SignUp;

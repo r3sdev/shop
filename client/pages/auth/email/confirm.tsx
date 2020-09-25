@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+const EmailConfirm = () => {
   return (
     <div className="container mt-5 mb-5">
       <div className="row">
@@ -15,3 +15,5 @@ export default () => {
     </div>
   )
 }
+
+export default EmailConfirm;
