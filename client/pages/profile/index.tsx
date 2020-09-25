@@ -3,6 +3,7 @@ import { Tabs, Tab } from 'react-bootstrap'
 import crypto from 'crypto';
 import useRequest from '../../hooks/use-request';
 import PhoneInput from 'react-phone-number-input'
+import QRCode from 'qrcode'
 
 const Profile = ({ currentUser }) => {
 
@@ -15,8 +16,9 @@ const Profile = ({ currentUser }) => {
   const [phoneNumberToken, setPhoneNumberToken] = React.useState('');
   const [showVerification, setShowVerification] = React.useState(false);
   const [backupEnabled, setBackupEnabled] = React.useState(!!currentUser?.phoneNumberVerified);
+  const [otpAuthUrl, setOtpAuthUrl] = React.useState('');
 
-
+  // Encrypt email for gravatar
   const md5Email = crypto.createHash('md5').update(currentUser?.email || '').digest("hex");
 
   /**
@@ -26,9 +28,20 @@ const Profile = ({ currentUser }) => {
     url: '/api/users/2fa/generate',
     method: 'post',
     body: {},
-    onSuccess: (otpauthUrl) => {
-      // FIXME generate image here
-      setImage(otpauthUrl)
+    onSuccess: ({otpauthUrl}: {otpauthUrl: string}) => {
+      // FIXME regenerate every x seconds
+
+      setOtpAuthUrl(otpauthUrl);
+
+      // QRCode.toDataURL(otpauthUrl, { errorCorrectionLevel: 'H' })
+      // .then(url => {
+      //   console.log(url)
+      //   setImage(url)
+
+      // })
+      // .catch(err => {
+      //   console.error(err)
+      // })
     }
   });
 
@@ -102,13 +115,16 @@ const Profile = ({ currentUser }) => {
   const onEnable2FA = (event) => {
     event.preventDefault();
 
-    if (!twoFactAuthEnabled && !userToken) {
+    if (!twoFactAuthEnabled) {
+      console.log('generate', twoFactAuthEnabled, userToken)
       doRequestGet2FACode()
     } else {
+      console.log('disable', twoFactAuthEnabled, userToken)
       disable2FA();
     }
 
     if (userToken) {
+      console.log('enable', twoFactAuthEnabled, userToken)
       enable2FA()
     }
   }
@@ -162,7 +178,7 @@ const Profile = ({ currentUser }) => {
   }
 
   const showQRCode = () => {
-    return image && (
+    return (!twoFactAuthEnabled && image) && (
       <div>
         <img src={image!} />
         <input
@@ -252,6 +268,20 @@ const Profile = ({ currentUser }) => {
       </div>
     )
   }
+
+  React.useEffect(() => {
+    if (otpAuthUrl) {
+      console.log('Changes detected', otpAuthUrl)
+
+      QRCode.toDataURL(otpAuthUrl, { errorCorrectionLevel: 'H' })
+      .then(url => {
+        setImage(url)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    }
+  },[otpAuthUrl])
 
   return (
     <div className="col-xs-12 offset-md-3 col-md-6 mt-5 mb-5">
