@@ -2,7 +2,7 @@ import React from 'react';
 import useRequest from '../../hooks/use-request';
 import { useRouter} from 'next/router';
 
-export default () => {
+const SignOut = () => {
 
   const router = useRouter()
 
@@ -17,5 +17,7 @@ export default () => {
     doRequest();
   }, [])
 
-  return <div>Signing you out ...</div>
+  return <div className="mt-5 mb-5">Signing you out ...</div>
 }
+
+export default SignOut;
