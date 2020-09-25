@@ -87,7 +87,7 @@ export default () => {
   };
 
   return (
-    <div className="col-xs-12 offset-md-4 col-md-4 mt-3">
+    <div className="col-xs-12 offset-md-4 col-md-4 mt-3 mb-5">
 
       <div className="card">
         <div className="card-body">

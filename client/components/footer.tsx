@@ -267,7 +267,7 @@ const Footer = () => {
                         </div>
                     </div>
                     <small className="ml-3">
-                        We do not sell alcohol or tobacco to minors!
+                        Under 21? No Tobacco! No Vapor! No Alcohol!
                     </small>
                 </FooterImgContainer>
 

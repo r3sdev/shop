@@ -254,7 +254,7 @@ const Profile = ({ currentUser }) => {
   }
 
   return (
-    <div className="col-xs-12 offset-md-3 col-md-6">
+    <div className="col-xs-12 offset-md-3 col-md-6 mt-5 mb-5">
       <div className="card">
         <div className="card-body">
 
