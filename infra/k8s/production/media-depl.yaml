@@ -60,6 +60,8 @@ spec:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
+            - name: CDN_URL
+              value: 'https://cdn-ramsy-dev.ams3.cdn.digitaloceanspaces.com'
             - name: SPACES_KEY
               valueFrom:
                 secretKeyRef:
