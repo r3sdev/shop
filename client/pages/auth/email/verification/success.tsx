@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+const EmailVerificationSuccess = () => {
   return (
     <div className="container mt-5 mb-4">
       <div className="row">
@@ -11,3 +11,5 @@ export default () => {
     </div>
   )
 }
+
+export default EmailVerificationSuccess;
