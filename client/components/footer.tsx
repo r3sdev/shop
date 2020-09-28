@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faInstagram, faPinterestP, faYoutube, faCcPaypal, faCcAmex, faCcMastercard, faCcVisa } from '@fortawesome/free-brands-svg-icons';
 import { faWineGlass, faBan } from '@fortawesome/free-solid-svg-icons';
+import { useRouter } from 'next/router';
 
 const FooterContainer = styled.footer`
     padding-top: 5rem;
@@ -84,7 +85,19 @@ const FooterPaymentIconsContainer = styled.div`
     font-size: 24px;
 `
 
+
+
 const Footer = () => {
+
+    const router = useRouter();
+    const pathname = router?.pathname || ''
+
+    const isAdminRoute = pathname.startsWith("/admin");
+
+    if (isAdminRoute) {
+        return null;
+    }
+
     return (
         <FooterContainer>
             <Row>
@@ -257,7 +270,7 @@ const Footer = () => {
                     <FooterMenuLink className="ml-3">Responsible disclosure</FooterMenuLink>
                 </Link>
             </FooterTOSContainer>
-            
+
             <div className="d-flex align-items-center justify-content-between mt-5">
                 <FooterImgContainer className="d-flex align-items-center justify-content-between mt-2">
                     <div className="d-flex align-items-center">
