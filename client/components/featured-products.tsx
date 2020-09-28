@@ -5,13 +5,11 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import useRequest from '../hooks/use-request';
 
 import type { FeaturedProductsProps, FeaturedProductAttrs } from "../types";
-import { useRouter } from "next/router";
 import Link from "next/link";
 
 export const FeaturedProducts = ({ products, cart }: FeaturedProductsProps) => {
 
     /* Hooks */
-    const router = useRouter();
 
     const { doRequest, errors } = useRequest({
         url: '/api/cart',
@@ -31,11 +29,6 @@ export const FeaturedProducts = ({ products, cart }: FeaturedProductsProps) => {
     const onAddProduct = (event: React.MouseEvent, product: FeaturedProductAttrs) => {
         event.stopPropagation();
         doRequest({ product })
-    }
-    
-    const handleClick = (productId: string) => {
-        console.log(productId)
-        router.push(`/products/${productId}`)
     }
 
     /* Render */
