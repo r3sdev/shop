@@ -36,7 +36,7 @@ const ProductShow = ({ product, cart }) => {
     <div className="p-5">
       <div className="row">
         <div className="col-md-4">
-          <img src={product.imageUrl} className="img-fluid" />
+          <img src={product?.imageUrl} className="img-fluid" />
         </div>
         <div className="col-md-8">
           <h1>{product?.title}</h1>
