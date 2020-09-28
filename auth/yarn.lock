@@ -455,23 +455,23 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@ramsy-dev/microservices-shop-common@>= 1.0.61":
-  version "1.0.61"
-  resolved "https://registry.yarnpkg.com/@ramsy-dev/microservices-shop-common/-/microservices-shop-common-1.0.61.tgz#8094c3401a6f0c322374b74cf16e2ffd8101891b"
-  integrity sha512-wOXw+iw6MCqdmJKxMxPGGJOWrAiouDNLR3zy2aQBOYaX0XrZNlCd0V4U5nEtLMVCKyWTK7lPTaORW026SZ7/sQ==
+"@ramsy-dev/microservices-shop-common@>= 1.0.64":
+  version "1.0.64"
+  resolved "https://registry.yarnpkg.com/@ramsy-dev/microservices-shop-common/-/microservices-shop-common-1.0.64.tgz#7b86f70dd51b499b038c3b786f36dc1dcf4cab4e"
+  integrity sha512-8pXcjisrudvdVevfUXAJlucywfJ0y6gDMQ6zyflkGhR3pRbiWzpQGK2raVTspAyEioKSBnso7JFgHg8EPVgXBw==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.7"
     "@types/jsonwebtoken" "^8.5.0"
-    "@types/node" "^14.0.26"
-    "@types/uuid" "^8.0.0"
+    "@types/node" "^14.10.0"
+    "@types/uuid" "^8.3.0"
     axios "^0.19.2"
     cookie-session "^1.4.0"
     express "^4.17.1"
-    express-validator "^6.4.1"
+    express-validator "^6.6.1"
     jsonwebtoken "^8.5.1"
     node-nats-streaming "^0.3.2"
-    uuid "^8.2.0"
+    uuid "^8.3.0"
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
@@ -672,10 +672,10 @@
     "@types/mongodb" "*"
     "@types/node" "*"
 
-"@types/node@*", "@types/node@^14.0.26":
-  version "14.0.27"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.27.tgz#a151873af5a5e851b51b3b065c9e63390a9e0eb1"
-  integrity sha512-kVrqXhbclHNHGu9ztnAwSncIgJv/FaxmzXJvGXNdcCpV1b8u1/Mi6z6m0vwy0LzKeXFTPLH0NzwmoJ3fNCIq0g==
+"@types/node@*", "@types/node@^14.10.0":
+  version "14.11.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.2.tgz#2de1ed6670439387da1c9f549a2ade2b0a799256"
+  integrity sha512-jiE3QIxJ8JLNcb1Ps6rDbysDhN4xa8DJJvuC9prr6w+1tIh+QAbYyNF3tyiZNLDBIuBCf4KEcV2UvQm/V60xfA==
 
 "@types/nodemailer@^6.4.0":
   version "6.4.0"
@@ -766,7 +766,7 @@
   resolved "https://registry.yarnpkg.com/@types/tmp/-/tmp-0.2.0.tgz#e3f52b4d7397eaa9193592ef3fdd44dc0af4298c"
   integrity sha512-flgpHJjntpBAdJD43ShRosQvNC0ME97DCfGvZEDlAThQmnerRXrLbX6YgzRBQCZTthET9eAWFAMaYP0m0Y4HzQ==
 
-"@types/uuid@^8.0.0", "@types/uuid@^8.3.0":
+"@types/uuid@^8.3.0":
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
   integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
@@ -1870,7 +1870,7 @@ express-healthz@^1.1.0:
   resolved "https://registry.yarnpkg.com/express-healthz/-/express-healthz-1.1.0.tgz#93d0ad338074239ff7050a404fa50b15ea766f64"
   integrity sha512-lROJn0FTrSUzI/SIxVUOcfh+HCNR/vNoM05uKjSac1reu7cNpQlSSo0i7sleF0KJRWMi0gDXnWz/KKFNrmIcoA==
 
-express-validator@^6.4.1, express-validator@^6.6.1:
+express-validator@^6.6.1:
   version "6.6.1"
   resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-6.6.1.tgz#c53046f615d27fcb78be786e018dcd60bd9c6c5c"
   integrity sha512-+MrZKJ3eGYXkNF9p9Zf7MS7NkPJFg9MDYATU5c80Cf4F62JdLBIjWxy6481tRC0y1NnC9cgOw8FuN364bWaGhA==
@@ -5141,7 +5141,7 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@8.3.0, uuid@^8.2.0, uuid@^8.3.0:
+uuid@8.3.0, uuid@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.0.tgz#ab738085ca22dc9a8c92725e459b1d507df5d6ea"
   integrity sha512-fX6Z5o4m6XsXBdli9g7DtWgAx+osMsRRZFKma1mIUsLCz6vRvv+pz5VNbyu9UEDzpMWulZfvpgb/cmDXVulYFQ==
