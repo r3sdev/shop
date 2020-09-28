@@ -5,7 +5,6 @@ import { faAngleDown, faAngleUp, faAngleRight, faAngleLeft, faRocket, faHeart, f
 import { Navbar, Nav } from 'react-bootstrap';
 import { useRouter } from 'next/router'
 import Cart from './cart-icon';
-import CurrentUser from '../components/current-user';
 import useTheme from '../hooks/use-theme';
 import type { HeaderProps } from '../types';
 import { ProfileMenuContainer, BrandImage } from '../styled-components';
@@ -57,7 +56,7 @@ const SearchIcon = styled(FontAwesomeIcon)`
 
 const MenuItem = styled.a`
   display: flex;
-  flex-direct: row;
+  flex-direction: row;
   align-items: center;
   color: ${(props: { isLoggedIn?: boolean }) => props.isLoggedIn ? 'rgb(48,48,48)' : 'rgb(172, 172, 172)'};
   padding-left: 1.5rem;
@@ -95,9 +94,8 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
   const theme = useTheme();
   const router = useRouter();
 
-  const pathname = router?.pathname || ''
+  const pathname = router?.pathname || '';
 
-  const isAdminRoute = pathname.startsWith("/admin");
   const isAuthRoute = pathname.startsWith("/auth")
   const isProductRoute = pathname.startsWith("/product")
   const isLoggedIn = !!currentUser;
@@ -134,10 +132,12 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
           <FontAwesomeIcon icon={faTruck} fixedWidth className="mr-3" />
           <span>My orders</span>
         </MenuItem>
-        <MenuItem isLoggedIn={isLoggedIn}>
-          <FontAwesomeIcon icon={faUser} fixedWidth className="mr-3" />
-          <span>My profile</span>
-        </MenuItem>
+        <Link href="/profile">
+          <MenuItem isLoggedIn={isLoggedIn}>
+            <FontAwesomeIcon icon={faUser} fixedWidth className="mr-3" />
+            <span>My profile</span>
+          </MenuItem>
+        </Link>
         {
           isLoggedIn
             ?
@@ -310,9 +310,9 @@ const Header = ({ currentUser, cart }: HeaderProps) => {
                     </InputContainer>
                   </Nav>
                   <Nav>
-                    <MenuItem 
-                    className="mr-3"
-                    style={{ color: theme.linkColor }}
+                    <MenuItem
+                      className="mr-3"
+                      style={{ color: theme.linkColor }}
                     >
                       Order online
                     </MenuItem>
