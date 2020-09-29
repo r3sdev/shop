@@ -1405,23 +1405,23 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.4.tgz#11d5db19bd178936ec89cd84519c4de439574398"
   integrity sha512-1oO6+dN5kdIA3sKPZhRGJTfGVP4SWV6KqlMOwry4J3HfyD68sl/3KmG7DeYUzvN+RbhXDnv/D8vNNB8168tAMg==
 
-"@ramsy-dev/microservices-shop-common@1.0.61":
-  version "1.0.61"
-  resolved "https://registry.yarnpkg.com/@ramsy-dev/microservices-shop-common/-/microservices-shop-common-1.0.61.tgz#8094c3401a6f0c322374b74cf16e2ffd8101891b"
-  integrity sha512-wOXw+iw6MCqdmJKxMxPGGJOWrAiouDNLR3zy2aQBOYaX0XrZNlCd0V4U5nEtLMVCKyWTK7lPTaORW026SZ7/sQ==
+"@ramsy-dev/microservices-shop-common@1.0.64":
+  version "1.0.64"
+  resolved "https://registry.yarnpkg.com/@ramsy-dev/microservices-shop-common/-/microservices-shop-common-1.0.64.tgz#7b86f70dd51b499b038c3b786f36dc1dcf4cab4e"
+  integrity sha512-8pXcjisrudvdVevfUXAJlucywfJ0y6gDMQ6zyflkGhR3pRbiWzpQGK2raVTspAyEioKSBnso7JFgHg8EPVgXBw==
   dependencies:
     "@types/cookie-session" "^2.0.41"
     "@types/express" "^4.17.7"
     "@types/jsonwebtoken" "^8.5.0"
-    "@types/node" "^14.0.26"
-    "@types/uuid" "^8.0.0"
+    "@types/node" "^14.10.0"
+    "@types/uuid" "^8.3.0"
     axios "^0.19.2"
     cookie-session "^1.4.0"
     express "^4.17.1"
-    express-validator "^6.4.1"
+    express-validator "^6.6.1"
     jsonwebtoken "^8.5.1"
     node-nats-streaming "^0.3.2"
-    uuid "^8.2.0"
+    uuid "^8.3.0"
 
 "@restart/context@^2.1.4":
   version "2.1.4"
@@ -1652,15 +1652,10 @@
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.2.tgz#857a118d8634c84bba7ae14088e4508490cd5da5"
   integrity sha512-4kPlzbljFcsttWEq6aBW0OZe6BDajAmyvr2xknBG92tejQnvdGtT9+kXSZ580DqpxY9qG2xeQVF9Dq0ymUTo5Q==
 
-"@types/node@*":
-  version "14.0.26"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.26.tgz#22a3b8a46510da8944b67bfc27df02c34a35331c"
-  integrity sha512-W+fpe5s91FBGE0pEa0lnqGLL4USgpLgs4nokw16SrBBco/gQxuua7KnArSEOd5iaMqbbSHV10vUDkJYJJqpXKA==
-
-"@types/node@^14.0.26", "@types/node@^14.0.27":
-  version "14.0.27"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.27.tgz#a151873af5a5e851b51b3b065c9e63390a9e0eb1"
-  integrity sha512-kVrqXhbclHNHGu9ztnAwSncIgJv/FaxmzXJvGXNdcCpV1b8u1/Mi6z6m0vwy0LzKeXFTPLH0NzwmoJ3fNCIq0g==
+"@types/node@*", "@types/node@^14.0.27", "@types/node@^14.10.0":
+  version "14.11.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.11.2.tgz#2de1ed6670439387da1c9f549a2ade2b0a799256"
+  integrity sha512-jiE3QIxJ8JLNcb1Ps6rDbysDhN4xa8DJJvuC9prr6w+1tIh+QAbYyNF3tyiZNLDBIuBCf4KEcV2UvQm/V60xfA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -1763,10 +1758,10 @@
   dependencies:
     "@types/jest" "*"
 
-"@types/uuid@^8.0.0":
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.0.0.tgz#165aae4819ad2174a17476dbe66feebd549556c0"
-  integrity sha512-xSQfNcvOiE5f9dyd4Kzxbof1aTrLobL278pGLKOZI6esGfZ7ts9Ka16CzIN6Y8hFHE1C7jIBZokULhK1bOgjRw==
+"@types/uuid@^8.3.0":
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
+  integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
 
 "@types/warning@^3.0.0":
   version "3.0.0"
@@ -3847,12 +3842,12 @@ express-healthz@^1.1.0:
   resolved "https://registry.yarnpkg.com/express-healthz/-/express-healthz-1.1.0.tgz#93d0ad338074239ff7050a404fa50b15ea766f64"
   integrity sha512-lROJn0FTrSUzI/SIxVUOcfh+HCNR/vNoM05uKjSac1reu7cNpQlSSo0i7sleF0KJRWMi0gDXnWz/KKFNrmIcoA==
 
-express-validator@^6.4.1:
-  version "6.6.0"
-  resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-6.6.0.tgz#46b8327926e9b1752f9823ee0631e534b6ac41e8"
-  integrity sha512-xcephfzFbUssJph/nOSKIdx+I+8GRz5by/8rOIKL6gJikKKKJjnwYH5TG1nIDB6kEalUtZMbOFuSNOp/HHY84Q==
+express-validator@^6.6.1:
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/express-validator/-/express-validator-6.6.1.tgz#c53046f615d27fcb78be786e018dcd60bd9c6c5c"
+  integrity sha512-+MrZKJ3eGYXkNF9p9Zf7MS7NkPJFg9MDYATU5c80Cf4F62JdLBIjWxy6481tRC0y1NnC9cgOw8FuN364bWaGhA==
   dependencies:
-    lodash "^4.17.15"
+    lodash "^4.17.19"
     validator "^13.1.1"
 
 express@^4.17.1:
