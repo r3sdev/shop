@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2020-09-29T12:43:19.779Z" agent="5.0 (Macintosh)" etag="mL3RaqdIJg2V6jLVXJaw" version="13.7.6" type="github">
+<mxfile host="app.diagrams.net" modified="2020-09-29T12:44:01.002Z" agent="5.0 (Macintosh)" etag="Flax4X-mZPco1IlprUhI" version="13.7.6" type="github">
   <diagram id="sB3gIeHtADQoTnuXsjhY" name="Page-1">
     <mxGraphModel dx="1238" dy="494" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0">
       <root>
@@ -126,6 +126,9 @@
               <mxPoint x="620" y="250" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="XULWcfqCwwIu88M6Y825-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.587;entryY=1.075;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ceZEzJuu1U9Ej3rdzH1q-8" target="ceZEzJuu1U9Ej3rdzH1q-3">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="ceZEzJuu1U9Ej3rdzH1q-8" value="Notifications" style="whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="520" y="160" width="80" height="40" as="geometry" />
