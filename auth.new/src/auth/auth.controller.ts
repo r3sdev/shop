@@ -7,7 +7,7 @@ import { User } from 'src/users';
 export class AuthController {
  
     @Get('signin')
-    @ApiOperation({ summary: 'Get currently signed in user' })
+    @ApiOperation({ summary: 'Current user session' })
     @ApiResponse({ type: User, isArray: false, status: 200 })
     @ApiResponse({ status: 403, description: 'Forbidden.' })
 
@@ -39,15 +39,6 @@ export class AuthController {
 
     async signout(@Body() user: User) {
         return "DELETE signout"
-    }
-
-    @Get('password/new')
-    @ApiOperation({ summary: 'Get currently signed in user' })
-    @ApiOkResponse({ type: User })
-    @ApiForbiddenResponse({ description: 'Forbidden.' })
-
-    async getPasswordNew() {
-        return "GET signin"
     }
 
 }
