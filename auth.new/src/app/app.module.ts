@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import * as Joi from '@hapi/joi';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ItemsModule } from '../items';
+import { UsersModule } from '../users';
 import { configuration } from '../config';
-import * as Joi from '@hapi/joi';
+import { AuthModule } from 'src/auth';
 
 
 @Module({
@@ -28,7 +29,8 @@ import * as Joi from '@hapi/joi';
         abortEarly: true,
       },
     }),
-    ItemsModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
