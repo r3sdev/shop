@@ -1,5 +1,5 @@
 import { FilterQuery } from "mongodb";
-import { Item } from "./entity/item";
+import { Item } from "./item.model";
 
 export interface ItemService {
     findAll(): Promise<Item[]>;

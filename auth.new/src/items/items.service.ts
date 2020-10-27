@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { Db, FilterQuery, ObjectID } from 'mongodb';
-import { Item } from './entity/item';
+import { Item } from './item.model';
 import { ItemService as _ItemService } from './items.interface';
 
 @Injectable()

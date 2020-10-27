@@ -2,7 +2,7 @@ import { Controller, Get, Post, Param, Body, Response } from '@nestjs/common';
 import { ItemsService } from './items.service';
 import { ApiTags, ApiResponse } from '@nestjs/swagger';
 import { FilterQuery } from 'mongodb';
-import { Item } from './entity/item';
+import { Item } from './item.model';
 
 @Controller('items')
 @ApiTags('items')
