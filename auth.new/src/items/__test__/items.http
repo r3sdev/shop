@@ -1,0 +1,15 @@
+
+GET http://localhost:3000/items HTTP/1.1
+###
+
+GET http://localhost:3000/items/5f95369d7e3081697cd45894 HTTP/1.1
+
+###
+POST http://localhost:3000/items HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "name",
+    "description": "description",
+    "quantity": 1
+}
