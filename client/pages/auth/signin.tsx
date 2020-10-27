@@ -68,7 +68,7 @@ const Signin = () => {
                   autoFocus={true}
                   className="form-control"
                   disabled={loading}
-                  name="emai"
+                  name="email"
                   id="email"
                   onBlur={(e) => setEmail(e.target.value.trim())}
                   onChange={(e) => setEmail(e.target.value)}
