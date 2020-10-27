@@ -19,7 +19,7 @@ const LandingPage = ({ currentUser, products, cart }) => {
           <img
             alt="banner"
             className="img-fluid h-100"
-            src="https://via.placeholder.com/1264x300/4c8c35/FFFFFF?text=%20"
+            src="https://via.placeholder.com/1600x300/4c8c35/FFFFFF?text=%20"
             style={{ objectFit: 'cover' }}
           />
           <Styled.BannerTextContainer className="text-white">
