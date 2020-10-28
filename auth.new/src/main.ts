@@ -10,18 +10,15 @@ async function bootstrap() {
 
   const configService: ConfigService = app.get(ConfigService);
 
-  const scheme = configService.get('server.scheme');
-  const host = configService.get('server.host');
   const port = configService.get('server.port')
 
   const options = new DocumentBuilder()
-    .setTitle('Users example')
-    .setDescription('The users API description')
+    .setTitle('Authentication API')
+    .setDescription('The authentication API description')
     .setVersion('0.0.1')
-    .addTag('users')
+    .addTag('auth')
     .setTermsOfService('http://www.ramsy.it/tos.html')
     .setContact('Ramsy IT', 'http://www.ramsy.it', 'ramsy@ramsy.it')
-    // .addServer(`${scheme}://${host}:${port}`)
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
