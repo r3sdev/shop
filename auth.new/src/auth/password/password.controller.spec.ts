@@ -15,4 +15,16 @@ describe('PasswordController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should be defined', () => {
+    expect(controller.getPasswordEdit).toBeDefined();
+  });
+
+  it('should be defined', () => {
+    expect(controller.getPasswordNew).toBeDefined();
+  });
+
+  it('should be defined', () => {
+    expect(controller.postPassword).toBeDefined();
+  });
 });
