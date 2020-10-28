@@ -15,4 +15,16 @@ describe('ConfirmationController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should be defined', () => {
+    expect(controller.getUserConfirmation).toBeDefined();
+  });
+
+  it('should be defined', () => {
+    expect(controller.newUserConfirmation).toBeDefined();
+  });
+
+  it('should be defined', () => {
+    expect(controller.postUserConfirmation).toBeDefined();
+  });
 });
