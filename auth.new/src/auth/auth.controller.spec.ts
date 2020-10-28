@@ -15,4 +15,20 @@ describe('AuthController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  it('should be defined', () => {
+    expect(controller.getSignin).toBeDefined();
+  });
+
+  it('should be defined', () => {
+    expect(controller.postSignin).toBeDefined();
+  });
+
+  it('should be defined', () => {
+    expect(controller.signout).toBeDefined();
+  });
+
+  it('should be defined', () => {
+    expect(controller.signup).toBeDefined();
+  });
 });
