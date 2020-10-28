@@ -1,5 +1,5 @@
 import { FilterQuery } from "mongodb";
-import { User } from "./user.model";
+import { User } from "../common/models";
 
 export interface UsersService {
     findAll(): Promise<User[]>;

@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { Db, FilterQuery, ObjectID } from 'mongodb';
-import { User } from './user.model';
+import { User } from '../common/models';
 import { UsersService as _UsersService } from './users.interface';
 
 @Injectable()

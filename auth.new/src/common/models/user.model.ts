@@ -4,7 +4,7 @@ export class User {
     @ApiHideProperty() 
     _id: string;
 
-    @ApiProperty({description: "The user's email address"}) 
+    @ApiProperty({example: "user@tld.com", description: "The user's email address"}) 
     email: string;
 
     @ApiProperty({description: "The user's full name"}) 
