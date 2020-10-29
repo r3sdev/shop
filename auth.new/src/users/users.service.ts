@@ -1,40 +1,16 @@
-import { Inject, Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { Db, FilterQuery, ObjectID } from 'mongodb';
+import { Inject, Injectable } from '@nestjs/common';
+import { Db } from 'mongodb';
 import { User } from '../common/models';
-import { UsersService as _UsersService } from './users.interface';
 
 @Injectable()
 export class UsersService  {
+  constructor(@Inject('DATABASE_CONNECTION') private db: Db) {}
 
-  COLLECTION_NAME = 'users';
-
-  constructor(
-    @Inject('DATABASE_CONNECTION')
-    private db: Db,
-  ) {}
-
-  async find(): Promise<User[]> {
-    return await this.db.collection(this.COLLECTION_NAME).find({}).toArray();
-  }
-
-  async findOne(options: FilterQuery<User>): Promise<User> {
-    if (!ObjectID.isValid(options.id)) {
-      throw new BadRequestException;
-    }
-
-    const response = await this.db.collection(this.COLLECTION_NAME).findOne({
-      _id: new ObjectID(options.id),
+  async findOne(email: string): Promise<User | undefined> {
+    return  await this.db.collection('users').findOne({
+      email
     });
-
-    if (!response) {
-      throw new NotFoundException;
-    }
-
-    return response;
   }
 
-  async create(body: User): Promise<void> {
-    await this.db.collection(this.COLLECTION_NAME).insertOne(body);
-  }
 
 }
