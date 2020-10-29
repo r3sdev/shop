@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { User } from 'src/users';
+import { User } from '../../common/models';
 
 @Controller('auth/confirmation')
 @ApiTags('auth/confirmation')
