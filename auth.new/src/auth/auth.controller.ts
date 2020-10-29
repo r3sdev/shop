@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Post, Request, UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiResponse, ApiTags, ApiOkResponse, ApiCreatedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { User } from '../common/models';
+import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('auth')
 @ApiTags('auth')
@@ -16,7 +16,7 @@ export class AuthController {
         return "GET signin"
     }
 
-    @UseGuards(AuthGuard('local'))
+    @UseGuards(LocalAuthGuard)
     @Post('signin')
     @ApiOperation({ summary: 'Sign in user' })
     @ApiOkResponse({ description: 'The user has successfully signed in.', type: User })
