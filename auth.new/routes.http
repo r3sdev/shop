@@ -1,0 +1,201 @@
+@baseUrl     = http://localhost:3000
+@contentType = application/json
+
+###
+GET {{baseUrl}}
+
+###
+GET     {{baseUrl}}/api/users/currentuser 
+Content-Type: {{contentType}}
+
+###
+POST    {{baseUrl}}/api/users/2fa/disable
+Content-Type: {{contentType}}
+
+{
+
+}
+
+###
+POST    {{baseUrl}}/api/users/2fa/enable
+Content-Type: {{contentType}}
+
+{
+    "userToken": "userToken"
+}
+
+###
+POST    {{baseUrl}}/api/users/forgot-password
+Content-Type: {{contentType}}
+
+{
+    "email": "email"
+}
+
+###
+POST    {{baseUrl}}/api/users/2fa/generate
+Content-Type: {{contentType}}
+
+{
+
+}
+
+###
+POST    {{baseUrl}}/api/users/phone-number/remove
+Content-Type: {{contentType}}
+
+{
+
+}
+
+###
+GET     {{baseUrl}}/api/users/reset-password/:token
+Content-Type: {{contentType}}
+
+###
+POST    {{baseUrl}}/api/users/reset-password
+Content-Type: {{contentType}}
+
+{
+    "resetPasswordToken": "resetPasswordToken",
+    "password": "password"
+}
+
+###
+POST    {{baseUrl}}/api/users/backup-code/send
+Content-Type: {{contentType}}
+
+{
+    "userId": "userId"
+}
+
+###
+POST    {{baseUrl}}/api/users/signin
+Content-Type: {{contentType}}
+
+{
+    "email": "email",
+    "password": "password"
+}
+
+###
+POST    {{baseUrl}}/api/users/signout
+Content-Type: {{contentType}}
+
+{
+
+}
+
+###
+POST    {{baseUrl}}/api/users/signup
+Content-Type: {{contentType}}
+
+{
+    "fullName": "fullName",
+    "email": "email",
+    "password": "password",
+    "passwordConfirmation": "passwordConfirmation"
+}
+
+###
+POST    {{baseUrl}}/api/users/2fa/validate
+Content-Type: {{contentType}}
+
+{
+    "userId": "userId",
+    "userToken": "userToken"
+}
+
+###
+POST    {{baseUrl}}/api/users/phone-number/verification/validate
+Content-Type: {{contentType}}
+
+{
+    "phoneNumberToken": "phoneNumberToken"
+}
+
+###
+POST    {{baseUrl}}/api/users/backup-code/verify
+Content-Type: {{contentType}}
+
+{
+    "backupCode": "backupCode"
+}
+
+###
+POST    {{baseUrl}}/api/users/verify-email/:token
+Content-Type: {{contentType}}
+
+{
+
+}
+
+###
+POST    {{baseUrl}}/api/users/phone-number/verification/request
+Content-Type: {{contentType}}
+
+{
+    "phoneNumber": "phoneNumber"
+}
+
+
+
+
+
+###
+GET     {{baseUrl}}/api/auth/signin
+Content-Type: {{contentType}}
+
+{
+
+}
+###
+POST    {{baseUrl}}/api/auth/signin
+Content-Type: {{contentType}}
+
+{
+
+}
+###
+POST    {{baseUrl}}/api/auth/signup
+Content-Type: {{contentType}}
+
+{
+
+}
+###
+DELETE  {{baseUrl}}/api/auth/signout
+Content-Type: {{contentType}}
+
+{
+
+}
+###
+GET     {{baseUrl}}/api/auth/password/new
+###
+GET     {{baseUrl}}/api/auth/password/edit
+###
+PUT     {{baseUrl}}/api/auth/password
+Content-Type: {{contentType}}
+
+{
+
+}
+###
+POST    {{baseUrl}}/api/auth/password
+Content-Type: {{contentType}}
+
+{
+
+}
+###
+GET     {{baseUrl}}/api/auth/confirmation/new
+###
+GET     {{baseUrl}}/api/auth/confirmation
+###
+POST    {{baseUrl}}/api/auth/confirmation
+Content-Type: {{contentType}}
+
+{
+
+}
