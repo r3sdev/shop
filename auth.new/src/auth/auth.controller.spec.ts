@@ -12,23 +12,23 @@ describe('AuthController', () => {
     controller = module.get<AuthController>(AuthController);
   });
 
-  it('should be defined', () => {
+  it('controller should be defined', () => {
     expect(controller).toBeDefined();
   });
 
-  it('should be defined', () => {
-    expect(controller.getSignin).toBeDefined();
+  it('postLogin should be defined', () => {
+    expect(controller.postLogin).toBeDefined();
   });
 
-  it('should be defined', () => {
-    expect(controller.postSignin).toBeDefined();
+  it('postRegister should be defined', () => {
+    expect(controller.postRegister).toBeDefined();
   });
 
-  it('should be defined', () => {
-    expect(controller.signout).toBeDefined();
+  it('deleteLogout should be defined', () => {
+    expect(controller.deleteLogout).toBeDefined();
   });
 
-  it('should be defined', () => {
-    expect(controller.signup).toBeDefined();
+  it('getProfile should be defined', () => {
+    expect(controller.getProfile).toBeDefined();
   });
 });

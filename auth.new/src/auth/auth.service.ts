@@ -1,27 +1,39 @@
 import { Injectable } from '@nestjs/common';
-import { Password } from 'src/services';
+import { JwtService } from '@nestjs/jwt';
+import { User } from '../common/models';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) { }
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService
+    ) { }
 
-  async validateUser(email: string, pass: string): Promise<any> {
-    const user = await this.usersService.findOne(email);
+    async registerUser(email: string, password: string) {
+      // TODO: save user to database
+      // TODO: hash password
+      // TODO: send email verification
+    }
 
-    try {
-      const isValidPassword = await Password.compare(user?.password, pass);
+    async validateUser(email: string, password: string): Promise<Omit<User, 'password' > | null> {
+      const user = await this.usersService.findOne(email);
+      
+      // TODO: Check hashed password instead of plain
 
-      if (isValidPassword) {
+      if (user && user.password === password) {
         const { password, ...result } = user;
-
-        return result;
+        
+        return new User(result);
       }
+      return null;
+    }
 
-      return null;
-    }
-    catch {
-      return null;
-    }
+  async login(user: User) {
+    const payload = { username: user.email, sub: user._id };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 }

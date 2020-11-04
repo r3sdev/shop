@@ -1,46 +1,50 @@
 import { Body, Controller, Delete, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags, ApiOkResponse, ApiCreatedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { User } from '../common/models';
+import { AuthService } from './auth.service';
+import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
+
+type RequestWithUser = Request & {user: User}
 
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
- 
-    @Get('signin')
-    @ApiOperation({ summary: 'Current user session' })
-    @ApiResponse({ type: User, isArray: false, status: 200 })
-    @ApiResponse({ status: 403, description: 'Forbidden.' })
-
-    async getSignin() {
-        return "GET signin"
-    }
+    constructor(private authService: AuthService) {}
 
     @UseGuards(LocalAuthGuard)
-    @Post('signin')
-    @ApiOperation({ summary: 'Sign in user' })
-    @ApiOkResponse({ description: 'The user has successfully signed in.', type: User })
+    @Post('login')
+    @ApiOperation({ summary: 'Log in user' })
+    @ApiOkResponse({ description: 'The user has successfully logged in.', type: User })
     @ApiForbiddenResponse({ description: 'Forbidden.' })
 
-    async postSignin(@Request() req: Request & {user: User}) {
-        return req.user;
+    async postLogin(@Request() req: RequestWithUser) {
+        return this.authService.login(req.user)
     }
 
-    @Post('signup')
-    @ApiOperation({ summary: 'Sign up user' })
-    @ApiCreatedResponse({ description: 'The user has successfully signed up.', type: User })
+    @Post('register')
+    @ApiOperation({ summary: 'Register user' })
+    @ApiCreatedResponse({ description: 'The user has successfully registered.', type: User })
     @ApiForbiddenResponse({ description: 'Forbidden.' })
 
-    async signup(@Body() user: User) {
-        return "POST signup"
+    async postRegister(@Body() user: User) {
+        return "POST register"
     }
 
-    @Delete('signout')
-    @ApiOperation({ summary: 'Sign out user' })
-    @ApiOkResponse({ description: 'The user has successfully signed out.', type: User })
+    @Delete('logout')
+    @ApiOperation({ summary: 'Log out user' })
+    @ApiOkResponse({ description: 'The user has successfully logged out.', type: User })
 
-    async signout(@Body() user: User) {
-        return "DELETE signout"
+    async deleteLogout(@Body() user: User) {
+        return "DELETE logout"
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('profile')
+    @ApiOperation({ summary: 'User profile' })
+    
+    async getProfile(@Request() req: RequestWithUser) {
+      return req.user;
     }
 
 }
