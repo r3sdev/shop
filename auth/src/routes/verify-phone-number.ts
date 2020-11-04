@@ -21,6 +21,8 @@ router.post('/api/users/phone-number/verification/request', [
   async (req: Request, res: Response) => {
     const { phoneNumber } = req.body;
 
+    // TODO: Rate limit
+
     try {
       const user = await User.findById(req.currentUser!.id);
 
