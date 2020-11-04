@@ -8,7 +8,7 @@ const router = express.Router();
 router.get(
   '/api/users/currentuser',
   currentUser,
-  asyncMiddleware(async (req: Request, res: Response, next: NextFunction) => {
+  asyncMiddleware(async (req: Request, res: Response, _: NextFunction) => {
 
     const user = await User.findById(req.currentUser?.id);
 
