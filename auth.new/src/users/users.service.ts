@@ -12,5 +12,7 @@ export class UsersService  {
     });
   }
 
-
+  async create(user: User): Promise<void> {
+    await this.db.collection('users').insertOne(user);
+  }
 }
