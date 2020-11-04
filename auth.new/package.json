@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^7.0.0",
     "@nestjs/swagger": "^4.6.1",
     "@types/mongodb": "^3.5.31",
+    "class-transformer": "^0.3.1",
     "mongodb": "^3.6.2",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
