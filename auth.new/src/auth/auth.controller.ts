@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Post, Request, UseGuards } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags, ApiOkResponse, ApiCreatedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiTags, ApiOkResponse, ApiCreatedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { User } from '../common/models';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
