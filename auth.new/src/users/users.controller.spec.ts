@@ -7,9 +7,14 @@ describe('UsersController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [DatabaseModule],
       controllers: [UsersController],
-      providers: [UsersService],
+      providers: [
+        {
+          provide: 'DATABASE_CONNECTION',
+          useValue: {}
+        },
+        UsersService
+      ]
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
