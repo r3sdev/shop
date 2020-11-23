@@ -1,5 +1,4 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DatabaseModule } from '../database';
 import { UsersController, UsersService } from './';
 
 describe('UsersController', () => {

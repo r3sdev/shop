@@ -27,7 +27,7 @@ export class AuthController {
     @ApiCreatedResponse({ description: 'The user has successfully registered.', type: User })
     @ApiForbiddenResponse({ description: 'Forbidden.' })
 
-    async postRegister(@Body() user: User) {
+    async postRegister(@Body() _: User) {
         return "POST register"
     }
 
@@ -35,7 +35,7 @@ export class AuthController {
     @ApiOperation({ summary: 'Log out user' })
     @ApiOkResponse({ description: 'The user has successfully logged out.', type: User })
 
-    async deleteLogout(@Body() user: User) {
+    async deleteLogout(@Body() _: User) {
         return "DELETE logout"
     }
 

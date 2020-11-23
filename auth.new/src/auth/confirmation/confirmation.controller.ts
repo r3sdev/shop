@@ -28,7 +28,7 @@ export class ConfirmationController {
     @ApiOkResponse({ description: 'The password has been successfully set.', type: User })
     @ApiForbiddenResponse({ description: 'Forbidden.' })
 
-    async postUserConfirmation(@Body() user: User) {
+    async postUserConfirmation(@Body() _: User) {
         return "POST auth/confirmation"
     }
 }

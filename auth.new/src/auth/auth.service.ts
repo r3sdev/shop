@@ -10,7 +10,7 @@ export class AuthService {
     private jwtService: JwtService
     ) { }
 
-    async registerUser(email: string, password: string) {
+    async registerUser(/* email: string, password: string */) {
       // TODO: save user to database
       // TODO: hash password
       // TODO: send email verification

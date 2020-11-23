@@ -29,7 +29,7 @@ export class PasswordController {
     @ApiOkResponse({ description: 'The password has been succesfully updated.', type: User })
     @ApiForbiddenResponse({ description: 'Forbidden.' })
 
-    async putPassword(@Body() user: User) {
+    async putPassword(@Body() _: User) {
         return "PUT auth/password"
     }
 
@@ -38,7 +38,7 @@ export class PasswordController {
     @ApiOkResponse({ description: 'The password has been successfully set.', type: User })
     @ApiForbiddenResponse({ description: 'Forbidden.' })
 
-    async postPassword(@Body() user: User) {
+    async postPassword(@Body() _: User) {
         return "POST auth/password"
     }
 }
