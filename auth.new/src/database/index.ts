@@ -1,1 +1,1 @@
-export * from './nestjs-database.module';
+export * from './database.module';

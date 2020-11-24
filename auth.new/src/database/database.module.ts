@@ -15,7 +15,11 @@ import { MongoClient, Db } from 'mongodb';
             useNewUrlParser: true,
           });
 
-          return client.db(configService.get('database.name'));
+          const db = client.db(configService.get('database.name'));
+
+          await db.collection('users').createIndex({ email: 1 }, { unique: true, sparse: true });
+
+          return db;
         } catch (e) {
           throw e;
         }
