@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users';
 import { JwtService } from '@nestjs/jwt';
 import { mockedJwtService } from '../../test/mocks/jwt.service';
+import { PasswordService } from './password';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -16,6 +17,7 @@ describe('AuthService', () => {
         },
         UsersService, 
         AuthService,
+        PasswordService,
         {
           provide: JwtService,
           useValue: mockedJwtService

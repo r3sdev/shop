@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { UsersService } from '../users';
 import { JwtService } from '@nestjs/jwt';
 import { mockedJwtService } from '../../test/mocks/jwt.service';
+import { PasswordService } from './password';
 
 jest.mock('@nestjs/config', () => jest.fn().mockResolvedValue(""))
 
@@ -20,10 +21,7 @@ describe('AuthController', () => {
         },
         UsersService,
         AuthService,
-        // {
-        //   provide: ConfigService,
-        //   useValue: mockedConfigService
-        // },
+        PasswordService,
         {
           provide: JwtService,
           useValue: mockedJwtService

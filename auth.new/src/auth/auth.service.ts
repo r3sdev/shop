@@ -1,35 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../common/models';
 import { UsersService } from '../users/users.service';
+import { RegisterUserDto } from './dto/register-user.dto';
+import { hash } from 'bcrypt';
+import { MongoDbErrorCode } from '../database/mongodb.error-codes.enum';
+import { PasswordService } from './password';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
-    private jwtService: JwtService
-    ) { }
+    private jwtService: JwtService,
+    private passwordService: PasswordService
+  ) { }
 
-    async registerUser(/* email: string, password: string */) {
-      // TODO: save user to database
-      // TODO: hash password
-      // TODO: send email verification
-    }
+  async registerUser(data: RegisterUserDto) {
+    const { password, ...rest } = data;
 
-    async validateUser(email: string, password: string): Promise<Omit<User, 'password' > | null> {
-      const user = await this.usersService.findOne(email);
-      
-      // TODO: Check hashed password instead of plain
+    const hashedPassword = await hash(password, 10);
 
-      if (user && user.password === password) {
-        const { password, ...result } = user;
-        
-        return new User(result);
+    try {
+      const createdUser = await this.usersService.create({
+        ...rest,
+        password: hashedPassword
+      });
+      createdUser.password = undefined;
+
+      return createdUser;
+    } catch (error) {
+      if (error?.code === MongoDbErrorCode.UniqueViolation) {
+        throw new HttpException('User with that email already exists', HttpStatus.BAD_REQUEST);
       }
-      return null;
+      throw new HttpException('Something went wrong' + error.code, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-  async login(user: User) {
+    // TODO: send email verification
+  }
+
+  public async getAuthenticatedUser(email: string, plainTextPassword: string): Promise<Omit<User, 'password'> | null> {
+    try {
+      const user = await this.usersService.findOneByEmail(email);
+      await this.passwordService.verifyPassword(plainTextPassword, user.password);
+      user.password = undefined;
+      return user;
+    } catch (error) {
+      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  async loginUser(user: User) {
     const payload = { username: user.email, sub: user._id };
 
     return {
