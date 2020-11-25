@@ -15,6 +15,9 @@ import { AuthModule } from 'src/auth';
       isGlobal: true,
       load: [configuration],
       validationSchema: Joi.object({
+        //
+        // See config/configuration.ts
+        //
         NODE_ENV: Joi.string()
           .valid('development', 'production', 'test', 'provision')
           .default('development'),
@@ -23,6 +26,8 @@ import { AuthModule } from 'src/auth';
         PORT: Joi.number().default(3000),
         MONGO_URI: Joi.string().required(),
         MONGO_DB_NAME: Joi.string().required(),
+        JWT_SECRET: Joi.string().required(),
+        JWT_EXPIRATION_TIME: Joi.string().required(),
       }),
       validationOptions: {
         // allowUnknown: false,
