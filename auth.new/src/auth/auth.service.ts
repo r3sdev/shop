@@ -6,13 +6,15 @@ import { RegisterUserDto } from './dto/register-user.dto';
 import { hash } from 'bcrypt';
 import { MongoDbErrorCode } from '../database/mongodb.error-codes.enum';
 import { PasswordService } from './password';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private passwordService: PasswordService
+    private passwordService: PasswordService,
+    private configService: ConfigService
   ) { }
 
   async registerUser(data: RegisterUserDto) {
@@ -38,7 +40,7 @@ export class AuthService {
     // TODO: send email verification
   }
 
-  public async getAuthenticatedUser(email: string, plainTextPassword: string): Promise<Omit<User, 'password'> | null> {
+  async getAuthenticatedUser(email: string, plainTextPassword: string): Promise<Omit<User, 'password'> | null> {
     try {
       const user = await this.usersService.findOneByEmail(email);
       await this.passwordService.verifyPassword(plainTextPassword, user.password);
@@ -55,5 +57,11 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  getCookieWithJwtToken(userId: string) {
+    const payload: TokenPayload = { userId };
+    const token = this.jwtService.sign(payload);
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('jwt.expiration')}`;
   }
 }

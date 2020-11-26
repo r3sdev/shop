@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Response } from 'express';
 import { ApiOperation, ApiTags, ApiOkResponse, ApiCreatedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { User } from '../common/models';
 import { AuthService } from './auth.service';
@@ -6,22 +7,28 @@ import { LoginUserDto } from './dto/login-user.dto';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
+import type { RequestWithUser } from './interface/request-with-user.interface';
 
-type RequestWithUser = Request & {user: User}
 
 @Controller('auth')
 @ApiTags('auth')
 export class AuthController {
-    constructor(private authService: AuthService) {}
+    constructor(private authService: AuthService) { }
 
+    @HttpCode(200)
     @UseGuards(LocalAuthGuard)
     @Post('login')
     @ApiOperation({ summary: 'Log in user' })
     @ApiOkResponse({ description: 'The user has successfully logged in.', type: User })
     @ApiForbiddenResponse({ description: 'Forbidden.' })
 
-    async postLogin(@Request() req: RequestWithUser, @Body() _: LoginUserDto) {
-        return this.authService.loginUser(req.user)
+    async postLogin(@Req() req: RequestWithUser, @Res() res: Response, @Body() _: LoginUserDto) {
+        const { user } = req;
+        const cookie = this.authService.getCookieWithJwtToken(user._id);
+        res.setHeader('Set-Cookie', cookie);
+        user.password = undefined;
+
+        return res.send(user)
     }
 
     @Post('register')
@@ -44,9 +51,9 @@ export class AuthController {
     @UseGuards(JwtAuthGuard)
     @Get('profile')
     @ApiOperation({ summary: 'User profile' })
-    
-    async getProfile(@Request() req: RequestWithUser) {
-      return req.user;
+
+    async getProfile(@Req() req: RequestWithUser) {
+        return req.user;
     }
 
 }
