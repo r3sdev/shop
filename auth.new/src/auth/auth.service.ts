@@ -44,6 +44,7 @@ export class AuthService {
       const user = await this.usersService.findOneByEmail(email);
       await this.passwordService.verifyPassword(plainTextPassword, user.password);
       user.password = undefined;
+
       return user;
     } catch (error) {
       throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
@@ -63,5 +64,9 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
 
     return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${configuration().jwt.expiration}`;
+  }
+
+  getCookieForLogOut() {
+    return `Authentication=; HttpOnly; Path=/; Max-Age=0`;
   }
 }

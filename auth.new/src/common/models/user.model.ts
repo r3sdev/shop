@@ -30,9 +30,11 @@ export class User {
     toJSON() {
         const {_id, ...user} = this;
 
+        delete user.password
+
         return {
             id: _id,
-            ...user
+            ...user,
         }
     }
 }

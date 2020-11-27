@@ -40,12 +40,15 @@ export class AuthController {
         return this.authService.registerUser(data)
     }
 
+    @HttpCode(200)
+    @UseGuards(JwtAuthGuard)
     @Delete('logout')
     @ApiOperation({ summary: 'Log out user' })
     @ApiOkResponse({ description: 'The user has successfully logged out.', type: User })
 
-    async deleteLogout(@Body() _: User) {
-        return "DELETE logout"
+    async deleteLogout(@Res() res: Response) {
+        res.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
+        return res.sendStatus(200);
     }
 
     @UseGuards(JwtAuthGuard)
@@ -53,7 +56,7 @@ export class AuthController {
     @ApiOperation({ summary: 'User profile' })
 
     async getProfile(@Req() req: RequestWithUser) {
-        return req.user;
+        return new User(req.user).toJSON();
     }
 
 }
