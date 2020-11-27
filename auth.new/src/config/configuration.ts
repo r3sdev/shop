@@ -10,6 +10,6 @@ export default () => ({
   },
   jwt: {
     secret: process.env.JWT_SECRET,
-    expiration: process.env.JWT_EXPIRATION_TIME
+    expiration: process.env.JWT_EXPIRATION_TIME || 300
   }
 })

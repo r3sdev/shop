@@ -6,7 +6,7 @@ import { RegisterUserDto } from './dto/register-user.dto';
 import { hash } from 'bcrypt';
 import { MongoDbErrorCode } from '../database/mongodb.error-codes.enum';
 import { PasswordService } from './password';
-import { ConfigService } from '@nestjs/config';
+import { configuration } from '../config';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +14,6 @@ export class AuthService {
     private usersService: UsersService,
     private jwtService: JwtService,
     private passwordService: PasswordService,
-    private configService: ConfigService
   ) { }
 
   async registerUser(data: RegisterUserDto) {
@@ -62,6 +61,7 @@ export class AuthService {
   getCookieWithJwtToken(userId: string) {
     const payload: TokenPayload = { userId };
     const token = this.jwtService.sign(payload);
-    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${this.configService.get('jwt.expiration')}`;
+
+    return `Authentication=${token}; HttpOnly; Path=/; Max-Age=${configuration().jwt.expiration}`;
   }
 }

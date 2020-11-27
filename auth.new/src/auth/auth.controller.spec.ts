@@ -19,13 +19,13 @@ describe('AuthController', () => {
           provide: 'DATABASE_CONNECTION',
           useValue: {}
         },
-        UsersService,
-        AuthService,
-        PasswordService,
         {
           provide: JwtService,
           useValue: mockedJwtService
         },
+        PasswordService,
+        UsersService,
+        AuthService,
       ]
     }).compile();
 
