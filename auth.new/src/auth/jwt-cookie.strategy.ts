@@ -21,10 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     async validate(payload: JwtPayload) {
-        // Optional: Fetch user from database here and enrich the data
         // Optional: Check if token is not revoked in a list of revoked tokens
-
-        console.log(payload)
 
         return this.usersService.findOneById(payload.userId)
     }
