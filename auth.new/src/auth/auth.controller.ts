@@ -27,7 +27,7 @@ export class AuthController {
         res.setHeader('Set-Cookie', cookie);
         user.password = undefined;
 
-        return res.send(user)
+        return res.send(new User(user))
     }
 
     @Post('register')
@@ -55,7 +55,7 @@ export class AuthController {
     @ApiOperation({ summary: 'User profile' })
 
     async getProfile(@Req() req: RequestWithUser) {
-        return new User(req.user).toJSON();
+        return new User(req.user)
     }
 
 }
