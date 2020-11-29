@@ -7,6 +7,7 @@ import { logger } from './middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  
   app.setGlobalPrefix('api');
 
   const configService: ConfigService = app.get(ConfigService);
