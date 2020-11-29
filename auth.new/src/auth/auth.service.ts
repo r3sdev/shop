@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../common/models';
 import { UsersService } from '../users/users.service';
@@ -7,6 +7,7 @@ import { hash } from 'bcrypt';
 import { MongoDbErrorCode } from '../database/mongodb.error-codes.enum';
 import { PasswordService } from './password';
 import { configuration } from '../config';
+import { SomethingWentWrongException, UserExistsException, WrongCredentialsException } from '../exception';
 
 @Injectable()
 export class AuthService {
@@ -31,9 +32,9 @@ export class AuthService {
       return createdUser;
     } catch (error) {
       if (error?.code === MongoDbErrorCode.UniqueViolation) {
-        throw new HttpException('User with that email already exists', HttpStatus.BAD_REQUEST);
+        throw new UserExistsException();
       }
-      throw new HttpException('Something went wrong' + error.code, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new SomethingWentWrongException(error.code);
     }
 
     // TODO: send email verification
@@ -47,7 +48,7 @@ export class AuthService {
 
       return user;
     } catch (error) {
-      throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+      throw new WrongCredentialsException();
     }
   }
 

@@ -1,5 +1,6 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { compare } from 'bcrypt';
+import { WrongCredentialsException } from '../../exception';
 
 @Injectable()
 export class PasswordService {
@@ -9,7 +10,7 @@ export class PasswordService {
             hashedPassword
         );
         if (!isPasswordMatching) {
-            throw new HttpException('Wrong credentials provided', HttpStatus.BAD_REQUEST);
+            throw new WrongCredentialsException()
         }
     }
 }
