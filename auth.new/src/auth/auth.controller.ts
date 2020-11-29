@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Post, Req, Res, SerializeOptions, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { ApiOperation, ApiTags, ApiOkResponse, ApiCreatedResponse, ApiForbiddenResponse } from '@nestjs/swagger';
 import { User } from '../common/models';
@@ -10,6 +10,9 @@ import type { RequestWithUser } from './interface/request-with-user.interface';
 
 
 @Controller('auth')
+@SerializeOptions({
+    strategy: 'excludeAll'
+  })
 @ApiTags('auth')
 export class AuthController {
     constructor(private authService: AuthService) { }
@@ -25,7 +28,6 @@ export class AuthController {
         const { user } = req;
         const cookie = this.authService.getCookieWithJwtToken(user._id);
         res.setHeader('Set-Cookie', cookie);
-        user.password = undefined;
 
         return res.send(new User(user))
     }
