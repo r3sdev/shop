@@ -82,7 +82,9 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "collectCoverage": true,
+    "testEnvironment": "node",
+    "coverageReporters": ["lcov", "text-summary"]
   },
   "config": {
     "commitizen": {
