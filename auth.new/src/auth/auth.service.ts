@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../common/models';
 import { UsersService } from '../users/users.service';
-import { RegisterUserDto } from './dto/register-user.dto';
+import { RegisterUserDto } from './dto';
 import { hash } from 'bcrypt';
 import { MongoDbErrorCode } from '../database/mongodb.error-codes.enum';
 import { PasswordService } from './password';
@@ -29,7 +29,7 @@ export class AuthService {
       });
       createdUser.password = undefined;
 
-      return createdUser;
+      return new User(createdUser);
     } catch (error) {
       if (error?.code === MongoDbErrorCode.UniqueViolation) {
         throw new UserExistsException();

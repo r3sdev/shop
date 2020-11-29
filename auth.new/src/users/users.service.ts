@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Db, ObjectID } from 'mongodb';
 import { UserNotFoundException } from '../exception/user-not-found.exception';
 import { User } from '../common/models';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from '../auth/dto';
 
 @Injectable()
 export class UsersService  {

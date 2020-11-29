@@ -5,6 +5,12 @@ export class User {
     @ApiHideProperty()
     _id: string;
 
+    @Expose()
+    @ApiProperty({ example: "5fc33f1a4350e1ce20b2f803", description: "The user's id" })
+    get id() {
+        return this._id
+    }
+
     @ApiProperty({ example: "user@tld.com", description: "The user's email address" })
     email: string;
 
