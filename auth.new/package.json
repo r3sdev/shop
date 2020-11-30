@@ -76,7 +76,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": "./",
     "testRegex": ".spec.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -84,7 +84,8 @@
     "coverageDirectory": "../coverage",
     "collectCoverage": true,
     "testEnvironment": "node",
-    "coverageReporters": ["lcov", "text-summary"]
+    "coverageReporters": ["lcov", "text-summary"],
+    "setupFiles": ["./test/setEnvVars.ts"]
   },
   "config": {
     "commitizen": {
