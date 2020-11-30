@@ -50,14 +50,6 @@ export class AuthService {
     }
   }
 
-  async loginUser(user: User) {
-    const payload = { username: user.email, sub: user._id };
-
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
-
   getCookieWithJwtToken(userId: string) {
     const payload: TokenPayload = { userId };
     const token = this.jwtService.sign(payload);
