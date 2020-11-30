@@ -5,9 +5,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from '../users';
 import { configuration } from '../config';
-import { AuthModule } from 'src/auth';
+import { AuthModule } from '../auth';
 import { APP_FILTER } from '@nestjs/core';
-import { ExceptionsLoggerFilter } from 'src/utils/exceptions-logger.filter';
+import { ExceptionsLoggerFilter } from '../utils/exceptions-logger.filter';
 
 
 @Module({
