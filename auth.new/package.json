@@ -81,11 +81,16 @@
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "./coverage",
     "collectCoverage": true,
     "testEnvironment": "node",
-    "coverageReporters": ["lcov", "text-summary"],
-    "setupFiles": ["./test/setEnvVars.ts"]
+    "coverageReporters": [
+      "text-summary",
+      "html"
+    ],
+    "setupFiles": [
+      "./test/setEnvVars.ts"
+    ]
   },
   "config": {
     "commitizen": {
