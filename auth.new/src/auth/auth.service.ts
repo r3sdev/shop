@@ -27,9 +27,7 @@ export class AuthService {
         ...rest,
         password: hashedPassword
       });
-      createdUser.password = undefined;
-
-      return new User(createdUser);
+      return new User(createdUser).toJSON();
     } catch (error) {
       if (error?.code === MongoDbErrorCode.UniqueViolation) {
         throw new UserExistsException();
