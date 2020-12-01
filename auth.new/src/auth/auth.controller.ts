@@ -29,9 +29,10 @@ export class AuthController {
         const cookie = this.authService.getCookieWithJwtToken(user._id);
         res.setHeader('Set-Cookie', cookie);
 
-        return res.send(new User(user))
+        return res.send(user)
     }
 
+    @HttpCode(201)
     @Post('register')
     @ApiOperation({ summary: 'Register user' })
     @ApiCreatedResponse({ description: 'The user has successfully registered.', type: User })
@@ -41,7 +42,7 @@ export class AuthController {
         return this.authService.registerUser(data)
     }
 
-    @HttpCode(200)
+    @HttpCode(204)
     @UseGuards(JwtAuthGuard)
     @Delete('logout')
     @ApiOperation({ summary: 'Log out user' })
@@ -49,7 +50,7 @@ export class AuthController {
 
     async deleteLogout(@Res() res: Response) {
         res.setHeader('Set-Cookie', this.authService.getCookieForLogOut());
-        return res.sendStatus(200);
+        return res.sendStatus(204);
     }
 
     @UseGuards(JwtAuthGuard)
