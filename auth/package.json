@@ -31,7 +31,7 @@
     "express-healthz": "^1.1.0",
     "express-validator": "^6.6.1",
     "helmet": "^4.1.1",
-    "ipify": "^4.0.0",
+    "ipify": "^5.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.7",
     "nodemailer": "^6.4.11",
