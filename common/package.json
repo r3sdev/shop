@@ -30,6 +30,6 @@
     "express-validator": "^6.6.1",
     "jsonwebtoken": "^8.5.1",
     "node-nats-streaming": "^0.3.2",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.2"
   }
 }
