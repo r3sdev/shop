@@ -39,7 +39,7 @@
     "react-phone-number-input": "^3.0.25",
     "react-stripe-checkout": "^2.6.3",
     "socket.io-client": "^3.0.0",
-    "styled-components": "^5.1.1",
+    "styled-components": "^5.2.1",
     "ts-node": "^9.0.0",
     "typescript": "^3.9.7",
     "uuid": "^8.3.0"
