@@ -649,7 +649,7 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@26.x", "@types/jest@^26.0.14":
+"@types/jest@26.0.14", "@types/jest@26.x":
   version "26.0.14"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.14.tgz#078695f8f65cb55c5a98450d65083b2b73e5a3f3"
   integrity sha512-Hz5q8Vu0D288x3iWXePSn53W7hAjP0H7EQ6QvDO9c7t46mR0lNOLlfuwQ+JkVxuhygHzlzPX+0jKdA3ZgSh+Vg==
@@ -761,7 +761,7 @@
     "@types/cookiejar" "*"
     "@types/node" "*"
 
-"@types/supertest@^2.0.10":
+"@types/supertest@2.0.10":
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.10.tgz#630d79b4d82c73e043e43ff777a9ca98d457cab7"
   integrity sha512-Xt8TbEyZTnD5Xulw95GLMOkmjGICrOQyJ2jqgkSjAUR3mm7pAIzSR0NFBaMcwlzVvlpCjNwbATcWWwjNiZiFrQ==
@@ -3498,7 +3498,7 @@ mongodb-memory-server-core@6.8.0:
   optionalDependencies:
     mongodb "3.6.2"
 
-mongodb-memory-server@^6.8.0:
+mongodb-memory-server@6.8.0:
   version "6.8.0"
   resolved "https://registry.yarnpkg.com/mongodb-memory-server/-/mongodb-memory-server-6.8.0.tgz#4bdf9f70e818297bd32f9de7f3db27e582ce8476"
   integrity sha512-jAJwx9yrRjB3XDFDA0DBYSHbMSvhPssDdnbEg70O2gp0qfTRtgQTaAUvTGCawj2d/iDuEJgFHJkuczHQG33a0Q==
@@ -4736,7 +4736,7 @@ superagent@^6.1.0:
     readable-stream "^3.6.0"
     semver "^7.3.2"
 
-supertest@^6.1.1:
+supertest@6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/supertest/-/supertest-6.1.1.tgz#4fe6ddfdad4ef3eb72926046c6c625217771d9ae"
   integrity sha512-3WDAWfqdNifCURjGUHZFv3u5nMg5tFtFRCTJOcSZXdlYZ0gqVF3UMhA7IJDP8nDXnR3gocbQ6s0bpiPnsoFeQw==
@@ -4892,7 +4892,7 @@ trim-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
   integrity sha1-WIeWa7WCpFA6QetST301ARgVphM=
 
-ts-jest@^26.4.0:
+ts-jest@26.4.0:
   version "26.4.0"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.0.tgz#903c7827f3d3bc33efc2f91be294b164400c32e3"
   integrity sha512-ofBzoCqf6Nv/PoWb/ByV3VNKy2KJSikamOBxvR3E6eVdIw10GwAXoyvMWXXjZJK2s6S27ZE8fI+JBTnGaovl6Q==

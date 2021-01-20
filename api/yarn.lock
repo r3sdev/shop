@@ -598,7 +598,7 @@
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^26.0.14":
+"@types/jest@26.0.14":
   version "26.0.14"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.14.tgz#078695f8f65cb55c5a98450d65083b2b73e5a3f3"
   integrity sha512-Hz5q8Vu0D288x3iWXePSn53W7hAjP0H7EQ6QvDO9c7t46mR0lNOLlfuwQ+JkVxuhygHzlzPX+0jKdA3ZgSh+Vg==
@@ -679,7 +679,7 @@
     "@types/cookiejar" "*"
     "@types/node" "*"
 
-"@types/supertest@^2.0.10":
+"@types/supertest@2.0.10":
   version "2.0.10"
   resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.10.tgz#630d79b4d82c73e043e43ff777a9ca98d457cab7"
   integrity sha512-Xt8TbEyZTnD5Xulw95GLMOkmjGICrOQyJ2jqgkSjAUR3mm7pAIzSR0NFBaMcwlzVvlpCjNwbATcWWwjNiZiFrQ==
@@ -4181,7 +4181,7 @@ superagent@6.1.0:
     readable-stream "^3.6.0"
     semver "^7.3.2"
 
-supertest@^5.0.0:
+supertest@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/supertest/-/supertest-5.0.0.tgz#771aedfeb0a95466cc5d100d5d11288736fd25da"
   integrity sha512-2JAWpPrUOZF4hHH5ZTCN2xjKXvJS3AEwPNXl0HUseHsfcXFvMy9kcsufIHCNAmQ5hlGCvgeAqaR5PBEouN3hlQ==
@@ -4331,7 +4331,7 @@ trim-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
   integrity sha1-WIeWa7WCpFA6QetST301ARgVphM=
 
-ts-jest@^25.5.1:
+ts-jest@25.5.1:
   version "25.5.1"
   resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-25.5.1.tgz#2913afd08f28385d54f2f4e828be4d261f4337c7"
   integrity sha512-kHEUlZMK8fn8vkxDjwbHlxXRB9dHYpyzqKIGDNxbzs+Rz+ssNDSDNusEK8Fk/sDd4xE6iKoQLfFkFVaskmTJyw==
