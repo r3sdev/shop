@@ -50,6 +50,6 @@
     "@types/jest": "^26.0.7",
     "babel-plugin-styled-components": "^1.11.1",
     "jest": "^26.4.0",
-    "ts-jest": "^26.4.4"
+    "ts-jest": "26.5.6"
   }
 }
