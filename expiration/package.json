@@ -24,7 +24,7 @@
     "typescript": "^3.9.7"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.14",
+    "@types/jest": "26.0.24",
     "@types/redis-mock": "^0.17.0",
     "jest": "25.5.4",
     "redis-mock": "^0.52.0",
